@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 4 — Les Articles</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #0f1117;
+    --bg2:     #161922;
+    --card:    #1a1d27;
+    --border:  #262a3a;
+    --border2: #333852;
+    --text:    #dde2f0;
+    --muted:   #606880;
+    --def:     #4ea8de;   /* blue   — défini (le/la/les) */
+    --indef:   #e07c3a;   /* orange — indéfini (un/une/des) */
+    --part:    #8a5fce;   /* violet — partitif */
+    --elide:   #3ab87e;   /* green  — élision l' */
+    --success: #3ab87e;
+    --error:   #e05555;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::after {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:0;
+    opacity:0.6;
+  }
+
+  /* Radial glows */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(ellipse 55% 35% at 5%  10%, #4ea8de12 0%, transparent 55%),
+      radial-gradient(ellipse 45% 30% at 95% 90%, #e07c3a12 0%, transparent 55%),
+      radial-gradient(ellipse 40% 25% at 50% 50%, #8a5fce08 0%, transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrapper {
+    position:relative;
+    z-index:1;
+    max-width:860px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem 5rem;
+  }
+
+  /* ── Header ── */
+  header {
+    margin-bottom:2.5rem;
+    animation:fadeDown 0.7s ease both;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:1rem;
+    border-bottom:1px solid var(--border);
+    padding-bottom:1.75rem;
+  }
+
+  .lesson-eyebrow {
+    font-size:0.58rem;
+    font-weight:700;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--def);
+    margin-bottom:0.7rem;
+  }
+
+  h1 {
+    font-size:clamp(1.8rem, 5vw, 3.2rem);
+    font-weight:900;
+    line-height:1.0;
+    letter-spacing:-0.02em;
+    color:var(--text);
+    margin-bottom:0.3rem;
+  }
+
+  h1 .hl-def   { color:var(--def); }
+  h1 .hl-indef { color:var(--indef); }
+
+  .subtitle {
+    font-family:'Crimson Pro', serif;
+    font-size:1rem;
+    color:var(--muted);
+    font-style:italic;
+    font-weight:300;
+    max-width:380px;
+    line-height:1.5;
+  }
+
+  /* ── Article overview grid ── */
+  .article-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0.6rem;
+    margin-bottom:1.5rem;
+    animation:fadeUp 0.6s 0.1s ease both;
+  }
+  @media(max-width:600px){.article-grid{grid-template-columns:1fr 1fr;}}
+
+  .art-cell {
+    border-radius:12px;
+    padding:0.9rem 1rem;
+    border:1px solid;
+    text-align:center;
+  }
+
+  .art-cell.def-m   {background:#4ea8de0e;border-color:#4ea8de28;}
+  .art-cell.def-f   {background:#4ea8de0e;border-color:#4ea8de28;}
+  .art-cell.indef-m {background:#e07c3a0e;border-color:#e07c3a28;}
+  .art-cell.indef-f {background:#e07c3a0e;border-color:#e07c3a28;}
+
+  .art-label {
+    font-size:0.55rem;
+    font-weight:700;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    margin-bottom:0.4rem;
+  }
+  .def-m .art-label,.def-f .art-label  {color:var(--def);}
+  .indef-m .art-label,.indef-f .art-label {color:var(--indef);}
+
+  .art-word {
+    font-family:'Crimson Pro', serif;
+    font-size:1.55rem;
+    font-weight:600;
+    margin-bottom:0.2rem;
+    line-height:1;
+  }
+  .def-m .art-word,.def-f .art-word  {color:var(--def);}
+  .indef-m .art-word,.indef-f .art-word {color:var(--indef);}
+
+  .art-example {
+    font-family:'Crimson Pro', serif;
+    font-size:0.78rem;
+    color:var(--muted);
+    font-style:italic;
+  }
+
+  /* Elision + partitif note */
+  .special-notes {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.6rem;
+    margin-bottom:2rem;
+    animation:fadeUp 0.6s 0.18s ease both;
+  }
+  @media(max-width:500px){.special-notes{grid-template-columns:1fr;}}
+
+  .note-box {
+    border-radius:10px;
+    padding:0.85rem 1rem;
+    border:1px solid;
+    font-size:0.78rem;
+    line-height:1.55;
+  }
+  .note-box.elide  {background:#3ab87e0a;border-color:#3ab87e25;color:#3ab87ecc;}
+  .note-box.part   {background:#8a5fce0a;border-color:#8a5fce25;color:#8a5fcecc;}
+
+  .note-box strong { font-weight:700; display:block; margin-bottom:0.3rem; letter-spacing:0.06em; font-size:0.65rem; text-transform:uppercase; }
+  .note-box code   { background:#ffffff0d; border-radius:3px; padding:0.05rem 0.3rem; font-family:'Crimson Pro', serif; font-size:0.88rem; }
+
+  /* ── Vocab showcase ── */
+  .vocab-strip {
+    display:flex;
+    gap:0.4rem;
+    flex-wrap:wrap;
+    margin-bottom:2rem;
+    animation:fadeUp 0.6s 0.22s ease both;
+  }
+
+  .vocab-pill {
+    font-family:'Crimson Pro', serif;
+    font-size:0.82rem;
+    padding:0.22rem 0.65rem;
+    border-radius:99px;
+    border:1px solid var(--border);
+    color:var(--muted);
+    cursor:default;
+    transition:all 0.2s;
+  }
+  .vocab-pill:hover { color:var(--text); border-color:var(--border2); }
+  .vocab-pill.m {border-color:#4ea8de22;color:#4ea8de88;}
+  .vocab-pill.f {border-color:#e07c3a22;color:#e07c3a88;}
+  .vocab-pill.m:hover {color:var(--def);}
+  .vocab-pill.f:hover {color:var(--indef);}
+
+  /* ── Mode tabs ── */
+  .mode-bar {
+    display:flex;
+    align-items:center;
+    gap:0.4rem;
+    margin-bottom:1.75rem;
+    flex-wrap:wrap;
+    animation:fadeUp 0.6s 0.28s ease both;
+  }
+
+  .mode-bar-label {
+    font-size:0.58rem;
+    font-weight:700;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-right:0.4rem;
+  }
+
+  .mode-tab {
+    font-family:'Unbounded', sans-serif;
+    font-size:0.6rem;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:0.38rem 0.8rem;
+    border-radius:5px;
+    border:1px solid var(--border);
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    transition:all 0.18s;
+  }
+  .mode-tab:hover:not(.active){border-color:var(--border2);color:var(--text);}
+  .mode-tab.active-mixed  {background:var(--text);    color:var(--bg); border-color:var(--text);}
+  .mode-tab.active-def    {background:var(--def);     color:#0f1117;   border-color:var(--def);}
+  .mode-tab.active-indef  {background:var(--indef);   color:#0f1117;   border-color:var(--indef);}
+  .mode-tab.active-elide  {background:var(--elide);   color:#0f1117;   border-color:var(--elide);}
+  .mode-tab.active-context{background:var(--part);    color:#fff;      border-color:var(--part);}
+
+  /* ── Score bar ── */
+  .score-bar {
+    display:flex;
+    align-items:center;
+    gap:0.8rem;
+    margin-bottom:1.5rem;
+    animation:fadeUp 0.6s 0.32s ease both;
+  }
+  .sc-label {
+    font-size:0.6rem;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+  .sc-label span{color:var(--def);}
+  .progress-track{flex:1;height:3px;background:var(--border);border-radius:99px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--def),var(--indef),var(--elide));border-radius:99px;transition:width 0.5s cubic-bezier(0.34,1.56,0.64,1);}
+
+  /* ── Exercise card ── */
+  .exercise-card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:1.6rem;
+    margin-bottom:0.85rem;
+    animation:fadeUp 0.45s ease both;
+    transition:border-color 0.3s;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* Subtle top gradient accent */
+  .exercise-card::before {
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;
+    height:2px;
+    background:var(--card-top,var(--border));
+    transition:background 0.3s;
+  }
+
+  .exercise-card[data-type="def"]    {--card-top:var(--def);}
+  .exercise-card[data-type="indef"]  {--card-top:var(--indef);}
+  .exercise-card[data-type="elide"]  {--card-top:var(--elide);}
+  .exercise-card[data-type="context"]{--card-top:var(--part);}
+
+  .exercise-card.correct {border-color:#3ab87e44;}
+  .exercise-card.wrong   {border-color:#e0555544;}
+
+  .ex-meta {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:1rem;
+  }
+
+  .ex-tags{display:flex;gap:0.35rem;flex-wrap:wrap;}
+
+  .ex-tag {
+    font-size:0.55rem;
+    font-weight:700;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    padding:0.18rem 0.5rem;
+    border-radius:4px;
+    border:1px solid;
+  }
+  .ex-tag.def-tag    {background:#4ea8de0d;color:var(--def);  border-color:#4ea8de28;}
+  .ex-tag.indef-tag  {background:#e07c3a0d;color:var(--indef);border-color:#e07c3a28;}
+  .ex-tag.elide-tag  {background:#3ab87e0d;color:var(--elide);border-color:#3ab87e28;}
+  .ex-tag.context-tag{background:#8a5fce0d;color:var(--part); border-color:#8a5fce28;}
+  .ex-tag.plain      {background:var(--bg2);color:var(--muted);border-color:var(--border);}
+
+  .ex-num{font-size:0.6rem;font-weight:600;color:var(--border2);}
+
+  /* sentence */
+  .ex-sentence {
+    font-family:'Crimson Pro', serif;
+    font-size:1.25rem;
+    line-height:1.65;
+    margin-bottom:0.85rem;
+    color:var(--text);
+    font-weight:400;
+  }
+
+  .blank-slot {
+    display:inline-block;
+    min-width:3.5rem;
+    text-align:center;
+    border-bottom:2px solid var(--border2);
+    color:var(--muted);
+    font-style:italic;
+    padding:0 0.3rem;
+    margin:0 0.2rem;
+    transition:border-color 0.2s;
+  }
+
+  .ex-hint-line {
+    font-size:0.72rem;
+    color:var(--muted);
+    font-family:'Crimson Pro', serif;
+    font-style:italic;
+    margin-bottom:0.85rem;
+  }
+
+  /* Context/usage MCQ */
+  .mcq-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.5rem;
+    margin-bottom:0.85rem;
+  }
+  @media(max-width:440px){.mcq-grid{grid-template-columns:1fr;}}
+
+  .mcq-btn {
+    font-family:'Crimson Pro', serif;
+    font-size:0.98rem;
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:0.55rem 0.9rem;
+    text-align:left;
+    cursor:pointer;
+    color:var(--text);
+    transition:all 0.18s;
+    line-height:1.4;
+  }
+  .mcq-btn:hover{border-color:var(--border2);background:#1e2235;}
+  .mcq-btn.chosen   {border-color:var(--def);background:#4ea8de0e;color:var(--def);}
+  .mcq-btn.chip-ok  {border-color:var(--success);background:#3ab87e10;color:var(--success);cursor:default;}
+  .mcq-btn.chip-bad {border-color:var(--error);  background:#e055550d;color:var(--error); cursor:default;}
+
+  /* Inline article chips */
+  .art-choices {
+    display:flex;
+    gap:0.5rem;
+    flex-wrap:wrap;
+    margin-bottom:0.85rem;
+  }
+
+  .art-chip {
+    font-family:'Crimson Pro', serif;
+    font-size:1.15rem;
+    font-weight:600;
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:0.38rem 0.85rem;
+    cursor:pointer;
+    transition:all 0.18s;
+    user-select:none;
+    min-width:52px;
+    text-align:center;
+  }
+  .art-chip:hover{border-color:var(--border2);}
+  .art-chip.chosen   {border-color:var(--def);background:#4ea8de10;color:var(--def);}
+  .art-chip.chip-ok  {border-color:var(--success);background:#3ab87e10;color:var(--success);cursor:default;}
+  .art-chip.chip-bad {border-color:var(--error);  background:#e055550d;color:var(--error); cursor:default;}
+
+  /* Text input */
+  .input-row{display:flex;gap:0.6rem;}
+  .blank-input{
+    flex:1;background:#0f111780;border:1px solid var(--border);border-radius:9px;
+    padding:0.65rem 1rem;font-size:0.97rem;font-family:'Crimson Pro',serif;
+    color:var(--text);outline:none;transition:border-color 0.2s,box-shadow 0.2s;
+  }
+  .blank-input::placeholder{color:#3a4060;font-style:italic;}
+  .blank-input:focus{border-color:var(--def);box-shadow:0 0 0 2px #4ea8de18;}
+  .blank-input.correct-input{border-color:var(--success);color:var(--success);font-weight:600;}
+  .blank-input.wrong-input  {border-color:var(--error);  color:var(--error);}
+  .blank-input:disabled     {opacity:0.6;cursor:not-allowed;}
+
+  .check-btn {
+    background:var(--def);color:#0f1117;border:none;border-radius:9px;
+    padding:0.65rem 1.1rem;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;
+    text-transform:uppercase;cursor:pointer;font-family:'Unbounded',sans-serif;
+    transition:all 0.18s;white-space:nowrap;
+  }
+  .check-btn:hover:not(:disabled){filter:brightness(1.15);transform:translateY(-1px);}
+  .check-btn:disabled{opacity:0.25;cursor:not-allowed;transform:none;}
+
+  /* Feedback */
+  .feedback{margin-top:0.7rem;font-size:0.78rem;font-weight:600;min-height:1.2em;opacity:0;transition:opacity 0.3s;letter-spacing:0.02em;}
+  .feedback.show{opacity:1;}
+  .feedback.correct-fb{color:var(--success);}
+  .feedback.wrong-fb  {color:var(--error);}
+
+  .translation{margin-top:0.3rem;font-family:'Crimson Pro',serif;font-size:0.82rem;color:var(--muted);font-style:italic;opacity:0;transition:opacity 0.4s 0.2s;}
+  .translation.show{opacity:1;}
+
+  .es-note{margin-top:0.2rem;font-size:0.73rem;color:#8a5fceaa;font-style:italic;opacity:0;transition:opacity 0.4s 0.3s;}
+  .es-note.show{opacity:1;}
+
+  /* Bottom actions */
+  .actions{display:flex;gap:0.8rem;margin-top:2rem;animation:fadeUp 0.6s 0.4s ease both;}
+  .btn-ghost{flex:1;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:0.85rem;font-family:'Unbounded',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.18s;}
+  .btn-ghost:hover{border-color:var(--def);color:var(--def);}
+  .btn-solid{flex:2;background:var(--text);border:none;color:var(--bg);border-radius:10px;padding:0.85rem;font-family:'Unbounded',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.18s;}
+  .btn-solid:hover{background:var(--def);transform:translateY(-2px);box-shadow:0 6px 20px #4ea8de22;}
+
+  /* Result */
+  .result-screen{display:none;text-align:center;padding:3rem 1rem;animation:fadeUp 0.6s ease both;}
+  .result-screen.show{display:block;}
+  .result-emoji{font-size:4rem;margin-bottom:1rem;}
+  .result-title{font-family:'Crimson Pro',serif;font-size:2.8rem;font-weight:300;font-style:italic;margin-bottom:0.4rem;color:var(--text);}
+  .result-score{color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;}
+  .result-score strong{color:var(--def);font-size:2rem;font-weight:700;font-family:'Unbounded',sans-serif;}
+  .result-cats{display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+  .res-cat{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.65rem;border-radius:4px;border:1px solid;}
+  .res-cat.def-c    {color:var(--def);  border-color:#4ea8de30;background:#4ea8de0a;}
+  .res-cat.indef-c  {color:var(--indef);border-color:#e07c3a30;background:#e07c3a0a;}
+  .res-cat.elide-c  {color:var(--elide);border-color:#3ab87e30;background:#3ab87e0a;}
+  .res-cat.context-c{color:var(--part); border-color:#8a5fce30;background:#8a5fce0a;}
+
+  /* Animations */
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeUp  {from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)}}
+  @keyframes pop     {0%{transform:scale(1)}45%{transform:scale(1.04)}100%{transform:scale(1)}}
+  .pop{animation:pop 0.3s ease;}
+
+  @media(max-width:500px){.input-row{flex-wrap:wrap;}.check-btn{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div>
+      <div class="lesson-eyebrow">Leçon 4 · A1–A2 · Articles</div>
+      <h1><span class="hl-def">Le, La, Les</span><br><span class="hl-indef">Un, Une, Des</span></h1>
+      <p class="subtitle">Maîtrisez les articles définis, indéfinis et l'élision — avec plus de 120 mots de vocabulaire.</p>
+    </div>
+    <div style="text-align:right;">
+      <div class="sc-label" style="margin-bottom:0.4rem;">Score <span id="score">0</span></div>
+      <div class="progress-track" style="width:120px;height:4px;"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+      <div class="sc-label" style="margin-top:0.3rem;"><span id="q-current">1</span>/<span id="q-total">10</span></div>
+    </div>
+  </header>
+
+  <!-- ══ ARTICLE OVERVIEW ══ -->
+  <div class="article-grid">
+    <div class="art-cell def-m">
+      <div class="art-label">Défini Masc.</div>
+      <div class="art-word">le</div>
+      <div class="art-example">le livre</div>
+    </div>
+    <div class="art-cell def-f">
+      <div class="art-label">Défini Fém.</div>
+      <div class="art-word">la</div>
+      <div class="art-example">la maison</div>
+    </div>
+    <div class="art-cell indef-m">
+      <div class="art-label">Indéfini Masc.</div>
+      <div class="art-word">un</div>
+      <div class="art-example">un café</div>
+    </div>
+    <div class="art-cell indef-f">
+      <div class="art-label">Indéfini Fém.</div>
+      <div class="art-word">une</div>
+      <div class="art-example">une pomme</div>
+    </div>
+  </div>
+
+  <!-- ══ SPECIAL NOTES ══ -->
+  <div class="special-notes">
+    <div class="note-box elide">
+      <strong>🔗 Élision — L'</strong>
+      Devant voyelle ou «h» muet : <code>le/la → l'</code><br>
+      <code>l'homme · l'école · l'ami · l'heure · l'orange</code>
+    </div>
+    <div class="note-box part">
+      <strong>📦 Pluriel indéfini — Des</strong>
+      Au pluriel : <code>un/une → des</code><br>
+      <code>des amis · des maisons · des livres · des enfants</code>
+    </div>
+  </div>
+
+  <!-- ══ VOCAB STRIP ══ -->
+  <div class="vocab-strip" id="vocab-strip"></div>
+
+  <!-- ══ MODE TABS ══ -->
+  <div class="mode-bar">
+    <span class="mode-bar-label">Mode</span>
+    <button class="mode-tab active-mixed"   id="tab-mixed"   onclick="setMode('mixed')">🎲 Mixte</button>
+    <button class="mode-tab" id="tab-def"     onclick="setMode('def')">🔵 Défini</button>
+    <button class="mode-tab" id="tab-indef"   onclick="setMode('indef')">🟠 Indéfini</button>
+    <button class="mode-tab" id="tab-elide"   onclick="setMode('elide')">🟢 Élision</button>
+    <button class="mode-tab" id="tab-context" onclick="setMode('context')">🟣 Contexte</button>
+  </div>
+
+  <div id="exercises-container"></div>
+
+  <div class="actions" id="bottom-actions">
+    <button class="btn-ghost" onclick="newSet()">🔀 Nouvelles phrases</button>
+    <button class="btn-solid" onclick="checkAll()">Vérifier toutes les réponses ✓</button>
+  </div>
+
+  <div class="result-screen" id="result-screen">
+    <div class="result-emoji" id="result-emoji">🎉</div>
+    <div class="result-title" id="result-title">Magnifique !</div>
+    <div class="result-score">Score : <strong id="result-score-val">0/10</strong></div>
+    <div class="result-cats" id="result-cats"></div>
+    <div class="actions" style="max-width:380px;margin:0 auto;">
+      <button class="btn-ghost" onclick="newSet()">🔀 Recommencer</button>
+      <button class="btn-solid" onclick="newSet()">Nouvelles phrases →</button>
+    </div>
+  </div>
+
+</div>
+<script>
+// ════════════════════════════════════════════════
+//  EXPANDED VOCABULARY BANK  (120+ nouns)
+// ════════════════════════════════════════════════
+
+// genre: 'm'=masculin, 'f'=féminin, 'e'=élision (vowel/h muet)
+// def = article défini, indef = article indéfini
+const NOUNS = [
+  // ── Everyday objects ──
+  {fr:'livre',       en:'book',          g:'m', def:'le',   indef:'un'},
+  {fr:'stylo',       en:'pen',           g:'m', def:'le',   indef:'un'},
+  {fr:'cahier',      en:'notebook',      g:'m', def:'le',   indef:'un'},
+  {fr:'sac',         en:'bag',           g:'m', def:'le',   indef:'un'},
+  {fr:'bureau',      en:'desk/office',   g:'m', def:'le',   indef:'un'},
+  {fr:'tableau',     en:'board/painting',g:'m', def:'le',   indef:'un'},
+  {fr:'téléphone',   en:'phone',         g:'m', def:'le',   indef:'un'},
+  {fr:'ordinateur',  en:'computer',      g:'m', def:'le',   indef:'un'},
+  {fr:'clavier',     en:'keyboard',      g:'m', def:'le',   indef:'un'},
+  {fr:'écran',       en:'screen',        g:'m', def:'le',   indef:'un'},
+  {fr:'chapeau',     en:'hat',           g:'m', def:'le',   indef:'un'},
+  {fr:'manteau',     en:'coat',          g:'m', def:'le',   indef:'un'},
+  {fr:'portefeuille',en:'wallet',        g:'m', def:'le',   indef:'un'},
+  {fr:'journal',     en:'newspaper',     g:'m', def:'le',   indef:'un'},
+  {fr:'dictionnaire',en:'dictionary',    g:'m', def:'le',   indef:'un'},
+  {fr:'parapluie',   en:'umbrella',      g:'m', def:'le',   indef:'un'},
+  {fr:'miroir',      en:'mirror',        g:'m', def:'le',   indef:'un'},
+  {fr:'coussin',     en:'cushion',       g:'m', def:'le',   indef:'un'},
+  {fr:'rideau',      en:'curtain',       g:'m', def:'le',   indef:'un'},
+  {fr:'tiroir',      en:'drawer',        g:'m', def:'le',   indef:'un'},
+
+  {fr:'table',       en:'table',         g:'f', def:'la',   indef:'une'},
+  {fr:'chaise',      en:'chair',         g:'f', def:'la',   indef:'une'},
+  {fr:'fenêtre',     en:'window',        g:'f', def:'la',   indef:'une'},
+  {fr:'porte',       en:'door',          g:'f', def:'la',   indef:'une'},
+  {fr:'lampe',       en:'lamp',          g:'f', def:'la',   indef:'une'},
+  {fr:'trousse',     en:'pencil case',   g:'f', def:'la',   indef:'une'},
+  {fr:'gomme',       en:'eraser',        g:'f', def:'la',   indef:'une'},
+  {fr:'règle',       en:'ruler',         g:'f', def:'la',   indef:'une'},
+  {fr:'valise',      en:'suitcase',      g:'f', def:'la',   indef:'une'},
+  {fr:'montre',      en:'watch',         g:'f', def:'la',   indef:'une'},
+  {fr:'cravate',     en:'tie',           g:'f', def:'la',   indef:'une'},
+  {fr:'robe',        en:'dress',         g:'f', def:'la',   indef:'une'},
+  {fr:'veste',       en:'jacket',        g:'f', def:'la',   indef:'une'},
+  {fr:'bouteille',   en:'bottle',        g:'f', def:'la',   indef:'une'},
+  {fr:'tasse',       en:'cup',           g:'f', def:'la',   indef:'une'},
+  {fr:'assiette',    en:'plate',         g:'f', def:'la',   indef:'une'},
+  {fr:'fourchette',  en:'fork',          g:'f', def:'la',   indef:'une'},
+  {fr:'cuillère',    en:'spoon',         g:'f', def:'la',   indef:'une'},
+  {fr:'serviette',   en:'napkin/towel',  g:'f', def:'la',   indef:'une'},
+  {fr:'télévision',  en:'television',    g:'f', def:'la',   indef:'une'},
+
+  // ── Food & drink ──
+  {fr:'café',        en:'coffee',        g:'m', def:'le',   indef:'un'},
+  {fr:'thé',         en:'tea',           g:'m', def:'le',   indef:'un'},
+  {fr:'pain',        en:'bread',         g:'m', def:'le',   indef:'un'},
+  {fr:'fromage',     en:'cheese',        g:'m', def:'le',   indef:'un'},
+  {fr:'gâteau',      en:'cake',          g:'m', def:'le',   indef:'un'},
+  {fr:'biscuit',     en:'biscuit',       g:'m', def:'le',   indef:'un'},
+  {fr:'riz',         en:'rice',          g:'m', def:'le',   indef:'un'},
+  {fr:'jambon',      en:'ham',           g:'m', def:'le',   indef:'un'},
+  {fr:'poulet',      en:'chicken',       g:'m', def:'le',   indef:'un'},
+  {fr:'chocolat',    en:'chocolate',     g:'m', def:'le',   indef:'un'},
+  {fr:'jus',         en:'juice',         g:'m', def:'le',   indef:'un'},
+  {fr:'repas',       en:'meal',          g:'m', def:'le',   indef:'un'},
+  {fr:'dessert',     en:'dessert',       g:'m', def:'le',   indef:'un'},
+
+  {fr:'pomme',       en:'apple',         g:'f', def:'la',   indef:'une'},
+  {fr:'fraise',      en:'strawberry',    g:'f', def:'la',   indef:'une'},
+  {fr:'pêche',       en:'peach',         g:'f', def:'la',   indef:'une'},
+  {fr:'cerise',      en:'cherry',        g:'f', def:'la',   indef:'une'},
+  {fr:'tomate',      en:'tomato',        g:'f', def:'la',   indef:'une'},
+  {fr:'carotte',     en:'carrot',        g:'f', def:'la',   indef:'une'},
+  {fr:'salade',      en:'salad/lettuce', g:'f', def:'la',   indef:'une'},
+  {fr:'pizza',       en:'pizza',         g:'f', def:'la',   indef:'une'},
+  {fr:'tarte',       en:'tart/pie',      g:'f', def:'la',   indef:'une'},
+  {fr:'soupe',       en:'soup',          g:'f', def:'la',   indef:'une'},
+  {fr:'viande',      en:'meat',          g:'f', def:'la',   indef:'une'},
+  {fr:'glace',       en:'ice cream',     g:'f', def:'la',   indef:'une'},
+  {fr:'bière',       en:'beer',          g:'f', def:'la',   indef:'une'},
+
+  // ── Élision nouns (vowel/h muet) ──
+  {fr:'homme',       en:'man',           g:'e', def:"l'",  indef:'un'},
+  {fr:'ami',         en:'friend (m)',     g:'e', def:"l'",  indef:'un'},
+  {fr:'étudiant',    en:'student (m)',    g:'e', def:"l'",  indef:'un'},
+  {fr:'enfant',      en:'child',          g:'e', def:"l'",  indef:'un'},
+  {fr:'arbre',       en:'tree',           g:'e', def:"l'",  indef:'un'},
+  {fr:'animal',      en:'animal',         g:'e', def:"l'",  indef:'un'},
+  {fr:'hôtel',       en:'hotel',          g:'e', def:"l'",  indef:'un'},
+  {fr:'hôpital',     en:'hospital',       g:'e', def:"l'",  indef:'un'},
+  {fr:'aéroport',    en:'airport',        g:'e', def:"l'",  indef:'un'},
+  {fr:'appartement', en:'apartment',      g:'e', def:"l'",  indef:'un'},
+  {fr:'ongle',       en:'nail (finger)',  g:'e', def:"l'",  indef:'un'},
+
+  {fr:'amie',        en:'friend (f)',     g:'e', def:"l'",  indef:'une'},
+  {fr:'étudiante',   en:'student (f)',    g:'e', def:"l'",  indef:'une'},
+  {fr:'école',       en:'school',         g:'e', def:"l'",  indef:'une'},
+  {fr:'université',  en:'university',     g:'e', def:"l'",  indef:'une'},
+  {fr:'heure',       en:'hour',           g:'e', def:"l'",  indef:'une'},
+  {fr:'orange',      en:'orange',         g:'e', def:"l'",  indef:'une'},
+  {fr:'histoire',    en:'story/history',  g:'e', def:"l'",  indef:'une'},
+  {fr:'idée',        en:'idea',           g:'e', def:"l'",  indef:'une'},
+  {fr:'île',         en:'island',         g:'e', def:"l'",  indef:'une'},
+  {fr:'étoile',      en:'star',           g:'e', def:"l'",  indef:'une'},
+  {fr:'entrée',      en:'entrance/starter',g:'e',def:"l'",  indef:'une'},
+
+  // ── Places & nature ──
+  {fr:'marché',      en:'market',         g:'m', def:'le',   indef:'un'},
+  {fr:'musée',       en:'museum',         g:'m', def:'le',   indef:'un'},
+  {fr:'jardin',      en:'garden',         g:'m', def:'le',   indef:'un'},
+  {fr:'parc',        en:'park',           g:'m', def:'le',   indef:'un'},
+  {fr:'pont',        en:'bridge',         g:'m', def:'le',   indef:'un'},
+  {fr:'quartier',    en:'neighbourhood',  g:'m', def:'le',   indef:'un'},
+  {fr:'village',     en:'village',        g:'m', def:'le',   indef:'un'},
+  {fr:'château',     en:'castle',         g:'m', def:'le',   indef:'un'},
+  {fr:'chemin',      en:'path',           g:'m', def:'le',   indef:'un'},
+  {fr:'lac',         en:'lake',           g:'m', def:'le',   indef:'un'},
+  {fr:'fleuve',      en:'river',          g:'m', def:'le',   indef:'un'},
+  {fr:'désert',      en:'desert',         g:'m', def:'le',   indef:'un'},
+  {fr:'volcan',      en:'volcano',        g:'m', def:'le',   indef:'un'},
+
+  {fr:'forêt',       en:'forest',         g:'f', def:'la',   indef:'une'},
+  {fr:'plage',       en:'beach',          g:'f', def:'la',   indef:'une'},
+  {fr:'montagne',    en:'mountain',       g:'f', def:'la',   indef:'une'},
+  {fr:'vallée',      en:'valley',         g:'f', def:'la',   indef:'une'},
+  {fr:'mer',         en:'sea',            g:'f', def:'la',   indef:'une'},
+  {fr:'rivière',     en:'river (small)',  g:'f', def:'la',   indef:'une'},
+  {fr:'prairie',     en:'meadow',         g:'f', def:'la',   indef:'une'},
+  {fr:'falaise',     en:'cliff',          g:'f', def:'la',   indef:'une'},
+
+  // ── Professions ──
+  {fr:'médecin',     en:'doctor',         g:'m', def:'le',   indef:'un'},
+  {fr:'boulanger',   en:'baker',          g:'m', def:'le',   indef:'un'},
+  {fr:'pompier',     en:'firefighter',    g:'m', def:'le',   indef:'un'},
+  {fr:'facteur',     en:'postman',        g:'m', def:'le',   indef:'un'},
+  {fr:'pilote',      en:'pilot',          g:'m', def:'le',   indef:'un'},
+  {fr:'cuisinier',   en:'cook',           g:'m', def:'le',   indef:'un'},
+  {fr:'coiffeur',    en:'hairdresser',    g:'m', def:'le',   indef:'un'},
+  {fr:'chanteur',    en:'singer',         g:'m', def:'le',   indef:'un'},
+  {fr:'directeur',   en:'director',       g:'m', def:'le',   indef:'un'},
+
+  {fr:'infirmière',  en:'nurse (f)',       g:'f', def:'la',   indef:'une'},
+  {fr:'secrétaire',  en:'secretary',      g:'f', def:'la',   indef:'une'},
+  {fr:'vendeuse',    en:'saleswoman',     g:'f', def:'la',   indef:'une'},
+  {fr:'directrice',  en:'director (f)',   g:'f', def:'la',   indef:'une'},
+
+  // ── Abstract / time ──
+  {fr:'matin',       en:'morning',        g:'m', def:'le',   indef:'un'},
+  {fr:'soir',        en:'evening',        g:'m', def:'le',   indef:'un'},
+  {fr:'lendemain',   en:'next day',       g:'m', def:'le',   indef:'un'},
+  {fr:'printemps',   en:'spring',         g:'m', def:'le',   indef:'un'},
+  {fr:'été',         en:'summer',         g:'m', def:'le',   indef:'un'},
+  {fr:'automne',     en:'autumn',         g:'m', def:'le',   indef:'un'},
+  {fr:'hiver',       en:'winter',         g:'m', def:'le',   indef:'un'},
+  {fr:'rêve',        en:'dream',          g:'m', def:'le',   indef:'un'},
+  {fr:'problème',    en:'problem',        g:'m', def:'le',   indef:'un'},
+  {fr:'voyage',      en:'journey/trip',   g:'m', def:'le',   indef:'un'},
+  {fr:'bonheur',     en:'happiness',      g:'m', def:'le',   indef:'un'},
+  {fr:'bruit',       en:'noise',          g:'m', def:'le',   indef:'un'},
+
+  {fr:'nuit',        en:'night',          g:'f', def:'la',   indef:'une'},
+  {fr:'semaine',     en:'week',           g:'f', def:'la',   indef:'une'},
+  {fr:'saison',      en:'season',         g:'f', def:'la',   indef:'une'},
+  {fr:'question',    en:'question',       g:'f', def:'la',   indef:'une'},
+  {fr:'réponse',     en:'answer',         g:'f', def:'la',   indef:'une'},
+  {fr:'chanson',     en:'song',           g:'f', def:'la',   indef:'une'},
+  {fr:'liberté',     en:'freedom',        g:'f', def:'la',   indef:'une'},
+  {fr:'vérité',      en:'truth',          g:'f', def:'la',   indef:'une'},
+  {fr:'beauté',      en:'beauty',         g:'f', def:'la',   indef:'une'},
+  {fr:'chance',      en:'luck',           g:'f', def:'la',   indef:'une'},
+  {fr:'décision',    en:'decision',       g:'f', def:'la',   indef:'une'},
+  {fr:'règle',       en:'rule',           g:'f', def:'la',   indef:'une'},
+];
+
+// Context sentences for "specific vs generic" MCQ
+const CONTEXT_PAIRS = [
+  {
+    context:'Vous aimez _____ musique en général.',
+    answer:'la',
+    options:['la','une','de la','des'],
+    note:'Goût général → article défini',
+    en:'You like music in general. (general taste = le/la)',
+    es:'Me gusta la música (gusto general = artículo definido)',
+  },
+  {
+    context:"J'écoute _____ chanson magnifique en ce moment.",
+    answer:'une',
+    options:['une','la','des','de la'],
+    note:'Objet non spécifique → article indéfini',
+    en:"I'm listening to a beautiful song right now. (one, unspecified = un/une)",
+    es:'Escucho una canción (objeto no específico = artículo indefinido)',
+  },
+  {
+    context:'Elle achète _____ pommes au marché.',
+    answer:'des',
+    options:['des','les','de','une'],
+    note:'Pluriel indéfini → des',
+    en:'She buys (some) apples at the market. (plural unspecified = des)',
+    es:'Compra (unas) manzanas (plural indefinido = des)',
+  },
+  {
+    context:'Tu veux _____ café ou _____ thé ?',
+    answer:'du / du',
+    options:['du / du','le / le','un / un','de / de'],
+    note:'Partitif → quantité non dénombrée',
+    en:'Do you want some coffee or some tea? (uncountable quantity = du/de la)',
+    es:'¿Quieres café o té? (cantidad incontable = artículo partitivo)',
+  },
+  {
+    context:"Le professeur corrige _____ exercices des étudiants.",
+    answer:'les',
+    options:['les','des','de','ses'],
+    note:'Exercices spécifiques → défini',
+    en:"The teacher corrects the exercises (specific ones = les)",
+    es:'El profesor corrige los ejercicios (específicos = artículo definido)',
+  },
+  {
+    context:"Il y a _____ hôtel magnifique dans cette rue.",
+    answer:'un',
+    options:['un','le','l\'','des'],
+    note:"Attention : h muet → mais article indéfini = un (pas l')",
+    en:"There is a magnificent hotel in this street. (h muet: un hotel, not l'hotel with indef.)",
+    es:'Hay un hotel (artículo indefinido antes de h muda)',
+  },
+  {
+    context:"Les enfants adorent _____ chocolat.",
+    answer:'le',
+    options:['le','un','du','de'],
+    note:'Adorer + chose générale → défini',
+    en:'Children love chocolate. (general = le)',
+    es:'Los niños adoran el chocolate (general = artículo definido)',
+  },
+  {
+    context:"Je voudrais _____ orange, s'il vous plaît.",
+    answer:"une",
+    options:["une","l'","de l'","la"],
+    note:"Quantité précise → indéfini (une orange = one orange)",
+    en:"I would like an orange, please. (one, unspecified = une)",
+    es:'Me gustaría una naranja (indefinido)',
+  },
+  {
+    context:"Nous visitons _____ château de Versailles.",
+    answer:'le',
+    options:['le','un','l\'','des'],
+    note:'Château connu et spécifique → défini',
+    en:"We visit the Château de Versailles. (specific, known = le)",
+    es:'Visitamos el castillo de Versalles (específico = artículo definido)',
+  },
+  {
+    context:"Elle a trouvé _____ idée brillante !",
+    answer:'une',
+    options:['une',"l'",'la','des'],
+    note:"Idée commence par voyelle → une idée (indéfini)",
+    en:'She found a brilliant idea! (indefinite before vowel = une, not une élision)',
+    es:'Encontró una idea brillante (indefinido)',
+  },
+];
+
+// Simple sentence templates for article fill-in
+const SENTENCE_TEMPLATES = [
+  (n)=>`Je mange ${n.def} ${n.fr} tous les jours.`,
+  (n)=>`Il achète ${n.indef} ${n.fr} au marché.`,
+  (n)=>`Nous adorons ${n.def} ${n.fr}.`,
+  (n)=>`C'est ${n.indef} ${n.fr} très intéressant.`,
+  (n)=>`Tu vois ${n.def} ${n.fr} là-bas ?`,
+  (n)=>`Elle prend ${n.indef} ${n.fr} et part.`,
+  (n)=>`Ce soir, je lis ${n.def} ${n.fr}.`,
+  (n)=>`Ils cherchent ${n.indef} ${n.fr} pour leur appartement.`,
+  (n)=>`Le professeur montre ${n.def} ${n.fr} à la classe.`,
+  (n)=>`On a besoin de ${n.indef} ${n.fr} pour cuisiner.`,
+];
+
+const TRANSLATION_MAP = {
+  'le':'the (m)',  'la':'the (f)', "l'":'the (elision)',
+  'un':'a (m)',    'une':'a (f)', 'des':'some (pl)',
+};
+
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function normalize(s){return s.trim().toLowerCase().replace(/['']/g,"'").replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u').replace(/ç/g,'c').replace(/\s+/g,' ');}
+
+// ════════════════════════════════════════════════
+//  VOCAB STRIP
+// ════════════════════════════════════════════════
+function buildVocabStrip(){
+  const strip=document.getElementById('vocab-strip');
+  const sample=shuffle([...NOUNS]).slice(0,28);
+  strip.innerHTML=sample.map(n=>`<span class="vocab-pill ${n.g==='m'?'m':n.g==='f'?'f':'m'}" title="${n.def}/${n.indef} ${n.fr} = ${n.en}">${n.def} ${n.fr}</span>`).join('');
+}
+
+// ════════════════════════════════════════════════
+//  EXERCISE BUILDERS
+// ════════════════════════════════════════════════
+
+// ── Défini: choose le/la/les ──
+function buildDefExercise(){
+  const n = rand(NOUNS.filter(x=>x.g!=='e'));
+  const correct = n.def;
+  const options = n.g==='m' ? shuffle(['le','la','les']) : shuffle(['la','le','les']);
+  return {
+    type:'def',
+    sentence:`______ ${n.fr}`,
+    prompt:`Choisissez l'article défini correct pour « ${n.fr} » (${n.en}) :`,
+    answer: correct,
+    options: options.slice(0,3),
+    hint:`💡 Défini = "the" — le (masc.) / la (fém.) / les (plur.)`,
+    translation:`"${correct} ${n.fr}" = the ${n.en} (${n.g==='m'?'masculin':'féminin'})`,
+    es:`${n.g==='m'?'el':'la'} ${n.fr}`,
+    isMultiChoice:true,
+  };
+}
+
+// ── Indéfini: choose un/une/des ──
+function buildIndefExercise(){
+  const n = rand(NOUNS.filter(x=>x.g!=='e'));
+  const doPlural = Math.random()>0.65;
+  const correct = doPlural ? 'des' : n.indef;
+  const options = shuffle(['un','une','des']).slice(0,3);
+  if(!options.includes(correct)) options[0]=correct;
+  const nounDisplay = doPlural ? n.fr+'s' : n.fr;
+  return {
+    type:'indef',
+    sentence:`______ ${nounDisplay}`,
+    prompt:`Article indéfini correct pour « ${nounDisplay} » (${doPlural?'plusieurs ':''}${n.en}) :`,
+    answer: correct,
+    options: shuffle(options),
+    hint:`💡 Indéfini = "a/an/some" — un (masc.) / une (fém.) / des (plur.)`,
+    translation:`"${correct} ${nounDisplay}" = ${doPlural?'some':'a/an'} ${n.en}`,
+    es:`${correct==='un'?'un':correct==='une'?'una':'unos/unas'} ${nounDisplay}`,
+    isMultiChoice:true,
+  };
+}
+
+// ── Élision l' ──
+function buildElideExercise(){
+  const elideNouns = NOUNS.filter(x=>x.g==='e');
+  const n = rand(elideNouns);
+  const templates = [
+    {tpl:`______ ${n.fr} est très ${rand(['grand','beau','petit','intéressant','important','célèbre'])}.`,
+     answer:"l'", options:["l'",'le','la','un']},
+    {tpl:`Je cherche ______ ${n.fr}.`,
+     answer:"l'", options:["l'",'le','la','une']},
+    {tpl:`Nous aimons ______ ${n.fr}.`,
+     answer:"l'", options:["l'",'le','la','les']},
+  ];
+  const t=rand(templates);
+  const opts=shuffle(t.options).slice(0,4);
+  if(!opts.includes("l'")) opts[0]="l'";
+  return {
+    type:'elide',
+    sentence: t.tpl.replace("l'",`<span style="color:var(--muted);font-style:italic">[article]</span>`),
+    prompt: `Quel article convient devant « ${n.fr} » (${n.en}) qui commence par ${/^[aeiou]/i.test(n.fr)?'une voyelle':'h muet'} ?`,
+    answer:"l'",
+    options: shuffle(opts),
+    hint:`💡 Devant voyelle ou h muet → le/la devient l' (élision)`,
+    translation:`"l'${n.fr}" = the ${n.en} (l' before vowel/silent-h)`,
+    es:`el/la ${n.fr} (en francés → l' por elisión)`,
+    isMultiChoice:true,
+    rawSentence: t.tpl,
+  };
+}
+
+// ── Fill in the blank in a full sentence ──
+function buildFillExercise(){
+  const n = rand(NOUNS);
+  const useIndef = Math.random()>0.5;
+  const correct = useIndef ? n.indef : n.def;
+  const templateFn = rand(SENTENCE_TEMPLATES);
+  // Build the full sentence then blank the article
+  const full = templateFn(n);
+  const blanked = full.replace(correct+' '+n.fr, `______ ${n.fr}`);
+  const allArts = shuffle(['le','la','les','un','une','des',"l'"]).slice(0,4);
+  if(!allArts.includes(correct)) allArts[0]=correct;
+  return {
+    type: useIndef ? 'indef' : n.g==='e' ? 'elide' : 'def',
+    sentence: blanked,
+    prompt:`Complétez la phrase avec le bon article :`,
+    answer: correct,
+    options: shuffle(allArts),
+    hint:`💡 ${useIndef?'Article indéfini (un/une/des) — objet non spécifié':'Article défini (le/la/l\'/les) — objet spécifique ou en général'}`,
+    translation:`"${full}" (${TRANSLATION_MAP[correct]||correct} = ${n.en})`,
+    es:`${n.g==='m'?'el/un':n.g==='f'?'la/una':n.g==='e'?'el·la/un·una':''} ${n.fr}`,
+    isMultiChoice:true,
+  };
+}
+
+// ── Context / usage (general vs specific) ──
+function buildContextExercise(){
+  const cp = rand(CONTEXT_PAIRS);
+  return {
+    type:'context',
+    sentence: cp.context.replace(/_____ \/ _____/,`[_____] / [_____]`),
+    prompt:`Quel(s) article(s) convien(nen)t dans ce contexte ?`,
+    answer: cp.answer,
+    options: shuffle(cp.options),
+    hint:`💡 ${cp.note}`,
+    translation: cp.en,
+    es: cp.es,
+    isMultiChoice:true,
+    rawSentence: cp.context,
+  };
+}
+
+// ════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════
+let exercises=[], answered=0, score=0, currentMode='mixed';
+let stats={def:{c:0,t:0},indef:{c:0,t:0},elide:{c:0,t:0},context:{c:0,t:0}};
+const mcqState={};
+
+function setMode(mode){
+  currentMode=mode;
+  ['mixed','def','indef','elide','context'].forEach(m=>{
+    const t=document.getElementById('tab-'+m);
+    t.className='mode-tab';
+    if(m===mode) t.classList.add('active-'+m);
+  });
+  newSet();
+}
+
+function buildPool(mode,n=10){
+  const map={
+    mixed:   [buildDefExercise,buildIndefExercise,buildElideExercise,buildFillExercise,buildContextExercise],
+    def:     [buildDefExercise,buildFillExercise],
+    indef:   [buildIndefExercise,buildFillExercise],
+    elide:   [buildElideExercise],
+    context: [buildContextExercise,buildFillExercise],
+  };
+  const pool=map[mode]||map.mixed;
+  const exs=[];
+  for(let i=0;i<n;i++) exs.push(rand(pool)());
+  return exs;
+}
+
+// ════════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════════
+function newSet(){
+  answered=score=0;
+  stats={def:{c:0,t:0},indef:{c:0,t:0},elide:{c:0,t:0},context:{c:0,t:0}};
+  Object.keys(mcqState).forEach(k=>delete mcqState[k]);
+  document.getElementById('score').textContent='0';
+  document.getElementById('q-current').textContent='1';
+  document.getElementById('progress').style.width='0%';
+  document.getElementById('result-screen').classList.remove('show');
+  document.getElementById('exercises-container').style.display='';
+  document.getElementById('bottom-actions').style.display='';
+  exercises=buildPool(currentMode);
+  document.getElementById('q-total').textContent=exercises.length;
+  buildVocabStrip();
+  renderExercises();
+}
+
+const TYPE_LABELS={def:'🔵 Défini',indef:'🟠 Indéfini',elide:'🟢 Élision l\'',context:'🟣 Contexte'};
+const TAG_CLS    ={def:'def-tag',indef:'indef-tag',elide:'elide-tag',context:'context-tag'};
+
+function renderExercises(){
+  const container=document.getElementById('exercises-container');
+  container.innerHTML='';
+  exercises.forEach((ex,i)=>{
+    const card=document.createElement('div');
+    card.className='exercise-card';
+    card.id=`card-${i}`;
+    card.dataset.type=ex.type;
+    card.style.animationDelay=`${i*0.05}s`;
+
+    // Article chip choices
+    const chipsHTML=`
+      <div class="art-choices" id="chips-${i}">
+        ${ex.options.map((opt,oi)=>`
+          <button class="art-chip" id="chip-${i}-${oi}" onclick="pickChip(${i},${oi},'${opt.replace(/'/g,"\\'")}')">
+            ${opt}
+          </button>`).join('')}
+      </div>
+      <div class="input-row">
+        <button class="check-btn" style="width:100%" id="btn-${i}" onclick="checkMCQ(${i})">Confirmer ✓</button>
+      </div>`;
+
+    card.innerHTML=`
+      <div class="ex-meta">
+        <div class="ex-tags">
+          <span class="ex-tag ${TAG_CLS[ex.type]}">${TYPE_LABELS[ex.type]}</span>
+          <span class="ex-tag plain">Articles</span>
+        </div>
+        <span class="ex-num">${i+1}/${exercises.length}</span>
+      </div>
+      <div class="ex-sentence">${ex.prompt}</div>
+      <div class="ex-sentence" style="font-size:1.5rem;margin-bottom:0.6rem;color:var(--text);">
+        <em>${ex.rawSentence||ex.sentence}</em>
+      </div>
+      ${ex.hint?`<div class="ex-hint-line">${ex.hint}</div>`:''}
+      ${chipsHTML}
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="translation" id="tr-${i}">${ex.translation||''}</div>
+      <div class="es-note" id="es-${i}">🇪🇸 ${ex.es||''}</div>`;
+    container.appendChild(card);
+  });
+}
+
+// ════════════════════════════════════════════════
+//  MCQ LOGIC
+// ════════════════════════════════════════════════
+function pickChip(exIdx,optIdx,val){
+  const ex=exercises[exIdx];
+  if(ex._answered) return;
+  ex.options.forEach((_,oi)=>{
+    const b=document.getElementById(`chip-${exIdx}-${oi}`);
+    if(b) b.classList.remove('chosen');
+  });
+  document.getElementById(`chip-${exIdx}-${optIdx}`).classList.add('chosen');
+  mcqState[exIdx]=val;
+}
+
+function checkMCQ(i){
+  const ex=exercises[i];
+  if(ex._answered) return;
+  const chosen=mcqState[i];
+  if(!chosen) return;
+  ex._answered=true;
+  const correct=normalize(chosen)===normalize(ex.answer);
+  ex.options.forEach((opt,oi)=>{
+    const btn=document.getElementById(`chip-${i}-${oi}`);
+    if(!btn) return;
+    btn.disabled=true;
+    if(normalize(opt)===normalize(ex.answer)) btn.classList.add('chip-ok');
+    else if(normalize(opt)===normalize(chosen)&&!correct) btn.classList.add('chip-bad');
+  });
+  const card=document.getElementById(`card-${i}`);
+  const fb=document.getElementById(`fb-${i}`);
+  const tr=document.getElementById(`tr-${i}`);
+  const es=document.getElementById(`es-${i}`);
+  const btn=document.getElementById(`btn-${i}`);
+  if(btn) btn.disabled=true;
+  if(correct){
+    card.classList.add('correct','pop');
+    fb.innerHTML=`✓ Correct ! L'article est <strong>« ${ex.answer} »</strong>`;
+    fb.className='feedback show correct-fb';
+    score++;
+    stats[ex.type].c++;
+    document.getElementById('score').textContent=score;
+  } else {
+    card.classList.add('wrong');
+    fb.innerHTML=`✗ Réponse : <strong>« ${ex.answer} »</strong>`;
+    fb.className='feedback show wrong-fb';
+  }
+  stats[ex.type].t++;
+  tr.classList.add('show');
+  if(ex.es) es.classList.add('show');
+  answered++;
+  document.getElementById('progress').style.width=(answered/exercises.length*100)+'%';
+  document.getElementById('q-current').textContent=Math.min(answered+1,exercises.length);
+  if(answered===exercises.length) setTimeout(showResult,900);
+  else{
+    const next=document.getElementById(`chip-${i+1}-0`);
+    if(next) setTimeout(()=>next.scrollIntoView({behavior:'smooth',block:'center'}),350);
+  }
+}
+
+function checkAll(){
+  exercises.forEach((_,i)=>{
+    if(!exercises[i]._answered&&mcqState[i]) checkMCQ(i);
+  });
+}
+
+function showResult(){
+  document.getElementById('exercises-container').style.display='none';
+  document.getElementById('bottom-actions').style.display='none';
+  const pct=score/exercises.length;
+  let emoji,title;
+  if(pct===1){emoji='🏆';title='Score parfait !';}
+  else if(pct>=0.8){emoji='🌟';title='Magnifique !';}
+  else if(pct>=0.6){emoji='👍';title='Bien joué !';}
+  else if(pct>=0.4){emoji='💪';title='Continuez !';}
+  else{emoji='📚';title='Révisez !';}
+  document.getElementById('result-emoji').textContent=emoji;
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-score-val').textContent=`${score}/${exercises.length}`;
+  const cats=document.getElementById('result-cats');
+  cats.innerHTML='';
+  const map={def:['def-c','Défini'],indef:['indef-c','Indéfini'],elide:['elide-c',"Élision"],context:['context-c','Contexte']};
+  Object.keys(stats).forEach(k=>{
+    if(stats[k].t>0){
+      const d=document.createElement('div');
+      d.className=`res-cat ${map[k][0]}`;
+      d.textContent=`${map[k][1]} ${stats[k].c}/${stats[k].t}`;
+      cats.appendChild(d);
+    }
+  });
+  document.getElementById('result-screen').classList.add('show');
+  buildVocabStrip();
+}
+
+// ─── Init ───
+buildVocabStrip();
+setMode('mixed');
+</script>
+</body>
+</html>

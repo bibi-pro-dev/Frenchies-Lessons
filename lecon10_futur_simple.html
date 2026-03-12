@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 10 — Le Futur Simple</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --cyan:#00f5ff; --violet:#b44fff; --gold:#ffd166;
+    --green:#06d6a0; --red:#ff4757;
+    --blue:#4d9fff; --blue2:#7ab8ff; --blue3:#b3d4ff;
+    --accent:#4d9fff;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  /* ── GRID ── */
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(77,159,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(77,159,255,0.025) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:300px 300px; }
+
+  /* ── HALOS ── */
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:650px; height:650px; top:-200px; left:-160px;  background:rgba(77,159,255,0.09); }
+  .h2{ width:600px; height:600px; bottom:-200px; right:-140px; background:rgba(180,79,255,0.07); }
+  .h3{ width:280px; height:280px; top:45%; right:20%; background:rgba(0,245,255,0.04); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:78vh; top:10vh; right:16%; background:linear-gradient(to bottom,transparent,var(--blue),transparent); transform:rotate(8deg); }
+  .al2{ width:1px; height:55vh; top:24vh; left:13%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(-10deg); }
+
+  .bg-mark{ position:fixed; left:-60px; bottom:8%; opacity:0.02; font-family:'Bebas Neue',sans-serif;
+    font-size:300px; color:var(--blue); transform:rotate(10deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  /* ── LAYOUT ── */
+  .wrapper{ position:relative; z-index:1; max-width:960px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--blue);
+    border:1px solid rgba(77,159,255,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(77,159,255,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--blue); animation:blink 2.2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,8vw,86px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--blue) 42%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle { font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  /* ── ENDINGS TABLE ── */
+  .endings-section{ margin-bottom:32px; }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  .endings-layout{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:600px){ .endings-layout{ grid-template-columns:1fr; } }
+
+  .endings-card{
+    background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden;
+  }
+  .endings-card-header{
+    padding:12px 18px; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .endings-card-header .title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px; }
+  .endings-card-header .title.regular { color:var(--blue); }
+  .endings-card-header .title.irregulier { color:var(--gold); }
+  .endings-card-header .sub{ font-size:11px; color:var(--text3); font-style:italic; }
+  .endings-rows{ padding:4px 0; }
+  .endings-row{
+    display:grid; grid-template-columns:90px 1fr 1fr;
+    padding:6px 18px; gap:8px; font-size:13px; transition:background 0.15s;
+  }
+  .endings-row:hover{ background:rgba(255,255,255,0.02); }
+  .er-pron  { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; color:var(--text3); align-self:center; }
+  .er-end   { font-family:'DM Serif Display',serif; font-size:16px; color:var(--blue); }
+  .er-end.irr{ color:var(--gold); }
+  .er-ex    { font-size:12px; color:var(--text3); font-style:italic; align-self:center; }
+
+  /* irregular stems table */
+  .stems-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px; }
+  @media(max-width:500px){ .stems-grid{ grid-template-columns:repeat(2,1fr); } }
+  .stem-cell{
+    background:var(--card); border:1px solid var(--border); border-radius:8px;
+    padding:9px 12px; transition:border-color 0.2s;
+  }
+  .stem-cell:hover{ border-color:rgba(255,209,102,0.2); }
+  .sc-inf { font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:1px; color:var(--text3); }
+  .sc-stem{ font-family:'DM Serif Display',serif; font-size:17px; color:var(--gold); }
+  .sc-ex  { font-size:11px; color:var(--text3); font-style:italic; margin-top:2px; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:32px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 24px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vocab-header .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--blue); }
+  .vocab-header .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
+  .vocab-wrap.open{ max-height:700px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 18px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:10px 18px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13.5px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(77,159,255,0.02); }
+  .vfr{ color:var(--text); font-family:'DM Serif Display',serif; font-size:15px; }
+  .ven{ color:var(--text2); }
+  .ves{ color:var(--text3); }
+  .vcat{ color:var(--blue); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FOCUS FILTER ── */
+  .filter-section{ margin-bottom:26px; }
+  .filter-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(77,159,255,0.4); background:rgba(77,159,255,0.06); color:var(--blue2); }
+  .filter-pill.irr-active{ border-color:rgba(255,209,102,0.4); background:rgba(255,209,102,0.06); color:var(--gold); }
+
+  /* ── LEVEL PILLS ── */
+  .level-section{ margin-bottom:26px; }
+  .section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .level-pills{ display:flex; gap:10px; flex-wrap:wrap; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a1::before{ background:linear-gradient(135deg,rgba(6,214,160,0.15),transparent); }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(0,245,255,0.15),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(255,209,102,0.15),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.15),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a1.active{ border-color:var(--green); color:var(--green); }
+  .level-pill.a2.active{ border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b1.active{ border-color:var(--gold);  color:var(--gold); }
+  .level-pill.b2.active{ border-color:var(--violet); color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--blue); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--blue),var(--violet));
+    transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(77,159,255,0.14),rgba(180,79,255,0.14));
+    border:1px solid rgba(77,159,255,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(77,159,255,0.26),rgba(180,79,255,0.26));
+    border-color:var(--blue); transform:translateY(-1px); box-shadow:0 8px 28px rgba(77,159,255,0.12); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden;
+    transition:border-color 0.3s, transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--blue),transparent);
+    opacity:0; transition:opacity 0.3s; }
+  .exercise-card.irr-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(77,159,255,0.2); transform:translateY(-1px); }
+  .exercise-card.irr-card.active-card{ border-color:rgba(255,209,102,0.2); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* stem helper badge */
+  .stem-badge-card{
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.18);
+    border-radius:4px; padding:4px 12px; margin-bottom:10px; font-size:12px;
+  }
+  .sb-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .sb-stem { font-family:'DM Serif Display',serif; color:var(--gold); font-size:15px; }
+  .sb-end  { color:var(--blue2); font-family:'DM Serif Display',serif; font-size:15px; }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.conjugaison{ color:var(--blue);   border:1px solid rgba(77,159,255,0.28);  background:rgba(77,159,255,0.05); }
+  .card-type.traduction { color:var(--gold);   border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.choix      { color:#d8a8ff;       border:1px solid rgba(180,79,255,0.28);  background:rgba(180,79,255,0.05); }
+  .card-type.irregulier { color:var(--gold);   border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.negatif    { color:var(--cyan);   border:1px solid rgba(0,245,255,0.28);   background:rgba(0,245,255,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(17px,2.8vw,23px); line-height:1.65; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s, box-shadow 0.2s; width:200px; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--blue); box-shadow:0 0 0 2px rgba(77,159,255,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  .answer-input.inline  { width:170px; font-size:17px; padding:6px 12px; }
+  .blank-wrapper{ display:inline-flex; align-items:center; vertical-align:middle; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--blue); color:var(--text); background:rgba(77,159,255,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show  { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  /* ── CHECK BTN ── */
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(77,159,255,0.4);
+    background:rgba(77,159,255,0.06); color:var(--blue); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(77,159,255,0.16); border-color:var(--blue); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(77,159,255,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(77,159,255,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--blue); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--text); }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); }
+  .score-stat-num.bad { color:var(--red); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(77,159,255,0.4);
+    background:rgba(77,159,255,0.08); color:var(--blue); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(77,159,255,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .endings-layout{ grid-template-columns:1fr; } .stems-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">FUTUR<br>SIMPLE</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 10 · FRANÇAIS</div>
+    <h1>Le Futur<br>Simple</h1>
+    <p class="subtitle">parler → je parlerai · finir → tu finiras · être → il sera</p>
+    <p class="subtitle2">EXPRIMER UN FUTUR CERTAIN · A2 → B2</p>
+  </header>
+
+  <!-- ENDINGS REFERENCE -->
+  <div class="endings-section">
+    <div class="section-title">✦ RAPPEL — FORMATION DU FUTUR SIMPLE</div>
+    <div class="endings-layout">
+
+      <!-- Regular endings -->
+      <div class="endings-card">
+        <div class="endings-card-header">
+          <span class="title regular">VERBES RÉGULIERS</span>
+          <span class="sub">infinitif + terminaison</span>
+        </div>
+        <div class="endings-rows">
+          <div class="endings-row"><span class="er-pron">JE</span><span class="er-end">-ai</span><span class="er-ex">je parlerai</span></div>
+          <div class="endings-row"><span class="er-pron">TU</span><span class="er-end">-as</span><span class="er-ex">tu parleras</span></div>
+          <div class="endings-row"><span class="er-pron">IL/ELLE</span><span class="er-end">-a</span><span class="er-ex">il parlera</span></div>
+          <div class="endings-row"><span class="er-pron">NOUS</span><span class="er-end">-ons</span><span class="er-ex">nous parlerons</span></div>
+          <div class="endings-row"><span class="er-pron">VOUS</span><span class="er-end">-ez</span><span class="er-ex">vous parlerez</span></div>
+          <div class="endings-row"><span class="er-pron">ILS/ELLES</span><span class="er-end">-ont</span><span class="er-ex">ils parleront</span></div>
+        </div>
+      </div>
+
+      <!-- Irregular stems -->
+      <div class="endings-card">
+        <div class="endings-card-header">
+          <span class="title irregulier">VERBES IRRÉGULIERS</span>
+          <span class="sub">stem irrégulier + même terminaison</span>
+        </div>
+        <div class="endings-rows" style="padding:10px 18px 6px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;font-size:13px;">
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">ÊTRE</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">ser-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → je serai</span></div>
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">AVOIR</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">aur-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → j'aurai</span></div>
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">ALLER</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">ir-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → j'irai</span></div>
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">FAIRE</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">fer-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → je ferai</span></div>
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">POUVOIR</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">pourr-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → je pourrai</span></div>
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">VOULOIR</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">voudr-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → je voudrai</span></div>
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">VENIR</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">viendr-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → je viendrai</span></div>
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">SAVOIR</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">saur-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → je saurai</span></div>
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">DEVOIR</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">devr-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → je devrai</span></div>
+            <div><span style="color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;">VOIR</span><br><span style="font-family:'DM Serif Display',serif;color:var(--gold);">verr-</span><span style="color:var(--text3);font-size:12px;font-style:italic;"> → je verrai</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — ENVIRONNEMENT &amp; AVENIR</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>FRANÇAIS</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CATÉGORIE</th><th>EXEMPLE FUTUR SIMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">protéger</td><td class="ven">to protect</td><td class="ves">proteger</td><td class="vcat">action</td><td class="vex">Nous protégerons la forêt.</td></tr>
+          <tr><td class="vfr">réchauffer</td><td class="ven">to warm up</td><td class="ves">calentar</td><td class="vcat">climat</td><td class="vex">La planète se réchauffera.</td></tr>
+          <tr><td class="vfr">polluer</td><td class="ven">to pollute</td><td class="ves">contaminar</td><td class="vcat">environnement</td><td class="vex">Ils ne pollueront plus.</td></tr>
+          <tr><td class="vfr">recycler</td><td class="ven">to recycle</td><td class="ves">reciclar</td><td class="vcat">action</td><td class="vex">Tu recycleras tes déchets.</td></tr>
+          <tr><td class="vfr">économiser</td><td class="ven">to save (energy/money)</td><td class="ves">ahorrar</td><td class="vcat">ressources</td><td class="vex">On économisera l'énergie.</td></tr>
+          <tr><td class="vfr">disparaître</td><td class="ven">to disappear</td><td class="ves">desaparecer</td><td class="vcat">phénomène</td><td class="vex">Cette espèce disparaîtra.</td></tr>
+          <tr><td class="vfr">survivre</td><td class="ven">to survive</td><td class="ves">sobrevivir</td><td class="vcat">phénomène</td><td class="vex">Les espèces fortes survivront.</td></tr>
+          <tr><td class="vfr">s'adapter</td><td class="ven">to adapt</td><td class="ves">adaptarse</td><td class="vcat">changement</td><td class="vex">Les villes s'adapteront.</td></tr>
+          <tr><td class="vfr">développer</td><td class="ven">to develop</td><td class="ves">desarrollar</td><td class="vcat">progrès</td><td class="vex">On développera des solutions.</td></tr>
+          <tr><td class="vfr">réduire</td><td class="ven">to reduce</td><td class="ves">reducir</td><td class="vcat">action</td><td class="vex">Ils réduiront les émissions.</td></tr>
+          <tr><td class="vfr">préserver</td><td class="ven">to preserve</td><td class="ves">preservar</td><td class="vcat">conservation</td><td class="vex">Nous préserverons la biodiversité.</td></tr>
+          <tr><td class="vfr">innover</td><td class="ven">to innovate</td><td class="ves">innovar</td><td class="vcat">progrès</td><td class="vex">Les scientifiques innoveront.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="regulier"   onclick="setFilter('regulier',this)">RÉGULIERS</button>
+      <button class="filter-pill"        data-f="irregulier" onclick="setFilter('irregulier',this)">IRRÉGULIERS</button>
+      <button class="filter-pill"        data-f="negatif"    onclick="setFilter('negatif',this)">NÉGATIF</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a1" onclick="setLevel('A1',this)">A1</button>
+      <button class="level-pill a2 active" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2" onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji"    id="scoreEmoji">🎉</div>
+    <div class="score-title"    id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle">Excellent !</div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num"      id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// CONJUGATION DATA
+// ================================================================
+
+// Future simple endings
+const ENDS = { je:'ai', tu:'as', il:'a', elle:'a', on:'a', nous:'ons', vous:'ez', ils:'ont', elles:'ont' };
+
+// Irregular stems
+const IRR_STEMS = {
+  être:'ser', avoir:'aur', aller:'ir', faire:'fer',
+  pouvoir:'pourr', vouloir:'voudr', venir:'viendr', savoir:'saur',
+  devoir:'devr', voir:'verr', venir:'viendr', tenir:'tiendr',
+  envoyer:'enverr', courir:'courr', mourir:'mourr',
+};
+
+// Regular infinitives pool (all from previous lessons + new vocab)
+const REG_VERBS = [
+  // -ER previous lessons
+  'parler','manger','travailler','étudier','écouter','regarder',
+  'chanter','danser','voyager','cuisiner','chercher','inviter','porter',
+  'oublier','entrer','téléphoner','expliquer','rêver','trouver','dessiner',
+  // New env vocab
+  'protéger','recycler','économiser','polluer','s\'adapter','développer',
+  'préserver','innover','réchauffer',
+  // -IR previous lessons
+  'finir','choisir','réussir','réfléchir','grandir','remplir','bâtir',
+  'saisir','établir','agir','réagir','applaudir','guérir','mûrir',
+  // -RE (irregular but treated semi-regular for FS)
+  'réduire','disparaître','survivre',
+];
+
+// True irregular verbs
+const IRR_VERBS = Object.keys(IRR_STEMS);
+
+// Special forms for -re verbs: drop final e
+const RE_STEMS = {
+  réduire:'réduir', disparaître:'disparaîtr', survivre:'survivr',
+  prendre:'prendr', vendre:'vendr', attendre:'attendr', entendre:'entendr',
+  répondre:'répondr', descendre:'descendr',
+};
+
+function getStem(verb) {
+  if (IRR_STEMS[verb]) return IRR_STEMS[verb];
+  if (RE_STEMS[verb])  return RE_STEMS[verb];
+  // -er: keep infinitive as stem (parler → parler + ai = parlerai) ✓
+  // -ir: keep infinitive (finir → finir + ai = finirai) ✓
+  return verb;
+}
+
+function conjugateFS(verb, pron) {
+  const stem = getStem(verb);
+  return stem + ENDS[pron];
+}
+
+// ================================================================
+// SENTENCE DATA
+// ================================================================
+
+// Context phrases per verb and level
+const CTX = {
+  parler:     {A1:'français',              A2:'avec mes amis demain',                B1:'de ce sujet en conférence',           B2:'couramment dans deux ans'},
+  manger:     {A1:'une pizza',             A2:'au restaurant ce soir',               B1:'sainement pour être en forme',        B2:'selon un régime méditerranéen strict'},
+  travailler: {A1:'demain',                A2:'à l\'étranger un jour',               B1:'en équipe sur ce projet important',   B2:'à distance pour une entreprise internationale'},
+  étudier:    {A1:'ce soir',               A2:'le français encore plus',             B1:'l\'architecture à l\'université',     B2:'les politiques climatiques à Sciences Po'},
+  voyager:    {A1:'en été',                A2:'au Japon l\'année prochaine',          B1:'à travers toute l\'Europe',           B2:'seul(e) sur plusieurs continents'},
+  chanter:    {A1:'bien',                  A2:'sur scène un jour',                   B1:'dans un grand concert en juin',       B2:'devant des milliers de spectateurs'},
+  cuisiner:   {A1:'ce soir',               A2:'un bon repas pour la famille',        B1:'des plats du monde entier',           B2:'avec des ingrédients locaux et de saison'},
+  chercher:   {A1:'un emploi',             A2:'une solution ensemble',               B1:'des réponses pendant des années',     B2:'des alternatives durables au modèle actuel'},
+  inviter:    {A1:'des amis',              A2:'tout le monde à la fête',             B1:'des experts pour ce colloque',        B2:'les parties prenantes à une table de négociation'},
+  finir:      {A1:'vite',                  A2:'mes études en juin',                  B1:'ce projet avant la date limite',      B2:'ses recherches doctorales dans trois ans'},
+  choisir:    {A1:'bien',                  A2:'une bonne université',                B1:'entre plusieurs offres intéressantes',B2:'une trajectoire professionnelle en accord avec ses valeurs'},
+  réussir:    {A1:'l\'examen',             A2:'à atteindre mon objectif',            B1:'à surmonter ces défis techniques',   B2:'là où beaucoup ont échoué avant lui'},
+  agir:       {A1:'vite',                  A2:'pour protéger l\'environnement',      B1:'de façon coordonnée à l\'échelle mondiale',B2:'en conformité avec les accords internationaux'},
+  guérir:     {A1:'bientôt',              A2:'de cette maladie heureusement',        B1:'grâce aux nouveaux traitements',      B2:'plus rapidement avec cette nouvelle thérapie'},
+  protéger:   {A1:'la nature',             A2:'les espèces en danger',               B1:'la biodiversité pour les générations futures',B2:'les écosystèmes fragiles face au dérèglement climatique'},
+  recycler:   {A1:'mes déchets',           A2:'davantage à l\'avenir',               B1:'tous les matériaux disponibles',      B2:'les ressources rares pour réduire notre empreinte carbone'},
+  économiser: {A1:'de l\'énergie',         A2:'beaucoup d\'argent à long terme',     B1:'les ressources naturelles essentielles',B2:'l\'eau et l\'électricité grâce à des technologies intelligentes'},
+  polluer:    {A1:'moins',                 A2:'moins grâce à ces nouvelles lois',    B1:'si on n\'agit pas immédiatement',     B2:'davantage si les industries ne changent pas'},
+  's\'adapter':{A1:'vite',                A2:'à ce nouveau environnement',           B1:'aux changements climatiques progressivement',B2:'grâce à une flexibilité institutionnelle accrue'},
+  développer: {A1:'ça',                   A2:'des technologies propres',             B1:'des solutions innovantes pour l\'avenir',B2:'un modèle économique bas-carbone viable'},
+  préserver:  {A1:'la forêt',             A2:'les ressources naturelles',            B1:'la biodiversité pour nos enfants',    B2:'les équilibres écologiques fragiles de la planète'},
+  innover:    {A1:'beaucoup',             A2:'dans le domaine de l\'énergie verte',  B1:'pour trouver des alternatives durables',B2:'afin de répondre aux défis environnementaux du siècle'},
+  réduire:    {A1:'les déchets',          A2:'notre consommation d\'énergie',        B1:'les émissions de CO2 de 50% d\'ici 2050',B2:'notre dépendance aux énergies fossiles progressivement'},
+  disparaître:{A1:'un jour',              A2:'si on ne fait rien',                   B1:'si les températures continuent d\'augmenter',B2:'des espèces entières sans intervention urgente'},
+  survivre:   {A1:'bien',                 A2:'grâce à l\'aide internationale',       B1:'aux effets du changement climatique',  B2:'en s\'adaptant à des conditions extrêmes'},
+  // Irregulars with rich contexts
+  être:       {A1:'content(e)',           A2:'en meilleure santé demain',            B1:'conscient(e) de l\'impact de mes choix',B2:'acteur/actrice du changement dans ma communauté'},
+  avoir:      {A1:'faim plus tard',       A2:'de meilleures habitudes bientôt',      B1:'accès à des énergies renouvelables',   B2:'l\'occasion de contribuer à la transition écologique'},
+  aller:      {A1:'bien demain',          A2:'à l\'école à vélo désormais',          B1:'vers un modèle de développement durable',B2:'au-devant de défis sans précédent dans l\'histoire'},
+  faire:      {A1:'du sport',             A2:'attention à ma consommation',          B1:'les bons choix pour la planète',       B2:'preuve d\'une responsabilité collective accrue'},
+  pouvoir:    {A1:'aider',                A2:'changer les choses si on veut',        B1:'contribuer à la réduction des émissions',B2:'influencer positivement les politiques environnementales'},
+  vouloir:    {A1:'changer',              A2:'vivre différemment à l\'avenir',       B1:'préserver la planète pour nos enfants', B2:'transformer en profondeur nos modes de consommation'},
+  venir:      {A1:'demain',               A2:'à la conférence sur le climat',        B1:'présenter nos résultats à la réunion', B2:'en aide aux populations victimes du dérèglement climatique'},
+  savoir:     {A1:'la réponse',           A2:'quoi faire face à cette crise',        B1:'comment agir de façon durable',        B2:'exactement quelle politique adopter pour réussir'},
+  voir:       {A1:'les résultats',        A2:'les changements dans dix ans',         B1:'l\'impact réel de ces mesures bientôt','B2':'la différence si nous agissons tous ensemble maintenant'},
+  devoir:     {A1:'faire mieux',          A2:'recycler davantage à l\'avenir',       B1:'repenser notre rapport aux ressources', B2:'assumer collectivement la responsabilité de nos actes'},
+};
+
+// English contexts for translation
+const EN_CTX = {
+  parler:     {A1:'French',               A2:'with my friends tomorrow',             B1:'about this topic at the conference',    B2:'three languages fluently in two years'},
+  manger:     {A1:'a pizza',              A2:'at the restaurant tonight',             B1:'healthily to stay in shape',            B2:'according to a strict Mediterranean diet'},
+  travailler: {A1:'tomorrow',             A2:'abroad one day',                        B1:'as a team on this important project',   B2:'remotely for an international company'},
+  étudier:    {A1:'tonight',              A2:'French even more',                      B1:'architecture at university',            B2:'climate policies at Sciences Po'},
+  voyager:    {A1:'in summer',            A2:'to Japan next year',                    B1:'across all of Europe',                  B2:'alone across multiple continents'},
+  finir:      {A1:'quickly',              A2:'my studies in June',                    B1:'this project before the deadline',      B2:'doctoral research in three years'},
+  choisir:    {A1:'well',                 A2:'a good university',                     B1:'between several interesting offers',    B2:'a career path aligned with personal values'},
+  réussir:    {A1:'the exam',             A2:'to reach my goal',                      B1:'to overcome these technical challenges',B2:'where many failed before'},
+  agir:       {A1:'fast',                 A2:'to protect the environment',            B1:'in a coordinated global manner',        B2:'in line with international agreements'},
+  protéger:   {A1:'nature',               A2:'endangered species',                    B1:'biodiversity for future generations',   B2:'fragile ecosystems against climate change'},
+  recycler:   {A1:'waste',                A2:'more in the future',                    B1:'all available materials',               B2:'rare resources to reduce carbon footprint'},
+  économiser: {A1:'energy',               A2:'a lot of money long-term',              B1:'essential natural resources',           B2:'water and electricity with smart tech'},
+  polluer:    {A1:'less',                 A2:'less thanks to these new laws',         B1:'more if we don\'t act immediately',     B2:'more if industries don\'t change'},
+  's\'adapter':{A1:'quickly',             A2:'to this new environment',              B1:'to climate change progressively',       B2:'through increased institutional flexibility'},
+  développer: {A1:'that',                 A2:'clean technologies',                    B1:'innovative solutions for the future',   B2:'a viable low-carbon economic model'},
+  préserver:  {A1:'the forest',           A2:'natural resources',                     B1:'biodiversity for our children',         B2:'the planet\'s fragile ecological balances'},
+  innover:    {A1:'a lot',                A2:'in the field of green energy',          B1:'to find sustainable alternatives',      B2:'to meet 21st-century environmental challenges'},
+  réduire:    {A1:'waste',                A2:'our energy consumption',                B1:'CO2 emissions by 50% by 2050',          B2:'dependence on fossil fuels progressively'},
+  disparaître:{A1:'one day',              A2:'if we do nothing',                      B1:'if temperatures keep rising',           B2:'entire species without urgent action'},
+  survivre:   {A1:'well',                 A2:'with international aid',                B1:'the effects of climate change',         B2:'by adapting to extreme conditions'},
+  être:       {A1:'happy',                A2:'in better health tomorrow',             B1:'aware of the impact of my choices',     B2:'an agent of change in my community'},
+  avoir:      {A1:'hungry later',         A2:'better habits soon',                    B1:'access to renewable energy',            B2:'the chance to contribute to ecological transition'},
+  aller:      {A1:'well tomorrow',        A2:'to school by bike from now on',         B1:'towards a sustainable development model',B2:'face unprecedented challenges in history'},
+  faire:      {A1:'sport',                A2:'pay attention to my consumption',       B1:'the right choices for the planet',      B2:'show increased collective responsibility'},
+  pouvoir:    {A1:'help',                 A2:'change things if we want',              B1:'contribute to emissions reduction',     B2:'positively influence environmental policies'},
+  vouloir:    {A1:'change',               A2:'live differently in the future',        B1:'preserve the planet for our children',  B2:'deeply transform our consumption habits'},
+  venir:      {A1:'tomorrow',             A2:'to the climate conference',             B1:'present results at the meeting',        B2:'to the aid of climate-affected populations'},
+  savoir:     {A1:'the answer',           A2:'what to do about this crisis',          B1:'how to act sustainably',                B2:'exactly what policy to adopt to succeed'},
+  voir:       {A1:'the results',          A2:'the changes in ten years',              B1:'the real impact of these measures',     B2:'the difference if we all act together'},
+  devoir:     {A1:'do better',            A2:'recycle more in the future',            B1:'rethink our relationship to resources', B2:'collectively assume responsibility for our actions'},
+  guérir:     {A1:'soon',                 A2:'from this illness fortunately',         B1:'thanks to new treatments',              B2:'faster with this new therapy'},
+  chanter:    {A1:'well',                 A2:'on stage one day',                      B1:'at a big concert in June',              B2:'before thousands of spectators'},
+  cuisiner:   {A1:'tonight',              A2:'a nice meal for the family',            B1:'dishes from around the world',          B2:'with local seasonal ingredients'},
+};
+
+const PRON_DISPLAY = {
+  je:'Je', tu:'Tu', il:'Il', elle:'Elle', on:'On',
+  nous:'Nous', vous:'Vous', ils:'Ils', elles:'Elles'
+};
+const EN_PRONS = { je:'I', tu:'You', il:'He', elle:'She', on:'One', nous:'We', vous:'You', ils:'They', elles:'They' };
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel = 'A2';
+let exFilter     = 'tous';
+let exercises    = [];
+let answered     = 0;
+let correct      = 0;
+
+function setLevel(lv, btn) {
+  currentLevel = lv;
+  document.querySelectorAll('.level-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function setFilter(f, btn) {
+  exFilter = f;
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises() {
+  resetAll(false);
+  const container = document.getElementById('exercisesContainer');
+  container.innerHTML = '';
+  exercises = [];
+
+  const pronouns = ['je','tu','il','elle','nous','vous','ils','elles'];
+  const numEx = currentLevel === 'A1' ? 8 : currentLevel === 'A2' ? 10 : 12;
+
+  // Determine verb pool
+  let verbPool;
+  if (exFilter === 'irregulier') {
+    verbPool = IRR_VERBS.filter(v => CTX[v]);
+  } else if (exFilter === 'regulier') {
+    verbPool = REG_VERBS.filter(v => CTX[v]);
+  } else {
+    verbPool = [...REG_VERBS, ...IRR_VERBS].filter(v => CTX[v]);
+  }
+
+  // Determine exercise types
+  let typePool;
+  if      (exFilter === 'negatif')    typePool = ['negatif'];
+  else if (exFilter === 'traduction') typePool = ['traduction'];
+  else if (exFilter === 'irregulier') typePool = ['input','mcq','input','traduction'];
+  else                                typePool = ['input','mcq','input','negatif','traduction','input'];
+
+  const usedCombos = new Set();
+  const picked = [];
+  let tries = 0;
+  while (picked.length < numEx && tries < 200) {
+    tries++;
+    const verb = verbPool[Math.floor(Math.random() * verbPool.length)];
+    const pron = pronouns[Math.floor(Math.random() * pronouns.length)];
+    const ctx  = CTX[verb] && (CTX[verb][currentLevel] || CTX[verb]['A2']);
+    if (!ctx) continue;
+    const key = verb + pron;
+    if (usedCombos.has(key)) continue;
+    usedCombos.add(key);
+    picked.push({ verb, pron });
+  }
+
+  const types = [];
+  for (let i = 0; i < picked.length; i++) types.push(typePool[i % typePool.length]);
+  shuffle(types);
+
+  picked.forEach(({ verb, pron }, i) => {
+    const type = types[i];
+    const isIrr = !!IRR_STEMS[verb];
+    if      (type === 'input')      renderInput(container, i, verb, pron, isIrr);
+    else if (type === 'mcq')        renderMCQ(container, i, verb, pron, isIrr);
+    else if (type === 'negatif')    renderNegatif(container, i, verb, pron, isIrr);
+    else                            renderTraduction(container, i, verb, pron, isIrr);
+  });
+
+  updateProgress();
+}
+
+// ================================================================
+// RENDER HELPERS
+// ================================================================
+function getCtx(verb, level)   { const c = CTX[verb];    return (c && c[level]) || (c && c['A2']) || ''; }
+function getEnCtx(verb, level) { const c = EN_CTX[verb]; return (c && c[level]) || (c && c['A2']) || verb; }
+function esc(s) { return s.replace(/'/g,"\\'"); }
+function normalise(s) {
+  return s.toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/\s+/g,' ');
+}
+
+function stemBadge(verb, pron) {
+  const isIrr = !!IRR_STEMS[verb];
+  if (!isIrr && currentLevel !== 'B1' && currentLevel !== 'B2') return '';
+  const stem = getStem(verb);
+  const ending = ENDS[pron];
+  if (isIrr) {
+    return `<div class="stem-badge-card"><span class="sb-label">STEM IRR.</span><span class="sb-stem">${stem}</span><span style="color:var(--text3);padding:0 4px">+</span><span class="sb-end">-${ending}</span><span style="color:var(--text3);padding:0 4px">→</span><span style="font-family:'DM Serif Display',serif;color:var(--blue2)">${stem+ending}</span></div>`;
+  }
+  return `<div class="stem-badge-card"><span class="sb-label">STEM</span><span class="sb-stem">${stem}</span><span style="color:var(--text3);padding:0 4px">+</span><span class="sb-end">-${ending}</span></div>`;
+}
+
+function wrongForms(verb, pron, correct) {
+  const pool = new Set();
+  // same verb other pronouns
+  for (const p of ['je','tu','il','nous','vous','ils']) {
+    const f = conjugateFS(verb, p);
+    if (f !== correct) pool.add(f);
+  }
+  // other verbs same pronoun
+  const others = shuffle([...REG_VERBS, ...IRR_VERBS].filter(v => v !== verb)).slice(0, 6);
+  for (const v of others) pool.add(conjugateFS(v, pron));
+  return shuffle([...pool].filter(f => f !== correct)).slice(0, 3);
+}
+
+// ================================================================
+// RENDER FUNCTIONS
+// ================================================================
+
+function renderInput(container, idx, verb, pron, isIrr) {
+  const answer = conjugateFS(verb, pron);
+  const ctx    = getCtx(verb, currentLevel);
+  const sub    = PRON_DISPLAY[pron];
+  exercises.push({ id:idx, answer:normalise(answer), answered:false, correct:false });
+
+  const cardClass = isIrr ? 'exercise-card irr-card' : 'exercise-card';
+  const typeLabel = isIrr ? '<span class="card-type irregulier">VERBE IRRÉGULIER</span>' : '<span class="card-type conjugaison">FUTUR SIMPLE</span>';
+  const elide = pron === 'je' && /^[aeiouéèàâê]/i.test(answer);
+  const subDisplay = elide ? "J'" : sub;
+
+  const card = document.createElement('div');
+  card.className = cardClass; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px">${typeLabel}</div>
+    ${stemBadge(verb, pron)}
+    <div class="hint-text">CONJUGUEZ « ${verb.toUpperCase()} » AU FUTUR SIMPLE</div>
+    <div class="sentence-display">
+      ${subDisplay} <span class="blank-wrapper"><input class="answer-input inline" id="input-${idx}"
+        placeholder="..." autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"></span> ${ctx}.
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderMCQ(container, idx, verb, pron, isIrr) {
+  const answer = conjugateFS(verb, pron);
+  const ctx    = getCtx(verb, currentLevel);
+  const sub    = PRON_DISPLAY[pron];
+  const wrongs = wrongForms(verb, pron, answer);
+  const choices = shuffle([answer, ...wrongs]).map(c =>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({ id:idx, answer:normalise(answer), answered:false, correct:false });
+
+  const cardClass = isIrr ? 'exercise-card irr-card' : 'exercise-card';
+  const card = document.createElement('div');
+  card.className = cardClass; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type choix">CHOIX MULTIPLE</span></div>
+    ${stemBadge(verb, pron)}
+    <div class="hint-text">QUELLE FORME DU FUTUR SIMPLE DE « ${verb.toUpperCase()} » ?</div>
+    <div class="sentence-display">${sub} ___ ${ctx}.</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderNegatif(container, idx, verb, pron, isIrr) {
+  const form   = conjugateFS(verb, pron);
+  const ctx    = getCtx(verb, currentLevel);
+  const sub    = PRON_DISPLAY[pron];
+  const ne     = /^[aeiouéèàâê]/i.test(form) ? "n'" : 'ne ';
+  const answer = `${ne}${form} pas`;
+  exercises.push({ id:idx, answer:normalise(answer), answered:false, correct:false });
+
+  const cardClass = isIrr ? 'exercise-card irr-card' : 'exercise-card';
+  const card = document.createElement('div');
+  card.className = cardClass; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type negatif">FORME NÉGATIVE</span></div>
+    ${stemBadge(verb, pron)}
+    <div class="hint-text">METTEZ AU NÉGATIF — NE/N' + VERBE + PAS</div>
+    <div class="sentence-display">
+      ${sub} <input class="answer-input inline" id="input-${idx}" placeholder="ne ferai pas..." style="width:220px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"> ${ctx}.
+    </div>
+    <div class="hint-text" style="margin-top:4px">Rappel : ne/n' + [forme] + pas (ex : « ne parlera pas »)</div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderTraduction(container, idx, verb, pron, isIrr) {
+  const answer = conjugateFS(verb, pron);
+  const ctx    = getEnCtx(verb, currentLevel);
+  const ep     = EN_PRONS[pron] || 'I';
+  const sub    = PRON_DISPLAY[pron];
+  exercises.push({ id:idx, answer:normalise(answer), answered:false, correct:false });
+
+  const cardClass = isIrr ? 'exercise-card irr-card' : 'exercise-card';
+  const card = document.createElement('div');
+  card.className = cardClass; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type traduction">TRADUCTION</span></div>
+    ${stemBadge(verb, pron)}
+    <div class="hint-text">TRADUISEZ — FUTUR SIMPLE DE « ${verb.toUpperCase()} »</div>
+    <div class="sentence-display" style="color:var(--gold)">${ep} will ${verb} — <em>${ctx}</em></div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--text2)">${sub}</span>
+      <input class="answer-input" id="input-${idx}" placeholder="forme au futur..." style="width:220px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK LOGIC
+// ================================================================
+function checkInput(idx, answer) {
+  const ex = exercises.find(e => e.id === idx);
+  if (!ex || ex.answered) return;
+  const input = document.getElementById(`input-${idx}`);
+  const isOk  = normalise(input.value) === normalise(answer);
+  input.disabled = true;
+  input.classList.add(isOk ? 'correct' : 'incorrect');
+  document.getElementById(`card-${idx}`).querySelectorAll('.check-btn').forEach(b => b.disabled = true);
+  showFeedback(idx, isOk, answer);
+  markAnswered(idx, isOk);
+}
+
+function checkMCQ(idx, chosen, answer, btn) {
+  const ex = exercises.find(e => e.id === idx);
+  if (!ex || ex.answered) return;
+  const isOk = normalise(chosen) === normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b => {
+    b.classList.add('disabled');
+    if (normalise(b.textContent.trim()) === normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled');
+  btn.classList.add(isOk ? 'selected-correct' : 'selected-wrong');
+  showFeedback(idx, isOk, answer);
+  markAnswered(idx, isOk);
+}
+
+function showFeedback(idx, isOk, answer) {
+  const fb   = document.getElementById(`feedback-${idx}`);
+  const icon = fb.querySelector('.feedback-icon');
+  const msg  = fb.querySelector('.feedback-msg');
+  const bravos = ['Parfait !','Excellent !','Très bien !','Bravo !','Super !','C\'est ça !'];
+  if (isOk) {
+    fb.className = 'feedback success show';
+    icon.textContent = '✓';
+    msg.innerHTML = `<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`;
+  } else {
+    fb.className = 'feedback error show';
+    icon.textContent = '✗';
+    msg.innerHTML = `Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+  }
+}
+
+function markAnswered(idx, isOk) {
+  const ex = exercises.find(e => e.id === idx);
+  if (!ex) return;
+  ex.answered = true; ex.correct = isOk;
+  answered++; if (isOk) correct++;
+  document.getElementById(`card-${idx}`).classList.add('active-card');
+  updateProgress();
+  if (answered === exercises.length && exercises.length > 0) setTimeout(showScore, 700);
+}
+
+function updateProgress() {
+  const total = exercises.length;
+  document.getElementById('scoreDisplay').textContent = `${correct} / ${total}`;
+  document.getElementById('progressFill').style.width = total > 0 ? (answered/total*100)+'%' : '0%';
+}
+
+function showScore() {
+  const total = exercises.length;
+  const pct   = total > 0 ? Math.round(correct/total*100) : 0;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent   = total - correct;
+  document.getElementById('totalCount').textContent   = total;
+  let emoji,title,sub;
+  if      (pct>=90){emoji='🏆';title='PARFAIT !';   sub='Maîtrise parfaite du futur simple !';}
+  else if (pct>=70){emoji='🎉';title='BRAVO !';     sub='Excellent travail — les stems irréguliers vous connaissez !';}
+  else if (pct>=50){emoji='💪';title='BIEN !';      sub='Bon effort — révisez les stems irréguliers : ser-, aur-, ir-, fer-...';}
+  else             {emoji='📚';title='CONTINUEZ !'; sub='Rappel : infinitif + -ai, -as, -a, -ons, -ez, -ont';}
+  document.getElementById('scoreEmoji').textContent    = emoji;
+  document.getElementById('scoreTitle').textContent    = title;
+  document.getElementById('scoreSubtitle').textContent = sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+
+function closePopup() { document.getElementById('scorePopup').classList.remove('show'); }
+
+function resetAll(clear = true) {
+  exercises = []; answered = 0; correct = 0;
+  if (clear) { document.getElementById('exercisesContainer').innerHTML = ''; updateProgress(); }
+}
+
+// vocab toggle
+document.getElementById('vocabToggle').addEventListener('click', function(){
+  const w = document.getElementById('vocabWrap');
+  const open = w.classList.toggle('open');
+  this.classList.toggle('open', open);
+});
+
+window.addEventListener('load', () => { setTimeout(generateExercises, 400); });
+</script>
+</body>
+</html>

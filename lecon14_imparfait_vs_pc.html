@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 14 — Imparfait vs Passé Composé</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --cyan:#00f5ff; --violet:#b44fff; --gold:#ffd166; --green:#06d6a0; --red:#ff4757;
+    --coral:#ff6b47; --coral2:#ff8a6e; --coral3:#ffc4b4;
+    --lav:#a78bfa;
+    --accent:#ff6b47;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  /* ── GRID ── */
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(255,107,71,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,71,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(167,139,250,0.01) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,0.01) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  /* ── HALOS ── */
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:680px; height:680px; top:-230px; right:-170px; background:rgba(255,107,71,0.09); }
+  .h2{ width:580px; height:580px; bottom:-200px; left:-150px; background:rgba(167,139,250,0.07); }
+  .h3{ width:300px; height:300px; top:48%; left:15%; background:rgba(0,245,255,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.05; }
+  .al1{ width:1px; height:78vh; top:10vh; left:14%; background:linear-gradient(to bottom,transparent,var(--coral),transparent); transform:rotate(-8deg); }
+  .al2{ width:1px; height:55vh; top:24vh; right:13%; background:linear-gradient(to bottom,transparent,var(--lav),transparent); transform:rotate(10deg); }
+
+  .bg-mark{ position:fixed; left:-50px; bottom:8%; opacity:0.02; font-family:'Bebas Neue',sans-serif;
+    font-size:220px; color:var(--coral); transform:rotate(-8deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  /* ── LAYOUT ── */
+  .wrapper{ position:relative; z-index:1; max-width:980px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--coral);
+    border:1px solid rgba(255,107,71,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(255,107,71,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--coral); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(38px,6.5vw,74px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--coral) 44%,var(--lav) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle { font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  /* ── CONTRAST TABLE ── */
+  .contrast-section{ margin-bottom:28px; }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  .contrast-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:600px){ .contrast-grid{ grid-template-columns:1fr; } }
+
+  .contrast-col{ border-radius:12px; overflow:hidden; border:1px solid; }
+  .contrast-col.imp{ border-color:rgba(167,139,250,0.3); }
+  .contrast-col.pc { border-color:rgba(255,107,71,0.3); }
+
+  .cc-header{ padding:13px 18px; font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; }
+  .cc-header.imp{ background:rgba(167,139,250,0.08); color:var(--lav); border-bottom:1px solid rgba(167,139,250,0.2); }
+  .cc-header.pc { background:rgba(255,107,71,0.08);  color:var(--coral); border-bottom:1px solid rgba(255,107,71,0.2); }
+
+  .cc-body{ background:var(--card); padding:12px 0; }
+  .cc-row{ padding:8px 18px; display:flex; align-items:flex-start; gap:10px; border-bottom:1px solid rgba(30,45,74,0.4); font-size:13px; }
+  .cc-row:last-child{ border-bottom:none; }
+  .cc-icon{ font-size:14px; flex-shrink:0; margin-top:1px; }
+  .cc-text .cc-rule{ font-weight:500; color:var(--text); margin-bottom:3px; }
+  .cc-text .cc-ex  { font-family:'DM Serif Display',serif; font-size:13px; font-style:italic; color:var(--text3); }
+
+  /* ── SIGNAL WORDS ── */
+  .signal-section{ margin-bottom:28px; }
+  .signal-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:560px){ .signal-grid{ grid-template-columns:1fr; } }
+
+  .signal-col{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .signal-col-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; margin-bottom:10px; }
+  .signal-col-title.imp{ color:var(--lav); }
+  .signal-col-title.pc { color:var(--coral); }
+  .signal-words{ display:flex; flex-wrap:wrap; gap:7px; }
+  .sw{ font-family:'DM Serif Display',serif; font-size:14px; padding:4px 12px;
+    border-radius:4px; border:1px solid; }
+  .sw.imp{ color:var(--lav);   border-color:rgba(167,139,250,0.3); background:rgba(167,139,250,0.06); }
+  .sw.pc { color:var(--coral); border-color:rgba(255,107,71,0.3);  background:rgba(255,107,71,0.06); }
+
+  /* ── SCENARIO CARD (narrative example) ── */
+  .scenario-section{ margin-bottom:28px; }
+  .scenario-card{ background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px 24px; }
+  .sc-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:14px; }
+  .sc-text{ font-family:'DM Serif Display',serif; font-size:16px; line-height:1.9; color:var(--text); }
+  .sc-text .imp-word{ color:var(--lav); }
+  .sc-text .pc-word { color:var(--coral); }
+  .sc-legend{ display:flex; gap:18px; margin-top:12px; font-size:12px; }
+  .sc-leg-item{ display:flex; align-items:center; gap:6px; }
+  .sc-dot{ width:8px; height:8px; border-radius:50%; }
+  .sc-dot.imp{ background:var(--lav); }
+  .sc-dot.pc { background:var(--coral); }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--coral); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.4s; }
+  .vocab-wrap.open{ max-height:700px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 18px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:10px 18px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13.5px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(255,107,71,0.02); }
+  .vfr{ color:var(--text); font-family:'DM Serif Display',serif; font-size:15px; }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vcat.imp{ color:var(--lav); }
+  .vcat.pc { color:var(--coral); }
+  .vcat.both{ color:var(--gold); }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover{ border-color:rgba(255,107,71,0.3); background:rgba(255,107,71,0.04); color:var(--coral2); }
+  .filter-pill.active{ border-color:rgba(255,107,71,0.4); background:rgba(255,107,71,0.07); color:var(--coral2); }
+  .filter-pill.imp-active{ border-color:rgba(167,139,250,0.4); background:rgba(167,139,250,0.07); color:var(--lav); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(0,245,255,0.12),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(255,107,71,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(167,139,250,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a2.active{ border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b1.active{ border-color:var(--coral); color:var(--coral); }
+  .level-pill.b2.active{ border-color:var(--lav);   color:var(--lav); }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--coral); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--coral),var(--lav)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(255,107,71,0.14),rgba(167,139,250,0.1));
+    border:1px solid rgba(255,107,71,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(255,107,71,0.25),rgba(167,139,250,0.18));
+    border-color:var(--coral); transform:translateY(-1px); box-shadow:0 8px 28px rgba(255,107,71,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; opacity:0; transition:opacity 0.3s; }
+  .exercise-card.type-imp::before{ background:linear-gradient(90deg,transparent,var(--lav),transparent); }
+  .exercise-card.type-pc ::before{ background:linear-gradient(90deg,transparent,var(--coral),transparent); }
+  .exercise-card.type-both::before{ background:linear-gradient(90deg,transparent,var(--lav),var(--coral),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ transform:translateY(-1px); }
+  .exercise-card.type-imp.active-card{ border-color:rgba(167,139,250,0.2); }
+  .exercise-card.type-pc.active-card { border-color:rgba(255,107,71,0.2); }
+  .exercise-card.type-both.active-card{ border-color:rgba(255,209,102,0.2); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* tense label badge on card */
+  .tense-badge{ display:inline-flex; align-items:center; gap:7px; border-radius:4px; padding:3px 10px; margin-bottom:10px; }
+  .tense-badge.imp{ background:rgba(167,139,250,0.08); border:1px solid rgba(167,139,250,0.25); }
+  .tense-badge.pc { background:rgba(255,107,71,0.08);  border:1px solid rgba(255,107,71,0.25); }
+  .tb-label{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; }
+  .tb-label.imp{ color:var(--lav); }
+  .tb-label.pc { color:var(--coral); }
+  .tb-verb{ font-family:'DM Serif Display',serif; font-size:14px; }
+  .tb-verb.imp{ color:var(--lav); }
+  .tb-verb.pc { color:var(--coral); }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.choix  { color:var(--gold);   border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.imp-tag{ color:var(--lav);    border:1px solid rgba(167,139,250,0.28); background:rgba(167,139,250,0.05); }
+  .card-type.pc-tag { color:var(--coral);  border:1px solid rgba(255,107,71,0.28);  background:rgba(255,107,71,0.05); }
+  .card-type.both   { color:var(--gold);   border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.trad   { color:var(--cyan);   border:1px solid rgba(0,245,255,0.28);   background:rgba(0,245,255,0.05); }
+  .card-type.narrative{ color:var(--gold); border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(16px,2.6vw,22px); line-height:1.75; margin-bottom:14px; color:var(--text); }
+  .sentence-display .imp-hl{ color:var(--lav); }
+  .sentence-display .pc-hl { color:var(--coral); }
+  .sentence-display .blank{ color:var(--text3); font-style:italic; }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; width:200px; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--coral); box-shadow:0 0 0 2px rgba(255,107,71,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled { opacity:.85; cursor:default; }
+  .answer-input.inline   { font-size:16px; padding:6px 11px; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:15px; padding:9px 18px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--coral); color:var(--text); background:rgba(255,107,71,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* narrative fill - dual blanks */
+  .narrative-sentence{ font-family:'DM Serif Display',serif; font-size:clamp(16px,2.5vw,21px); line-height:2; color:var(--text); }
+  .blank-input{ display:inline-block; }
+  .blank-input input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:5px 10px; border-radius:5px; outline:none;
+    width:170px; vertical-align:middle; transition:border-color 0.2s; }
+  .blank-input input:focus{ border-color:var(--coral); }
+  .blank-input input.correct  { border-color:var(--green); color:var(--green); }
+  .blank-input input.incorrect{ border-color:var(--red);   color:var(--red); animation:shake 0.3s; }
+  .blank-input input:disabled { opacity:.85; }
+  .blank-label{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; display:block; text-align:center; margin-top:1px; }
+  .blank-label.imp{ color:var(--lav); }
+  .blank-label.pc { color:var(--coral); }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(255,107,71,0.4);
+    background:rgba(255,107,71,0.06); color:var(--coral); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(255,107,71,0.16); border-color:var(--coral); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(255,107,71,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:500px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(255,107,71,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--coral); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); }
+  .score-stat-num.bad { color:var(--red); }
+  .score-stat-num.neutral{ color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(255,107,71,0.4);
+    background:rgba(255,107,71,0.08); color:var(--coral); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(255,107,71,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:32px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:16px; }
+    .contrast-grid{ grid-template-columns:1fr; }
+    .signal-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">IMP<br>VS<br>PC</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 14 · FRANÇAIS</div>
+    <h1>Imparfait vs<br>Passé Composé</h1>
+    <p class="subtitle">Je <span style="color:var(--lav)">lisais</span> quand il <span style="color:var(--coral)">est entré</span>.</p>
+    <p class="subtitle2">CONTRASTE DES TEMPS DU PASSÉ · B1 → B2</p>
+  </header>
+
+  <!-- CONTRAST TABLE -->
+  <div class="contrast-section">
+    <div class="section-title">✦ IMPARFAIT vs PASSÉ COMPOSÉ — RÔLES</div>
+    <div class="contrast-grid">
+      <div class="contrast-col imp">
+        <div class="cc-header imp">IMPARFAIT — FOND / CONTEXTE</div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-icon">🔁</span><div class="cc-text"><div class="cc-rule">Habitude passée</div><div class="cc-ex">Je <em>me levais</em> toujours tôt.</div></div></div>
+          <div class="cc-row"><span class="cc-icon">🌊</span><div class="cc-text"><div class="cc-rule">Action en cours (contexte)</div><div class="cc-ex">Il <em>pleuvait</em> quand je suis sorti.</div></div></div>
+          <div class="cc-row"><span class="cc-icon">🎨</span><div class="cc-text"><div class="cc-rule">Description / état</div><div class="cc-ex">La rue <em>était</em> calme et silencieuse.</div></div></div>
+          <div class="cc-row"><span class="cc-icon">💭</span><div class="cc-text"><div class="cc-rule">Pensées / émotions</div><div class="cc-ex">Je <em>savais</em> que c'était difficile.</div></div></div>
+        </div>
+      </div>
+      <div class="contrast-col pc">
+        <div class="cc-header pc">PASSÉ COMPOSÉ — ÉVÉNEMENTS</div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-icon">⚡</span><div class="cc-text"><div class="cc-rule">Action soudaine / unique</div><div class="cc-ex">Soudain, il <em>est entré</em> dans la pièce.</div></div></div>
+          <div class="cc-row"><span class="cc-icon">✅</span><div class="cc-text"><div class="cc-rule">Action terminée</div><div class="cc-ex">Hier, j'<em>ai fini</em> mon projet.</div></div></div>
+          <div class="cc-row"><span class="cc-icon">📅</span><div class="cc-text"><div class="cc-rule">Séquence d'actions</div><div class="cc-ex">Je <em>suis arrivé</em>, puis j'<em>ai mangé</em>.</div></div></div>
+          <div class="cc-row"><span class="cc-icon">🔔</span><div class="cc-text"><div class="cc-rule">Interruption d'une action</div><div class="cc-ex">Je dormais quand le téléphone <em>a sonné</em>.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNAL WORDS -->
+  <div class="signal-section">
+    <div class="section-title">✦ MARQUEURS TEMPORELS</div>
+    <div class="signal-grid">
+      <div class="signal-col">
+        <div class="signal-col-title imp">→ IMPARFAIT</div>
+        <div class="signal-words">
+          <span class="sw imp">toujours</span><span class="sw imp">souvent</span><span class="sw imp">d'habitude</span>
+          <span class="sw imp">tous les jours</span><span class="sw imp">chaque semaine</span><span class="sw imp">parfois</span>
+          <span class="sw imp">autrefois</span><span class="sw imp">quand j'étais enfant</span><span class="sw imp">à l'époque</span>
+          <span class="sw imp">en général</span><span class="sw imp">le dimanche</span>
+        </div>
+      </div>
+      <div class="signal-col">
+        <div class="signal-col-title pc">→ PASSÉ COMPOSÉ</div>
+        <div class="signal-words">
+          <span class="sw pc">hier</span><span class="sw pc">soudain</span><span class="sw pc">tout à coup</span>
+          <span class="sw pc">une fois</span><span class="sw pc">ce matin</span><span class="sw pc">la semaine dernière</span>
+          <span class="sw pc">d'abord... puis</span><span class="sw pc">ensuite</span><span class="sw pc">finalement</span>
+          <span class="sw pc">en 2020</span><span class="sw pc">une seule fois</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO EXAMPLE -->
+  <div class="scenario-section">
+    <div class="section-title">✦ EXEMPLE NARRATIF</div>
+    <div class="scenario-card">
+      <div class="sc-title">UN SOUVENIR D'ENFANCE</div>
+      <div class="sc-text">
+        Ce soir-là, je <span class="imp-word">lisais</span> tranquillement dans ma chambre. Il <span class="imp-word">faisait</span> froid et le vent <span class="imp-word">soufflait</span> dehors. Soudain, la porte <span class="pc-word">a claqué</span>. Je <span class="pc-word">me suis levé</span> et je <span class="pc-word">suis allé</span> voir. Ma mère <span class="imp-word">était</span> là, elle <span class="imp-word">avait</span> l'air inquiète. Elle <span class="pc-word">m'a dit</span> qu'elle <span class="pc-word">avait perdu</span> ses clés.
+      </div>
+      <div class="sc-legend">
+        <div class="sc-leg-item"><div class="sc-dot imp"></div><span style="font-size:12px;color:var(--lav)">Imparfait — décor, état, contexte</span></div>
+        <div class="sc-leg-item"><div class="sc-dot pc"></div><span style="font-size:12px;color:var(--coral)">Passé composé — événements, actions</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — ÉMOTIONS &amp; RÉACTIONS</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>FRANÇAIS</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>TEMPS NATUREL</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">ressentir</td><td class="ven">to feel (emotion)</td><td class="ves">sentir</td><td class="vcat imp">IMP souvent</td><td class="vex">Je ressentais une grande joie.</td></tr>
+          <tr><td class="vfr">réaliser</td><td class="ven">to realise</td><td class="ves">darse cuenta</td><td class="vcat pc">PC soudain</td><td class="vex">Soudain, j'ai réalisé mon erreur.</td></tr>
+          <tr><td class="vfr">éclater de rire</td><td class="ven">to burst out laughing</td><td class="ves">estallar a reír</td><td class="vcat pc">PC événement</td><td class="vex">Elle a éclaté de rire.</td></tr>
+          <tr><td class="vfr">se mettre à pleurer</td><td class="ven">to start crying</td><td class="ves">ponerse a llorar</td><td class="vcat pc">PC événement</td><td class="vex">Il s'est mis à pleurer.</td></tr>
+          <tr><td class="vfr">s'inquiéter</td><td class="ven">to worry</td><td class="ves">preocuparse</td><td class="vcat imp">IMP état</td><td class="vex">Elle s'inquiétait sans raison.</td></tr>
+          <tr><td class="vfr">se calmer</td><td class="ven">to calm down</td><td class="ves">calmarse</td><td class="vcat pc">PC événement</td><td class="vex">Il s'est calmé rapidement.</td></tr>
+          <tr><td class="vfr">avoir peur</td><td class="ven">to be afraid</td><td class="ves">tener miedo</td><td class="vcat imp">IMP état</td><td class="vex">J'avais peur du tonnerre.</td></tr>
+          <tr><td class="vfr">se souvenir</td><td class="ven">to remember</td><td class="ves">recordar</td><td class="vcat both">IMP/PC</td><td class="vex">Je me souvenais / je me suis souvenu.</td></tr>
+          <tr><td class="vfr">remarquer</td><td class="ven">to notice</td><td class="ves">notar</td><td class="vcat pc">PC soudain</td><td class="vex">J'ai remarqué quelque chose d'étrange.</td></tr>
+          <tr><td class="vfr">sembler</td><td class="ven">to seem</td><td class="ves">parecer</td><td class="vcat imp">IMP état</td><td class="vex">Tout semblait normal.</td></tr>
+          <tr><td class="vfr">hésiter</td><td class="ven">to hesitate</td><td class="ves">dudar</td><td class="vcat both">IMP/PC</td><td class="vex">J'hésitais / j'ai hésité un instant.</td></tr>
+          <tr><td class="vfr">éprouver</td><td class="ven">to experience / feel</td><td class="ves">experimentar</td><td class="vcat imp">IMP état</td><td class="vex">Il éprouvait une tristesse profonde.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">TYPE D'EXERCICE</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="choix"      onclick="setFilter('choix',this)">IMP OU PC ?</button>
+      <button class="filter-pill"        data-f="imp_only"   onclick="setFilter('imp_only',this)">IMPARFAIT SEUL</button>
+      <button class="filter-pill"        data-f="pc_only"    onclick="setFilter('pc_only',this)">PC SEUL</button>
+      <button class="filter-pill"        data-f="narrative"  onclick="setFilter('narrative',this)">NARRATION (2 TEMPS)</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a2" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1 active" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2" onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji"    id="scoreEmoji">🎉</div>
+    <div class="score-title"    id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle">Excellent !</div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good"    id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"     id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neutral" id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// CONJUGATION ENGINE — re-usable for both IMP and PC
+// ================================================================
+
+// IMPARFAIT
+const IMP_STEMS = {
+  être:'ét', avoir:'av', faire:'fais', aller:'all', venir:'ven', voir:'voy',
+  prendre:'pren', savoir:'sav', vouloir:'voul', pouvoir:'pouv', croire:'croy',
+  devoir:'dev', boire:'buv', lire:'lis', mettre:'mett', dire:'dis',
+  partir:'part', sortir:'sort', dormir:'dorm', rire:'ri', plaire:'plais',
+  // regular -er → remove -ons from nous
+  parler:'parl', manger:'mange', arriver:'arriv', rentrer:'rentr', rester:'rest',
+  regarder:'regard', écouter:'écout', travailler:'travaill', marcher:'march',
+  s\'inquiéter:'s\'inquiét', 's\'inquiéter':'s\'inquiét',
+  hésiter:'hésit', sembler:'sembl', éprouver:'éprouv', réaliser:'réalis',
+  remarquer:'remarqu',
+  'se calmer':'se calm', 'se souvenir':'se souven',
+  // -ir verbs
+  finir:'finiss', réussir:'réussiss', réfléchir:'réfléchiss',
+};
+const IMP_ENDS = { je:'ais', tu:'ais', il:'ait', elle:'ait', on:'ait', nous:'ions', vous:'iez', ils:'aient', elles:'aient' };
+
+// PASSÉ COMPOSÉ — avoir
+const PC_AV = {
+  je:"j'ai", tu:'tu as', il:'il a', elle:'elle a', on:'on a',
+  nous:'nous avons', vous:'vous avez', ils:'ils ont', elles:'elles ont'
+};
+const PC_AV_FORM = { je:'ai', tu:'as', il:'a', elle:'a', on:'a', nous:'avons', vous:'avez', ils:'ont', elles:'ont' };
+const PC_PP = {
+  parler:'parlé', manger:'mangé', arriver:'arrivé', rentrer:'rentré', rester:'resté',
+  regarder:'regardé', écouter:'écouté', travailler:'travaillé', marcher:'marché',
+  hésiter:'hésité', sembler:'semblé', éprouver:'éprouvé', réaliser:'réalisé',
+  remarquer:'remarqué',
+  finir:'fini', réussir:'réussi', réfléchir:'réfléchi',
+  faire:'fait', avoir:'eu', être:'été', voir:'vu', prendre:'pris',
+  savoir:'su', vouloir:'voulu', pouvoir:'pu', croire:'cru', devoir:'dû',
+  boire:'bu', lire:'lu', mettre:'mis', dire:'dit',
+  éclater:'éclaté', // éclater de rire
+  ressentir:'ressenti', 'se calmer':'calmé', 'se souvenir':'souvenu',
+};
+// verbs using être for PC
+const PC_ETRE_VERBS = new Set(['aller','venir','arriver','partir','entrer','sortir','monter','descendre',
+  'naître','mourir','rester','rentrer','retourner','passer','tomber','devenir','revenir',
+  'se calmer','se souvenir','se mettre à pleurer']);
+const PC_ETRE_FORM = { je:'suis', tu:'es', il:'est', elle:'est', on:'est', nous:'sommes', vous:'êtes', ils:'sont', elles:'sont' };
+
+function conjugateIMP(verb, pron) {
+  const stem = IMP_STEMS[verb] || verb.replace(/er$|ir$|re$/,'');
+  const end  = IMP_ENDS[pron] || 'ait';
+  if (verb.startsWith("s'") || verb.startsWith('se ')) {
+    const rp = reflPron(pron);
+    const plain = stem.replace(/^s[e']?\s*/,'');
+    if (pron==='je' && /^[aeiouéèàâê]/i.test(rp)) return `${rp}${plain}${end}`;
+    return `${rp} ${plain}${end}`;
+  }
+  const form = `${stem}${end}`;
+  if (pron==='je' && /^[aeiouéèàâê]/i.test(form)) return `j'${form}`;
+  return `${PRON_SH[pron]} ${form}`;
+}
+
+function conjugatePC(verb, pron) {
+  const useEtre = PC_ETRE_VERBS.has(verb);
+  const pp      = PC_PP[verb] || (verb.endsWith('er') ? verb.slice(0,-2)+'é' : verb.endsWith('ir') ? verb.slice(0,-1) : verb+'é');
+
+  if (verb.startsWith("s'") || verb.startsWith('se ')) {
+    const rp  = reflPron(pron);
+    const aux = PC_ETRE_FORM[pron] || 'est';
+    const plain = pp; // agreed form not tracked here — use masc base
+    if (pron==='je') return `je ${rp} ${aux} ${plain}`;
+    return `${PRON_SH[pron]} ${rp} ${aux} ${plain}`;
+  }
+
+  if (useEtre) {
+    const aux = PC_ETRE_FORM[pron] || 'est';
+    const sub = PRON_SH[pron];
+    if (pron==='je') return `je ${aux} ${pp}`;
+    return `${sub} ${aux} ${pp}`;
+  }
+
+  // avoir
+  const av = PC_AV_FORM[pron] || 'a';
+  const form = `${av} ${pp}`;
+  if (pron==='je' && /^[aeiouéèàâê]/i.test(av)) return `j'${form}`;
+  return `${PRON_SH[pron]} ${form}`;
+}
+
+function reflPron(pron) {
+  return { je:'me', tu:'te', il:'se', elle:'se', on:"s'", nous:'nous', vous:'vous', ils:'se', elles:'se' }[pron]||'se';
+}
+
+const PRON_SH = { je:'Je', tu:'Tu', il:'Il', elle:'Elle', on:'On', nous:'Nous', vous:'Vous', ils:'Ils', elles:'Elles' };
+const EN_PR   = { je:'I',  tu:'You',il:'He', elle:'She', on:'One',nous:'We',  vous:'You',  ils:'They',elles:'They' };
+
+// ================================================================
+// EXERCISE DATA
+// ================================================================
+
+// Each sentence has: fr context with {IMP} and/or {PC} blanks, tense type, verb, pron, optional pc_verb/pron
+const SENTENCES = [
+  // ── CHOIX (MCQ: IMP or PC?) ──────────────────────────────
+  { type:'choix', verb:'regarder',pron:'je',  tense:'imp',
+    A2:'la télévision tous les soirs quand j\'étais petit',
+    B1:'la télévision tous les soirs pendant des années',
+    B2:'la même émission chaque soir sans jamais me lasser',
+    signal:'toujours / tous les soirs' },
+  { type:'choix', verb:'finir',   pron:'je',  tense:'pc',
+    A2:'mes devoirs hier soir',
+    B1:'mon rapport hier après-midi',
+    B2:'mon analyse bien avant la date limite',
+    signal:'hier soir / hier' },
+  { type:'choix', verb:'pleuvoir',pron:'il',  tense:'imp',
+    A2:'quand je suis sorti ce matin',
+    B1:'quand l\'accident s\'est produit',
+    B2:'torrentiellement lorsque la cérémonie a commencé',
+    signal:'quand… (contexte)' },
+  { type:'choix', verb:'arriver', pron:'elle',tense:'pc',
+    A2:'soudain et a frappé à la porte',
+    B1:'tout à coup, l\'air épuisé',
+    B2:'à l\'improviste, sans prévenir personne',
+    signal:'soudain' },
+  { type:'choix', verb:'avoir',   pron:'nous',tense:'imp',
+    A2:'toujours faim après l\'école',
+    B1:'l\'habitude de dîner très tard',
+    B2:'l\'habitude de nous retrouver chaque vendredi',
+    signal:'toujours / l\'habitude de' },
+  { type:'choix', verb:'réaliser',pron:'je',  tense:'pc',
+    A2:'soudain que j\'avais oublié mes clés',
+    B1:'tout à coup que la situation était grave',
+    B2:'brusquement l\'ampleur de mon erreur',
+    signal:'soudain / tout à coup' },
+  { type:'choix', verb:'être',    pron:'il',  tense:'imp',
+    A2:'très fatigué ce jour-là',
+    B1:'tellement épuisé qu\'il ne pouvait plus parler',
+    B2:'dans un état de fatigue profonde et durable',
+    signal:'état / description' },
+  { type:'choix', verb:'éclater', pron:'elle',tense:'pc',
+    A2:'de rire quand elle a entendu la blague',
+    B1:'de rire au beau milieu de la réunion',
+    B2:'de rire sans pouvoir s\'arrêter',
+    signal:'tout à coup' },
+  { type:'choix', verb:'s\'inquiéter',pron:'elle',tense:'imp',
+    A2:'pour ses enfants quand ils rentraient tard',
+    B1:'souvent pour des choses qui ne méritaient pas',
+    B2:'constamment, même dans les situations banales',
+    signal:'souvent / constamment' },
+  { type:'choix', verb:'remarquer',pron:'il', tense:'pc',
+    A2:'quelque chose d\'étrange dans la pièce',
+    B1:'soudainement une anomalie dans les données',
+    B2:'d\'emblée un détail qui avait échappé à tous',
+    signal:'soudain / tout à coup' },
+
+  // ── NARRATIVE (fill both blanks: 1 IMP + 1 PC) ─────────────
+  { type:'narrative',
+    imp_verb:'dormir', imp_pron:'je', imp_stem:'dorm',
+    pc_verb:'sonner',  pc_pron:'il',
+    A2:'Je {IMP} profondément quand le téléphone {PC}.',
+    B1:'Je {IMP} encore lorsque mon réveil {PC} à six heures.',
+    B2:'Je {IMP} à poings fermés quand un bruit strident {PC} dans le couloir.',
+  },
+  { type:'narrative',
+    imp_verb:'lire',   imp_pron:'elle', imp_stem:'lis',
+    pc_verb:'éteindre', pc_pron:'elle',
+    A2:'Elle {IMP} son livre quand la lumière {PC} brusquement.',
+    B1:'Elle {IMP} tranquillement quand la lumière {PC} sans prévenir.',
+    B2:'Elle {IMP} depuis une heure quand quelqu\'un {PC} soudainement la lumière.',
+  },
+  { type:'narrative',
+    imp_verb:'marcher',imp_pron:'nous',imp_stem:'march',
+    pc_verb:'commencer',pc_pron:'il',
+    A2:'Nous {IMP} dans la rue quand il {PC} à pleuvoir.',
+    B1:'Nous {IMP} tranquillement quand l\'orage {PC} sans prévenir.',
+    B2:'Nous {IMP} le long du quai quand le tonnerre {PC} à gronder.',
+  },
+  { type:'narrative',
+    imp_verb:'avoir',  imp_pron:'je', imp_stem:'av',
+    pc_verb:'entrer',  pc_pron:'il',
+    A2:'J\' {IMP} peur quand il {PC} dans la pièce.',
+    B1:'J\' {IMP} peur sans raison quand il {PC} discrètement.',
+    B2:'J\' {IMP} une peur inexplicable quand il {PC} sans frapper.',
+  },
+  { type:'narrative',
+    imp_verb:'être',   imp_pron:'il', imp_stem:'ét',
+    pc_verb:'arriver', pc_pron:'elle',
+    A2:'Il {IMP} tard quand elle {PC} enfin.',
+    B1:'Il {IMP} presque minuit quand elle {PC} à la porte.',
+    B2:'Il {IMP} très tard et tout {IMP} silencieux quand elle {PC}.',
+  },
+  { type:'narrative',
+    imp_verb:'regarder',imp_pron:'ils',imp_stem:'regard',
+    pc_verb:'voir',   pc_pron:'ils',
+    A2:'Ils {IMP} par la fenêtre quand ils {PC} l\'accident.',
+    B1:'Ils {IMP} le ciel quand ils {PC} quelque chose d\'inhabituel.',
+    B2:'Ils {IMP} distraitement par la fenêtre quand ils {PC} la scène se dérouler.',
+  },
+
+  // ── IMP ONLY ─────────────────────────────────────────────────
+  { type:'imp_only', verb:'éprouver', pron:'elle',
+    A2:'une grande tristesse ce soir-là',
+    B1:'une profonde solitude dans ce grand appartement vide',
+    B2:'un sentiment de vide qu\'elle n\'arrivait pas à nommer',
+  },
+  { type:'imp_only', verb:'hésiter', pron:'je',
+    A2:'avant de répondre à sa question',
+    B1:'entre deux options qui semblaient équivalentes',
+    B2:'longuement avant d\'oser franchir le pas',
+  },
+  { type:'imp_only', verb:'savoir',  pron:'il',
+    A2:'que la situation était compliquée',
+    B1:'pertinemment que cette décision était risquée',
+    B2:'que rien ne serait plus jamais comme avant',
+  },
+  { type:'imp_only', verb:'ressentir',pron:'je',
+    A2:'de la joie en les voyant',
+    B1:'une joie intense que je ne pouvais pas cacher',
+    B2:'une émotion si forte qu\'elle en devenait presque doulourense',
+  },
+
+  // ── PC ONLY ──────────────────────────────────────────────────
+  { type:'pc_only', verb:'réaliser',pron:'je',
+    A2:'mon erreur trop tard',
+    B1:'soudainement l\'ampleur du problème',
+    B2:'que j\'avais tout mal compris depuis le début',
+  },
+  { type:'pc_only', verb:'remarquer',pron:'elle',
+    A2:'quelque chose d\'étrange',
+    B1:'immédiatement une anomalie dans le texte',
+    B2:'d\'emblée une incohérence que personne d\'autre n\'avait vue',
+  },
+  { type:'pc_only', verb:'éclater', pron:'ils',
+    A2:'de rire ensemble',
+    B1:'de rire au moment le plus inattendu',
+    B2:'de rire malgré la gravité de la situation',
+  },
+  { type:'pc_only', verb:'se calmer',pron:'il',
+    A2:'rapidement après l\'incident',
+    B1:'peu à peu grâce aux mots de son ami',
+    B2:'progressivement après avoir pris quelques respirations',
+  },
+
+  // ── TRADUCTION ───────────────────────────────────────────────
+  { type:'traduction', verb:'pleuvoir',pron:'il', tense:'imp',
+    en_A2:'It was raining when I left.',
+    en_B1:'It was raining heavily when the event started.',
+    en_B2:'It had been raining for hours when the ceremony finally began.',
+    fr_ctx_A2:'quand je suis parti',
+    fr_ctx_B1:'quand l\'événement a commencé',
+    fr_ctx_B2:'depuis des heures quand la cérémonie a commencé',
+  },
+  { type:'traduction', verb:'arriver',pron:'elle',tense:'pc',
+    en_A2:'She suddenly arrived.',
+    en_B1:'She arrived unexpectedly in the middle of the meeting.',
+    en_B2:'She arrived without warning, changing everything.',
+    fr_ctx_A2:'soudainement',
+    fr_ctx_B1:'de façon inattendue',
+    fr_ctx_B2:'sans prévenir',
+  },
+  { type:'traduction', verb:'éprouver',pron:'il', tense:'imp',
+    en_A2:'He was feeling a strong emotion.',
+    en_B1:'He was experiencing a deep sadness he couldn\'t explain.',
+    en_B2:'He was feeling a profound melancholy he had never known before.',
+    fr_ctx_A2:'une forte émotion',
+    fr_ctx_B1:'une profonde tristesse inexplicable',
+    fr_ctx_B2:'une mélancolie profonde qu\'il n\'avait jamais connue',
+  },
+  { type:'traduction', verb:'réaliser',pron:'je',tense:'pc',
+    en_A2:'I suddenly realised my mistake.',
+    en_B1:'I suddenly realised how serious the situation was.',
+    en_B2:'I abruptly realised that everything I believed was wrong.',
+    fr_ctx_A2:'mon erreur soudainement',
+    fr_ctx_B1:'soudainement la gravité de la situation',
+    fr_ctx_B2:'brusquement que tout ce que je croyais était faux',
+  },
+];
+
+// ================================================================
+// IMPARFAIT for narrative
+// ================================================================
+const IMP_ENDS_TABLE = { je:'ais',tu:'ais',il:'ait',elle:'ait',on:'ait',nous:'ions',vous:'iez',ils:'aient',elles:'aient' };
+
+function buildIMP(stem, pron) {
+  const end = IMP_ENDS_TABLE[pron]||'ait';
+  if (!stem) return '???';
+  const f = `${stem}${end}`;
+  if (pron==='je' && /^[aeiouéèàâê]/i.test(f)) return `j'${f}`;
+  return `${PRON_SH[pron]} ${f}`;
+}
+
+// PC bare form (without subject) for narrative blanks
+function buildPCBare(verb, pron) {
+  const useEtre = PC_ETRE_VERBS.has(verb);
+  const pp      = PC_PP[verb] || (verb.endsWith('er') ? verb.slice(0,-2)+'é' : verb+'é');
+  if (useEtre) {
+    return `${PC_ETRE_FORM[pron]||'est'} ${pp}`;
+  }
+  const av = PC_AV_FORM[pron]||'a';
+  return `${av} ${pp}`;
+}
+
+// IMP bare form (without subject)
+function buildIMPBare(stem, pron) {
+  const end = IMP_ENDS_TABLE[pron]||'ait';
+  return `${stem}${end}`;
+}
+
+// pleuvoir special
+function specialVerb(verb, pron, tense) {
+  if (verb==='pleuvoir' && tense==='imp') return 'pleuvait';
+  if (verb==='pleuvoir' && tense==='pc')  return 'a plu';
+  if (verb==='éteindre' && tense==='pc')  return PC_AV_FORM[pron]+' éteint';
+  if (verb==='commencer'&& tense==='pc')  return PC_AV_FORM[pron]+' commencé';
+  if (verb==='sonner'   && tense==='pc')  return PC_AV_FORM[pron]+' sonné';
+  return null;
+}
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel = 'B1';
+let exFilter     = 'tous';
+let exercises    = [];
+let answered     = 0;
+let correct      = 0;
+// narrative sub-exercises track per sentence
+const narrativeState = {};
+
+function setLevel(lv, btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f, btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx = currentLevel==='A2'?8:currentLevel==='B1'?10:12;
+
+  let pool;
+  if     (exFilter==='choix')      pool = SENTENCES.filter(s=>s.type==='choix');
+  else if(exFilter==='imp_only')   pool = SENTENCES.filter(s=>s.type==='imp_only');
+  else if(exFilter==='pc_only')    pool = SENTENCES.filter(s=>s.type==='pc_only');
+  else if(exFilter==='narrative')  pool = SENTENCES.filter(s=>s.type==='narrative');
+  else if(exFilter==='traduction') pool = SENTENCES.filter(s=>s.type==='traduction');
+  else pool = SENTENCES;
+
+  const picked = shuffle([...pool]).slice(0, numEx);
+
+  picked.forEach((s,i)=>{
+    if      (s.type==='choix')      renderChoix(container,i,s);
+    else if (s.type==='narrative')  renderNarrative(container,i,s);
+    else if (s.type==='imp_only')   renderSingleTense(container,i,s,'imp');
+    else if (s.type==='pc_only')    renderSingleTense(container,i,s,'pc');
+    else if (s.type==='traduction') renderTraduction(container,i,s);
+  });
+
+  updateProgress();
+}
+
+// ================================================================
+// HELPERS
+// ================================================================
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c').replace(/\s+/g,' ');
+}
+
+function getCtx(s, lv){ return s[lv] || s['B1'] || s['A2'] || ''; }
+
+// ================================================================
+// RENDER — CHOIX (MCQ: pick IMP or PC form)
+// ================================================================
+function renderChoix(container, idx, s){
+  const lv   = currentLevel;
+  const ctx  = getCtx(s,lv);
+  const correct_tense = s.tense;
+  const verb = s.verb;
+  const pron = s.pron;
+
+  // Build both tense options
+  let imp_form, pc_form;
+  if (verb==='pleuvoir') { imp_form='pleuvait'; pc_form='a plu'; }
+  else if (verb==='éclater') { imp_form=buildIMPBare(IMP_STEMS[verb]||'éclat',pron); pc_form=buildPCBare(verb,pron); }
+  else {
+    imp_form = buildIMPBare(IMP_STEMS[verb]||verb.replace(/er$|ir$/,''),pron);
+    pc_form  = buildPCBare(verb,pron);
+  }
+  const correct_form = correct_tense==='imp' ? imp_form : pc_form;
+  const wrong_form   = correct_tense==='imp' ? pc_form  : imp_form;
+
+  const choices = shuffle([
+    { form:correct_form, tense:correct_tense, label:correct_tense==='imp'?'Imparfait':'Passé Composé' },
+    { form:wrong_form,   tense:correct_tense==='imp'?'pc':'imp', label:correct_tense==='imp'?'Passé Composé':'Imparfait' }
+  ]);
+
+  exercises.push({id:idx, answer:normalise(correct_form), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card type-both`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type choix">IMPARFAIT OU PASSÉ COMPOSÉ ?</span></div>
+    ${s.signal ? `<div style="font-size:11px;color:var(--text3);margin-bottom:8px;font-style:italic">Indice : ${s.signal}</div>` : ''}
+    <div class="hint-text">CHOISISSEZ LA FORME CORRECTE DE « ${verb.toUpperCase()} »</div>
+    <div class="sentence-display"><span style="color:var(--text2)">${PRON_SH[pron]}</span> ___ ${ctx}.</div>
+    <div class="choices" id="choices-${idx}">
+      ${choices.map(c=>`
+        <button class="choice-btn" onclick="checkChoixMCQ(${idx},'${esc(c.form)}','${esc(correct_form)}','${c.tense}',this)">
+          <span style="font-size:11px;display:block;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;color:${c.tense==='imp'?'var(--lav)':'var(--coral)'};margin-bottom:2px">${c.label}</span>
+          ${c.form}
+        </button>`).join('')}
+    </div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// RENDER — NARRATIVE (2 blanks: IMP + PC)
+// ================================================================
+function renderNarrative(container, idx, s){
+  const lv  = currentLevel;
+  const tmpl= s[lv] || s['B1'] || s['A2'] || '';
+
+  // Build answers
+  const imp_bare = specialVerb(s.imp_verb, s.imp_pron,'imp') || buildIMPBare(s.imp_stem||IMP_STEMS[s.imp_verb]||'',s.imp_pron);
+  const pc_bare  = specialVerb(s.pc_verb,  s.pc_pron, 'pc')  || buildPCBare(s.pc_verb, s.pc_pron);
+
+  const imp_ans = normalise(imp_bare);
+  const pc_ans  = normalise(pc_bare);
+
+  // Register as 2 sub-exercises
+  exercises.push({id:`${idx}a`, answer:imp_ans, answered:false, correct:false, parent:idx});
+  exercises.push({id:`${idx}b`, answer:pc_ans,  answered:false, correct:false, parent:idx});
+  narrativeState[idx] = { a:false, b:false, aOk:false, bOk:false };
+
+  // Build sentence HTML: replace {IMP} and {PC}
+  const sentHTML = tmpl
+    .replace('{IMP}', `<span class="blank-input"><input id="inp-${idx}a" class="answer-input inline" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="imparfait" style="width:155px" onkeydown="if(event.key==='Enter')checkNarrative(${idx},'a','${esc(imp_bare)}')" ><span class="blank-label imp">IMPARFAIT</span></span>`)
+    .replace('{PC}',  `<span class="blank-input"><input id="inp-${idx}b" class="answer-input inline" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="passé composé" style="width:185px" onkeydown="if(event.key==='Enter')checkNarrative(${idx},'b','${esc(pc_bare)}')" ><span class="blank-label pc">PASSÉ COMPOSÉ</span></span>`);
+
+  const card=document.createElement('div');
+  card.className='exercise-card type-both'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type narrative">NARRATION — 2 TEMPS</span></div>
+    <div style="display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+      <div class="tense-badge imp"><span class="tb-label imp">IMPARFAIT</span><span class="tb-verb imp">${s.imp_verb}</span></div>
+      <div class="tense-badge pc"><span class="tb-label pc">PC</span><span class="tb-verb pc">${s.pc_verb}</span></div>
+    </div>
+    <div class="hint-text">COMPLÉTEZ AVEC L'IMPARFAIT ET LE PASSÉ COMPOSÉ</div>
+    <div class="narrative-sentence">${sentHTML}</div>
+    <button class="check-btn" id="check-${idx}" onclick="checkNarrativeBoth(${idx},'${esc(imp_bare)}','${esc(pc_bare)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// RENDER — SINGLE TENSE (IMP or PC fill-in)
+// ================================================================
+function renderSingleTense(container, idx, s, tense){
+  const lv   = currentLevel;
+  const ctx  = getCtx(s,lv);
+  const verb = s.verb;
+  const pron = s.pron;
+  let answer, label, typeTag, cardClass;
+
+  if (tense==='imp'){
+    const spec = specialVerb(verb,pron,'imp');
+    answer = spec || `${PRON_SH[pron]} ${buildIMPBare(IMP_STEMS[verb]||verb.replace(/er$|ir$/,''),pron)}`;
+    if (pron==='je'&&!spec){
+      const bare=buildIMPBare(IMP_STEMS[verb]||verb.replace(/er$|ir$/,''),pron);
+      answer = /^[aeiouéèàâê]/i.test(bare) ? `j'${bare}` : `Je ${bare}`;
+    }
+    label='IMPARFAIT'; typeTag='imp-tag'; cardClass='type-imp';
+  } else {
+    answer = conjugatePC(verb,pron);
+    label='PASSÉ COMPOSÉ'; typeTag='pc-tag'; cardClass='type-pc';
+  }
+
+  exercises.push({id:idx, answer:normalise(answer), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card ${cardClass}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type ${typeTag}">${label}</span></div>
+    <div class="hint-text">CONJUGUEZ « ${verb.toUpperCase()} » À L'${label}</div>
+    <div class="sentence-display">
+      <input class="answer-input" id="input-${idx}"
+        placeholder="${label.toLowerCase()}..." style="width:250px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"> ${ctx}.
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// RENDER — TRADUCTION
+// ================================================================
+function renderTraduction(container, idx, s){
+  const lv    = currentLevel;
+  const en    = s[`en_${lv}`] || s['en_B1'] || s['en_A2'] || '';
+  const ctx   = s[`fr_ctx_${lv}`] || s['fr_ctx_B1'] || s['fr_ctx_A2'] || '';
+  const verb  = s.verb;
+  const pron  = s.pron;
+  const tense = s.tense;
+
+  let answer;
+  if (tense==='imp'){
+    const spec=specialVerb(verb,pron,'imp');
+    if(spec){ answer=spec; }
+    else {
+      const bare=buildIMPBare(IMP_STEMS[verb]||verb.replace(/er$|ir$/,''),pron);
+      answer = (pron==='je' && /^[aeiouéèàâê]/i.test(bare)) ? `j'${bare}` : `${PRON_SH[pron]} ${bare}`;
+    }
+  } else {
+    answer = conjugatePC(verb,pron);
+  }
+
+  exercises.push({id:idx, answer:normalise(answer), answered:false, correct:false});
+
+  const typeTag = tense==='imp'?'imp-tag':'pc-tag';
+  const label   = tense==='imp'?'IMPARFAIT':'PASSÉ COMPOSÉ';
+  const cardClass=tense==='imp'?'type-imp':'type-pc';
+
+  const card=document.createElement('div');
+  card.className=`exercise-card ${cardClass}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type trad">TRADUCTION → ${label}</span></div>
+    <div class="hint-text">TRADUISEZ — ${label} DE « ${verb.toUpperCase()} »</div>
+    <div class="sentence-display" style="color:${tense==='imp'?'var(--lav2)':'var(--coral2)'}">${en}</div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <input class="answer-input" id="input-${idx}" placeholder="${label.toLowerCase()}..." style="width:280px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+      <span style="font-size:12px;color:var(--text3);font-style:italic">${ctx}</span>
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK LOGIC
+// ================================================================
+function checkInput(idx, answer){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true;
+  input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer);
+  markAnswered(idx,isOk);
+}
+
+function checkChoixMCQ(idx, chosen, answer, tense, btn){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    const bForm=b.querySelector(':last-child')?.textContent||b.textContent;
+    if(normalise(bForm.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled');
+  btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  const tenseLabel=tense==='imp'?'Imparfait':'Passé Composé';
+  showFeedback(idx,isOk,`${answer} (${tenseLabel})`);
+  markAnswered(idx,isOk);
+}
+
+function checkNarrative(idx, part, answer){
+  const key=`${idx}${part}`;
+  const ex=exercises.find(e=>e.id===key);
+  if(!ex||ex.answered) return;
+  const input=document.getElementById(`inp-${key}`);
+  if(!input) return;
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true;
+  input.classList.add(isOk?'correct':'incorrect');
+  ex.answered=true; ex.correct=isOk;
+  narrativeState[idx][part]=true;
+  narrativeState[idx][part==='a'?'aOk':'bOk']=isOk;
+  // if both done, record
+  if(narrativeState[idx].a && narrativeState[idx].b){
+    finaliseNarrative(idx);
+  }
+}
+
+function checkNarrativeBoth(idx, imp_ans, pc_ans){
+  checkNarrative(idx,'a',imp_ans);
+  checkNarrative(idx,'b',pc_ans);
+}
+
+function finaliseNarrative(idx){
+  const ns=narrativeState[idx];
+  const bothOk=ns.aOk&&ns.bOk;
+  document.getElementById(`check-${idx}`)?.querySelectorAll && document.getElementById(`check-${idx}`).disabled=true;
+  const fb=document.getElementById(`feedback-${idx}`);
+  if(!fb) return;
+  fb.className=`feedback ${bothOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=bothOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=bothOk
+    ?`<strong>Parfait !</strong> Les deux temps sont corrects.`
+    :`Un ou deux temps incorrect(s) — vérifiez les réponses surlignées.`;
+  // register composite score
+  answered++;
+  if(bothOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  const total=exercises.filter(e=>!e.id.toString().match(/^\d+[ab]$/)).length +
+    Math.floor(exercises.filter(e=>e.id.toString().match(/^\d+[ab]$/)).length/2);
+  const doneCount=answered;
+  // check completion differently for narrative
+  checkAllDone();
+}
+
+function checkAllDone(){
+  // count unique card indices done
+  const cardsDone=new Set();
+  exercises.forEach(ex=>{
+    const parent=ex.parent!==undefined?ex.parent:ex.id;
+    if(ex.answered) cardsDone.add(parent);
+  });
+  const totalCards=new Set(exercises.map(ex=>ex.parent!==undefined?ex.parent:ex.id)).size;
+  if(cardsDone.size>=totalCards && totalCards>0) setTimeout(showScore,700);
+}
+
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`);
+  if(!fb) return;
+  const icon=fb.querySelector('.feedback-icon');
+  const msg=fb.querySelector('.feedback-msg');
+  const bravos=['Parfait !','Excellent !','Très bien !','Bravo !','C\'est ça !','Super !'];
+  if(isOk){
+    fb.className='feedback success show'; icon.textContent='✓';
+    msg.innerHTML=`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> Réponse correcte : <strong>${answer}</strong>`;
+  } else {
+    fb.className='feedback error show'; icon.textContent='✗';
+    msg.innerHTML=`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+  }
+}
+
+function markAnswered(idx, isOk){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.parent!==undefined) return; // narrative handled separately
+  if(ex.answered) return;
+  ex.answered=true; ex.correct=isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  checkAllDone();
+}
+
+function updateProgress(){
+  // Count unique cards for progress
+  const totalCards=new Set(exercises.map(ex=>ex.parent!==undefined?ex.parent:ex.id)).size;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${totalCards}`;
+  document.getElementById('progressFill').style.width=totalCards>0?(answered/totalCards*100)+'%':'0%';
+}
+
+function showScore(){
+  const totalCards=new Set(exercises.map(ex=>ex.parent!==undefined?ex.parent:ex.id)).size;
+  const pct=totalCards>0?Math.round(correct/totalCards*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=Math.max(0,answered-correct);
+  document.getElementById('totalCount').textContent=totalCards;
+  let emoji,title,sub;
+  if     (pct>=90){emoji='🏆';title='PARFAIT !';   sub='Maîtrise parfaite du contraste imparfait / passé composé !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';     sub='Très bien — vous sentez bien la différence fond/événement.';}
+  else if(pct>=50){emoji='💪';title='BIEN !';      sub='Bon effort — IMP = habitude/contexte · PC = événement précis.';}
+  else            {emoji='📚';title='CONTINUEZ !'; sub='Conseil : identifiez si c\'est une habitude (IMP) ou un événement (PC).';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  Object.keys(narrativeState).forEach(k=>delete narrativeState[k]);
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

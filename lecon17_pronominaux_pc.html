@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 17 — Pronominaux au Passé Composé</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --cyan:#00f5ff; --gold:#ffd166; --green:#06d6a0; --red:#ff4757;
+    --fus:#e879f9; --fus2:#f0abfc; --fus3:#fae8ff;
+    --accent:#e879f9;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(232,121,249,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(232,121,249,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(255,209,102,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,209,102,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:680px; height:680px; top:-220px; right:-160px; background:rgba(232,121,249,0.09); }
+  .h2{ width:560px; height:560px; bottom:-190px; left:-140px; background:rgba(255,209,102,0.06); }
+  .h3{ width:260px; height:260px; top:52%; left:22%; background:rgba(0,245,255,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:76vh; top:10vh; left:15%; background:linear-gradient(to bottom,transparent,var(--fus),transparent); transform:rotate(-8deg); }
+  .al2{ width:1px; height:58vh; top:22vh; right:13%; background:linear-gradient(to bottom,transparent,var(--gold),transparent); transform:rotate(10deg); }
+
+  .bg-mark{ position:fixed; right:-44px; bottom:8%; opacity:0.02; font-family:'Bebas Neue',sans-serif;
+    font-size:200px; color:var(--fus); transform:rotate(9deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  .wrapper{ position:relative; z-index:1; max-width:980px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--fus);
+    border:1px solid rgba(232,121,249,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(232,121,249,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--fus); animation:blink 2.1s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,6vw,72px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--fus) 44%,var(--gold) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── FORMULA CARD ── */
+  .formula-card{ background:linear-gradient(135deg,rgba(232,121,249,0.07),rgba(255,209,102,0.05));
+    border:1px solid rgba(232,121,249,0.22); border-radius:14px; padding:22px 26px; margin-bottom:22px; }
+
+  .formula-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .f-block{ text-align:center; padding:8px 14px; border-radius:8px; min-width:70px; }
+  .f-block.sub { background:rgba(232,121,249,0.08); border:1px solid rgba(232,121,249,0.2); }
+  .f-block.ne  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2); }
+  .f-block.rp  { background:rgba(255,209,102,0.08); border:1px solid rgba(255,209,102,0.2); }
+  .f-block.aux { background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2); }
+  .f-block.pp  { background:rgba(0,245,255,0.08);  border:1px solid rgba(0,245,255,0.2); }
+  .f-block.pas { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2); }
+  .f-label{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; color:var(--text3); }
+  .f-val  { font-family:'DM Serif Display',serif; font-size:15px; margin-top:2px; }
+  .f-val.sub{ color:var(--fus); }
+  .f-val.ne { color:var(--red); }
+  .f-val.rp { color:var(--gold); }
+  .f-val.aux{ color:var(--green); }
+  .f-val.pp { color:var(--cyan); }
+  .f-val.pas{ color:var(--red); }
+  .f-plus{ font-size:18px; color:var(--border); font-family:'Bebas Neue',sans-serif; }
+
+  .formula-examples{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:4px; }
+  @media(max-width:520px){ .formula-examples{ grid-template-columns:1fr; } }
+  .fe-cell{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 14px; }
+  .fe-fr  { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .fe-fr .rp-hl { color:var(--gold); }
+  .fe-fr .aux-hl{ color:var(--green); }
+  .fe-fr .pp-hl { color:var(--fus2); }
+  .fe-en  { font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── AGREEMENT TABLE ── */
+  .agreement-section{ margin-bottom:22px; }
+  .agree-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  @media(max-width:480px){ .agree-grid{ grid-template-columns:1fr; } }
+  .agree-col{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .agree-col-head{ padding:10px 16px; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; border-bottom:1px solid var(--border); }
+  .agree-col-head.m{ color:var(--cyan);  background:rgba(0,245,255,0.04); }
+  .agree-col-head.f{ color:var(--fus2); background:rgba(232,121,249,0.04); }
+  .agree-row{ padding:8px 16px; border-bottom:1px solid rgba(30,45,74,0.4); display:flex; justify-content:space-between; font-size:13px; }
+  .agree-row:last-child{ border-bottom:none; }
+  .ar-label{ color:var(--text3); font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; }
+  .ar-pp   { font-family:'DM Serif Display',serif; font-size:16px; }
+  .ar-pp.m { color:var(--cyan); }
+  .ar-pp.f { color:var(--fus2); }
+  .ar-pp.mp{ color:var(--cyan); }
+  .ar-pp.fp{ color:var(--fus2); }
+
+  /* ── NEGATIVE BOX ── */
+  .neg-box{ background:var(--card); border:1px solid rgba(255,71,87,0.2); border-radius:10px; padding:15px 20px; margin-bottom:22px; }
+  .neg-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--red); margin-bottom:10px; }
+  .neg-formula{ font-family:'DM Serif Display',serif; font-size:16px; color:var(--text); line-height:2; }
+  .neg-formula .rp-c{ color:var(--gold); }
+  .neg-formula .ne-c{ color:var(--red); }
+  .neg-formula .aux-c{ color:var(--green); }
+  .neg-formula .pp-c{ color:var(--fus2); }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--fus); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:820px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 16px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 16px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13.5px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(232,121,249,0.02); }
+  .vfr { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vpp { font-family:'DM Serif Display',serif; font-size:13px; color:var(--fus2); }
+  .ven { color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--fus); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex { color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(232,121,249,0.4); background:rgba(232,121,249,0.06); color:var(--fus2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(0,245,255,0.12),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(232,121,249,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(255,209,102,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a2.active{ border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b1.active{ border-color:var(--fus);   color:var(--fus); }
+  .level-pill.b2.active{ border-color:var(--gold);  color:var(--gold); }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--fus); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--fus),var(--gold)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(232,121,249,0.14),rgba(255,209,102,0.09));
+    border:1px solid rgba(232,121,249,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(232,121,249,0.26),rgba(255,209,102,0.18));
+    border-color:var(--fus); transform:translateY(-1px); box-shadow:0 8px 28px rgba(232,121,249,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(0,245,255,0.4); color:var(--cyan); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--fus),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.neg-card::before{ background:linear-gradient(90deg,transparent,var(--red),transparent); }
+  .exercise-card.agree-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(232,121,249,0.2); transform:translateY(-1px); }
+  .exercise-card.neg-card.active-card{ border-color:rgba(255,71,87,0.2); }
+  .exercise-card.agree-card.active-card{ border-color:rgba(255,209,102,0.2); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* gender badge */
+  .gender-badge{ display:inline-flex; align-items:center; gap:8px;
+    border-radius:4px; padding:3px 12px; margin-bottom:10px; }
+  .gender-badge.m{ background:rgba(0,245,255,0.07); border:1px solid rgba(0,245,255,0.22); }
+  .gender-badge.f{ background:rgba(232,121,249,0.07); border:1px solid rgba(232,121,249,0.22); }
+  .gender-badge.mp{ background:rgba(0,245,255,0.05); border:1px solid rgba(0,245,255,0.18); }
+  .gender-badge.fp{ background:rgba(232,121,249,0.05); border:1px solid rgba(232,121,249,0.18); }
+  .gb-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .gb-val  { font-family:'DM Serif Display',serif; font-size:14px; }
+  .gb-val.m { color:var(--cyan); }
+  .gb-val.f { color:var(--fus2); }
+  .gb-val.mp{ color:var(--cyan); }
+  .gb-val.fp{ color:var(--fus2); }
+
+  /* formula mini-badge on card */
+  .mini-formula{ display:inline-flex; align-items:center; gap:5px; flex-wrap:wrap;
+    background:rgba(232,121,249,0.04); border:1px solid rgba(232,121,249,0.14);
+    border-radius:6px; padding:5px 12px; margin-bottom:10px; font-size:13px; }
+  .mf-sub { color:var(--fus); font-family:'DM Serif Display',serif; }
+  .mf-rp  { color:var(--gold); font-family:'DM Serif Display',serif; }
+  .mf-aux { color:var(--green); font-family:'DM Serif Display',serif; }
+  .mf-pp  { color:var(--fus2); font-family:'DM Serif Display',serif; }
+  .mf-sep { color:var(--text3); font-size:12px; }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.pc    { color:var(--fus2); border:1px solid rgba(232,121,249,0.28); background:rgba(232,121,249,0.05); }
+  .card-type.aux   { color:var(--green);border:1px solid rgba(6,214,160,0.28);   background:rgba(6,214,160,0.05); }
+  .card-type.pp    { color:var(--cyan); border:1px solid rgba(0,245,255,0.28);   background:rgba(0,245,255,0.05); }
+  .card-type.agree { color:var(--gold); border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.neg   { color:var(--red);  border:1px solid rgba(255,71,87,0.28);   background:rgba(255,71,87,0.05); }
+  .card-type.trad  { color:var(--green);border:1px solid rgba(6,214,160,0.28);   background:rgba(6,214,160,0.05); }
+  .card-type.complet{ color:var(--fus); border:1px solid rgba(232,121,249,0.28); background:rgba(232,121,249,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(16px,2.7vw,22px); line-height:1.75; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; width:200px; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--fus); box-shadow:0 0 0 2px rgba(232,121,249,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled { opacity:.85; cursor:default; }
+  .answer-input.sm { font-size:16px; padding:6px 10px; width:160px; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--fus); color:var(--text); background:rgba(232,121,249,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(232,121,249,0.4);
+    background:rgba(232,121,249,0.06); color:var(--fus); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(232,121,249,0.16); border-color:var(--fus); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(232,121,249,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(232,121,249,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--fus); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); }
+  .score-stat-num.bad { color:var(--red); }
+  .score-stat-num.neu { color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(232,121,249,0.4);
+    background:rgba(232,121,249,0.08); color:var(--fus); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(232,121,249,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .agree-grid{ grid-template-columns:1fr; }
+    .formula-examples{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">SE<br>LEVER<br>JE ME<br>SUIS</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 17 · FRANÇAIS</div>
+    <h1>Pronominaux au<br>Passé Composé</h1>
+    <p class="subtitle">je <span style="color:var(--gold)">me</span> <span style="color:var(--green)">suis</span> <span style="color:var(--fus2)">levé(e)</span> · ils <span style="color:var(--gold)">se</span> <span style="color:var(--green)">sont</span> <span style="color:var(--fus2)">rencontrés</span>...</p>
+    <p class="subtitle2">AUXILIAIRE ÊTRE · ACCORD DU PP · NÉGATIF · A2 → B2</p>
+  </header>
+
+  <!-- FORMULA CARD -->
+  <div class="formula-card">
+    <div class="section-title" style="margin-bottom:16px">✦ FORMATION — AFFIRMATIVE ET NÉGATIVE</div>
+
+    <!-- Positive -->
+    <div style="margin-bottom:6px;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--green)">FORME AFFIRMATIVE</div>
+    <div class="formula-row">
+      <div class="f-block sub"><div class="f-label">SUJET</div><div class="f-val sub">Je</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block rp"><div class="f-label">PRON. RÉFL.</div><div class="f-val rp">me / m'</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block aux"><div class="f-label">ÊTRE (prés.)</div><div class="f-val aux">suis</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block pp"><div class="f-label">PART. PASSÉ</div><div class="f-val pp">levé(e)</div></div>
+    </div>
+
+    <!-- Negative -->
+    <div style="margin-bottom:6px;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--red)">FORME NÉGATIVE</div>
+    <div class="formula-row" style="margin-bottom:16px">
+      <div class="f-block sub"><div class="f-label">SUJET</div><div class="f-val sub">Je</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block ne"><div class="f-label">NE / N'</div><div class="f-val ne">ne</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block rp"><div class="f-label">PRON. RÉFL.</div><div class="f-val rp">me</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block aux"><div class="f-label">ÊTRE</div><div class="f-val aux">suis</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block pas"><div class="f-label">PAS</div><div class="f-val pas">pas</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block pp"><div class="f-label">PART. PASSÉ</div><div class="f-val pp">levé(e)</div></div>
+    </div>
+
+    <!-- examples -->
+    <div class="formula-examples">
+      <div class="fe-cell">
+        <div class="fe-fr">Je <span class="rp-hl">me</span> <span class="aux-hl">suis</span> <span class="pp-hl">levé</span> tôt.</div>
+        <div class="fe-en">I got up early. (masc.)</div>
+      </div>
+      <div class="fe-cell">
+        <div class="fe-fr">Elle <span class="rp-hl">s'</span><span class="aux-hl">est</span> <span class="pp-hl">habillée</span> vite.</div>
+        <div class="fe-en">She got dressed quickly. (fém.)</div>
+      </div>
+      <div class="fe-cell">
+        <div class="fe-fr">Ils <span class="rp-hl">se</span> <span class="aux-hl">sont</span> <span class="pp-hl">rencontrés</span> à Paris.</div>
+        <div class="fe-en">They met in Paris. (masc. plur.)</div>
+      </div>
+      <div class="fe-cell">
+        <div class="fe-fr">Je ne <span class="rp-hl">me</span> <span class="aux-hl">suis</span> pas <span class="pp-hl">couché(e)</span> tard.</div>
+        <div class="fe-en">I didn't go to bed late.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÊTRE AU PRÉSENT reminder -->
+  <div style="background:var(--card);border:1px solid rgba(6,214,160,0.18);border-radius:10px;padding:14px 20px;margin-bottom:18px">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:8px">✦ ÊTRE AU PRÉSENT — AUXILIAIRE</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 10px"><span style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:var(--text3)">JE</span><br><span style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--green)">suis</span></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 10px"><span style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:var(--text3)">TU</span><br><span style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--green)">es</span></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 10px"><span style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:var(--text3)">IL/ELLE/ON</span><br><span style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--green)">est</span></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 10px"><span style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:var(--text3)">NOUS</span><br><span style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--green)">sommes</span></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 10px"><span style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:var(--text3)">VOUS</span><br><span style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--green)">êtes</span></div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 10px"><span style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:var(--text3)">ILS/ELLES</span><br><span style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--green)">sont</span></div>
+    </div>
+  </div>
+
+  <!-- AGREEMENT TABLE -->
+  <div class="agreement-section">
+    <div class="section-title">✦ ACCORD DU PARTICIPE PASSÉ</div>
+    <div class="agree-grid">
+      <div class="agree-col">
+        <div class="agree-col-head m">MASCULIN</div>
+        <div class="agree-row"><span class="ar-label">SING.</span><span class="ar-pp m">levé</span><div class="ar-pp m" style="font-size:12px;color:var(--text3)">base</div></div>
+        <div class="agree-row"><span class="ar-label">PLUR.</span><span class="ar-pp mp">levés</span><div style="font-size:12px;color:var(--text3)">+ s</div></div>
+      </div>
+      <div class="agree-col">
+        <div class="agree-col-head f">FÉMININ</div>
+        <div class="agree-row"><span class="ar-label">SING.</span><span class="ar-pp f">levée</span><div style="font-size:12px;color:var(--text3)">+ e</div></div>
+        <div class="agree-row"><span class="ar-label">PLUR.</span><span class="ar-pp fp">levées</span><div style="font-size:12px;color:var(--text3)">+ es</div></div>
+      </div>
+    </div>
+    <div style="background:rgba(255,209,102,0.05);border:1px solid rgba(255,209,102,0.18);border-radius:8px;padding:11px 16px;margin-top:10px;font-size:13px;color:var(--text2)">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:var(--gold)">⚠ RÈGLE D'ACCORD :</span> Le PP s'accorde avec le <strong>sujet</strong> pour les verbes pronominaux réfléchis.<br>
+      Exception : si le verbe a un COD, le PP ne s'accorde pas avec le sujet.<br>
+      <em>Elle s'est lavée.</em> (accord) vs <em>Elle s'est lavé les mains.</em> (pas d'accord — COD = les mains)
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section" style="margin-top:22px">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — RELATIONS &amp; INTERACTIONS SOCIALES</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>INFINITIF</th><th>PART. PASSÉ (m.s.)</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CATÉGORIE</th><th>EXEMPLE PC</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">se rencontrer</td><td class="vpp">rencontré</td><td class="ven">to meet</td><td class="ves">conocerse</td><td class="vcat">relation</td><td class="vex">Ils se sont rencontrés à Paris.</td></tr>
+          <tr><td class="vfr">se parler</td><td class="vpp">parlé</td><td class="ven">to speak to each other</td><td class="ves">hablarse</td><td class="vcat">relation</td><td class="vex">Nous nous sommes parlé hier.</td></tr>
+          <tr><td class="vfr">se disputer</td><td class="vpp">disputé</td><td class="ven">to argue</td><td class="ves">pelearse</td><td class="vcat">conflit</td><td class="vex">Ils se sont disputés ce matin.</td></tr>
+          <tr><td class="vfr">se réconcilier</td><td class="vpp">réconcilié</td><td class="ven">to make up / reconcile</td><td class="ves">reconciliarse</td><td class="vcat">relation</td><td class="vex">Elles se sont réconciliées.</td></tr>
+          <tr><td class="vfr">se séparer</td><td class="vpp">séparé</td><td class="ven">to separate / break up</td><td class="ves">separarse</td><td class="vcat">relation</td><td class="vex">Ils se sont séparés l'an dernier.</td></tr>
+          <tr><td class="vfr">s'entendre (avec)</td><td class="vpp">entendu</td><td class="ven">to get along (with)</td><td class="ves">llevarse bien</td><td class="vcat">relation</td><td class="vex">On s'est bien entendu.</td></tr>
+          <tr><td class="vfr">s'excuser</td><td class="vpp">excusé</td><td class="ven">to apologise</td><td class="ves">disculparse</td><td class="vcat">conflit</td><td class="vex">Il s'est excusé immédiatement.</td></tr>
+          <tr><td class="vfr">se marier (avec)</td><td class="vpp">marié</td><td class="ven">to get married</td><td class="ves">casarse</td><td class="vcat">événement</td><td class="vex">Ils se sont mariés en juin.</td></tr>
+          <tr><td class="vfr">se tromper</td><td class="vpp">trompé</td><td class="ven">to make a mistake / be wrong</td><td class="ves">equivocarse</td><td class="vcat">erreur</td><td class="vex">Je me suis trompé(e) de chemin.</td></tr>
+          <tr><td class="vfr">s'énerver</td><td class="vpp">énervé</td><td class="ven">to get irritated / annoyed</td><td class="ves">irritarse</td><td class="vcat">émotion</td><td class="vex">Elle s'est énervée sans raison.</td></tr>
+          <tr><td class="vfr">se calmer</td><td class="vpp">calmé</td><td class="ven">to calm down</td><td class="ves">calmarse</td><td class="vcat">émotion</td><td class="vex">Il s'est calmé rapidement.</td></tr>
+          <tr><td class="vfr">se souvenir (de)</td><td class="vpp">souvenu</td><td class="ven">to remember</td><td class="ves">acordarse</td><td class="vcat">mémoire</td><td class="vex">Je me suis souvenu(e) de toi.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section" style="margin-top:22px">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"      onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="aux"       onclick="setFilter('aux',this)">AUXILIAIRE ÊTRE</button>
+      <button class="filter-pill"        data-f="pp"        onclick="setFilter('pp',this)">PART. PASSÉ</button>
+      <button class="filter-pill"        data-f="accord"    onclick="setFilter('accord',this)">ACCORD (genre)</button>
+      <button class="filter-pill"        data-f="complet"   onclick="setFilter('complet',this)">PC COMPLET</button>
+      <button class="filter-pill"        data-f="negatif"   onclick="setFilter('negatif',this)">FORME NÉGATIVE</button>
+      <button class="filter-pill"        data-f="traduction"onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a2 active" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1"        onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2"        onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji"    id="scoreEmoji">🎉</div>
+    <div class="score-title"    id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+
+// ÊTRE au présent
+const ETRE = { je:'suis', tu:'es', il:'est', elle:'est', on:'est', nous:'sommes', vous:'êtes', ils:'sont', elles:'sont' };
+
+// Reflexive pronouns
+const REFL    = { je:'me',  tu:'te',  il:'se',  elle:'se',  on:"s'", nous:'nous', vous:'vous', ils:'se',  elles:'se' };
+const REFL_EL = { je:"m'", tu:"t'", il:"s'", elle:"s'", on:"s'", nous:'nous', vous:'vous', ils:"s'", elles:"s'" };
+
+const PRON  = { je:'Je', tu:'Tu', il:'Il', elle:'Elle', on:'On', nous:'Nous', vous:'Vous', ils:'Ils', elles:'Elles' };
+const EN_PR = { je:'I',  tu:'You',il:'He', elle:'She',  on:'One',nous:'We',  vous:'You',  ils:'They',elles:'They' };
+
+// Gender per pronoun (for agreement)
+// 'amb' = ambiguous (on, vous can be m/f/pl)
+const GENDER = { je:'amb', tu:'amb', il:'m', elle:'f', on:'m', nous:'mp', vous:'amb', ils:'mp', elles:'fp' };
+
+// Verb data: infinitive → { pp_base, vowel_start, en, new (boolean) }
+const VERBS = {
+  'se rencontrer': { pp:'rencontré',  vowel:false, en:'meet',           cat:'new' },
+  'se parler':     { pp:'parlé',      vowel:false, en:'speak to each other', cat:'new' },
+  'se disputer':   { pp:'disputé',    vowel:false, en:'argue',          cat:'new' },
+  'se réconcilier':{ pp:'réconcilié', vowel:false, en:'make up / reconcile', cat:'new' },
+  'se séparer':    { pp:'séparé',     vowel:false, en:'separate / break up',  cat:'new' },
+  "s'entendre":    { pp:'entendu',    vowel:true,  en:'get along',      cat:'new' },
+  "s'excuser":     { pp:'excusé',     vowel:true,  en:'apologise',      cat:'new' },
+  'se marier':     { pp:'marié',      vowel:false, en:'get married',    cat:'new' },
+  'se tromper':    { pp:'trompé',     vowel:false, en:'make a mistake', cat:'new' },
+  "s'énerver":     { pp:'énervé',     vowel:true,  en:'get annoyed',    cat:'new' },
+  'se calmer':     { pp:'calmé',      vowel:false, en:'calm down',      cat:'new' },
+  'se souvenir':   { pp:'souvenu',    vowel:false, en:'remember',       cat:'new' },
+  // routine verbs from L16 (already studied)
+  'se lever':      { pp:'levé',       vowel:false, en:'get up',         cat:'known' },
+  "s'habiller":    { pp:'habillé',    vowel:true,  en:'get dressed',    cat:'known' },
+  'se coucher':    { pp:'couché',     vowel:false, en:'go to bed',      cat:'known' },
+  "s'endormir":    { pp:'endormi',    vowel:true,  en:'fall asleep',    cat:'known' },
+  'se réveiller':  { pp:'réveillé',   vowel:false, en:'wake up',        cat:'known' },
+  'se préparer':   { pp:'préparé',    vowel:false, en:'get ready',      cat:'known' },
+  'se doucher':    { pp:'douché',     vowel:false, en:'shower',         cat:'known' },
+  'se dépêcher':   { pp:'dépêché',    vowel:false, en:'hurry',          cat:'known' },
+  'se reposer':    { pp:'reposé',     vowel:false, en:'rest',           cat:'known' },
+};
+
+// PP agreement by gender code
+function agreePP(pp_base, genderCode, subjectGender) {
+  // subjectGender: 'm','f','mp','fp','amb'
+  const g = subjectGender || genderCode;
+  if (g==='f')  return pp_base + 'e';
+  if (g==='mp') return pp_base + 's';
+  if (g==='fp') return pp_base + 'es';
+  return pp_base; // m or amb → base
+}
+
+// Full PC form
+function buildPC(verb, pron, genderChoice) {
+  const data = VERBS[verb];
+  if (!data) return '???';
+  const aux   = ETRE[pron];
+  const isVow = data.vowel;
+  const rp    = isVow ? REFL_EL[pron] : REFL[pron];
+  const g     = genderChoice || GENDER[pron] || 'm';
+  const pp    = agreePP(data.pp, g, g);
+  const sub   = PRON[pron];
+
+  if (pron==='nous'||pron==='vous'){
+    return `${sub} ${rp} ${aux} ${pp}`;
+  }
+  if (isVow && rp.endsWith("'")) return `${sub} ${rp}${aux} ${pp}`;
+  return `${sub} ${rp} ${aux} ${pp}`;
+}
+
+// PC negative form
+function buildPCNeg(verb, pron, genderChoice) {
+  const data = VERBS[verb];
+  if (!data) return '???';
+  const aux   = ETRE[pron];
+  const isVow = data.vowel;
+  const rp    = isVow ? REFL_EL[pron] : REFL[pron];
+  const g     = genderChoice || GENDER[pron] || 'm';
+  const pp    = agreePP(data.pp, g, g);
+  const sub   = PRON[pron];
+
+  // ne/n' choice: n' before vowel of rp
+  const ne = /^[aeiouéèm]/i.test(rp) && rp!=='me' ? "n'" : 'ne ';
+  // Actually: ne always comes before refl pron; elide if refl pron starts with vowel
+  // ne + m' = ne m' → but "ne m'" → "ne m'" is correct
+  // Standard: je ne me suis pas / je ne m'... when verb starts with vowel it's ne m'
+
+  if (pron==='nous'||pron==='vous'){
+    return `${sub} ne ${rp} ${aux} pas ${pp}`;
+  }
+  if (isVow && rp.endsWith("'")) return `${sub} ne ${rp}${aux} pas ${pp}`;
+  return `${sub} ne ${rp} ${aux} pas ${pp}`;
+}
+
+// Just the PP with agreement
+function ppAgreed(verb, genderCode) {
+  const data = VERBS[verb];
+  if (!data) return '???';
+  return agreePP(data.pp, genderCode, genderCode);
+}
+
+// Just the être aux
+function etrePron(pron){ return ETRE[pron]||'est'; }
+
+// ── Contexts ───────────────────────────────────────────────────────
+const CTX = {
+  'se rencontrer': { A2:'il y a deux ans',      B1:'lors d\'un voyage en Espagne',      B2:'par hasard dans une librairie indépendante' },
+  'se parler':     { A2:'hier au téléphone',    B1:'longuement hier soir',              B2:'franchement pour la première fois depuis des semaines' },
+  'se disputer':   { A2:'ce matin',             B1:'violemment pour une raison futile', B2:'à propos d\'une incompréhension ancienne' },
+  'se réconcilier':{ A2:'après la dispute',     B1:'grâce à une longue conversation',   B2:'après des semaines de silence et d\'incompréhension' },
+  'se séparer':    { A2:'l\'an dernier',        B1:'après cinq ans de relation',        B2:'à l\'amiable, sans rancœur de part ni d\'autre' },
+  "s'entendre":    { A2:'très bien',            B1:'parfaitement dès le premier jour',  B2:'malgré des caractères très différents' },
+  "s'excuser":     { A2:'immédiatement',        B1:'sincèrement pour son comportement', B2:'avec beaucoup de maladresse mais de bonne volonté' },
+  'se marier':     { A2:'en juin',              B1:'dans une petite cérémonie intime',  B2:'après dix ans de vie commune' },
+  'se tromper':    { A2:'de chemin',            B1:'complètement dans mon analyse',     B2:'sur toute la ligne dans mon interprétation' },
+  "s'énerver":     { A2:'sans raison',          B1:'inutilement pour un détail mineur', B2:'pour la première fois depuis très longtemps' },
+  'se calmer':     { A2:'rapidement',           B1:'après quelques minutes de réflexion',B2:'en réalisant que la situation n\'était pas si grave' },
+  'se souvenir':   { A2:'de lui',               B1:'de chaque détail de cette rencontre',B2:'avec une précision troublante de ce moment partagé' },
+  'se lever':      { A2:'tôt',                  B1:'très tôt ce matin',                 B2:'avant l\'aube pour ne manquer aucun instant' },
+  "s'habiller":    { A2:'vite',                 B1:'en cinq minutes à peine',           B2:'avec soin malgré la fatigue accumulée' },
+  'se coucher':    { A2:'tard',                 B1:'bien après minuit cette nuit',      B2:'sans même avoir eu le temps de dîner correctement' },
+  "s'endormir":    { A2:'vite',                 B1:'dès que la tête a touché l\'oreiller',B2:'après des heures d\'insomnie et d\'agitation' },
+  'se réveiller':  { A2:'à sept heures',        B1:'en pleine nuit sans raison',        B2:'en sursaut à cause d\'un bruit inexplicable' },
+  'se préparer':   { A2:'vite',                 B1:'en un temps record',                B2:'soigneusement malgré le manque de temps' },
+  'se doucher':    { A2:'ce matin',             B1:'rapidement avant de partir',        B2:'longuement pour effacer la fatigue de la veille' },
+  'se dépêcher':   { A2:'car on était en retard',B1:'pour ne pas rater le train',      B2:'sans pour autant oublier quoi que ce soit' },
+  'se reposer':    { A2:'tout le week-end',     B1:'enfin après cette semaine épuisante',B2:'en lisant et en ne faisant strictement rien' },
+};
+
+const EN_CTX = {
+  'se rencontrer': { A2:'two years ago',           B1:'during a trip to Spain',         B2:'by chance in an independent bookshop' },
+  'se parler':     { A2:'on the phone yesterday',  B1:'for a long time last night',     B2:'frankly for the first time in weeks' },
+  'se disputer':   { A2:'this morning',            B1:'violently over a trivial reason',B2:'over an old misunderstanding' },
+  'se réconcilier':{ A2:'after the argument',      B1:'thanks to a long conversation',  B2:'after weeks of silence and misunderstanding' },
+  'se séparer':    { A2:'last year',               B1:'after five years together',      B2:'amicably, without bitterness on either side' },
+  "s'entendre":    { A2:'very well',               B1:'perfectly from day one',         B2:'despite very different personalities' },
+  "s'excuser":     { A2:'right away',              B1:'sincerely for his/her behaviour',B2:'clumsily but in good faith' },
+  'se marier':     { A2:'in June',                 B1:'in a small intimate ceremony',   B2:'after ten years of living together' },
+  'se tromper':    { A2:'of the way',              B1:'completely in my analysis',      B2:'entirely in my interpretation' },
+  "s'énerver":     { A2:'for no reason',           B1:'needlessly over a minor detail', B2:'for the first time in a very long time' },
+  'se calmer':     { A2:'quickly',                 B1:'after a few minutes of thought', B2:'on realising the situation was not so serious' },
+  'se souvenir':   { A2:'of him',                  B1:'of every detail of that meeting',B2:'with troubling precision of that shared moment' },
+  'se lever':      { A2:'early',                   B1:'very early this morning',        B2:'before dawn to miss nothing' },
+  "s'habiller":    { A2:'quickly',                 B1:'in barely five minutes',         B2:'carefully despite the accumulated tiredness' },
+  'se coucher':    { A2:'late',                    B1:'well after midnight',            B2:'without even having had time to eat properly' },
+  "s'endormir":    { A2:'quickly',                 B1:'as soon as head hit the pillow', B2:'after hours of insomnia' },
+  'se réveiller':  { A2:'at seven',                B1:'in the middle of the night',     B2:'with a start because of an inexplicable noise' },
+  'se préparer':   { A2:'quickly',                 B1:'in record time',                 B2:'carefully despite the lack of time' },
+  'se doucher':    { A2:'this morning',            B1:'quickly before leaving',         B2:'for a long time to wash away yesterday\'s fatigue' },
+  'se dépêcher':   { A2:'because we were late',    B1:'so as not to miss the train',   B2:'without forgetting anything' },
+  'se reposer':    { A2:'all weekend',             B1:'at last after this exhausting week',B2:'reading and doing absolutely nothing' },
+};
+
+const ALL_VERBS = Object.keys(VERBS);
+const PRONOUNS  = ['je','tu','il','elle','nous','vous','ils','elles'];
+// For gendered exercises, we pick a definite gender for ambiguous pronouns
+const DEFINITE_GENDERS = { je:['m','f'], tu:['m','f'], il:['m'], elle:['f'], on:['m'], nous:['mp','fp'], vous:['m','mp'], ils:['mp'], elles:['fp'] };
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel = 'A2';
+let exFilter     = 'tous';
+let exercises    = [];
+let answered     = 0;
+let correct      = 0;
+
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+
+function pickGender(pron){ const opts=DEFINITE_GENDERS[pron]||['m']; return opts[Math.floor(Math.random()*opts.length)]; }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx = currentLevel==='A2'?8:currentLevel==='B1'?10:12;
+
+  let typePool;
+  if     (exFilter==='aux')       typePool=['aux_mcq'];
+  else if(exFilter==='pp')        typePool=['pp_input'];
+  else if(exFilter==='accord')    typePool=['accord_mcq'];
+  else if(exFilter==='complet')   typePool=['complet'];
+  else if(exFilter==='negatif')   typePool=['negatif'];
+  else if(exFilter==='traduction')typePool=['traduction'];
+  else typePool=['aux_mcq','pp_input','accord_mcq','complet','negatif','traduction','complet'];
+
+  const used=new Set();
+  const types=[];
+  for(let i=0;i<numEx;i++) types.push(typePool[i%typePool.length]);
+  shuffle(types);
+
+  let ti=0;
+  for(const type of types){
+    let tries=0, verb, pron, gender;
+    do{
+      verb  = ALL_VERBS[Math.floor(Math.random()*ALL_VERBS.length)];
+      pron  = PRONOUNS[Math.floor(Math.random()*PRONOUNS.length)];
+      gender= pickGender(pron);
+      tries++;
+    } while(used.has(verb+pron+gender) && tries<60);
+    used.add(verb+pron+gender);
+
+    if     (type==='aux_mcq')    renderAuxMCQ(container,ti,verb,pron,gender);
+    else if(type==='pp_input')   renderPPInput(container,ti,verb,pron,gender);
+    else if(type==='accord_mcq') renderAccordMCQ(container,ti,verb,pron,gender);
+    else if(type==='negatif')    renderNegatif(container,ti,verb,pron,gender);
+    else if(type==='traduction') renderTraduction(container,ti,verb,pron,gender);
+    else                         renderComplet(container,ti,verb,pron,gender);
+    ti++;
+  }
+  updateProgress();
+}
+
+// ================================================================
+// HELPERS
+// ================================================================
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/'/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/'/g,"'").replace(/'/g,"'").replace(/\s+/g,' ');
+}
+function getCtx(v,lv){ const c=CTX[v]; return (c&&c[lv])||(c&&c['A2'])||''; }
+function getEnCtx(v,lv){ const c=EN_CTX[v]; return (c&&c[lv])||(c&&c['A2'])||''; }
+
+function genderLabel(g){
+  const m={ m:'Masc. Sing.', f:'Fém. Sing.', mp:'Masc. Plur.', fp:'Fém. Plur.' };
+  return m[g]||g;
+}
+function genderClass(g){ return g==='f'||g==='fp'?'f':'m'; }
+
+function miniBadge(verb, pron, gender){
+  const data=VERBS[verb];
+  const isVow=data?.vowel||false;
+  const rp=isVow?REFL_EL[pron]:REFL[pron];
+  const aux=ETRE[pron];
+  const pp=ppAgreed(verb,gender);
+  return `<div class="mini-formula">
+    <span class="mf-sub">${PRON[pron]}</span>
+    <span class="mf-sep">+</span><span class="mf-rp">${rp}</span>
+    <span class="mf-sep">+</span><span class="mf-aux">${aux}</span>
+    <span class="mf-sep">+</span><span class="mf-pp">${pp}</span>
+  </div>`;
+}
+
+function genderBadge(gender){
+  const cls=gender==='f'?'f':gender==='mp'?'mp':gender==='fp'?'fp':'m';
+  const labels={'m':'Masc. sing.','f':'Fém. sing.','mp':'Masc. plur.','fp':'Fém. plur.'};
+  return `<div class="gender-badge ${cls}"><span class="gb-label">SUJET</span><span class="gb-val ${cls}">${labels[gender]||gender}</span></div>`;
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+
+// 1) Auxiliaire MCQ — choose correct être form
+function renderAuxMCQ(container, idx, verb, pron, gender){
+  const answer  = ETRE[pron];
+  const ctx     = getCtx(verb,currentLevel);
+  const data    = VERBS[verb];
+  const isVow   = data?.vowel||false;
+  const rp      = isVow?REFL_EL[pron]:REFL[pron];
+  const pp      = ppAgreed(verb,gender);
+  const sub     = PRON[pron];
+
+  const wrongs  = shuffle(Object.values(ETRE).filter(v=>v!==answer)).slice(0,3);
+  const choices = shuffle([answer,...wrongs]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div'); card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type aux">AUXILIAIRE ÊTRE</span></div>
+    ${genderBadge(gender)}
+    <div class="hint-text">QUELLE FORME D'ÊTRE POUR « ${sub.toUpperCase()} » ?</div>
+    <div class="sentence-display">
+      <span style="color:var(--fus)">${sub}</span>
+      <span style="color:var(--gold)"> ${rp}</span>
+      <span style="color:var(--text3);font-style:italic"> ___</span>
+      <span style="color:var(--fus2)"> ${pp}</span> — ${ctx}.
+    </div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) PP input — type the agreed past participle
+function renderPPInput(container, idx, verb, pron, gender){
+  const answer = ppAgreed(verb,gender);
+  const ctx    = getCtx(verb,currentLevel);
+  const data   = VERBS[verb];
+  const isVow  = data?.vowel||false;
+  const rp     = isVow?REFL_EL[pron]:REFL[pron];
+  const aux    = ETRE[pron];
+  const sub    = PRON[pron];
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div'); card.className='exercise-card agree-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type pp">PARTICIPE PASSÉ</span></div>
+    ${genderBadge(gender)}
+    <div class="hint-text">ÉCRIVEZ LE PARTICIPE PASSÉ ACCORDÉ — « ${verb.toUpperCase()} »</div>
+    <div class="sentence-display">
+      <span style="color:var(--fus)">${sub}</span>
+      <span style="color:var(--gold)"> ${rp}</span>
+      <span style="color:var(--green)"> ${aux}</span>
+      <input class="answer-input sm" id="input-${idx}" placeholder="${data.pp}..." autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"> — ${ctx}.
+    </div>
+    <div class="hint-text" style="margin-top:2px">PP de base : <strong style="color:var(--fus2)">${data.pp}</strong> → accordez avec : <strong>${genderLabel(gender)}</strong></div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) Accord MCQ — choose correct PP form given gender
+function renderAccordMCQ(container, idx, verb, pron, gender){
+  const data   = VERBS[verb];
+  const base   = data.pp;
+  const answer = ppAgreed(verb,gender);
+  // Build all 4 variants
+  const variants = [base, base+'e', base+'s', base+'es'];
+  const unique   = [...new Set(variants)];
+  const choices  = shuffle(unique.slice(0,4)).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  const ctx=getCtx(verb,currentLevel);
+  const sub=PRON[pron];
+  const isVow=data?.vowel||false;
+  const rp=isVow?REFL_EL[pron]:REFL[pron];
+  const aux=ETRE[pron];
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div'); card.className='exercise-card agree-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type agree">ACCORD DU PP</span></div>
+    ${genderBadge(gender)}
+    <div class="hint-text">QUELLE FORME DU PP POUR « ${verb.toUpperCase()} » ?</div>
+    <div class="sentence-display">
+      <span style="color:var(--fus)">${sub}</span>
+      <span style="color:var(--gold)"> ${rp}</span>
+      <span style="color:var(--green)"> ${aux}</span>
+      <span style="color:var(--text3);font-style:italic"> ___</span> — ${ctx}.
+    </div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 4) Complet — type entire PC form
+function renderComplet(container, idx, verb, pron, gender){
+  const answer = buildPC(verb,pron,gender);
+  const ctx    = getCtx(verb,currentLevel);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div'); card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type complet">PC COMPLET</span></div>
+    ${genderBadge(gender)}
+    ${currentLevel!=='A2'?miniBadge(verb,pron,gender):''}
+    <div class="hint-text">CONJUGUEZ « ${verb.toUpperCase()} » AU PASSÉ COMPOSÉ</div>
+    <div class="sentence-display">
+      <input class="answer-input" id="input-${idx}" placeholder="je me suis levé(e)..."
+        style="width:300px" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"> ${ctx}.
+    </div>
+    <div class="hint-text" style="margin-top:2px">Sujet : <strong>${PRON[pron]}</strong> (${genderLabel(gender)}) — verbe : <em>${verb}</em></div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 5) Négatif
+function renderNegatif(container, idx, verb, pron, gender){
+  const pos = buildPC(verb,pron,gender);
+  const neg = buildPCNeg(verb,pron,gender);
+  const ctx = getCtx(verb,currentLevel);
+  exercises.push({id:idx,answer:normalise(neg),answered:false,correct:false});
+
+  const card=document.createElement('div'); card.className='exercise-card neg-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type neg">FORME NÉGATIVE</span></div>
+    ${genderBadge(gender)}
+    <div class="hint-text">METTEZ À LA FORME NÉGATIVE — NE + PRON. RÉFL. + ÊTRE + PAS + PP</div>
+    <div class="sentence-display" style="font-size:16px"><span style="color:var(--text2)">Positif : </span><span style="color:var(--fus2)">${pos}</span></div>
+    <div style="margin:10px 0 14px">
+      <input class="answer-input" id="input-${idx}" placeholder="je ne me suis pas levé(e)..."
+        style="width:380px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(neg)}')">
+      <span style="font-family:'DM Serif Display',serif;font-size:17px;color:var(--text2);margin-left:6px">${ctx}.</span>
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(neg)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 6) Traduction
+function renderTraduction(container, idx, verb, pron, gender){
+  const answer = buildPC(verb,pron,gender);
+  const enCtx  = getEnCtx(verb,currentLevel);
+  const ep     = EN_PR[pron];
+  const data   = VERBS[verb];
+  const en_v   = data?.en||verb;
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div'); card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type trad">TRADUCTION</span></div>
+    ${genderBadge(gender)}
+    ${currentLevel!=='A2'?miniBadge(verb,pron,gender):''}
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS — PASSÉ COMPOSÉ PRONOMINAL</div>
+    <div class="sentence-display" style="color:var(--fus3)">${ep} ${en_v} — <em>${enCtx}</em></div>
+    <div style="margin-top:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="je me suis..."
+        style="width:340px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK
+// ================================================================
+function checkInput(idx, answer){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+
+function checkMCQ(idx, chosen, answer, btn){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+
+function showFeedback(idx, isOk, answer){
+  const fb=document.getElementById(`feedback-${idx}`);
+  if(!fb) return;
+  const bravos=['Parfait !','Excellent !','Très bien !','Bravo !','Super !','C\'est ça !'];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+
+function markAnswered(idx, isOk){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+
+function showScore(){
+  const t=exercises.length;
+  const pct=t>0?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if     (pct>=90){emoji='🏆';title='PARFAIT !';   sub='Maîtrise parfaite du PC pronominal avec accord !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';     sub='Très bien — l\'accord du PP n\'a plus de secrets pour vous !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';      sub='Bon effort — révisez : sujet + pron. réfl. + être + (pas) + PP accordé.';}
+  else            {emoji='📚';title='CONTINUEZ !'; sub='Rappel : accord du PP avec le sujet → masc. / fém. / masc.plur. / fém.plur.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

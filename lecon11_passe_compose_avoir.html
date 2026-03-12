@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 11 — Le Passé Composé (avoir)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --cyan:#00f5ff; --violet:#b44fff; --green:#06d6a0; --red:#ff4757;
+    --amber:#f0a500; --amber2:#f5bc42; --amber3:#fad47a;
+    --accent:#f0a500;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  /* ── GRID ── */
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(240,165,0,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(240,165,0,0.025) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  /* ── HALOS ── */
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-240px; right:-160px; background:rgba(240,165,0,0.08); }
+  .h2{ width:600px; height:600px; bottom:-190px; left:-150px; background:rgba(180,79,255,0.07); }
+  .h3{ width:300px; height:300px; top:40%; left:40%; transform:translate(-50%,-50%); background:rgba(0,245,255,0.035); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.05; }
+  .al1{ width:1px; height:75vh; top:12vh; left:17%; background:linear-gradient(to bottom,transparent,var(--amber),transparent); transform:rotate(-9deg); }
+  .al2{ width:1px; height:55vh; top:25vh; right:13%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(11deg); }
+
+  .bg-mark{ position:fixed; right:-40px; top:15%; opacity:0.022; font-family:'Bebas Neue',sans-serif;
+    font-size:260px; color:var(--amber); transform:rotate(10deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  /* ── LAYOUT ── */
+  .wrapper{ position:relative; z-index:1; max-width:960px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--amber);
+    border:1px solid rgba(240,165,0,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(240,165,0,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--amber); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,7.5vw,82px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--amber) 42%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle { font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  /* ── FORMULA CARD ── */
+  .formula-section{ margin-bottom:28px; }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  .formula-card{
+    background:linear-gradient(135deg,rgba(240,165,0,0.06),rgba(180,79,255,0.06));
+    border:1px solid rgba(240,165,0,0.18); border-radius:14px; padding:22px 26px;
+  }
+  .formula-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+  .f-part{ text-align:center; min-width:80px; }
+  .f-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); margin-bottom:4px; }
+  .f-val  { font-family:'Bebas Neue',sans-serif; font-size:clamp(15px,2.5vw,22px); letter-spacing:1px; }
+  .f-sub  { color:var(--cyan); }
+  .f-aux  { color:var(--amber); }
+  .f-pp   { color:var(--violet); }
+  .f-plus { font-size:20px; color:var(--border); font-family:'Bebas Neue',sans-serif; }
+  .formula-examples{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:4px; }
+  @media(max-width:560px){ .formula-examples{ grid-template-columns:1fr; } }
+  .formula-ex{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 14px; }
+  .fe-fr{ font-family:'DM Serif Display',serif; font-size:14px; color:var(--text); }
+  .fe-fr .aux{ color:var(--amber); }
+  .fe-fr .pp { color:var(--violet); }
+  .fe-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── PARTICIPE TABLE ── */
+  .pp-section{ margin-bottom:28px; }
+  .pp-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media(max-width:500px){ .pp-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .pp-card{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 14px; transition:border-color 0.2s; }
+  .pp-card:hover{ border-color:rgba(240,165,0,0.2); }
+  .pp-card.irr{ border-color:rgba(180,79,255,0.12); }
+  .pp-card.irr:hover{ border-color:rgba(180,79,255,0.3); }
+  .pp-inf { font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:1px; color:var(--text3); }
+  .pp-form{ font-family:'DM Serif Display',serif; font-size:18px; color:var(--amber); margin:2px 0; }
+  .pp-card.irr .pp-form{ color:#d8a8ff; }
+  .pp-en  { font-size:11px; color:var(--text3); font-style:italic; }
+  .pp-type{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; padding:1px 6px; border-radius:2px; margin-top:3px; display:inline-block; }
+  .pp-type.reg{ color:var(--amber); border:1px solid rgba(240,165,0,0.25); background:rgba(240,165,0,0.06); }
+  .pp-type.irr{ color:#d8a8ff; border:1px solid rgba(180,79,255,0.25); background:rgba(180,79,255,0.06); }
+
+  /* ── AVOIR MINI GRID ── */
+  .avoir-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:28px; }
+  @media(max-width:480px){ .avoir-grid{ grid-template-columns:repeat(2,1fr); } }
+  .avoir-cell{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:9px 12px;
+    display:flex; align-items:center; justify-content:space-between; gap:6px; transition:border-color 0.2s; }
+  .avoir-cell:hover{ border-color:rgba(240,165,0,0.2); }
+  .ac-pron{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; color:var(--text3); }
+  .ac-form{ font-family:'DM Serif Display',serif; font-size:17px; color:var(--amber); }
+  .ac-en  { font-size:11px; color:var(--text3); font-style:italic; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--amber); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.4s; }
+  .vocab-wrap.open{ max-height:700px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 18px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:10px 18px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13.5px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(240,165,0,0.02); }
+  .vfr{ color:var(--text); font-family:'DM Serif Display',serif; font-size:15px; }
+  .vpp{ color:var(--amber); font-family:'DM Serif Display',serif; font-size:14px; }
+  .vpp.irr{ color:#d8a8ff; }
+  .ven{ color:var(--text2); }
+  .vcat{ color:var(--amber); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER + LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(240,165,0,0.4); background:rgba(240,165,0,0.06); color:var(--amber2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a1::before{ background:linear-gradient(135deg,rgba(6,214,160,0.15),transparent); }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(0,245,255,0.15),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(240,165,0,0.15),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.15),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a1.active{ border-color:var(--green); color:var(--green); }
+  .level-pill.a2.active{ border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b1.active{ border-color:var(--amber); color:var(--amber); }
+  .level-pill.b2.active{ border-color:var(--violet); color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--amber); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--amber),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(240,165,0,0.14),rgba(180,79,255,0.14));
+    border:1px solid rgba(240,165,0,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(240,165,0,0.26),rgba(180,79,255,0.26));
+    border-color:var(--amber); transform:translateY(-1px); box-shadow:0 8px 28px rgba(240,165,0,0.12); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(0,245,255,0.4); color:var(--cyan); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--amber),transparent);
+    opacity:0; transition:opacity 0.3s; }
+  .exercise-card.irr-card::before{ background:linear-gradient(90deg,transparent,#d8a8ff,transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(240,165,0,0.2); transform:translateY(-1px); }
+  .exercise-card.irr-card.active-card{ border-color:rgba(180,79,255,0.2); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* inline pp badge for hints */
+  .pp-hint{ display:inline-flex; align-items:center; gap:8px;
+    background:rgba(180,79,255,0.06); border:1px solid rgba(180,79,255,0.18);
+    border-radius:4px; padding:3px 12px; margin-bottom:10px; font-size:12px; }
+  .pp-hint.reg{ background:rgba(240,165,0,0.06); border-color:rgba(240,165,0,0.18); }
+  .ph-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .ph-val  { font-family:'DM Serif Display',serif; font-size:15px; }
+  .ph-val.reg{ color:var(--amber2); }
+  .ph-val.irr{ color:#d8a8ff; }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.pc      { color:var(--amber);  border:1px solid rgba(240,165,0,0.28);  background:rgba(240,165,0,0.05); }
+  .card-type.traduction{ color:var(--cyan); border:1px solid rgba(0,245,255,0.28);  background:rgba(0,245,255,0.05); }
+  .card-type.choix   { color:#d8a8ff;       border:1px solid rgba(180,79,255,0.28); background:rgba(180,79,255,0.05); }
+  .card-type.negatif { color:var(--green);  border:1px solid rgba(6,214,160,0.28);  background:rgba(6,214,160,0.05); }
+  .card-type.pp-seul { color:var(--amber2); border:1px solid rgba(240,165,0,0.28);  background:rgba(240,165,0,0.05); }
+  .card-type.irr-tag { color:#d8a8ff;       border:1px solid rgba(180,79,255,0.28); background:rgba(180,79,255,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(17px,2.8vw,23px); line-height:1.65; margin-bottom:14px; color:var(--text); }
+  .sentence-display .aux{ color:var(--amber); }
+  .sentence-display .pp { color:var(--violet); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; width:200px; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--amber); box-shadow:0 0 0 2px rgba(240,165,0,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  .answer-input.inline  { width:160px; font-size:17px; padding:6px 12px; }
+  .blank-wrapper{ display:inline-flex; align-items:center; vertical-align:middle; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--amber); color:var(--text); background:rgba(240,165,0,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show  { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(240,165,0,0.4);
+    background:rgba(240,165,0,0.06); color:var(--amber); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(240,165,0,0.16); border-color:var(--amber); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(240,165,0,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(240,165,0,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--amber); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--text); }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); }
+  .score-stat-num.bad { color:var(--red); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(240,165,0,0.4);
+    background:rgba(240,165,0,0.08); color:var(--amber); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(240,165,0,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .pp-grid{ grid-template-columns:repeat(2,1fr); }
+    .avoir-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">PASSÉ<br>COMPOSÉ</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 11 · FRANÇAIS</div>
+    <h1>Le Passé<br>Composé</h1>
+    <p class="subtitle">avec l'auxiliaire avoir · j'ai parlé, tu as fini...</p>
+    <p class="subtitle2">EXPRIMER UNE ACTION PASSÉE ACHEVÉE · A2 → B2</p>
+  </header>
+
+  <!-- FORMULA -->
+  <div class="formula-section">
+    <div class="section-title">✦ STRUCTURE DU PASSÉ COMPOSÉ</div>
+    <div class="formula-card">
+      <div class="formula-row">
+        <div class="f-part"><div class="f-label">SUJET</div><div class="f-val f-sub">SUJET</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-part"><div class="f-label">AVOIR (présent)</div><div class="f-val f-aux">AI / AS / A...</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-part"><div class="f-label">PARTICIPE PASSÉ</div><div class="f-val f-pp">-É / -I / IRR.</div></div>
+      </div>
+      <div class="formula-examples">
+        <div class="formula-ex">
+          <div class="fe-fr">J'<span class="aux">ai</span> <span class="pp">mangé</span>.</div>
+          <div class="fe-en">I ate / I have eaten.</div>
+        </div>
+        <div class="formula-ex">
+          <div class="fe-fr">Tu <span class="aux">as</span> <span class="pp">fini</span>.</div>
+          <div class="fe-en">You finished.</div>
+        </div>
+        <div class="formula-ex">
+          <div class="fe-fr">Il <span class="aux">a</span> <span class="pp">fait</span>.</div>
+          <div class="fe-en">He did / He has done.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVOIR REMINDER -->
+  <div class="section-title" style="margin-bottom:10px">✦ AVOIR AU PRÉSENT — rappel</div>
+  <div class="avoir-grid" style="margin-bottom:28px">
+    <div class="avoir-cell"><span class="ac-pron">J'</span><span class="ac-form">ai</span><span class="ac-en">I have</span></div>
+    <div class="avoir-cell"><span class="ac-pron">TU</span><span class="ac-form">as</span><span class="ac-en">you have</span></div>
+    <div class="avoir-cell"><span class="ac-pron">IL/ELLE</span><span class="ac-form">a</span><span class="ac-en">he/she has</span></div>
+    <div class="avoir-cell"><span class="ac-pron">NOUS</span><span class="ac-form">avons</span><span class="ac-en">we have</span></div>
+    <div class="avoir-cell"><span class="ac-pron">VOUS</span><span class="ac-form">avez</span><span class="ac-en">you have</span></div>
+    <div class="avoir-cell"><span class="ac-pron">ILS/ELLES</span><span class="ac-form">ont</span><span class="ac-en">they have</span></div>
+  </div>
+
+  <!-- PARTICIPES PASSÉS -->
+  <div class="pp-section">
+    <div class="section-title">✦ PARTICIPES PASSÉS — réguliers &amp; irréguliers clés</div>
+    <div class="pp-grid" id="ppGrid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <!-- VOCAB NOUVEAU -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — CUISINE &amp; GASTRONOMIE</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>INFINITIF</th><th>PART. PASSÉ</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CATÉGORIE</th><th>EXEMPLE PC</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">goûter</td><td class="vpp">goûté</td><td class="ven">to taste</td><td class="ven">probar</td><td class="vcat">cuisine</td><td class="vex">J'ai goûté ce plat.</td></tr>
+          <tr><td class="vfr">déguster</td><td class="vpp">dégusté</td><td class="ven">to savour/taste</td><td class="ven">degustar</td><td class="vcat">gastronomie</td><td class="vex">Nous avons dégusté le vin.</td></tr>
+          <tr><td class="vfr">préparer</td><td class="vpp">préparé</td><td class="ven">to prepare</td><td class="ven">preparar</td><td class="vcat">cuisine</td><td class="vex">Elle a préparé le dîner.</td></tr>
+          <tr><td class="vfr">mijoter</td><td class="vpp">mijoté</td><td class="ven">to simmer/stew</td><td class="ven">cocer a fuego lento</td><td class="vcat">technique</td><td class="vex">Il a mijoté la sauce.</td></tr>
+          <tr><td class="vfr">assaisonner</td><td class="vpp">assaisonné</td><td class="ven">to season</td><td class="ven">sazonar</td><td class="vcat">technique</td><td class="vex">Tu as bien assaisonné.</td></tr>
+          <tr><td class="vfr">réserver (table)</td><td class="vpp">réservé</td><td class="ven">to book (a table)</td><td class="ven">reservar</td><td class="vcat">restaurant</td><td class="vex">Ils ont réservé une table.</td></tr>
+          <tr><td class="vfr">commander</td><td class="vpp">commandé</td><td class="ven">to order</td><td class="ven">pedir</td><td class="vcat">restaurant</td><td class="vex">Vous avez commandé quoi ?</td></tr>
+          <tr><td class="vfr">savourer</td><td class="vpp">savouré</td><td class="ven">to savour/enjoy</td><td class="ven">saborear</td><td class="vcat">gastronomie</td><td class="vex">J'ai savouré chaque bouchée.</td></tr>
+          <tr><td class="vfr">éplucher</td><td class="vpp">épluché</td><td class="ven">to peel</td><td class="ven">pelar</td><td class="vcat">technique</td><td class="vex">Il a épluché les légumes.</td></tr>
+          <tr><td class="vfr">mélanger</td><td class="vpp">mélangé</td><td class="ven">to mix</td><td class="ven">mezclar</td><td class="vcat">technique</td><td class="vex">Elle a mélangé les ingrédients.</td></tr>
+          <tr><td class="vfr">griller</td><td class="vpp">grillé</td><td class="ven">to grill</td><td class="ven">asar a la parrilla</td><td class="vcat">technique</td><td class="vex">Nous avons grillé le poisson.</td></tr>
+          <tr><td class="vfr">se régaler</td><td class="vpp">régalé</td><td class="ven">to have a great meal</td><td class="ven">disfrutar la comida</td><td class="vcat">gastronomie</td><td class="vex">On s'est régalé !</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="auxiliaire" onclick="setFilter('auxiliaire',this)">AUXILIAIRE AVOIR</button>
+      <button class="filter-pill"        data-f="pp_reg"     onclick="setFilter('pp_reg',this)">PART. PASSÉ RÉGULIER</button>
+      <button class="filter-pill"        data-f="pp_irr"     onclick="setFilter('pp_irr',this)">PART. PASSÉ IRRÉGULIER</button>
+      <button class="filter-pill"        data-f="negatif"    onclick="setFilter('negatif',this)">FORME NÉGATIVE</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a1" onclick="setLevel('A1',this)">A1</button>
+      <button class="level-pill a2 active" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2" onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji"    id="scoreEmoji">🎉</div>
+    <div class="score-title"    id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle">Excellent !</div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num"      id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+
+// Avoir conjugation (present)
+const AVOIR = {
+  je:"j'ai", tu:'as', il:'a', elle:'a', on:'a',
+  nous:'avons', vous:'avez', ils:'ont', elles:'ont'
+};
+// Raw form for negation building
+const AVOIR_RAW = {
+  je:'ai', tu:'as', il:'a', elle:'a', on:'a',
+  nous:'avons', vous:'avez', ils:'ont', elles:'ont'
+};
+
+// Participes passés — regular + irregular
+const PP = {
+  // -ER → -é (new vocab + previous lessons)
+  goûter:'goûté', déguster:'dégusté', préparer:'préparé', mijoter:'mijoté',
+  assaisonner:'assaisonné', commander:'commandé', savourer:'savouré',
+  éplucher:'épluché', mélanger:'mélangé', griller:'grillé',
+  parler:'parlé', manger:'mangé', travailler:'travaillé', étudier:'étudié',
+  écouter:'écouté', regarder:'regardé', chanter:'chanté', danser:'dansé',
+  voyager:'voyagé', cuisiner:'cuisiné', chercher:'cherché', inviter:'invité',
+  porter:'porté', oublier:'oublié', entrer:'entré', téléphoner:'téléphoné',
+  expliquer:'expliqué', trouver:'trouvé', dessiner:'dessiné', rêver:'rêvé',
+  protéger:'protégé', recycler:'recyclé', économiser:'économisé',
+  développer:'développé', préserver:'préservé', innover:'innové',
+  réserver:'réservé', explorer:'exploré', rencontrer:'rencontré',
+
+  // -IR → -i
+  finir:'fini', choisir:'choisi', réussir:'réussi', réfléchir:'réfléchi',
+  grandir:'grandi', remplir:'rempli', saisir:'saisi', établir:'établi',
+  agir:'agi', réagir:'réagi', applaudir:'applaudi', guérir:'guéri', mûrir:'mûri',
+
+  // Irregular participes
+  faire:'fait', être:'été', avoir:'eu', aller:'allé',
+  prendre:'pris', mettre:'mis', dire:'dit', lire:'lu',
+  voir:'vu', savoir:'su', pouvoir:'pu', vouloir:'voulu',
+  venir:'venu', tenir:'tenu', boire:'bu', écrire:'écrit',
+  ouvrir:'ouvert', offrir:'offert', recevoir:'reçu', devoir:'dû',
+  connaître:'connu', croire:'cru', vivre:'vécu', suivre:'suivi',
+};
+
+// Which are irregular
+const IRR_PP = new Set([
+  'faire','être','avoir','aller','prendre','mettre','dire','lire',
+  'voir','savoir','pouvoir','vouloir','venir','tenir','boire','écrire',
+  'ouvrir','offrir','recevoir','devoir','connaître','croire','vivre','suivre',
+]);
+
+// Display labels for pp grid
+const PP_GRID_DATA = [
+  { inf:'parler',    pp:'parlé',    en:'spoken',    type:'reg' },
+  { inf:'finir',     pp:'fini',     en:'finished',  type:'reg' },
+  { inf:'manger',    pp:'mangé',    en:'eaten',     type:'reg' },
+  { inf:'choisir',   pp:'choisi',   en:'chosen',    type:'reg' },
+  { inf:'goûter',    pp:'goûté',    en:'tasted',    type:'reg' },
+  { inf:'commander', pp:'commandé', en:'ordered',   type:'reg' },
+  { inf:'faire',     pp:'fait',     en:'done/made', type:'irr' },
+  { inf:'avoir',     pp:'eu',       en:'had',       type:'irr' },
+  { inf:'être',      pp:'été',      en:'been',      type:'irr' },
+  { inf:'prendre',   pp:'pris',     en:'taken',     type:'irr' },
+  { inf:'voir',      pp:'vu',       en:'seen',      type:'irr' },
+  { inf:'dire',      pp:'dit',      en:'said',      type:'irr' },
+  { inf:'boire',     pp:'bu',       en:'drunk',     type:'irr' },
+  { inf:'écrire',    pp:'écrit',    en:'written',   type:'irr' },
+  { inf:'vouloir',   pp:'voulu',    en:'wanted',    type:'irr' },
+  { inf:'pouvoir',   pp:'pu',       en:'been able', type:'irr' },
+  { inf:'lire',      pp:'lu',       en:'read',      type:'irr' },
+  { inf:'mettre',    pp:'mis',      en:'put',       type:'irr' },
+];
+
+// Build the pp reference grid
+function buildPPGrid() {
+  const grid = document.getElementById('ppGrid');
+  grid.innerHTML = PP_GRID_DATA.map(d => `
+    <div class="pp-card ${d.type === 'irr' ? 'irr' : ''}">
+      <div class="pp-inf">${d.inf}</div>
+      <div class="pp-form">${d.pp}</div>
+      <div class="pp-en">${d.en}</div>
+      <span class="pp-type ${d.type}">${d.type === 'irr' ? 'IRRÉGULIER' : 'RÉGULIER'}</span>
+    </div>`).join('');
+}
+
+// ── Contexts ──────────────────────────────────────────────────────
+const CTX = {
+  goûter:      {A1:'ce plat',             A2:'un dessert délicieux',              B1:'tous les fromages proposés',             B2:'chaque spécialité régionale avec curiosité'},
+  déguster:    {A1:'le vin',              A2:'un repas gastronomique',            B1:'des mets raffinés dans ce restaurant',   B2:'des saveurs inédites lors de ce dîner d\'exception'},
+  préparer:    {A1:'le dîner',            A2:'une tarte aux pommes',              B1:'un repas pour vingt personnes',          B2:'un menu cinq plats digne d\'un chef étoilé'},
+  mijoter:     {A1:'la sauce',            A2:'un bœuf bourguignon',              B1:'ce plat pendant trois heures',           B2:'une daube provençale selon la recette familiale'},
+  assaisonner: {A1:'la salade',           A2:'le poulet avant de le cuire',       B1:'chaque plat avec précision et talent',   B2:'les viandes avec un mélange d\'épices rare'},
+  commander:   {A1:'une pizza',           A2:'le menu du jour',                   B1:'un plateau de fruits de mer pour deux', B2:'le meilleur cru de la carte des vins'},
+  savourer:    {A1:'ce gâteau',           A2:'chaque bouchée lentement',          B1:'ce repas avec un plaisir évident',       B2:'l\'équilibre parfait entre texture et saveur'},
+  éplucher:    {A1:'les carottes',        A2:'tous les légumes du marché',        B1:'une quantité impressionnante de fruits', B2:'les légumes racines avec la patience d\'un professionnel'},
+  mélanger:    {A1:'les œufs',            A2:'tous les ingrédients ensemble',     B1:'délicatement la pâte pour ne pas la rompre',B2:'les saveurs selon les règles de la cuisine moléculaire'},
+  griller:     {A1:'le poisson',          A2:'des légumes au barbecue',           B1:'les viandes à feu vif pendant l\'été',   B2:'des pièces nobles sous une chaleur parfaitement maîtrisée'},
+  parler:      {A1:'avec le chef',        A2:'de la recette en détail',           B1:'des tendances gastronomiques actuelles', B2:'de l\'influence culturelle de la cuisine française'},
+  manger:      {A1:'une bonne pizza',     A2:'au restaurant ce soir-là',          B1:'un repas exceptionnel en bonne compagnie',B2:'dans un des meilleurs restaurants de la ville'},
+  travailler:  {A1:'dur ce jour-là',      A2:'toute la journée à la cuisine',     B1:'sans relâche pour perfectionner la recette',B2:'en étroite collaboration avec le chef pâtissier'},
+  voyager:     {A1:'en France',           A2:'pour découvrir la cuisine locale',  B1:'à travers la France pour ses saveurs',   B2:'dans plusieurs régions pour enrichir sa palette culinaire'},
+  cuisiner:    {A1:'ce soir',             A2:'un plat traditionnel',              B1:'avec des produits frais du marché',      B2:'en respectant les techniques de la haute cuisine'},
+  réserver:    {A1:'une table',           A2:'une table pour ce soir',            B1:'la meilleure table de la maison',        B2:'longtemps à l\'avance dans ce restaurant très prisé'},
+  explorer:    {A1:'le marché',           A2:'les saveurs du monde entier',       B1:'les spécialités locales pendant le voyage',B2:'une carte impressionnante de vins naturels'},
+  finir:       {A1:'mon assiette',        A2:'le dessert avec plaisir',           B1:'tous les plats proposés par le chef',    B2:'le repas sur une note sucrée et mémorable'},
+  choisir:     {A1:'le dessert',          A2:'le meilleur plat du menu',          B1:'entre une entrée de saison et une soupe', B2:'avec discernement chaque accord mets et vins'},
+  réussir:     {A1:'la recette',          A2:'mon soufflé au chocolat !',         B1:'à reproduire ce plat complexe',          B2:'l\'équilibre délicat de cette préparation exigeante'},
+  faire:       {A1:'une tarte',           A2:'une quiche lorraine',               B1:'un repas de fête pour toute la famille', B2:'preuve d\'une maîtrise culinaire exceptionnelle'},
+  boire:       {A1:'du vin',              A2:'un excellent bordeaux',             B1:'un champagne millésimé à l\'occasion',   B2:'ce vin d\'exception pour marquer l\'événement'},
+  voir:        {A1:'le chef cuisinier',   A2:'une émission de cuisine',           B1:'la préparation du plat de près',         B2:'cet artisan transformer des ingrédients simples en chef-d\'œuvre'},
+  prendre:     {A1:'le menu',             A2:'une entrée et un dessert',          B1:'le temps d\'apprécier chaque saveur',    B2:'la décision de suivre une formation gastronomique'},
+  dire:        {A1:'merci au serveur',    A2:'que c\'était délicieux',            B1:'toute leur admiration au chef',          B2:'à quel point ce repas les avait profondément marqués'},
+  écrire:      {A1:'la recette',          A2:'un article sur la cuisine française',B1:'un livre de cuisine illustré',          B2:'une critique gastronomique très remarquée'},
+  lire:        {A1:'la carte',            A2:'le menu avec attention',            B1:'de nombreux livres de cuisine classiques',B2:'chaque description de plat avec un vif intérêt'},
+};
+
+const EN_CTX = {
+  goûter:      {A1:'this dish',           A2:'a delicious dessert',               B1:'all the cheeses offered',               B2:'every regional speciality with curiosity'},
+  déguster:    {A1:'the wine',            A2:'a gourmet meal',                    B1:'refined dishes at this restaurant',     B2:'unique flavours at this exceptional dinner'},
+  préparer:    {A1:'dinner',              A2:'an apple tart',                     B1:'a meal for twenty people',              B2:'a five-course menu worthy of a starred chef'},
+  mijoter:     {A1:'the sauce',           A2:'a beef bourguignon',                B1:'this dish for three hours',             B2:'a Provençal stew to the family recipe'},
+  assaisonner: {A1:'the salad',           A2:'the chicken before cooking',        B1:'each dish with precision and skill',    B2:'meats with a rare blend of spices'},
+  commander:   {A1:'a pizza',             A2:'the daily menu',                    B1:'a seafood platter for two',             B2:'the best vintage from the wine list'},
+  savourer:    {A1:'this cake',           A2:'every bite slowly',                 B1:'this meal with obvious delight',        B2:'the perfect balance of texture and flavour'},
+  éplucher:    {A1:'the carrots',         A2:'all the market vegetables',         B1:'an impressive quantity of fruit',       B2:'root vegetables with professional patience'},
+  mélanger:    {A1:'the eggs',            A2:'all the ingredients together',      B1:'the dough gently so as not to break it',B2:'flavours according to molecular gastronomy rules'},
+  griller:     {A1:'the fish',            A2:'vegetables on the barbecue',        B1:'meats over high heat in summer',        B2:'noble cuts under perfectly controlled heat'},
+  parler:      {A1:'to the chef',         A2:'about the recipe in detail',        B1:'about current gastronomic trends',      B2:'about the cultural influence of French cuisine'},
+  manger:      {A1:'a good pizza',        A2:'at the restaurant that evening',    B1:'an exceptional meal in good company',   B2:'at one of the best restaurants in the city'},
+  cuisiner:    {A1:'tonight',             A2:'a traditional dish',                B1:'with fresh market produce',             B2:'respecting haute cuisine techniques'},
+  réserver:    {A1:'a table',             A2:'a table for tonight',               B1:'the best table in the house',           B2:'far in advance at this very sought-after restaurant'},
+  finir:       {A1:'my plate',            A2:'the dessert with pleasure',         B1:'all the dishes the chef proposed',      B2:'the meal on a sweet and memorable note'},
+  choisir:     {A1:'the dessert',         A2:'the best dish on the menu',         B1:'between a seasonal starter and a soup', B2:'each food and wine pairing with discernment'},
+  réussir:     {A1:'the recipe',          A2:'my chocolate soufflé!',             B1:'in reproducing this complex dish',      B2:'the delicate balance of this demanding preparation'},
+  faire:       {A1:'a tart',              A2:'a quiche lorraine',                 B1:'a festive meal for the whole family',   B2:'demonstrate exceptional culinary mastery'},
+  boire:       {A1:'wine',                A2:'an excellent Bordeaux',             B1:'a vintage champagne for the occasion',  B2:'this exceptional wine to mark the event'},
+  voir:        {A1:'the chef',            A2:'a cooking show',                    B1:'the dish being prepared up close',      B2:'this artisan transform simple ingredients into a masterpiece'},
+  prendre:     {A1:'the menu',            A2:'a starter and dessert',             B1:'time to appreciate each flavour',       B2:'the decision to pursue gastronomic training'},
+  dire:        {A1:'thank you',           A2:'it was delicious',                  B1:'how much they admired the chef',        B2:'how deeply this meal had moved them'},
+  écrire:      {A1:'the recipe',          A2:'an article on French cuisine',      B1:'an illustrated cookbook',               B2:'a highly acclaimed gastronomic review'},
+  lire:        {A1:'the menu',            A2:'the menu carefully',                B1:'many classic cookbooks',                B2:'each dish description with keen interest'},
+  travailler:  {A1:'hard that day',       A2:'all day in the kitchen',            B1:'tirelessly to perfect the recipe',      B2:'closely with the head pastry chef'},
+  voyager:     {A1:'to France',           A2:'to discover local cuisine',         B1:'across France for its flavours',        B2:'across several regions to enrich culinary knowledge'},
+  explorer:    {A1:'the market',          A2:'flavours from around the world',    B1:'local specialities during the trip',    B2:'an impressive list of natural wines'},
+};
+
+const PRON_DISPLAY = { je:'Je', tu:'Tu', il:'Il', elle:'Elle', on:'On', nous:'Nous', vous:'Vous', ils:'Ils', elles:'Elles' };
+const EN_PRONS     = { je:'I', tu:'You', il:'He', elle:'She', on:'One', nous:'We', vous:'You', ils:'They', elles:'They' };
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel = 'A2';
+let exFilter     = 'tous';
+let exercises    = [];
+let answered     = 0;
+let correct      = 0;
+
+function setLevel(lv, btn){
+  currentLevel = lv;
+  document.querySelectorAll('.level-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function setFilter(f, btn){
+  exFilter = f;
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function shuffle(a){ return a.sort(() => Math.random() - 0.5); }
+
+// Auxiliary form (full with elision)
+function auxFull(pron){
+  if(pron === 'je') return "j'ai";
+  return PRON_DISPLAY[pron] + ' ' + AVOIR_RAW[pron];
+}
+// Just the avoir form
+function auxForm(pron){ return AVOIR_RAW[pron]; }
+
+// Build full passé composé
+function buildPC(pron, verb){
+  const a  = auxFull(pron);
+  const pp = PP[verb] || (verb + 'é');
+  return `${a} ${pp}`;
+}
+
+// Negative: ne/n' + avoir + pas
+function buildNeg(pron, verb){
+  const af  = auxForm(pron);
+  const pp  = PP[verb] || (verb + 'é');
+  const sub = PRON_DISPLAY[pron];
+  const ne  = pron === 'je' ? "n'" : /^[aeiouéèàâê]/i.test(af) ? "n'" : 'ne ';
+  return `${ne}${af} pas ${pp}`;
+}
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container = document.getElementById('exercisesContainer');
+  container.innerHTML = '';
+  exercises = [];
+
+  const pronouns = ['je','tu','il','elle','nous','vous','ils','elles'];
+  const numEx = currentLevel === 'A1' ? 8 : currentLevel === 'A2' ? 10 : 12;
+
+  // Verb pool based on filter
+  let verbPool;
+  if      (exFilter === 'pp_irr')  verbPool = [...IRR_PP].filter(v => PP[v] && CTX[v]);
+  else if (exFilter === 'pp_reg')  verbPool = Object.keys(PP).filter(v => !IRR_PP.has(v) && CTX[v]);
+  else                             verbPool = Object.keys(PP).filter(v => CTX[v]);
+
+  // Type pool
+  let typePool;
+  if      (exFilter === 'auxiliaire') typePool = ['aux_input'];
+  else if (exFilter === 'pp_reg')     typePool = ['pp_input','mcq','input_full'];
+  else if (exFilter === 'pp_irr')     typePool = ['pp_input','mcq','input_full','traduction'];
+  else if (exFilter === 'negatif')    typePool = ['negatif'];
+  else if (exFilter === 'traduction') typePool = ['traduction'];
+  else typePool = ['input_full','mcq','pp_input','aux_input','negatif','traduction'];
+
+  const usedCombos = new Set();
+  const picked = [];
+  let tries = 0;
+  while(picked.length < numEx && tries < 200){
+    tries++;
+    const verb = verbPool[Math.floor(Math.random() * verbPool.length)];
+    const pron = pronouns[Math.floor(Math.random() * pronouns.length)];
+    const ctx  = CTX[verb] && (CTX[verb][currentLevel] || CTX[verb]['A2']);
+    if(!ctx) continue;
+    const key = verb + pron;
+    if(usedCombos.has(key)) continue;
+    usedCombos.add(key);
+    picked.push({ verb, pron });
+  }
+
+  const types = [];
+  for(let i = 0; i < picked.length; i++) types.push(typePool[i % typePool.length]);
+  shuffle(types);
+
+  picked.forEach(({ verb, pron }, i) => {
+    const type  = types[i];
+    const isIrr = IRR_PP.has(verb);
+    if      (type === 'aux_input')  renderAuxInput(container, i, verb, pron, isIrr);
+    else if (type === 'pp_input')   renderPPInput(container, i, verb, pron, isIrr);
+    else if (type === 'mcq')        renderMCQ(container, i, verb, pron, isIrr);
+    else if (type === 'negatif')    renderNegatif(container, i, verb, pron, isIrr);
+    else if (type === 'traduction') renderTraduction(container, i, verb, pron, isIrr);
+    else                            renderFullInput(container, i, verb, pron, isIrr);
+  });
+
+  updateProgress();
+}
+
+// ================================================================
+// RENDER HELPERS
+// ================================================================
+function getCtx(verb, lv){ const c = CTX[verb]; return (c && c[lv]) || (c && c['A2']) || ''; }
+function getEnCtx(verb, lv){ const c = EN_CTX[verb]; return (c && c[lv]) || (c && c['A2']) || verb; }
+function esc(s){ return s.replace(/'/g,"\\'"); }
+function normalise(s){
+  return s.toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c').replace(/\s+/g,' ');
+}
+
+function ppHint(verb, pron, isIrr){
+  const pp = PP[verb] || '';
+  const af = auxForm(pron);
+  const cls = isIrr ? 'irr' : 'reg';
+  return `<div class="pp-hint ${cls}"><span class="ph-label">PP</span><span class="ph-val ${cls}">${pp}</span></div>`;
+}
+
+// Wrong PP choices
+function wrongPPs(correct){
+  return shuffle(Object.values(PP).filter(p => p !== correct)).slice(0, 3);
+}
+// Wrong avoir forms
+function wrongAux(correct){
+  return shuffle(Object.values(AVOIR_RAW).filter(f => f !== correct)).slice(0, 3);
+}
+
+// ── 1) Fill in auxiliaire AVOIR only
+function renderAuxInput(container, idx, verb, pron, isIrr){
+  const af   = auxForm(pron);
+  const pp   = PP[verb];
+  const ctx  = getCtx(verb, currentLevel);
+  const sub  = pron === 'je' ? "J'" : PRON_DISPLAY[pron];
+  exercises.push({ id:idx, answer:normalise(af), answered:false, correct:false });
+
+  const card = document.createElement('div');
+  card.className = `exercise-card${isIrr?' irr-card':''}`; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type pc">PASSÉ COMPOSÉ</span></div>
+    <div class="hint-text">CONJUGUEZ « AVOIR » AU PRÉSENT (auxiliaire)</div>
+    <div class="sentence-display">
+      ${sub} <span class="blank-wrapper"><input class="answer-input inline" id="input-${idx}"
+        placeholder="..." autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(af)}')"></span>
+      <span class="pp">${pp}</span> ${ctx}.
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(af)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ── 2) Fill in participe passé only
+function renderPPInput(container, idx, verb, pron, isIrr){
+  const af  = auxFull(pron);
+  const pp  = PP[verb];
+  const ctx = getCtx(verb, currentLevel);
+  exercises.push({ id:idx, answer:normalise(pp), answered:false, correct:false });
+
+  const typeTag = isIrr
+    ? '<span class="card-type irr-tag">PP IRRÉGULIER</span>'
+    : '<span class="card-type pp-seul">PP RÉGULIER</span>';
+
+  const card = document.createElement('div');
+  card.className = `exercise-card${isIrr?' irr-card':''}`; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px">${typeTag}</div>
+    <div class="hint-text">QUEL EST LE PARTICIPE PASSÉ DE « ${verb.toUpperCase()} » ?</div>
+    <div class="sentence-display">
+      <span class="aux">${af}</span>
+      <span class="blank-wrapper"><input class="answer-input inline" id="input-${idx}"
+        placeholder="pp..." autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(pp)}')"></span> ${ctx}.
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(pp)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ── 3) Full passé composé input (aux + pp in one field)
+function renderFullInput(container, idx, verb, pron, isIrr){
+  const answer = buildPC(pron, verb);
+  const ctx    = getCtx(verb, currentLevel);
+  const sub    = pron === 'je' ? "J'" : PRON_DISPLAY[pron];
+  exercises.push({ id:idx, answer:normalise(answer), answered:false, correct:false });
+
+  const typeTag = isIrr
+    ? '<span class="card-type irr-tag">PP IRRÉGULIER</span>'
+    : '<span class="card-type pc">PASSÉ COMPOSÉ</span>';
+
+  const card = document.createElement('div');
+  card.className = `exercise-card${isIrr?' irr-card':''}`; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px">${typeTag}</div>
+    ${currentLevel !== 'A1' ? ppHint(verb, pron, isIrr) : ''}
+    <div class="hint-text">CONJUGUEZ « ${verb.toUpperCase()} » AU PASSÉ COMPOSÉ</div>
+    <div class="sentence-display">
+      ${sub} <input class="answer-input" id="input-${idx}"
+        placeholder="ai / as / a... + pp" style="width:240px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"> ${ctx}.
+    </div>
+    <div class="hint-text" style="margin-top:4px">Tapez : auxiliaire + participe passé (ex : « ai mangé »)</div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ── 4) MCQ — choose correct PP
+function renderMCQ(container, idx, verb, pron, isIrr){
+  const af      = auxFull(pron);
+  const pp      = PP[verb];
+  const ctx     = getCtx(verb, currentLevel);
+  const wrongs  = wrongPPs(pp);
+  const choices = shuffle([pp, ...wrongs]).map(c =>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(pp)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({ id:idx, answer:normalise(pp), answered:false, correct:false });
+
+  const card = document.createElement('div');
+  card.className = `exercise-card${isIrr?' irr-card':''}`; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type choix">CHOIX MULTIPLE</span></div>
+    <div class="hint-text">QUEL EST LE BON PARTICIPE PASSÉ DE « ${verb.toUpperCase()} » ?</div>
+    <div class="sentence-display"><span class="aux">${af}</span> ___ ${ctx}.</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ── 5) Negative form
+function renderNegatif(container, idx, verb, pron, isIrr){
+  const neg = buildNeg(pron, verb);
+  const ctx = getCtx(verb, currentLevel);
+  const sub = PRON_DISPLAY[pron];
+  exercises.push({ id:idx, answer:normalise(neg), answered:false, correct:false });
+
+  const card = document.createElement('div');
+  card.className = `exercise-card${isIrr?' irr-card':''}`; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type negatif">FORME NÉGATIVE</span></div>
+    <div class="hint-text">NE/N' + AVOIR + PAS + PARTICIPE PASSÉ</div>
+    <div class="sentence-display">
+      ${sub} <input class="answer-input" id="input-${idx}"
+        placeholder="n'ai pas..." style="width:260px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(neg)}')"> ${ctx}.
+    </div>
+    <div class="hint-text" style="margin-top:4px">Structure : ne/n' + avoir + pas + pp (ex : « n'ai pas mangé »)</div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(neg)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ── 6) Translation
+function renderTraduction(container, idx, verb, pron, isIrr){
+  const answer = buildPC(pron, verb);
+  const ctx    = getEnCtx(verb, currentLevel);
+  const ep     = EN_PRONS[pron] || 'I';
+  const sub    = pron === 'je' ? "J'" : PRON_DISPLAY[pron];
+  exercises.push({ id:idx, answer:normalise(answer), answered:false, correct:false });
+
+  const card = document.createElement('div');
+  card.className = `exercise-card${isIrr?' irr-card':''}`; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type traduction">TRADUCTION</span></div>
+    ${ppHint(verb, pron, isIrr)}
+    <div class="hint-text">TRADUISEZ — PASSÉ COMPOSÉ DE « ${verb.toUpperCase()} »</div>
+    <div class="sentence-display" style="color:var(--amber2)">${ep} ate/had/did — <em>${ctx}</em></div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--text2)">${sub}</span>
+      <input class="answer-input" id="input-${idx}" placeholder="ai/as/a... + pp" style="width:240px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK LOGIC
+// ================================================================
+function checkInput(idx, answer){
+  const ex = exercises.find(e => e.id === idx);
+  if(!ex || ex.answered) return;
+  const input = document.getElementById(`input-${idx}`);
+  const isOk  = normalise(input.value) === normalise(answer);
+  input.disabled = true;
+  input.classList.add(isOk ? 'correct' : 'incorrect');
+  document.getElementById(`card-${idx}`).querySelectorAll('.check-btn').forEach(b => b.disabled = true);
+  showFeedback(idx, isOk, answer);
+  markAnswered(idx, isOk);
+}
+
+function checkMCQ(idx, chosen, answer, btn){
+  const ex = exercises.find(e => e.id === idx);
+  if(!ex || ex.answered) return;
+  const isOk = normalise(chosen) === normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b => {
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim()) === normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled');
+  btn.classList.add(isOk ? 'selected-correct' : 'selected-wrong');
+  showFeedback(idx, isOk, answer);
+  markAnswered(idx, isOk);
+}
+
+function showFeedback(idx, isOk, answer){
+  const fb   = document.getElementById(`feedback-${idx}`);
+  const icon = fb.querySelector('.feedback-icon');
+  const msg  = fb.querySelector('.feedback-msg');
+  const bravos = ['Parfait !','Excellent !','Très bien !','Bravo !','Super !','C\'est ça !'];
+  if(isOk){
+    fb.className = 'feedback success show';
+    icon.textContent = '✓';
+    msg.innerHTML = `<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`;
+  } else {
+    fb.className = 'feedback error show';
+    icon.textContent = '✗';
+    msg.innerHTML = `Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+  }
+}
+
+function markAnswered(idx, isOk){
+  const ex = exercises.find(e => e.id === idx);
+  if(!ex) return;
+  ex.answered = true; ex.correct = isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`).classList.add('active-card');
+  updateProgress();
+  if(answered === exercises.length && exercises.length > 0) setTimeout(showScore, 700);
+}
+
+function updateProgress(){
+  const total = exercises.length;
+  document.getElementById('scoreDisplay').textContent = `${correct} / ${total}`;
+  document.getElementById('progressFill').style.width = total > 0 ? (answered/total*100)+'%' : '0%';
+}
+
+function showScore(){
+  const total = exercises.length;
+  const pct   = total > 0 ? Math.round(correct/total*100) : 0;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent   = total - correct;
+  document.getElementById('totalCount').textContent   = total;
+  let emoji,title,sub;
+  if     (pct>=90){emoji='🏆';title='PARFAIT !';   sub='Maîtrise parfaite du passé composé avec avoir !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';     sub='Très bien — encore un peu de travail sur les PP irréguliers.';}
+  else if(pct>=50){emoji='💪';title='BIEN !';      sub='Bon effort — révisez les participes passés irréguliers.';}
+  else            {emoji='📚';title='CONTINUEZ !'; sub='Rappel : sujet + avoir (présent) + participe passé.';}
+  document.getElementById('scoreEmoji').textContent    = emoji;
+  document.getElementById('scoreTitle').textContent    = title;
+  document.getElementById('scoreSubtitle').textContent = sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+
+function resetAll(clear = true){
+  exercises = []; answered = 0; correct = 0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML = ''; updateProgress(); }
+}
+
+// Vocab toggle
+document.getElementById('vocabToggle').addEventListener('click', function(){
+  const w = document.getElementById('vocabWrap');
+  const open = w.classList.toggle('open');
+  this.classList.toggle('open', open);
+});
+
+// Init
+buildPPGrid();
+window.addEventListener('load', () => { setTimeout(generateExercises, 400); });
+</script>
+</body>
+</html>

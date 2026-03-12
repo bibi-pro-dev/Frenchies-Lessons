@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 1 — Salutations &amp; Présentations</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440; --border:#1e2d4a;
+    --violet:#b44fff; --gold:#ffd166; --green:#06d6a0; --red:#ff4757;
+    --cy:#00f5ff; --cy2:#67e8f9; --cy3:#cffafe;
+    --accent:#00f5ff;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-240px; right:-180px; background:rgba(0,245,255,0.08); }
+  .h2{ width:560px; height:560px; bottom:-190px; left:-150px; background:rgba(180,79,255,0.06); }
+  .h3{ width:260px; height:260px; top:48%; left:22%; background:rgba(255,209,102,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:78vh; top:10vh; left:12%; background:linear-gradient(to bottom,transparent,var(--cy),transparent); transform:rotate(-9deg); }
+  .al2{ width:1px; height:58vh; top:22vh; right:11%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(10deg); }
+
+  .bg-mark{ position:fixed; right:-44px; bottom:6%; opacity:0.022; font-family:'Bebas Neue',sans-serif;
+    font-size:190px; color:var(--cy); transform:rotate(8deg); pointer-events:none; z-index:0; line-height:0.82; }
+
+  .wrapper{ position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--cy2);
+    border:1px solid rgba(0,245,255,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(0,245,255,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--cy2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,7.5vw,88px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--cy2) 44%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── SALUTATIONS REFERENCE GRID ── */
+  .sal-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:22px; }
+  @media(max-width:560px){ .sal-grid{ grid-template-columns:1fr; } }
+
+  .sal-card{ background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.2s; }
+  .sal-card:hover{ border-color:rgba(0,245,255,0.22); }
+  .sc-head{ padding:11px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
+  .sc-icon{ font-size:20px; }
+  .sc-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; }
+  .sc-title.formal  { color:var(--cy2); }
+  .sc-title.informal{ color:var(--gold); }
+  .sc-title.depart  { color:var(--green); }
+  .sc-title.time    { color:#f472b6; }
+  .sc-body{ padding:12px 16px; }
+  .sc-row{ display:flex; justify-content:space-between; align-items:baseline; padding:4px 0; border-bottom:1px solid rgba(30,45,74,0.4); }
+  .sc-row:last-child{ border-bottom:none; }
+  .sc-fr { font-family:'DM Serif Display',serif; font-size:16px; color:var(--text); }
+  .sc-fr.cy{ color:var(--cy2); } .sc-fr.yl{ color:var(--gold); } .sc-fr.gn{ color:var(--green); } .sc-fr.pk{ color:#f472b6; }
+  .sc-en { font-size:12px; color:var(--text3); font-style:italic; }
+
+  /* ── PRÉSENTATION FORMULAS ── */
+  .pres-section{ margin-bottom:22px; }
+  .pres-card{ background:linear-gradient(135deg,rgba(0,245,255,0.06),rgba(180,79,255,0.03));
+    border:1px solid rgba(0,245,255,0.2); border-radius:13px; padding:18px 22px; }
+  .pres-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; color:var(--cy2); margin-bottom:14px; }
+  .pres-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:540px){ .pres-grid{ grid-template-columns:1fr; } }
+  .pres-col{ background:var(--bg2); border:1px solid var(--border); border-radius:9px; padding:13px 15px; }
+  .pc-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:2px; color:var(--cy2); margin-bottom:8px; }
+  .pc-formula{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); line-height:1.85; }
+  .pc-formula .hl { color:var(--cy2); }
+  .pc-formula .hl2{ color:var(--gold); }
+  .pc-formula .hl3{ color:var(--green); }
+  .pc-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:5px; }
+
+  /* ── CONJUGAISON ÊTRE / S'APPELER ── */
+  .conj-section{ margin-bottom:22px; }
+  .conj-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media(max-width:560px){ .conj-grid{ grid-template-columns:1fr; } }
+  .conj-card{ background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .conj-head{ padding:10px 16px; border-bottom:1px solid var(--border); display:flex; align-items:baseline; gap:10px; }
+  .conj-verb{ font-family:'Bebas Neue',sans-serif; font-size:28px; line-height:1; }
+  .conj-verb.etre{ color:var(--cy2); }
+  .conj-verb.sappeler{ color:var(--gold); }
+  .conj-note{ font-family:'DM Serif Display',serif; font-style:italic; font-size:12px; color:var(--text3); }
+  .conj-body{ padding:10px 16px; }
+  .conj-row{ display:grid; grid-template-columns:0.7fr 1fr; align-items:baseline; padding:5px 0; border-bottom:1px solid rgba(30,45,74,0.3); }
+  .conj-row:last-child{ border-bottom:none; }
+  .conj-pron{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:2px; color:var(--text3); }
+  .conj-form{ font-family:'DM Serif Display',serif; font-size:17px; }
+  .conj-form.etre{ color:var(--cy2); }
+  .conj-form.sappeler{ color:var(--gold); }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--cy2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:880px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(0,245,255,0.02); }
+  .vfr{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vcat-tag{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; color:var(--cy); }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(0,245,255,0.4); background:rgba(0,245,255,0.07); color:var(--cy2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.deb::before{ background:linear-gradient(135deg,rgba(0,245,255,0.12),transparent); }
+  .level-pill.a1::before { background:linear-gradient(135deg,rgba(6,214,160,0.12),transparent); }
+  .level-pill.a2::before { background:linear-gradient(135deg,rgba(255,209,102,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.deb.active{ border-color:var(--cy);    color:var(--cy2); }
+  .level-pill.a1.active { border-color:var(--green); color:var(--green); }
+  .level-pill.a2.active { border-color:var(--gold);  color:var(--gold); }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--cy2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--cy),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(0,245,255,0.12),rgba(180,79,255,0.08));
+    border:1px solid rgba(0,245,255,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(0,245,255,0.24),rgba(180,79,255,0.18));
+    border-color:var(--cy2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(0,245,255,0.12); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--cy2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.gold-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card.green-card::before{ background:linear-gradient(90deg,transparent,var(--green),transparent); }
+  .exercise-card.vl-card::before{ background:linear-gradient(90deg,transparent,#d8a8ff,transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(0,245,255,0.22); transform:translateY(-1px); }
+  .exercise-card.gold-card.active-card { border-color:rgba(255,209,102,0.22); }
+  .exercise-card.green-card.active-card{ border-color:rgba(6,214,160,0.22); }
+  .exercise-card.vl-card.active-card   { border-color:rgba(180,79,255,0.22); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* type badge */
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.sal  { color:var(--cy2);  border:1px solid rgba(0,245,255,0.28);  background:rgba(0,245,255,0.05); }
+  .card-type.pres { color:var(--gold); border:1px solid rgba(255,209,102,0.28);background:rgba(255,209,102,0.05); }
+  .card-type.conj { color:var(--green);border:1px solid rgba(6,214,160,0.28);  background:rgba(6,214,160,0.05); }
+  .card-type.voc  { color:#d8a8ff;     border:1px solid rgba(180,79,255,0.28); background:rgba(180,79,255,0.05); }
+  .card-type.trad { color:#86efac;     border:1px solid rgba(134,239,172,0.25);background:rgba(134,239,172,0.04); }
+  .card-type.dial { color:var(--cy3);  border:1px solid rgba(207,250,254,0.2); background:rgba(207,250,254,0.04); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(15px,2.5vw,20px); line-height:1.9; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:17px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--cy2); box-shadow:0 0 0 2px rgba(0,245,255,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--cy2); color:var(--text); background:rgba(0,245,255,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red); color:var(--red); background:rgba(255,71,87,0.08); cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(0,245,255,0.4);
+    background:rgba(0,245,255,0.06); color:var(--cy2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(0,245,255,0.16); border-color:var(--cy2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(0,245,255,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(0,245,255,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--cy2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); } .score-stat-num.bad{ color:var(--red); } .score-stat-num.neu{ color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(0,245,255,0.4);
+    background:rgba(0,245,255,0.08); color:var(--cy2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(0,245,255,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .sal-grid{ grid-template-columns:1fr; }
+    .pres-grid{ grid-template-columns:1fr; }
+    .conj-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">BONJOUR<br>MERCI<br>AU REVOIR</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 01 · FRANÇAIS</div>
+    <h1>Salutations &amp;<br>Présentations</h1>
+    <p class="subtitle">Bonjour ! Je m'appelle <span style="color:var(--cy2)">Marie</span>, j'ai <span style="color:var(--cy2)">28 ans</span>, je suis <span style="color:var(--cy2)">française</span>...</p>
+    <p class="subtitle2">SALUTATIONS · SE PRÉSENTER · ÊTRE · S'APPELER · NATIONALITÉS · A1</p>
+  </header>
+
+  <!-- SALUTATIONS GRID -->
+  <div class="section-title">✦ SALUTATIONS — FORMEL &amp; INFORMEL</div>
+  <div class="sal-grid">
+    <!-- Formelles -->
+    <div class="sal-card">
+      <div class="sc-head"><span class="sc-icon">🎩</span><span class="sc-title formal">FORMEL / NEUTRE</span></div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-fr cy">Bonjour</span><span class="sc-en">Hello / Good morning/afternoon</span></div>
+        <div class="sc-row"><span class="sc-fr cy">Bonsoir</span><span class="sc-en">Good evening</span></div>
+        <div class="sc-row"><span class="sc-fr cy">Comment allez-vous ?</span><span class="sc-en">How are you? (formal)</span></div>
+        <div class="sc-row"><span class="sc-fr cy">Je vais bien, merci.</span><span class="sc-en">I'm well, thank you.</span></div>
+        <div class="sc-row"><span class="sc-fr cy">Enchanté(e).</span><span class="sc-en">Pleased to meet you.</span></div>
+        <div class="sc-row"><span class="sc-fr cy">Excusez-moi.</span><span class="sc-en">Excuse me. / I'm sorry. (formal)</span></div>
+      </div>
+    </div>
+    <!-- Informelles -->
+    <div class="sal-card">
+      <div class="sc-head"><span class="sc-icon">👋</span><span class="sc-title informal">INFORMEL / FAMILIER</span></div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-fr yl">Salut !</span><span class="sc-en">Hi! / Hey!</span></div>
+        <div class="sc-row"><span class="sc-fr yl">Coucou !</span><span class="sc-en">Hey there! (very casual)</span></div>
+        <div class="sc-row"><span class="sc-fr yl">Ça va ?</span><span class="sc-en">How's it going?</span></div>
+        <div class="sc-row"><span class="sc-fr yl">Ça va, et toi ?</span><span class="sc-en">Fine, and you?</span></div>
+        <div class="sc-row"><span class="sc-fr yl">Super / Pas mal.</span><span class="sc-en">Great / Not bad.</span></div>
+        <div class="sc-row"><span class="sc-fr yl">Excuse-moi.</span><span class="sc-en">Excuse me. (informal)</span></div>
+      </div>
+    </div>
+    <!-- Au revoir -->
+    <div class="sal-card">
+      <div class="sc-head"><span class="sc-icon">👋</span><span class="sc-title depart">AU REVOIR &amp; À BIENTÔT</span></div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-fr gn">Au revoir.</span><span class="sc-en">Goodbye.</span></div>
+        <div class="sc-row"><span class="sc-fr gn">Bonne journée !</span><span class="sc-en">Have a good day!</span></div>
+        <div class="sc-row"><span class="sc-fr gn">Bonne soirée !</span><span class="sc-en">Have a good evening!</span></div>
+        <div class="sc-row"><span class="sc-fr gn">À bientôt !</span><span class="sc-en">See you soon!</span></div>
+        <div class="sc-row"><span class="sc-fr gn">À demain !</span><span class="sc-en">See you tomorrow!</span></div>
+        <div class="sc-row"><span class="sc-fr gn">Bonne nuit.</span><span class="sc-en">Good night.</span></div>
+      </div>
+    </div>
+    <!-- Expressions utiles -->
+    <div class="sal-card">
+      <div class="sc-head"><span class="sc-icon">💬</span><span class="sc-title time">EXPRESSIONS INDISPENSABLES</span></div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-fr pk">Oui / Non / Si</span><span class="sc-en">Yes / No / Yes (contradicting no)</span></div>
+        <div class="sc-row"><span class="sc-fr pk">S'il vous plaît.</span><span class="sc-en">Please. (formal)</span></div>
+        <div class="sc-row"><span class="sc-fr pk">Merci (beaucoup).</span><span class="sc-en">Thank you (very much).</span></div>
+        <div class="sc-row"><span class="sc-fr pk">De rien. / Je vous en prie.</span><span class="sc-en">You're welcome.</span></div>
+        <div class="sc-row"><span class="sc-fr pk">Pardon ? / Comment ?</span><span class="sc-en">Sorry? / Pardon?</span></div>
+        <div class="sc-row"><span class="sc-fr pk">Je ne comprends pas.</span><span class="sc-en">I don't understand.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SE PRÉSENTER -->
+  <div class="pres-section">
+    <div class="section-title">✦ SE PRÉSENTER — FORMULES CLÉS</div>
+    <div class="pres-card">
+      <div class="pres-title">LES FORMULES ESSENTIELLES POUR SE PRÉSENTER</div>
+      <div class="pres-grid">
+        <div class="pres-col">
+          <div class="pc-label">IDENTITÉ</div>
+          <div class="pc-formula">
+            Je m'appelle <span class="hl">Marie</span>.<br>
+            Mon prénom est <span class="hl">Marie</span>.<br>
+            Je m'appelle <span class="hl">Marie Dupont</span>.<br>
+            <span style="font-size:11px;color:var(--text3);font-style:italic">How to say your name</span>
+          </div>
+        </div>
+        <div class="pres-col">
+          <div class="pc-label">ÂGE</div>
+          <div class="pc-formula">
+            J'ai <span class="hl2">vingt-huit ans</span>.<br>
+            J'ai <span class="hl2">18</span> / <span class="hl2">45</span> ans.<br>
+            <span style="font-size:11px;color:var(--text3);font-style:italic">avoir + [number] + ans</span>
+          </div>
+          <div class="pc-en" style="margin-top:6px">⚠ J'ai 28 ans — NOT je suis 28 ans</div>
+        </div>
+        <div class="pres-col">
+          <div class="pc-label">NATIONALITÉ &amp; ORIGINE</div>
+          <div class="pc-formula">
+            Je suis <span class="hl">française</span>.<br>
+            Je suis <span class="hl">espagnol</span>.<br>
+            Je viens de <span class="hl2">Paris</span> / <span class="hl2">France</span>.<br>
+            J'habite à <span class="hl3">Lyon</span>.
+          </div>
+          <div class="pc-en">être + adj. nationalité (accordé)</div>
+        </div>
+        <div class="pres-col">
+          <div class="pc-label">PROFESSION &amp; LANGUE</div>
+          <div class="pc-formula">
+            Je suis <span class="hl">étudiant(e)</span>.<br>
+            Je travaille comme <span class="hl2">médecin</span>.<br>
+            Je parle <span class="hl3">français</span> et <span class="hl3">anglais</span>.
+          </div>
+          <div class="pc-en">être + profession (sans article !)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONJUGAISON ÊTRE / S'APPELER -->
+  <div class="conj-section">
+    <div class="section-title">✦ CONJUGAISON — ÊTRE &amp; S'APPELER AU PRÉSENT</div>
+    <div class="conj-grid">
+      <div class="conj-card">
+        <div class="conj-head">
+          <span class="conj-verb etre">ÊTRE</span>
+          <span class="conj-note">to be — verbe irrégulier</span>
+        </div>
+        <div class="conj-body">
+          <div class="conj-row"><span class="conj-pron">JE</span><span class="conj-form etre">suis</span></div>
+          <div class="conj-row"><span class="conj-pron">TU</span><span class="conj-form etre">es</span></div>
+          <div class="conj-row"><span class="conj-pron">IL / ELLE / ON</span><span class="conj-form etre">est</span></div>
+          <div class="conj-row"><span class="conj-pron">NOUS</span><span class="conj-form etre">sommes</span></div>
+          <div class="conj-row"><span class="conj-pron">VOUS</span><span class="conj-form etre">êtes</span></div>
+          <div class="conj-row"><span class="conj-pron">ILS / ELLES</span><span class="conj-form etre">sont</span></div>
+        </div>
+      </div>
+      <div class="conj-card">
+        <div class="conj-head">
+          <span class="conj-verb sappeler">S'APPELER</span>
+          <span class="conj-note">to be called — pronominal</span>
+        </div>
+        <div class="conj-body">
+          <div class="conj-row"><span class="conj-pron">JE</span><span class="conj-form sappeler">m'appelle</span></div>
+          <div class="conj-row"><span class="conj-pron">TU</span><span class="conj-form sappeler">t'appelles</span></div>
+          <div class="conj-row"><span class="conj-pron">IL / ELLE / ON</span><span class="conj-form sappeler">s'appelle</span></div>
+          <div class="conj-row"><span class="conj-pron">NOUS</span><span class="conj-form sappeler">nous appelons</span></div>
+          <div class="conj-row"><span class="conj-pron">VOUS</span><span class="conj-form sappeler">vous appelez</span></div>
+          <div class="conj-row"><span class="conj-pron">ILS / ELLES</span><span class="conj-form sappeler">s'appellent</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — FORMULES DE POLITESSE &amp; EXPRESSIONS SOCIALES</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>EXPRESSION</th><th>USAGE</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CAT.</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">enchanté(e)</td><td style="color:var(--cy2);font-size:12px">formel</td><td class="ven">pleased to meet you</td><td class="ves">encantado/a</td><td class="vcat-tag">présentation</td><td class="vex">Bonjour, je m'appelle Marc. — Enchanté !</td></tr>
+          <tr><td class="vfr">ravi(e) de faire votre connaissance</td><td style="color:var(--cy2);font-size:12px">très formel</td><td class="ven">delighted to meet you</td><td class="ves">encantado de conocerle</td><td class="vcat-tag">présentation</td><td class="vex">Ravi de faire votre connaissance, madame.</td></tr>
+          <tr><td class="vfr">je vous en prie</td><td style="color:var(--cy2);font-size:12px">formel</td><td class="ven">you're welcome / please (go ahead)</td><td class="ves">de nada / por favor</td><td class="vcat-tag">politesse</td><td class="vex">— Merci beaucoup. — Je vous en prie.</td></tr>
+          <tr><td class="vfr">avec plaisir</td><td style="color:var(--cy2);font-size:12px">neutre</td><td class="ven">with pleasure / gladly</td><td class="ves">con mucho gusto</td><td class="vcat-tag">politesse</td><td class="vex">— Vous pouvez m'aider ? — Avec plaisir !</td></tr>
+          <tr><td class="vfr">je ne comprends pas</td><td style="color:var(--cy2);font-size:12px">essentiel</td><td class="ven">I don't understand</td><td class="ves">no entiendo</td><td class="vcat-tag">communication</td><td class="vex">Pardon, je ne comprends pas. Pouvez-vous répéter ?</td></tr>
+          <tr><td class="vfr">pouvez-vous répéter ?</td><td style="color:var(--cy2);font-size:12px">formel</td><td class="ven">can you repeat?</td><td class="ves">¿puede repetir?</td><td class="vcat-tag">communication</td><td class="vex">Pouvez-vous répéter plus lentement, s'il vous plaît ?</td></tr>
+          <tr><td class="vfr">comment ça s'écrit ?</td><td style="color:var(--cy2);font-size:12px">informel/neutre</td><td class="ven">how do you spell it?</td><td class="ves">¿cómo se escribe?</td><td class="vcat-tag">communication</td><td class="vex">Votre nom, comment ça s'écrit ?</td></tr>
+          <tr><td class="vfr">d'où venez-vous ?</td><td style="color:var(--cy2);font-size:12px">formel</td><td class="ven">where are you from?</td><td class="ves">¿de dónde es usted?</td><td class="vcat-tag">présentation</td><td class="vex">— D'où venez-vous ? — Je viens d'Espagne.</td></tr>
+          <tr><td class="vfr">quel est votre prénom ?</td><td style="color:var(--cy2);font-size:12px">formel</td><td class="ven">what is your first name?</td><td class="ves">¿cuál es su nombre?</td><td class="vcat-tag">présentation</td><td class="vex">Quel est votre prénom ? — Marie.</td></tr>
+          <tr><td class="vfr">vous parlez français ?</td><td style="color:var(--cy2);font-size:12px">formel</td><td class="ven">do you speak French?</td><td class="ves">¿habla francés?</td><td class="vcat-tag">communication</td><td class="vex">Excusez-moi, vous parlez français ?</td></tr>
+          <tr><td class="vfr">un peu / pas du tout</td><td style="color:var(--cy2);font-size:12px">neutre</td><td class="ven">a little / not at all</td><td class="ves">un poco / para nada</td><td class="vcat-tag">degré</td><td class="vex">Je parle un peu français mais pas du tout espagnol.</td></tr>
+          <tr><td class="vfr">à tout à l'heure</td><td style="color:var(--cy2);font-size:12px">neutre</td><td class="ven">see you later (same day)</td><td class="ves">hasta luego</td><td class="vcat-tag">congé</td><td class="vex">— À tout à l'heure ! — À bientôt !</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="salutation" onclick="setFilter('salutation',this)">SALUTATIONS</button>
+      <button class="filter-pill"        data-f="presentation" onclick="setFilter('presentation',this)">SE PRÉSENTER</button>
+      <button class="filter-pill"        data-f="conjugaison" onclick="setFilter('conjugaison',this)">CONJUGAISON</button>
+      <button class="filter-pill"        data-f="vocabulaire" onclick="setFilter('vocabulaire',this)">VOCABULAIRE</button>
+      <button class="filter-pill"        data-f="traduction"  onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill deb active" onclick="setLevel('DEB',this)">DÉBUTANT</button>
+      <button class="level-pill a1"         onclick="setLevel('A1',this)">A1</button>
+      <button class="level-pill a2"         onclick="setLevel('A2',this)">A1+</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title" id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+
+const ITEMS = [
+
+  // ── SALUTATIONS MCQ ──
+  { type:'sal', blank:"Le matin, quand vous arrivez au bureau, vous dites ___.", answer:"Bonjour",
+    wrong:["Bonsoir","Au revoir","Bonne nuit"], en:"In the morning you say…", hint:"matin → Bonjour", level:'DEB' },
+  { type:'sal', blank:"Le soir, vers 19h, vous rencontrez un collègue. Vous dites ___.", answer:"Bonsoir",
+    wrong:["Bonjour","Salut","Au revoir"], en:"In the evening you say…", hint:"soir → Bonsoir", level:'DEB' },
+  { type:'sal', blank:"En quittant quelqu'un, vous dites ___.", answer:"Au revoir",
+    wrong:["Bonjour","Bonsoir","Allons-y"], en:"When leaving you say…", hint:"quitter → Au revoir", level:'DEB' },
+  { type:'sal', blank:"Un ami vous dit 'Ça va ?' — vous répondez ___.", answer:"Ça va, et toi ?",
+    wrong:["Je ne comprends pas.","Au revoir !","Enchanté."], en:"Responding to 'Ça va ?'", hint:"informel → Ça va, et toi ?", level:'DEB' },
+  { type:'sal', blank:"Vous ne comprenez pas. Vous dites ___.", answer:"Je ne comprends pas.",
+    wrong:["Merci beaucoup.","Ça va bien.","Enchanté."], en:"I don't understand.", hint:"incompréhension → Je ne comprends pas", level:'DEB' },
+  { type:'sal', blank:"Quelqu'un vous remercie. Vous répondez ___.", answer:"De rien.",
+    wrong:["Merci !","Pardon ?","Bonne nuit."], en:"You're welcome.", hint:"réponse à merci → De rien", level:'DEB' },
+  { type:'sal', blank:"Formellement, pour souhaiter une bonne fin de journée, vous dites ___.", answer:"Bonne journée !",
+    wrong:["Bonne nuit !","Bonjour !","À demain !"], en:"Have a good day!", hint:"fin de rencontre, journée → Bonne journée", level:'A1' },
+  { type:'sal', blank:"Vous voulez vous excuser poliment (formel). Vous dites ___.", answer:"Excusez-moi.",
+    wrong:["Excuse-moi.","Pardon ?","S'il vous plaît."], en:"Formal apology/excuse me.", hint:"formel → Excusez-moi (vous)", level:'A1' },
+  { type:'sal', blank:"Un ami part. Vous lui dites que vous vous reverrez bientôt : ___.", answer:"À bientôt !",
+    wrong:["Bonne nuit !","Bonjour !","Enchanté."], en:"See you soon!", hint:"revoir bientôt → À bientôt", level:'DEB' },
+
+  // ── SE PRÉSENTER — INPUT ──
+  { type:'presentation', blank:"___ m'appelle Sophie. (I am called)", answer:"Je",
+    en:"My name is Sophie.", hint:"je m'appelle = my name is", level:'DEB', input:true },
+  { type:'presentation', blank:"Je m'appelle Pierre. J'___ 32 ans.", answer:"ai",
+    en:"I am 32 years old.", hint:"âge → avoir → j'ai [n] ans", level:'DEB', input:true },
+  { type:'presentation', blank:"Je ___ française. (I am French — female)", answer:"suis",
+    en:"I am French.", hint:"être → je suis + nationalité", level:'DEB', input:true },
+  { type:'presentation', blank:"Je viens ___ Paris.", answer:"de",
+    en:"I come from Paris.", hint:"venir de + ville", level:'DEB', input:true },
+  { type:'presentation', blank:"Je suis étudiant___. (female student)", answer:"e",
+    en:"I am a (female) student.", hint:"étudiant → étudiante (féminin)", level:'A1', input:true },
+
+  // ── CONJUGAISON ÊTRE ──
+  { type:'conjugaison', blank:"Tu ___ espagnol.", answer:"es",
+    en:"You are Spanish.", hint:"être → tu es", level:'DEB', input:true },
+  { type:'conjugaison', blank:"Il ___ médecin.", answer:"est",
+    en:"He is a doctor.", hint:"être → il est", level:'DEB', input:true },
+  { type:'conjugaison', blank:"Nous ___ français.", answer:"sommes",
+    en:"We are French.", hint:"être → nous sommes", level:'DEB', input:true },
+  { type:'conjugaison', blank:"Vous ___ d'où ?", answer:"êtes",
+    en:"Where are you from?", hint:"être → vous êtes", level:'A1', input:true },
+  { type:'conjugaison', blank:"Ils ___ étudiants.", answer:"sont",
+    en:"They are students.", hint:"être → ils sont", level:'A1', input:true },
+  { type:'conjugaison', blank:"Elle ___ italienne.", answer:"est",
+    en:"She is Italian.", hint:"être → elle est", level:'DEB', input:true },
+
+  // ── CONJUGAISON S'APPELER ──
+  { type:'conjugaison', blank:"Comment tu ___  ? (t'appelles / vous appelez)", answer:"t'appelles",
+    en:"What's your name? (informal)", hint:"s'appeler → tu t'appelles", level:'A1', input:true },
+  { type:'conjugaison', blank:"Il ___ Thomas.", answer:"s'appelle",
+    en:"His name is Thomas.", hint:"s'appeler → il s'appelle", level:'DEB', input:true },
+  { type:'conjugaison', blank:"Nous ___ les Dupont.", answer:"nous appelons",
+    en:"Our name is Dupont.", hint:"s'appeler → nous nous appelons", level:'A1', input:true },
+
+  // ── VOCABULAIRE MCQ ──
+  { type:'vocabulaire', blank:"— Merci beaucoup ! — ___", answer:"Je vous en prie.",
+    wrong:["Au revoir.","Bonjour.","De rien. / Je vous en prie."], en:"You're welcome. (formal)", hint:"formel → je vous en prie", level:'A1',
+    note:"Les deux sont corrects : De rien (informel) · Je vous en prie (formel)" },
+  { type:'vocabulaire', blank:"— Pouvez-vous répéter ? — Pardon, ___ pas.", answer:"je ne comprends",
+    wrong:["je suis","j'ai","je parle"], en:"I don't understand.", hint:"ne comprends pas", level:'A1', input:true },
+  { type:'vocabulaire', blank:"— Vous parlez anglais ? — Oui, ___ peu.", answer:"un",
+    wrong:["du","pas du tout","très"], en:"A little.", hint:"un peu = a little", level:'DEB', input:true },
+  { type:'vocabulaire', blank:"Comment ça ___ ? (How do you spell it?)", answer:"s'écrit",
+    wrong:["va","parle","arrive"], en:"How do you spell it?", hint:"s'écrire = to be spelled", level:'A1' },
+
+  // ── TRADUCTION ──
+  { type:'traduction', en:"My name is Lucas, I am 25 years old.", answer:"Je m'appelle Lucas, j'ai 25 ans.",
+    hint:"s'appeler + avoir [n] ans", level:'DEB' },
+  { type:'traduction', en:"I am French and I live in Paris.", answer:"Je suis français et j'habite à Paris.",
+    hint:"être + nationalité · habiter à + ville", level:'DEB' },
+  { type:'traduction', en:"I speak a little French, not at all Spanish.", answer:"Je parle un peu français, pas du tout espagnol.",
+    hint:"un peu · pas du tout", level:'A1' },
+  { type:'traduction', en:"Good evening! Have a good evening!", answer:"Bonsoir ! Bonne soirée !",
+    hint:"Bonsoir (arrivée) vs Bonne soirée (départ)", level:'DEB' },
+  { type:'traduction', en:"Can you repeat more slowly, please?", answer:"Pouvez-vous répéter plus lentement, s'il vous plaît ?",
+    hint:"formel → pouvez-vous + infinitif", level:'A1' },
+  { type:'traduction', en:"Where do you come from? I come from Spain.", answer:"D'où venez-vous ? Je viens d'Espagne.",
+    hint:"venir de + pays", level:'A1' },
+
+  // ── DIALOGUE MCQ (A1+) ──
+  { type:'vocabulaire', level:'A1plus',
+    blank:"— Bonjour ! Comment vous appelez-vous ? — ___", answer:"Je m'appelle Claire Morin.",
+    wrong:["Je suis 30 ans.","Je viens bien.","J'ai française."],
+    en:"My name is Claire Morin.", hint:"se présenter → Je m'appelle…" },
+  { type:'vocabulaire', level:'A1plus',
+    blank:"— Vous êtes de quelle nationalité ? — ___", answer:"Je suis belge.",
+    wrong:["J'ai belge.","Je m'appelle belge.","Je viens belge."],
+    en:"I am Belgian.", hint:"nationalité → être + adj." },
+  { type:'vocabulaire', level:'A1plus',
+    blank:"— Ravi de vous rencontrer ! — ___", answer:"Moi de même !",
+    wrong:["Bonne nuit !","Je ne comprends pas.","Au revoir !"],
+    en:"Likewise! / Same here!", hint:"réponse à ravi de vous rencontrer" },
+];
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ return [...a].sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/\u2019/g,"\\'").replace(/'/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/'/g,"'").replace(/'/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'');
+}
+function levelOk(item){
+  const l={'DEB':0,'A1':1,'A1plus':2};
+  const lmap={'DEB':0,'A1':1,'A1plus':2};
+  return (lmap[item.level||'DEB']||0)<=(lmap[currentLevel]||1);
+}
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel='A1', exFilter='tous';
+let exercises=[], answered=0, correct=0;
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx=currentLevel==='DEB'?7:currentLevel==='A1'?9:11;
+  let pool=ITEMS.filter(i=>levelOk(i));
+
+  if     (exFilter==='salutation')   pool=pool.filter(i=>i.type==='sal');
+  else if(exFilter==='presentation') pool=pool.filter(i=>i.type==='presentation');
+  else if(exFilter==='conjugaison')  pool=pool.filter(i=>i.type==='conjugaison');
+  else if(exFilter==='vocabulaire')  pool=pool.filter(i=>i.type==='vocabulaire');
+  else if(exFilter==='traduction')   pool=pool.filter(i=>i.type==='traduction');
+
+  if(!pool.length) pool=ITEMS.filter(i=>levelOk(i));
+
+  shuffle(pool).slice(0,numEx).forEach((item,ti)=>{
+    if(item.type==='traduction') renderTrad(container,ti,item);
+    else if(item.input)          renderInput(container,ti,item);
+    else                         renderMCQ(container,ti,item);
+  });
+  updateProgress();
+}
+
+// ================================================================
+// CARD HELPERS
+// ================================================================
+function typeToLabel(t){
+  if(t==='sal')          return 'SALUTATION — CONTEXTE';
+  if(t==='presentation') return 'SE PRÉSENTER';
+  if(t==='conjugaison')  return 'CONJUGAISON';
+  if(t==='vocabulaire')  return 'VOCABULAIRE';
+  return 'TRADUCTION';
+}
+function typeToClass(t){
+  if(t==='conjugaison')  return 'green-card';
+  if(t==='vocabulaire')  return 'vl-card';
+  if(t==='presentation') return 'gold-card';
+  return '';
+}
+function typeToCardType(t){
+  if(t==='sal')          return 'sal';
+  if(t==='presentation') return 'pres';
+  if(t==='conjugaison')  return 'conj';
+  if(t==='vocabulaire')  return 'voc';
+  return 'trad';
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function renderMCQ(container, idx, item){
+  const answer=item.answer;
+  const opts=shuffle([answer,...(item.wrong||[])].slice(0,4));
+  const choices=opts.map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const displayed=item.blank.replace('___',`<span style="color:var(--cy2);font-style:italic">___</span>`);
+  const card=document.createElement('div');
+  card.className=`exercise-card ${typeToClass(item.type)}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ${typeToCardType(item.type)}">${typeToLabel(item.type)}</span></div>
+    <div class="hint-text">CHOISISSEZ LA BONNE RÉPONSE${item.hint?' — '+item.hint.toUpperCase():''}</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:8px">${item.en}</div>
+    ${item.note?`<div style="font-size:11px;color:var(--cy2);margin-bottom:8px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px">ℹ ${item.note}</div>`:''}
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderInput(container, idx, item){
+  const answer=item.answer;
+  const displayed=item.blank.replace('___',`<span style="color:var(--cy2);font-style:italic">___</span>`);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card ${typeToClass(item.type)}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ${typeToCardType(item.type)}">${typeToLabel(item.type)}</span></div>
+    <div class="hint-text">COMPLÉTEZ LA PHRASE${item.hint?' — '+item.hint.toUpperCase():''}</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:12px">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder="${answer.slice(0,3)}..."
+      style="width:220px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderTrad(container, idx, item){
+  const answer=item.answer.replace(/[.!?]+$/,'');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS${item.hint?' — '+item.hint.toUpperCase():''}</div>
+    <div class="sentence-display" style="color:var(--cy3)">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder=""
+      style="width:100%;max-width:540px" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK / PROGRESS
+// ================================================================
+function checkInput(idx,answer){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx,chosen,answer,btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=["Parfait !","Excellent !","Très bien !","Bravo !","Super !","C'est ça !"];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk; answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='PARFAIT !';sub='Maîtrise parfaite des salutations et présentations en français !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';sub='Très bien — vous savez vous présenter et saluer en français !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';sub='Bon effort — révisez les formules formelles et informelles !';}
+  else{emoji='📚';title='CONTINUEZ !';sub:'Rappel : Bonjour (matin) · Bonsoir (soir) · Je m\'appelle… · J\'ai [n] ans.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

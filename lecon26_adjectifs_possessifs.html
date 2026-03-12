@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 26 — Les Adjectifs Possessifs</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440; --border:#1e2d4a;
+    --violet:#b44fff; --cyan:#00f5ff; --gold:#ffd166; --green:#06d6a0; --red-err:#ff4757;
+    --vr:#ef4444; --vr2:#f87171; --vr3:#fee2e2;
+    --accent:#ef4444;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(239,68,68,0.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(239,68,68,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-230px; right:-170px; background:rgba(239,68,68,0.09); }
+  .h2{ width:560px; height:560px; bottom:-190px; left:-140px; background:rgba(180,79,255,0.06); }
+  .h3{ width:260px; height:260px; top:46%; left:23%; background:rgba(255,209,102,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:78vh; top:10vh; left:12%; background:linear-gradient(to bottom,transparent,var(--vr),transparent); transform:rotate(-9deg); }
+  .al2{ width:1px; height:58vh; top:22vh; right:11%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(10deg); }
+
+  .bg-mark{ position:fixed; right:-44px; top:14%; opacity:0.022; font-family:'Bebas Neue',sans-serif;
+    font-size:190px; color:var(--vr); transform:rotate(8deg); pointer-events:none; z-index:0; line-height:0.82; }
+
+  .wrapper{ position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--vr2);
+    border:1px solid rgba(239,68,68,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(239,68,68,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--vr2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,7.5vw,88px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--vr2) 44%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── BIG REFERENCE TABLE ── */
+  .ref-section{ margin-bottom:24px; }
+  .ref-table-wrap{ background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; overflow-x:auto; }
+  .ref-table{ width:100%; border-collapse:collapse; min-width:600px; }
+  .ref-table th{ padding:10px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; background:var(--bg2); border-bottom:1px solid var(--border); }
+  .ref-table th.h-pers{ color:var(--text3); }
+  .ref-table th.h-ms  { color:var(--vr2); }
+  .ref-table th.h-fs  { color:var(--cyan); }
+  .ref-table th.h-pl  { color:var(--gold); }
+  .ref-table th.h-en  { color:var(--text3); }
+  .ref-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.45); font-size:13px; vertical-align:middle; }
+  .ref-table tr:last-child td{ border-bottom:none; }
+  .ref-table tr:hover td{ background:rgba(239,68,68,0.02); }
+  .ref-table tr.row-sep td{ border-top:1px solid var(--border); }
+
+  .rt-pers{ font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:2px; color:var(--text3); }
+  .rt-ms  { font-family:'DM Serif Display',serif; font-size:17px; color:var(--vr2); }
+  .rt-fs  { font-family:'DM Serif Display',serif; font-size:17px; color:var(--cyan); }
+  .rt-pl  { font-family:'DM Serif Display',serif; font-size:17px; color:var(--gold); }
+  .rt-en  { font-size:12px; color:var(--text3); font-style:italic; }
+  .rt-note{ font-size:10px; color:var(--text3); font-style:italic; }
+
+  /* ── ELISION NOTE ── */
+  .elision-card{ background:linear-gradient(135deg,rgba(239,68,68,0.07),rgba(180,79,255,0.04));
+    border:1px solid rgba(239,68,68,0.22); border-radius:12px; padding:16px 22px; margin-bottom:22px; }
+  .el-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; color:var(--vr2); margin-bottom:10px; }
+  .el-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media(max-width:520px){ .el-grid{ grid-template-columns:1fr; } }
+  .el-cell{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 14px; }
+  .el-rule{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--vr2); margin-bottom:5px; }
+  .el-fr  { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); line-height:1.7; }
+  .el-fr .hl{ color:var(--vr2); } .el-fr .hl2{ color:var(--cyan); }
+  .el-en  { font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── TRAPS SECTION ── */
+  .traps-section{ margin-bottom:22px; }
+  .traps-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media(max-width:520px){ .traps-grid{ grid-template-columns:1fr; } }
+  .trap-cell{ background:var(--card); border:1px solid var(--border); border-radius:9px; padding:12px 15px; transition:border-color 0.2s; }
+  .trap-cell:hover{ border-color:rgba(239,68,68,0.22); }
+  .tc-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--vr2); margin-bottom:6px; }
+  .tc-fr  { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); line-height:1.65; }
+  .tc-fr .good{ color:var(--green); } .tc-fr .bad{ color:var(--red-err); text-decoration:line-through; }
+  .tc-en  { font-size:11px; color:var(--text3); font-style:italic; margin-top:4px; }
+  .tc-rule{ font-size:11px; color:var(--text3); margin-top:5px; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--vr2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:900px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(239,68,68,0.02); }
+  .vfr{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vposs{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--vr2); }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--vr); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(239,68,68,0.4); background:rgba(239,68,68,0.07); color:var(--vr2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(6,214,160,0.12),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(239,68,68,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a2.active{ border-color:var(--green);  color:var(--green); }
+  .level-pill.b1.active{ border-color:var(--vr);     color:var(--vr2); }
+  .level-pill.b2.active{ border-color:var(--violet);  color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--vr2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--vr),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(239,68,68,0.14),rgba(180,79,255,0.09));
+    border:1px solid rgba(239,68,68,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(239,68,68,0.26),rgba(180,79,255,0.18));
+    border-color:var(--vr2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(239,68,68,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--vr2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.son-card::before { background:linear-gradient(90deg,transparent,var(--cyan),transparent); }
+  .exercise-card.leur-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card.trap-card::before{ background:linear-gradient(90deg,transparent,#a78bfa,transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card      { border-color:rgba(239,68,68,0.22); transform:translateY(-1px); }
+  .exercise-card.son-card.active-card { border-color:rgba(0,245,255,0.22); }
+  .exercise-card.leur-card.active-card{ border-color:rgba(255,209,102,0.22); }
+  .exercise-card.trap-card.active-card{ border-color:rgba(167,139,250,0.22); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* possessive badge */
+  .poss-badge{ display:inline-flex; align-items:center; gap:8px; border-radius:5px; padding:4px 14px; margin-bottom:9px; }
+  .poss-badge.mon { background:rgba(239,68,68,0.08);  border:1px solid rgba(239,68,68,0.28); }
+  .poss-badge.son { background:rgba(0,245,255,0.07);  border:1px solid rgba(0,245,255,0.25); }
+  .poss-badge.leur{ background:rgba(255,209,102,0.07);border:1px solid rgba(255,209,102,0.25); }
+  .pb-pron{ font-family:'DM Serif Display',serif; font-size:20px; }
+  .pb-pron.mon { color:var(--vr2); } .pb-pron.son{ color:var(--cyan); } .pb-pron.leur{ color:var(--gold); }
+  .pb-rule{ font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; color:var(--text3); }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.mon  { color:var(--vr2);  border:1px solid rgba(239,68,68,0.28);  background:rgba(239,68,68,0.05); }
+  .card-type.son  { color:var(--cyan); border:1px solid rgba(0,245,255,0.25);  background:rgba(0,245,255,0.04); }
+  .card-type.leur { color:var(--gold); border:1px solid rgba(255,209,102,0.28);background:rgba(255,209,102,0.05); }
+  .card-type.trap { color:#a78bfa;     border:1px solid rgba(167,139,250,0.28);background:rgba(167,139,250,0.05); }
+  .card-type.trad { color:#86efac;     border:1px solid rgba(134,239,172,0.25);background:rgba(134,239,172,0.04); }
+  .card-type.mcq  { color:var(--vr3);  border:1px solid rgba(254,226,226,0.22);background:rgba(254,226,226,0.04); }
+  .card-type.phrase{ color:var(--vr2); border:1px solid rgba(239,68,68,0.22);  background:rgba(239,68,68,0.04); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(15px,2.5vw,20px); line-height:1.9; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:17px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--vr2); box-shadow:0 0 0 2px rgba(239,68,68,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red-err); color:var(--red-err); box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--vr2); color:var(--text); background:rgba(239,68,68,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red-err); color:var(--red-err); background:rgba(255,71,87,0.08); cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red-err); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(239,68,68,0.4);
+    background:rgba(239,68,68,0.06); color:var(--vr2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(239,68,68,0.16); border-color:var(--vr2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(239,68,68,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(239,68,68,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--vr2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); } .score-stat-num.bad{ color:var(--red-err); } .score-stat-num.neu{ color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(239,68,68,0.4);
+    background:rgba(239,68,68,0.08); color:var(--vr2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(239,68,68,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .traps-grid{ grid-template-columns:1fr; }
+    .el-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">MON<br>TON<br>SON<br>LEUR</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 26 · FRANÇAIS</div>
+    <h1>Les Adjectifs<br>Possessifs</h1>
+    <p class="subtitle"><span style="color:var(--vr2)">mon</span> frère · <span style="color:var(--cyan)">sa</span> sœur · <span style="color:var(--gold)">leurs</span> parents · <span style="color:var(--vr2)">notre</span> maison...</p>
+    <p class="subtitle2">MON/TON/SON · MA/TA/SA · MES/TES/SES · NOTRE/VOTRE/LEUR · NOS/VOS/LEURS · A2 → B2</p>
+  </header>
+
+  <!-- REFERENCE TABLE -->
+  <div class="ref-section">
+    <div class="section-title">✦ TABLEAU COMPLET — ADJECTIFS POSSESSIFS</div>
+    <div class="ref-table-wrap">
+      <table class="ref-table">
+        <thead>
+          <tr>
+            <th class="h-pers">POSSESSEUR</th>
+            <th class="h-ms">MASC. SING.</th>
+            <th class="h-fs">FÉM. SING.</th>
+            <th class="h-fs" style="color:#7dd3fc">FÉM. SING. + VOYELLE</th>
+            <th class="h-pl">PLURIEL (M+F)</th>
+            <th class="h-en">ANGLAIS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rt-pers">JE (1re sg.)</td>
+            <td class="rt-ms">mon</td>
+            <td class="rt-fs">ma</td>
+            <td class="rt-ms">mon <span class="rt-note">(élision)</span></td>
+            <td class="rt-pl">mes</td>
+            <td class="rt-en">my</td>
+          </tr>
+          <tr>
+            <td class="rt-pers">TU (2e sg.)</td>
+            <td class="rt-ms">ton</td>
+            <td class="rt-fs">ta</td>
+            <td class="rt-ms">ton <span class="rt-note">(élision)</span></td>
+            <td class="rt-pl">tes</td>
+            <td class="rt-en">your</td>
+          </tr>
+          <tr>
+            <td class="rt-pers">IL / ELLE / ON (3e sg.)</td>
+            <td class="rt-ms">son</td>
+            <td class="rt-fs">sa</td>
+            <td class="rt-ms">son <span class="rt-note">(élision)</span></td>
+            <td class="rt-pl">ses</td>
+            <td class="rt-en">his / her / its</td>
+          </tr>
+          <tr class="row-sep">
+            <td class="rt-pers">NOUS (1re pl.)</td>
+            <td class="rt-ms">notre</td>
+            <td class="rt-fs">notre</td>
+            <td class="rt-ms">notre</td>
+            <td class="rt-pl">nos</td>
+            <td class="rt-en">our</td>
+          </tr>
+          <tr>
+            <td class="rt-pers">VOUS (2e pl.)</td>
+            <td class="rt-ms">votre</td>
+            <td class="rt-fs">votre</td>
+            <td class="rt-ms">votre</td>
+            <td class="rt-pl">vos</td>
+            <td class="rt-en">your (pl./formal)</td>
+          </tr>
+          <tr>
+            <td class="rt-pers">ILS / ELLES (3e pl.)</td>
+            <td class="rt-ms">leur</td>
+            <td class="rt-fs">leur</td>
+            <td class="rt-ms">leur</td>
+            <td class="rt-pl">leurs</td>
+            <td class="rt-en">their</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ELISION + KEY RULES -->
+  <div class="elision-card">
+    <div class="el-title">✦ RÈGLES CLÉS — ÉLISION ET ACCORD</div>
+    <div class="el-grid">
+      <div class="el-cell">
+        <div class="el-rule">ÉLISION : MA/TA/SA → MON/TON/SON DEVANT VOYELLE OU H MUET</div>
+        <div class="el-fr">
+          <span class="hl">mon</span> amie (f. + voyelle, pas *ma amie)<br>
+          <span class="hl">ton</span> histoire (f. + h muet)<br>
+          <span class="hl">son</span> entreprise (f. + voyelle)<br>
+          <span class="hl2">ma</span> maison / <span class="hl2">ta</span> chambre (f. + consonne → normal)
+        </div>
+        <div class="el-en">my friend (f.) · your story · her company</div>
+      </div>
+      <div class="el-cell">
+        <div class="el-rule">ACCORD AVEC LE NOM POSSÉDÉ — PAS AVEC LE POSSESSEUR</div>
+        <div class="el-fr">
+          Il aime <span class="hl">sa</span> voiture. (voiture = f.)<br>
+          Elle aime <span class="hl">son</span> chien. (chien = m.)<br>
+          <span class="hl">Leur</span> maison est grande. (pl. → leur + sing.)<br>
+          <span class="hl">Leurs</span> enfants jouent. (pl. → leurs + plur.)
+        </div>
+        <div class="el-en">his/her car · her/his dog · their house · their children</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMON TRAPS -->
+  <div class="traps-section">
+    <div class="section-title">✦ PIÈGES FRÉQUENTS</div>
+    <div class="traps-grid">
+      <div class="trap-cell">
+        <div class="tc-title">SON / SA / SES — NEUTRE EN GENRE DE POSSESSEUR</div>
+        <div class="tc-fr">
+          Marie aime <span class="good">son</span> travail. (travail = m.)<br>
+          Pierre aime <span class="good">sa</span> voiture. (voiture = f.)<br>
+          <span class="bad">sa travail</span> — non !
+        </div>
+        <div class="tc-rule">Son/sa/ses = his OR her — accord avec le nom, pas la personne</div>
+      </div>
+      <div class="trap-cell">
+        <div class="tc-title">LEUR vs LEURS — ACCORD AVEC LE NOM</div>
+        <div class="tc-fr">
+          <span class="good">leur</span> enfant (sing.)<br>
+          <span class="good">leurs</span> enfants (plur.)<br>
+          <span class="bad">leurs enfant</span> / <span class="bad">leur enfants</span> — non !
+        </div>
+        <div class="tc-rule">Leur/leurs = their — s si le nom possédé est pluriel</div>
+      </div>
+      <div class="trap-cell">
+        <div class="tc-title">NOTRE/NOS vs VOTRE/VOS</div>
+        <div class="tc-fr">
+          <span class="good">notre</span> maison · <span class="good">nos</span> amis<br>
+          <span class="good">votre</span> bureau · <span class="good">vos</span> collègues<br>
+          <span class="bad">nos maison</span> / <span class="bad">notre amis</span> — non !
+        </div>
+        <div class="tc-rule">Notre/votre = sing. · Nos/vos = plur.</div>
+      </div>
+      <div class="trap-cell">
+        <div class="tc-title">CORPS — EN FRANÇAIS ON UTILISE L'ARTICLE, PAS LE POSSESSIF</div>
+        <div class="tc-fr">
+          <span class="good">Il se lave les mains.</span> (pas *ses mains)<br>
+          <span class="good">Elle a mal à la tête.</span> (pas *sa tête)<br>
+          <span class="good">Il lève la main.</span>
+        </div>
+        <div class="tc-rule">Avec les parties du corps + verbe pronominal → article défini</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — FAMILLE, APPARTENANCE &amp; RELATIONS</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>MOT</th><th>POSSESSIF FRÉQUENT</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CAT.</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">un(e) aîné(e)</td><td class="vposs">mon/ma aîné(e) → mon aîné(e)</td><td class="ven">eldest (sibling)</td><td class="ves">el/la mayor</td><td class="vcat">famille</td><td class="vex">Mon aîné part à l'étranger.</td></tr>
+          <tr><td class="vfr">un(e) cadet(te)</td><td class="vposs">mon cadet / ma cadette</td><td class="ven">younger sibling</td><td class="ves">el/la menor</td><td class="vcat">famille</td><td class="vex">Sa cadette est très douée.</td></tr>
+          <tr><td class="vfr">un(e) proche</td><td class="vposs">mes proches</td><td class="ven">close one / loved one</td><td class="ves">mis allegados</td><td class="vcat">relation</td><td class="vex">Mes proches me soutiennent.</td></tr>
+          <tr><td class="vfr">un lien</td><td class="vposs">notre lien / leurs liens</td><td class="ven">a bond / link</td><td class="ves">un vínculo</td><td class="vcat">relation</td><td class="vex">Notre lien est très fort.</td></tr>
+          <tr><td class="vfr">une habitude</td><td class="vposs">ses habitudes / mes habitudes</td><td class="ven">a habit</td><td class="ves">un hábito</td><td class="vcat">comportement</td><td class="vex">Il a gardé ses habitudes.</td></tr>
+          <tr><td class="vfr">un(e) associé(e)</td><td class="vposs">mon associé(e)</td><td class="ven">a partner (business)</td><td class="ves">mi socio/a</td><td class="vcat">travail</td><td class="vex">Mon associée gère les finances.</td></tr>
+          <tr><td class="vfr">un point de vue</td><td class="vposs">mon point de vue / votre point de vue</td><td class="ven">a point of view</td><td class="ves">mi punto de vista</td><td class="vcat">opinion</td><td class="vex">De mon point de vue, c'est risqué.</td></tr>
+          <tr><td class="vfr">une origine</td><td class="vposs">mes origines / ses origines</td><td class="ven">origins / background</td><td class="ves">mis orígenes</td><td class="vcat">identité</td><td class="vex">Elle est fière de ses origines.</td></tr>
+          <tr><td class="vfr">un domaine</td><td class="vposs">son domaine / notre domaine</td><td class="ven">a field / domain</td><td class="ves">su campo</td><td class="vcat">professionnel</td><td class="vex">C'est son domaine d'expertise.</td></tr>
+          <tr><td class="vfr">une conviction</td><td class="vposs">mes convictions / ses convictions</td><td class="ven">a conviction / belief</td><td class="ves">mis convicciones</td><td class="vcat">opinion</td><td class="vex">Il défend ses convictions.</td></tr>
+          <tr><td class="vfr">un entourage</td><td class="vposs">son entourage / mon entourage</td><td class="ven">one's circle / surroundings</td><td class="ves">su entorno</td><td class="vcat">relation</td><td class="vex">Son entourage l'a beaucoup influencé.</td></tr>
+          <tr><td class="vfr">une ambition</td><td class="vposs">mes ambitions / leurs ambitions</td><td class="ven">an ambition</td><td class="ves">mis ambiciones</td><td class="vcat">trait</td><td class="vex">Leurs ambitions sont différentes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="mon"        onclick="setFilter('mon',this)">MON / MA / MES</button>
+      <button class="filter-pill"        data-f="son"        onclick="setFilter('son',this)">SON / SA / SES</button>
+      <button class="filter-pill"        data-f="leur"       onclick="setFilter('leur',this)">LEUR / LEURS</button>
+      <button class="filter-pill"        data-f="elision"    onclick="setFilter('elision',this)">ÉLISION</button>
+      <button class="filter-pill"        data-f="piege"      onclick="setFilter('piege',this)">PIÈGES</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a2"        onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1 active" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2"        onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title" id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+
+// Each item: blank (with ___), answer, en, hint, type, level, owner, noun_gender, noun_number
+const ITEMS = [
+
+  // ── MON / MA / MES ──
+  { blank:"___ frère est médecin.", answer:"Mon", en:"My brother is a doctor.", hint:"frère = m.sing. → mon", type:'mon', owner:'je', ng:'m', nn:'s' },
+  { blank:"___ sœur habite à Lyon.", answer:"Ma", en:"My sister lives in Lyon.", hint:"sœur = f.sing. → ma", type:'mon', owner:'je', ng:'f', nn:'s' },
+  { blank:"___ amie est venue.", answer:"Mon", en:"My (female) friend came.", hint:"amie = f. + voyelle → mon (élision !)", type:'elision', owner:'je', ng:'f_vow', nn:'s' },
+  { blank:"___ parents sont gentils.", answer:"Mes", en:"My parents are nice.", hint:"parents = plur. → mes", type:'mon', owner:'je', ng:'m', nn:'p' },
+  { blank:"___ convictions sont profondes.", answer:"Mes", en:"My convictions are deep.", hint:"convictions = f.plur. → mes", type:'mon', owner:'je', ng:'f', nn:'p' },
+  { blank:"___ point de vue est différent.", answer:"Mon", en:"My point of view is different.", hint:"point de vue = m.sing. → mon", type:'mon', owner:'je', ng:'m', nn:'s' },
+  { blank:"___ origines sont diverses.", answer:"Mes", en:"My origins are diverse.", hint:"origines = f.plur. → mes", type:'mon', owner:'je', ng:'f', nn:'p' },
+
+  // ── TON / TA / TES ──
+  { blank:"___ père est ingénieur.", answer:"Ton", en:"Your father is an engineer.", hint:"père = m.sing. → ton", type:'mon', owner:'tu', ng:'m', nn:'s' },
+  { blank:"___ mère travaille beaucoup.", answer:"Ta", en:"Your mother works a lot.", hint:"mère = f.sing. → ta", type:'mon', owner:'tu', ng:'f', nn:'s' },
+  { blank:"___ ambitions sont claires.", answer:"Tes", en:"Your ambitions are clear.", hint:"ambitions = f.plur. → tes", type:'mon', owner:'tu', ng:'f', nn:'p' },
+  { blank:"___ entourage t'influence.", answer:"Ton", en:"Your circle influences you.", hint:"entourage = m.sing. → ton", type:'mon', owner:'tu', ng:'m', nn:'s' },
+  { blank:"___ habitudes te trahissent.", answer:"Tes", en:"Your habits give you away.", hint:"habitudes = f.plur. → tes", type:'mon', owner:'tu', ng:'f', nn:'p' },
+  { blank:"___ opinion m'intéresse.", answer:"Ton", en:"Your opinion interests me.", hint:"opinion = f. + voyelle → ton (élision)", type:'elision', owner:'tu', ng:'f_vow', nn:'s' },
+
+  // ── SON / SA / SES ──
+  { blank:"Il aime ___ travail.", answer:"son", en:"He loves his job.", hint:"travail = m.sing. → son (peu importe le genre du possesseur)", type:'son', owner:'il', ng:'m', nn:'s' },
+  { blank:"Elle adore ___ voiture.", answer:"sa", en:"She loves her car.", hint:"voiture = f.sing. → sa", type:'son', owner:'elle', ng:'f', nn:'s' },
+  { blank:"Il retrouve ___ amie chaque soir.", answer:"son", en:"He meets his friend every evening.", hint:"amie = f. + voyelle → son (élision)", type:'elision', owner:'il', ng:'f_vow', nn:'s' },
+  { blank:"Elle défend ___ convictions.", answer:"ses", en:"She defends her convictions.", hint:"convictions = f.plur. → ses", type:'son', owner:'elle', ng:'f', nn:'p' },
+  { blank:"Il présente ___ associé.", answer:"son", en:"He introduces his associate.", hint:"associé = m.sing. → son", type:'son', owner:'il', ng:'m', nn:'s' },
+  { blank:"Elle parle de ___ origines.", answer:"ses", en:"She talks about her origins.", hint:"origines = f.plur. → ses", type:'son', owner:'elle', ng:'f', nn:'p' },
+  { blank:"Il protège ___ domaine.", answer:"son", en:"He protects his domain.", hint:"domaine = m.sing. → son", type:'son', owner:'il', ng:'m', nn:'s' },
+  { blank:"Elle chérit ___ liens familiaux.", answer:"ses", en:"She cherishes her family bonds.", hint:"liens = m.plur. → ses", type:'son', owner:'elle', ng:'m', nn:'p' },
+
+  // ── NOTRE / NOS ──
+  { blank:"___ équipe est très soudée.", answer:"Notre", en:"Our team is very close-knit.", hint:"équipe = f.sing. → notre", type:'mon', owner:'nous', ng:'f', nn:'s' },
+  { blank:"___ valeurs sont universelles.", answer:"Nos", en:"Our values are universal.", hint:"valeurs = f.plur. → nos", type:'mon', owner:'nous', ng:'f', nn:'p' },
+  { blank:"___ lien est indéfectible.", answer:"Notre", en:"Our bond is unbreakable.", hint:"lien = m.sing. → notre", type:'mon', owner:'nous', ng:'m', nn:'s' },
+
+  // ── VOTRE / VOS ──
+  { blank:"___ projet m'intéresse.", answer:"Votre", en:"Your project interests me.", hint:"projet = m.sing. → votre (formel)", type:'mon', owner:'vous', ng:'m', nn:'s' },
+  { blank:"___ collègues sont compétents.", answer:"Vos", en:"Your colleagues are competent.", hint:"collègues = plur. → vos", type:'mon', owner:'vous', ng:'m', nn:'p' },
+
+  // ── LEUR / LEURS ──
+  { blank:"___ maison est grande.", answer:"Leur", en:"Their house is big.", hint:"maison = f.sing. → leur (pas de s)", type:'leur', owner:'ils', ng:'f', nn:'s' },
+  { blank:"___ enfants jouent dehors.", answer:"Leurs", en:"Their children play outside.", hint:"enfants = plur. → leurs (avec s)", type:'leur', owner:'ils', ng:'m', nn:'p' },
+  { blank:"___ aîné part à l'étranger.", answer:"Leur", en:"Their eldest is going abroad.", hint:"aîné = m.sing. → leur", type:'leur', owner:'ils', ng:'m', nn:'s' },
+  { blank:"___ ambitions sont différentes.", answer:"Leurs", en:"Their ambitions are different.", hint:"ambitions = f.plur. → leurs", type:'leur', owner:'ils', ng:'f', nn:'p' },
+  { blank:"___ point de vue diffère.", answer:"Leur", en:"Their point of view differs.", hint:"point de vue = m.sing. → leur", type:'leur', owner:'ils', ng:'m', nn:'s' },
+  { blank:"___ proches les soutiennent.", answer:"Leurs", en:"Their loved ones support them.", hint:"proches = plur. → leurs", type:'leur', owner:'ils', ng:'m', nn:'p' },
+
+  // ── PIÈGE — corps ──
+  { blank:"Il se lave ___ mains.", answer:"les", en:"He washes his hands.", hint:"Piège ! Corps + verbe pronominal → article défini (pas possessif)", type:'piege', owner:'il', ng:'f', nn:'p' },
+  { blank:"Elle a mal à ___ tête.", answer:"la", en:"Her head hurts.", hint:"Piège ! Corps → article défini, pas possessif", type:'piege', owner:'elle', ng:'f', nn:'s' },
+  { blank:"Il lève ___ main.", answer:"la", en:"He raises his hand.", hint:"Piège ! Corps → article défini", type:'piege', owner:'il', ng:'f', nn:'s' },
+
+  // ── TRADUCTION items ──
+  { type:'trad', owner:'je',   answer:"Mon associée gère les finances.",  en:"My (female) business partner manages the finances.", hint:"associée = f. + voyelle → mon (élision)" },
+  { type:'trad', owner:'elle', answer:"Ses habitudes la trahissent.",     en:"Her habits give her away.", hint:"habitudes = f.plur. → ses" },
+  { type:'trad', owner:'ils',  answer:"Leur cadette est très douée.",    en:"Their youngest daughter is very gifted.", hint:"cadette = f.sing. → leur (pas leurs)", level:'B1' },
+  { type:'trad', owner:'tu',   answer:"Tes convictions me surprennent.", en:"Your convictions surprise me.", hint:"convictions = f.plur. → tes", level:'B1' },
+  { type:'trad', owner:'nous', answer:"Nos origines nous unissent.",     en:"Our origins unite us.", hint:"origines = f.plur. → nos", level:'B2' },
+  { type:'trad', owner:'vous', answer:"Votre entourage vous influence.", en:"Your circle influences you.", hint:"entourage = m.sing. → votre (formel)", level:'B2' },
+  { type:'trad', owner:'il',   answer:"Son domaine d'expertise est vaste.", en:"His field of expertise is vast.", hint:"domaine = m.sing. → son", level:'B2' },
+];
+
+// Possessive table for lookup (used in MCQ distractors)
+const POSS = {
+  je: { ms:'mon', fs:'ma', fvow:'mon', pl:'mes' },
+  tu: { ms:'ton', fs:'ta', fvow:'ton', pl:'tes' },
+  il: { ms:'son', fs:'sa', fvow:'son', pl:'ses' },
+  elle:{ ms:'son', fs:'sa', fvow:'son', pl:'ses' },
+  on:  { ms:'son', fs:'sa', fvow:'son', pl:'ses' },
+  nous:{ ms:'notre', fs:'notre', fvow:'notre', pl:'nos' },
+  vous:{ ms:'votre', fs:'votre', fvow:'votre', pl:'vos' },
+  ils: { ms:'leur',  fs:'leur',  fvow:'leur',  pl:'leurs' },
+  elles:{ ms:'leur', fs:'leur',  fvow:'leur',  pl:'leurs' },
+};
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ return [...a].sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/\u2019/g,"\\'").replace(/'/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/'/g,"'").replace(/'/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'');
+}
+function levelOk(item){ const l={A2:0,B1:1,B2:2}; return (l[item.level||'A2']||0)<=(l[currentLevel]||1); }
+
+// Get wrong possessives for MCQ
+function getWrongs(item, n=3){
+  const correct=normalise(item.answer);
+  const pool=[];
+  Object.values(POSS).forEach(p=>{ pool.push(p.ms,p.fs,p.pl); });
+  // Include body article options for piège
+  if(item.type==='piege') pool.push('le','la','les','l\'');
+  return shuffle([...new Set(pool)].filter(w=>normalise(w)!==correct)).slice(0,n);
+}
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel='B1', exFilter='tous';
+let exercises=[], answered=0, correct=0;
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx=currentLevel==='A2'?7:currentLevel==='B1'?9:11;
+
+  let pool=ITEMS.filter(i=>levelOk(i));
+  if     (exFilter==='mon')       pool=pool.filter(i=>['mon'].includes(i.type)&&['je','tu'].includes(i.owner));
+  else if(exFilter==='son')       pool=pool.filter(i=>i.type==='son');
+  else if(exFilter==='leur')      pool=pool.filter(i=>i.type==='leur');
+  else if(exFilter==='elision')   pool=pool.filter(i=>i.type==='elision');
+  else if(exFilter==='piege')     pool=pool.filter(i=>i.type==='piege');
+  else if(exFilter==='traduction')pool=pool.filter(i=>i.type==='trad');
+  // 'tous' → mix but exclude piège from dominating
+  if(!pool.length) pool=ITEMS.filter(i=>levelOk(i));
+
+  const selected=shuffle(pool).slice(0,numEx);
+  selected.forEach((item,ti)=>{
+    if(item.type==='trad')       renderTrad(container,ti,item);
+    else if(Math.random()<0.5)   renderMCQ(container,ti,item);
+    else                         renderInput(container,ti,item);
+  });
+  updateProgress();
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function typeClass(item){
+  if(item.type==='son'||item.owner==='il'||item.owner==='elle') return 'son-card';
+  if(item.type==='leur'||item.owner==='ils'||item.owner==='elles') return 'leur-card';
+  if(item.type==='piege') return 'trap-card';
+  return '';
+}
+function typeLabel(item){
+  if(item.type==='piege') return 'PIÈGE — CORPS';
+  if(item.type==='elision') return 'ÉLISION DEVANT VOYELLE';
+  if(item.type==='leur') return 'LEUR / LEURS';
+  if(item.owner==='nous') return 'NOTRE / NOS';
+  if(item.owner==='vous') return 'VOTRE / VOS';
+  if(item.owner==='il'||item.owner==='elle') return 'SON / SA / SES';
+  if(item.owner==='tu') return 'TON / TA / TES';
+  return 'MON / MA / MES';
+}
+function cardTypeClass(item){
+  if(item.type==='piege') return 'trap';
+  if(item.type==='leur'||item.owner==='ils'||item.owner==='elles') return 'leur';
+  if(item.owner==='il'||item.owner==='elle') return 'son';
+  return 'mon';
+}
+function possRuleStr(item){
+  const map={'m':'masculin singulier','f':'féminin singulier','f_vow':'féminin + voyelle → élision !','p':'pluriel'};
+  return `${item.owner?.toUpperCase()||''} · ${map[item.ng]||item.ng||''} · ${item.nn==='p'?'pluriel':'singulier'}`;
+}
+
+// 1) Input — fill the blank
+function renderInput(container, idx, item){
+  const answer=item.answer;
+  const displayed=item.blank.replace('___',`<span style="color:var(--vr2);font-style:italic">___</span>`);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card ${typeClass(item)}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ${cardTypeClass(item)}">${typeLabel(item)}</span></div>
+    <div class="hint-text">COMPLÉTEZ AVEC L'ADJECTIF POSSESSIF CORRECT (${item.hint||''})</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:12px">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder="${answer.slice(0,2)}..."
+      style="width:160px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) MCQ — choose the correct possessive
+function renderMCQ(container, idx, item){
+  const answer=item.answer;
+  const wrongs=getWrongs(item,3);
+  const choices=shuffle([answer,...wrongs]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const displayed=item.blank.replace('___',`<span style="color:var(--vr2);font-style:italic">___</span>`);
+  const card=document.createElement('div');
+  card.className=`exercise-card ${typeClass(item)}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ${cardTypeClass(item)}">${typeLabel(item)}</span></div>
+    <div class="hint-text">QUEL ADJECTIF POSSESSIF ? (${item.hint||''})</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:8px">${item.en}</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) Traduction — type the French sentence
+function renderTrad(container, idx, item){
+  const answer=item.answer.replace(/[.!?]+$/,'');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS — CHOISISSEZ LE BON POSSESSIF (${item.hint||''})</div>
+    <div class="sentence-display" style="color:var(--vr3)">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder=""
+      style="width:100%;max-width:520px" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK / PROGRESS
+// ================================================================
+function checkInput(idx,answer){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx,chosen,answer,btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=["Parfait !","Excellent !","Très bien !","Bravo !","Super !","C'est ça !"];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk; answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t>0?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='PARFAIT !';sub='Maîtrise parfaite — élisions, leur/leurs et corps inclus !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';sub='Très bien — accord avec le nom possédé, pas avec le possesseur !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';sub='Bon effort — attention : ma/ta/sa → mon/ton/son devant voyelle !';}
+  else{emoji='📚';title='CONTINUEZ !';sub='Rappel : son/sa/ses peut être his OR her — accord avec le nom, pas la personne.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

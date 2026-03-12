@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 3 — Pluriels, Négation &amp; Structure</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440; --border:#1e2d4a;
+    --violet:#b44fff; --gold:#ffd166; --cyan:#00f5ff; --red:#ff4757;
+    --mn:#06d6a0; --mn2:#4ade80; --mn3:#dcfce7;
+    --accent:#06d6a0;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(6,214,160,0.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(6,214,160,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-230px; left:-180px; background:rgba(6,214,160,0.08); }
+  .h2{ width:560px; height:560px; bottom:-190px; right:-150px; background:rgba(180,79,255,0.06); }
+  .h3{ width:260px; height:260px; top:46%; right:22%; background:rgba(255,209,102,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:78vh; top:10vh; right:12%; background:linear-gradient(to bottom,transparent,var(--mn),transparent); transform:rotate(9deg); }
+  .al2{ width:1px; height:58vh; top:22vh; left:11%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(-9deg); }
+
+  .bg-mark{ position:fixed; left:-40px; bottom:8%; opacity:0.022; font-family:'Bebas Neue',sans-serif;
+    font-size:160px; color:var(--mn); transform:rotate(-7deg); pointer-events:none; z-index:0; line-height:0.82; }
+
+  .wrapper{ position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--mn2);
+    border:1px solid rgba(6,214,160,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(6,214,160,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--mn2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,7.5vw,88px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--mn2) 44%,var(--cyan) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── 4-COLUMN CONCEPT TILES ── */
+  .concept-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:22px; }
+  @media(max-width:700px){ .concept-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:380px){ .concept-grid{ grid-template-columns:1fr; } }
+
+  .concept-tile{ background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.2s,transform 0.2s; }
+  .concept-tile:hover{ transform:translateY(-2px); }
+  .ct-head{ padding:10px 14px; border-bottom:1px solid var(--border); }
+  .ct-label{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; margin-bottom:2px; }
+  .ct-name{ font-family:'Bebas Neue',sans-serif; font-size:26px; line-height:1; }
+  .ct-body{ padding:10px 14px; font-size:12px; color:var(--text2); line-height:1.7; }
+  .ct-rule{ font-family:'DM Serif Display',serif; font-size:13.5px; color:var(--text); margin-bottom:4px; }
+  .ct-ex{ font-family:'DM Serif Display',serif; font-size:13px; line-height:1.6; }
+  .ct-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  .tile-plur .ct-name { color:var(--mn2); }  .tile-plur .ct-label{ color:var(--mn); }  .tile-plur{ border-top:2px solid var(--mn); }
+  .tile-neg  .ct-name { color:#f472b6; }      .tile-neg  .ct-label{ color:#f472b6; }    .tile-neg  { border-top:2px solid #f472b6; }
+  .tile-aff  .ct-name { color:var(--gold); }  .tile-aff  .ct-label{ color:var(--gold); }.tile-aff  { border-top:2px solid var(--gold); }
+  .tile-int  .ct-name { color:var(--cyan); }  .tile-int  .ct-label{ color:var(--cyan); }.tile-int  { border-top:2px solid var(--cyan); }
+
+  /* ── PLURIEL RULES CARD ── */
+  .plur-section{ margin-bottom:22px; }
+  .plur-card{ background:linear-gradient(135deg,rgba(6,214,160,0.06),rgba(180,79,255,0.03));
+    border:1px solid rgba(6,214,160,0.2); border-radius:13px; padding:18px 22px; }
+  .plur-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; color:var(--mn2); margin-bottom:12px; }
+  .plur-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media(max-width:600px){ .plur-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:380px){ .plur-grid{ grid-template-columns:1fr; } }
+  .pr-cell{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
+  .pr-rule{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:1px; color:var(--mn2); margin-bottom:4px; }
+  .pr-ex{ font-family:'DM Serif Display',serif; font-size:13.5px; color:var(--text); line-height:1.65; }
+  .pr-en{ font-size:11px; color:var(--text3); font-style:italic; }
+  .pr-note{ font-size:10px; color:var(--text3); margin-top:3px; }
+
+  /* ── INTERROGATION TABLE ── */
+  .int-section{ margin-bottom:22px; }
+  .int-card{ background:linear-gradient(135deg,rgba(0,245,255,0.05),rgba(6,214,160,0.03));
+    border:1px solid rgba(0,245,255,0.18); border-radius:13px; overflow:hidden; }
+  .int-head{ padding:12px 18px; border-bottom:1px solid var(--border);
+    font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; color:var(--cyan); }
+  .int-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; }
+  @media(max-width:580px){ .int-grid{ grid-template-columns:1fr; } }
+  .int-col{ padding:14px 18px; border-right:1px solid var(--border); }
+  .int-col:last-child{ border-right:none; }
+  @media(max-width:580px){ .int-col{ border-right:none; border-bottom:1px solid var(--border); } }
+  @media(max-width:580px){ .int-col:last-child{ border-bottom:none; } }
+  .ic-method{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px; color:var(--cyan); margin-bottom:6px; }
+  .ic-level{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px;
+    padding:2px 8px; border-radius:2px; margin-bottom:8px; display:inline-block; }
+  .ic-level.a1{ background:rgba(6,214,160,0.1); border:1px solid rgba(6,214,160,0.3); color:var(--mn2); }
+  .ic-level.a2{ background:rgba(0,245,255,0.08); border:1px solid rgba(0,245,255,0.3); color:var(--cyan); }
+  .ic-level.b1{ background:rgba(180,79,255,0.08); border:1px solid rgba(180,79,255,0.3); color:#d8a8ff; }
+  .ic-ex{ font-family:'DM Serif Display',serif; font-size:14.5px; color:var(--text); line-height:1.75; }
+  .ic-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:5px; }
+  .ic-note{ font-size:10.5px; color:var(--text3); margin-top:6px; line-height:1.5; }
+
+  /* ── NÉGATION EXPANDED ── */
+  .neg-section{ margin-bottom:22px; }
+  .neg-card{ background:linear-gradient(135deg,rgba(244,114,182,0.05),rgba(6,214,160,0.02));
+    border:1px solid rgba(244,114,182,0.18); border-radius:13px; padding:18px 22px; }
+  .neg-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; color:#f472b6; margin-bottom:12px; }
+  .neg-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media(max-width:600px){ .neg-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:380px){ .neg-grid{ grid-template-columns:1fr; } }
+  .neg-cell{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
+  .neg-form{ font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; color:#f472b6; margin-bottom:4px; }
+  .neg-ex{ font-family:'DM Serif Display',serif; font-size:13.5px; color:var(--text); line-height:1.6; }
+  .neg-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--mn2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:920px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(6,214,160,0.02); }
+  .vfr{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--mn); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(6,214,160,0.4); background:rgba(6,214,160,0.07); color:var(--mn2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a1::before{ background:linear-gradient(135deg,rgba(6,214,160,0.12),transparent); }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(0,245,255,0.10),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(180,79,255,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a1.active{ border-color:var(--mn);    color:var(--mn2); }
+  .level-pill.a2.active{ border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b1.active{ border-color:var(--violet);color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--mn2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--mn),var(--cyan)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(6,214,160,0.12),rgba(0,245,255,0.07));
+    border:1px solid rgba(6,214,160,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(6,214,160,0.26),rgba(0,245,255,0.14));
+    border-color:var(--mn2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(6,214,160,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--mn2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.neg-card::before { background:linear-gradient(90deg,transparent,#f472b6,transparent); }
+  .exercise-card.int-card::before { background:linear-gradient(90deg,transparent,var(--cyan),transparent); }
+  .exercise-card.plur-card::before{ background:linear-gradient(90deg,transparent,var(--mn2),transparent); }
+  .exercise-card.trad-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card      { border-color:rgba(6,214,160,0.22); transform:translateY(-1px); }
+  .exercise-card.neg-card.active-card { border-color:rgba(244,114,182,0.22); }
+  .exercise-card.int-card.active-card { border-color:rgba(0,245,255,0.22); }
+  .exercise-card.trad-card.active-card{ border-color:rgba(255,209,102,0.22); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.plur{ color:var(--mn2);  border:1px solid rgba(6,214,160,0.28);  background:rgba(6,214,160,0.05); }
+  .card-type.neg { color:#f472b6;     border:1px solid rgba(244,114,182,0.28);background:rgba(244,114,182,0.05); }
+  .card-type.int { color:var(--cyan); border:1px solid rgba(0,245,255,0.28);  background:rgba(0,245,255,0.05); }
+  .card-type.trad{ color:#86efac;     border:1px solid rgba(134,239,172,0.25);background:rgba(134,239,172,0.04); }
+  .card-type.struct{ color:var(--gold);border:1px solid rgba(255,209,102,0.28);background:rgba(255,209,102,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(15px,2.5vw,20px); line-height:1.9; margin-bottom:14px; color:var(--text); }
+  .sentence-display .hl  { color:var(--mn2); }
+  .sentence-display .hl2 { color:#f472b6; }
+  .sentence-display .hl3 { color:var(--cyan); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:17px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--mn2); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.correct  { border-color:var(--mn2); color:var(--mn2); box-shadow:0 0 0 2px rgba(74,222,128,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);  color:var(--red);  box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--mn2); color:var(--text); background:rgba(6,214,160,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--mn2); color:var(--mn2); background:rgba(74,222,128,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);  color:var(--red);  background:rgba(255,71,87,0.08); cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--mn2); color:var(--mn2); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.2); color:var(--mn2); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(6,214,160,0.4);
+    background:rgba(6,214,160,0.06); color:var(--mn2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(6,214,160,0.16); border-color:var(--mn2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(6,214,160,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(6,214,160,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--mn2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--mn2); } .score-stat-num.bad{ color:var(--red); } .score-stat-num.neu{ color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(6,214,160,0.4);
+    background:rgba(6,214,160,0.08); color:var(--mn2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(6,214,160,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">NE…PAS<br>PLURIEL<br>EST-CE<br>QUE ?</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 03 · FRANÇAIS</div>
+    <h1>Pluriels, Négation<br>&amp; Structure</h1>
+    <p class="subtitle">Les chats <span style="color:var(--mn2)">ne</span> parlent <span style="color:#f472b6">pas</span> — <span style="color:var(--cyan)">Est-ce que</span> tu comprends ?</p>
+    <p class="subtitle2">PLURIELS · NE…PAS · STRUCTURE AFFIRMATIVE · QUESTIONS · A1 → B1</p>
+  </header>
+
+  <!-- CONCEPT TILES -->
+  <div class="section-title">✦ LES 4 STRUCTURES FONDAMENTALES</div>
+  <div class="concept-grid">
+    <div class="concept-tile tile-plur">
+      <div class="ct-head"><div class="ct-label">MORPHOLOGIE</div><div class="ct-name">PLURIEL</div></div>
+      <div class="ct-body">
+        <div class="ct-rule">Singulier → +S en général</div>
+        <div class="ct-ex" style="color:var(--mn2)">chat → chats<br>livre → livres<br>eau → eaux<br>journal → journaux</div>
+        <div class="ct-en">most nouns + s · exceptions in -eau/-al</div>
+      </div>
+    </div>
+    <div class="concept-tile tile-neg">
+      <div class="ct-head"><div class="ct-label">NÉGATION</div><div class="ct-name">NE…PAS</div></div>
+      <div class="ct-body">
+        <div class="ct-rule">Verbe encadré : ne + V + pas</div>
+        <div class="ct-ex" style="color:#f472b6">Je <strong>ne</strong> parle <strong>pas</strong>.<br>Il <strong>n'</strong>est <strong>pas</strong> là.<br>Nous <strong>ne</strong> sommes <strong>pas</strong>…</div>
+        <div class="ct-en">ne → n' before vowel/h</div>
+      </div>
+    </div>
+    <div class="concept-tile tile-aff">
+      <div class="ct-head"><div class="ct-label">AFFIRMATIF</div><div class="ct-name">STRUCTURE</div></div>
+      <div class="ct-body">
+        <div class="ct-rule">Sujet + Verbe + Complément</div>
+        <div class="ct-ex" style="color:var(--gold)">Paul mange une pomme.<br>Elle habite à Lyon.<br>Nous aimons le café.</div>
+        <div class="ct-en">SVC = Subject Verb Complement</div>
+      </div>
+    </div>
+    <div class="concept-tile tile-int">
+      <div class="ct-head"><div class="ct-label">INTERROGATIF</div><div class="ct-name">QUESTION</div></div>
+      <div class="ct-body">
+        <div class="ct-rule">3 méthodes selon le niveau</div>
+        <div class="ct-ex" style="color:var(--cyan)">Tu parles français ?<br>Est-ce que tu parles ?<br>Parles-tu français ?</div>
+        <div class="ct-en">intonation · est-ce que · inversion</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLURIEL RULES -->
+  <div class="plur-section">
+    <div class="section-title">✦ RÈGLES DU PLURIEL — CAS PARTICULIERS</div>
+    <div class="plur-card">
+      <div class="plur-grid">
+        <div class="pr-cell">
+          <div class="pr-rule">GÉNÉRAL → +S</div>
+          <div class="pr-ex">un chat → <span style="color:var(--mn2)">des chats</span><br>une table → <span style="color:var(--mn2)">des tables</span></div>
+          <div class="pr-en">most nouns</div>
+        </div>
+        <div class="pr-cell">
+          <div class="pr-rule">-EAU / -EU → +X</div>
+          <div class="pr-ex">un gâteau → <span style="color:var(--mn2)">des gâteaux</span><br>un jeu → <span style="color:var(--mn2)">des jeux</span></div>
+          <div class="pr-en">no change in pronunciation</div>
+        </div>
+        <div class="pr-cell">
+          <div class="pr-rule">-AL → -AUX</div>
+          <div class="pr-ex">un animal → <span style="color:var(--mn2)">des animaux</span><br>un journal → <span style="color:var(--mn2)">des journaux</span></div>
+          <div class="pr-en">sound changes: /al/ → /o/</div>
+        </div>
+        <div class="pr-cell">
+          <div class="pr-rule">-S / -X / -Z → INVARIABLE</div>
+          <div class="pr-ex">un bras → <span style="color:var(--mn2)">des bras</span><br>une voix → <span style="color:var(--mn2)">des voix</span></div>
+          <div class="pr-en">already ends in s/x/z — no change</div>
+        </div>
+        <div class="pr-cell">
+          <div class="pr-rule">-OU → +S (sauf 7 → +X)</div>
+          <div class="pr-ex">un trou → <span style="color:var(--mn2)">des trous</span><br>un genou → <span style="color:var(--mn2)">des genoux</span></div>
+          <div class="pr-note">bijou, caillou, chou, genou, hibou, joujou, pou → x</div>
+        </div>
+        <div class="pr-cell">
+          <div class="pr-rule">ARTICLES AU PLURIEL</div>
+          <div class="pr-ex">le/la/l' → <span style="color:var(--mn2)">les</span><br>un/une → <span style="color:var(--mn2)">des</span></div>
+          <div class="pr-en">all genders → les · des</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERROGATION TABLE -->
+  <div class="int-section">
+    <div class="section-title">✦ LES 3 MÉTHODES POUR POSER UNE QUESTION</div>
+    <div class="int-card">
+      <div class="int-head">FORMER UNE QUESTION EN FRANÇAIS — DU PLUS SIMPLE AU PLUS FORMEL</div>
+      <div class="int-grid">
+        <div class="int-col">
+          <div class="ic-method">① INTONATION</div>
+          <div class="ic-level a1">A1 — ORAL INFORMEL</div>
+          <div class="ic-ex">
+            Tu parles français <span style="color:var(--cyan)">?</span><br>
+            Il est là <span style="color:var(--cyan)">?</span><br>
+            Vous habitez à Paris <span style="color:var(--cyan)">?</span>
+          </div>
+          <div class="ic-en">Same word order as statement — voice rises at end</div>
+          <div class="ic-note">Le plus courant à l'oral. Structure SVC + ?</div>
+        </div>
+        <div class="int-col">
+          <div class="ic-method">② EST-CE QUE</div>
+          <div class="ic-level a2">A2 — NEUTRE / ÉCRIT</div>
+          <div class="ic-ex">
+            <span style="color:var(--cyan)">Est-ce que</span> tu parles français ?<br>
+            <span style="color:var(--cyan)">Est-ce qu'</span>il est là ?<br>
+            <span style="color:var(--cyan)">Est-ce que</span> vous habitez ici ?
+          </div>
+          <div class="ic-en">est-ce que / est-ce qu' + normal word order</div>
+          <div class="ic-note">est-ce que → est-ce qu' devant voyelle/h</div>
+        </div>
+        <div class="int-col">
+          <div class="ic-method">③ INVERSION</div>
+          <div class="ic-level b1">B1 — FORMEL / ÉCRIT</div>
+          <div class="ic-ex">
+            <span style="color:var(--cyan)">Parles</span>-tu français ?<br>
+            <span style="color:var(--cyan)">Est</span>-il là ?<br>
+            <span style="color:var(--cyan)">Habitez</span>-vous à Paris ?
+          </div>
+          <div class="ic-en">Verb-subject inversion with hyphen</div>
+          <div class="ic-note">Verbe–pronom avec trait d'union. -t- ajouté si V finit par voyelle : Parle-<strong>t</strong>-il ?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NÉGATION FORMS -->
+  <div class="neg-section">
+    <div class="section-title">✦ LES FORMES DE NÉGATION</div>
+    <div class="neg-card">
+      <div class="neg-title">NE…PAS ET SES VARIANTES — ALLER AU-DELÀ DU SIMPLE NE…PAS</div>
+      <div class="neg-grid">
+        <div class="neg-cell">
+          <div class="neg-form">NE…PAS</div>
+          <div class="neg-ex">Je ne mange <span style="color:#f472b6">pas</span>.<br>Il n'est <span style="color:#f472b6">pas</span> là.</div>
+          <div class="neg-en">general negation — not</div>
+        </div>
+        <div class="neg-cell">
+          <div class="neg-form">NE…JAMAIS</div>
+          <div class="neg-ex">Je ne mange <span style="color:#f472b6">jamais</span> de viande.</div>
+          <div class="neg-en">never</div>
+        </div>
+        <div class="neg-cell">
+          <div class="neg-form">NE…PLUS</div>
+          <div class="neg-ex">Il ne travaille <span style="color:#f472b6">plus</span> ici.</div>
+          <div class="neg-en">no longer / not anymore</div>
+        </div>
+        <div class="neg-cell">
+          <div class="neg-form">NE…RIEN</div>
+          <div class="neg-ex">Je ne vois <span style="color:#f472b6">rien</span>.</div>
+          <div class="neg-en">nothing</div>
+        </div>
+        <div class="neg-cell">
+          <div class="neg-form">NE…PERSONNE</div>
+          <div class="neg-ex">Je ne connais <span style="color:#f472b6">personne</span>.</div>
+          <div class="neg-en">nobody / no one</div>
+        </div>
+        <div class="neg-cell">
+          <div class="neg-form">NE ÉLISION</div>
+          <div class="neg-ex">Il <span style="color:#f472b6">n'</span>aime pas ça.<br>Elle <span style="color:#f472b6">n'</span>habite plus là.</div>
+          <div class="neg-en">ne → n' before vowel or h</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — VIE QUOTIDIENNE &amp; OBJETS COURANTS</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>MOT</th><th>PLURIEL</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CAT.</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">un animal</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des animaux</td><td class="ven">an animal</td><td class="ves">un animal</td><td class="vcat">-al → -aux</td><td class="vex">Les animaux de la ferme sont nombreux.</td></tr>
+          <tr><td class="vfr">un journal</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des journaux</td><td class="ven">a newspaper</td><td class="ves">un periódico</td><td class="vcat">-al → -aux</td><td class="vex">Il lit les journaux le matin.</td></tr>
+          <tr><td class="vfr">un gâteau</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des gâteaux</td><td class="ven">a cake</td><td class="ves">un pastel</td><td class="vcat">-eau → -eaux</td><td class="vex">Elle prépare des gâteaux pour l'anniversaire.</td></tr>
+          <tr><td class="vfr">un genou</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des genoux</td><td class="ven">a knee</td><td class="ves">una rodilla</td><td class="vcat">-ou → -oux (7)</td><td class="vex">Il a mal aux genoux.</td></tr>
+          <tr><td class="vfr">une voix</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des voix</td><td class="ven">a voice</td><td class="ves">una voz</td><td class="vcat">-x invariable</td><td class="vex">Les voix des chanteurs sont belles.</td></tr>
+          <tr><td class="vfr">un bras</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des bras</td><td class="ven">an arm</td><td class="ves">un brazo</td><td class="vcat">-s invariable</td><td class="vex">Il a deux bras.</td></tr>
+          <tr><td class="vfr">un problème</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des problèmes</td><td class="ven">a problem</td><td class="ves">un problema</td><td class="vcat">+s général</td><td class="vex">Il n'y a pas de problèmes ici.</td></tr>
+          <tr><td class="vfr">une réponse</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des réponses</td><td class="ven">an answer</td><td class="ves">una respuesta</td><td class="vcat">+s général</td><td class="vex">Elles donnent des réponses claires.</td></tr>
+          <tr><td class="vfr">une question</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des questions</td><td class="ven">a question</td><td class="ves">una pregunta</td><td class="vcat">+s général</td><td class="vex">Posez vos questions !</td></tr>
+          <tr><td class="vfr">une règle</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des règles</td><td class="ven">a rule</td><td class="ves">una regla</td><td class="vcat">+s général</td><td class="vex">Les règles du pluriel ne sont pas toujours simples.</td></tr>
+          <tr><td class="vfr">un choix</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des choix</td><td class="ven">a choice</td><td class="ves">una elección</td><td class="vcat">-x invariable</td><td class="vex">Il y a beaucoup de choix.</td></tr>
+          <tr><td class="vfr">un travail</td><td style="color:var(--mn2);font-family:'DM Serif Display',serif">des travaux</td><td class="ven">work / a job</td><td class="ves">un trabajo</td><td class="vcat">-ail → -aux</td><td class="vex">Les travaux sont finis.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"      onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="pluriel"   onclick="setFilter('pluriel',this)">PLURIEL</button>
+      <button class="filter-pill"        data-f="negation"  onclick="setFilter('negation',this)">NÉGATION</button>
+      <button class="filter-pill"        data-f="question"  onclick="setFilter('question',this)">QUESTIONS</button>
+      <button class="filter-pill"        data-f="structure" onclick="setFilter('structure',this)">STRUCTURE</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a1"        onclick="setLevel('A1',this)">A1</button>
+      <button class="level-pill a2 active" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1"        onclick="setLevel('B1',this)">B1</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title" id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+const ITEMS = [
+
+  // ── PLURIEL — INPUT ──
+  { type:'pluriel', level:'A1',
+    blank:"un chat → des ___", answer:"chats",
+    en:"a cat → cats", hint:"général → +s" },
+  { type:'pluriel', level:'A1',
+    blank:"un animal → des ___", answer:"animaux",
+    en:"an animal → animals", hint:"-al → -aux" },
+  { type:'pluriel', level:'A1',
+    blank:"un gâteau → des ___", answer:"gâteaux",
+    en:"a cake → cakes", hint:"-eau → -eaux (+x)" },
+  { type:'pluriel', level:'A1',
+    blank:"un bras → des ___", answer:"bras",
+    en:"an arm → arms", hint:"-s déjà au singulier → invariable" },
+  { type:'pluriel', level:'A2',
+    blank:"un journal → des ___", answer:"journaux",
+    en:"a newspaper → newspapers", hint:"-al → -aux" },
+  { type:'pluriel', level:'A2',
+    blank:"un travail → des ___", answer:"travaux",
+    en:"work → works/repairs", hint:"-ail → -aux (irrégulier)" },
+  { type:'pluriel', level:'A2',
+    blank:"un genou → des ___", answer:"genoux",
+    en:"a knee → knees", hint:"-ou irrégulier → -oux (liste des 7)" },
+  { type:'pluriel', level:'A2',
+    blank:"une voix → des ___", answer:"voix",
+    en:"a voice → voices", hint:"-x déjà au singulier → invariable" },
+
+  // ── PLURIEL — MCQ ──
+  { type:'pluriel', level:'A1',
+    blank:"Quel est le pluriel de 'un jeu' ?", answer:"des jeux",
+    wrong:["des jeus","des jeu","des jeaux"],
+    en:"What is the plural of 'a game'?", hint:"-eu → -eux" },
+  { type:'pluriel', level:'B1',
+    blank:"Quel est le pluriel de 'un œil' ?", answer:"des yeux",
+    wrong:["des œils","des œils","des œilx"],
+    en:"What is the plural of 'an eye'?", hint:"pluriel totalement irrégulier !" },
+
+  // ── NÉGATION — INPUT ──
+  { type:'negation', level:'A1',
+    blank:"Il parle français. → Il ___ parle ___ français.", answer:"ne / pas",
+    en:"He doesn't speak French.", hint:"ne + verbe + pas" },
+  { type:'negation', level:'A1',
+    blank:"J'aime le café. → Je ___ aime ___ le café.", answer:"n' / pas",
+    en:"I don't like coffee.", hint:"ne → n' devant voyelle" },
+  { type:'negation', level:'A1',
+    blank:"Elles sont là. → Elles ___ sont ___ là.", answer:"ne / pas",
+    en:"They are not here.", hint:"ne + verbe + pas" },
+  { type:'negation', level:'A2',
+    blank:"Il travaille ici. → Il ne travaille ___ ici. (no longer)", answer:"plus",
+    en:"He no longer works here.", hint:"ne…plus = no longer" },
+  { type:'negation', level:'A2',
+    blank:"Je mange de la viande. → Je ne mange ___ de viande. (never)", answer:"jamais",
+    en:"I never eat meat.", hint:"ne…jamais = never" },
+  { type:'negation', level:'A2',
+    blank:"Je vois quelque chose. → Je ne vois ___.", answer:"rien",
+    en:"I don't see anything.", hint:"ne…rien = nothing" },
+  { type:'negation', level:'B1',
+    blank:"Je connais quelqu'un ici. → Je ne connais ___ ici.", answer:"personne",
+    en:"I don't know anyone here.", hint:"ne…personne = nobody" },
+
+  // ── NÉGATION — MCQ ──
+  { type:'negation', level:'A1',
+    blank:"___ il n'___ pas là, appelez-moi. (If he is not there…)", answer:"n'est",
+    wrong:["ne est","n'a","pas est"],
+    en:"If he is not there…", hint:"être → il est → il n'est pas" },
+  { type:'negation', level:'A2',
+    blank:"'Je ___ comprends pas' — quelle forme est correcte à l'écrit ?", answer:"ne comprends",
+    wrong:["n'comprends","comprends ne","pas comprends"],
+    en:"Written standard form of 'I don't understand'", hint:"à l'écrit : ne jamais omettre le ne" },
+
+  // ── QUESTIONS — MCQ ──
+  { type:'question', level:'A1',
+    blank:"Quelle question est correcte avec l'intonation ?", answer:"Tu parles français ?",
+    wrong:["Est français tu parle ?","Parles tu français ?","Est-ce que parles français ?"],
+    en:"Correct question using intonation", hint:"intonation = ordre SVC + ?" },
+  { type:'question', level:'A1',
+    blank:"Complétez : ___ vous habitez à Paris ?", answer:"Est-ce que",
+    wrong:["Est-ce qu'","Que","Quel"],
+    en:"Do you live in Paris? (est-ce que)", hint:"est-ce que + voyelle/h → est-ce qu'" },
+  { type:'question', level:'A2',
+    blank:"Complétez : ___ vous habitez ici ? (est-ce que + voyelle)", answer:"Est-ce qu'",
+    wrong:["Est-ce que","Que","Est que"],
+    en:"Do you live here? (est-ce qu' before vowel)", hint:"devant voyelle : est-ce qu'" },
+  { type:'question', level:'A2',
+    blank:"Forme avec inversion : 'Tu aimes le cinéma ?' → ___", answer:"Aimes-tu le cinéma ?",
+    wrong:["Tu aimes-le cinéma ?","Aimes tu le cinéma ?","Le cinéma aimes-tu ?"],
+    en:"Do you like cinema? (inversion)", hint:"inversion : verbe-sujet avec trait d'union" },
+  { type:'question', level:'B1',
+    blank:"Forme correcte de l'inversion : il parle → ___", answer:"Parle-t-il ?",
+    wrong:["Parle-il ?","Il parle-t ?","Parle il ?"],
+    en:"Does he speak? (inversion with -t-)", hint:"verbe finit par voyelle → -t- euphonique" },
+  { type:'question', level:'A1',
+    blank:"Comment dit-on 'What is your name?' avec est-ce que ?", answer:"Comment est-ce que vous vous appelez ?",
+    wrong:["Comment vous appelez vous ?","Comment appelez-vous ?","Quel est-ce que votre nom ?"],
+    en:"What is your name? (formal, est-ce que)", hint:"comment + est-ce que + SV" },
+  { type:'question', level:'A2',
+    blank:"Transformez en question (inversion) : 'Vous comprenez.'", answer:"Comprenez-vous ?",
+    wrong:["Vous comprenez-?","Comprenez vous ?","Comprenez-vous-vous ?"],
+    en:"Do you understand? (inversion)", hint:"inversion : Comprenez-vous ?" },
+  { type:'question', level:'B1',
+    blank:"'Il mange une pomme.' → inversion formelle ?", answer:"Mange-t-il une pomme ?",
+    wrong:["Mange-il une pomme ?","Il mange-t-il ?","Mange t-il pomme ?"],
+    en:"Is he eating an apple? (inversion)", hint:"mange → finit par e → -t- ajouté" },
+
+  // ── STRUCTURE — MCQ ──
+  { type:'structure', level:'A1',
+    blank:"Quel ordre est correct en français ?", answer:"Marie mange une pomme.",
+    wrong:["Une pomme mange Marie.","Mange Marie une pomme.","Marie une pomme mange."],
+    en:"Correct French word order", hint:"Sujet + Verbe + Complément" },
+  { type:'structure', level:'A2',
+    blank:"Transformez en négatif : 'Ils habitent à Lyon.'", answer:"Ils n'habitent pas à Lyon.",
+    wrong:["Ils habitent pas à Lyon.","Ils ne habitent pas à Lyon.","Ils pas habitent à Lyon."],
+    en:"They don't live in Lyon.", hint:"ne → n' avant voyelle" },
+
+  // ── TRADUCTION ──
+  { type:'traduction', level:'A1',
+    en:"The cats do not speak.", answer:"Les chats ne parlent pas.",
+    hint:"les chats (pluriel +s) · ne…pas" },
+  { type:'traduction', level:'A1',
+    en:"Do you speak French? (intonation)", answer:"Tu parles français ?",
+    hint:"intonation = même ordre que l'affirmatif + ?" },
+  { type:'traduction', level:'A2',
+    en:"Do you speak French? (est-ce que)", answer:"Est-ce que tu parles français ?",
+    hint:"est-ce que + SVC normal" },
+  { type:'traduction', level:'A2',
+    en:"He no longer lives in Paris.", answer:"Il n'habite plus à Paris.",
+    hint:"ne…plus · n' devant voyelle" },
+  { type:'traduction', level:'A2',
+    en:"I never eat meat.", answer:"Je ne mange jamais de viande.",
+    hint:"ne…jamais · de viande (négation → de)" },
+  { type:'traduction', level:'B1',
+    en:"Does she understand the rules? (inversion)", answer:"Comprend-elle les règles ?",
+    hint:"comprend → finit par d → pas de -t- · Comprend-elle ?" },
+  { type:'traduction', level:'B1',
+    en:"They don't know anyone.", answer:"Ils ne connaissent personne.",
+    hint:"ne…personne · connaître → connaissent" },
+  { type:'traduction', level:'B1',
+    en:"What are the newspapers? (plural)", answer:"Quels sont les journaux ?",
+    hint:"journal → journaux (-al → -aux)" },
+];
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ return [...a].sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/['"\\]/g,c=>'\\'+c); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/['']/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'');
+}
+const LMAP = {A1:0,A2:1,B1:2};
+function levelOk(i){ return (LMAP[i.level]||0) <= (LMAP[currentLevel]||1); }
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel='A2', exFilter='tous';
+let exercises=[], answered=0, correct=0;
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx=currentLevel==='A1'?7:currentLevel==='A2'?10:13;
+  let pool=ITEMS.filter(i=>levelOk(i));
+
+  const filterMap={pluriel:'pluriel',negation:'negation',question:'question',structure:'structure',traduction:'traduction'};
+  if(exFilter in filterMap) pool=pool.filter(i=>i.type===filterMap[exFilter]);
+  if(!pool.length) pool=ITEMS.filter(i=>levelOk(i));
+
+  shuffle(pool).slice(0,numEx).forEach((item,ti)=>{
+    if(item.type==='traduction')      renderTrad(container,ti,item);
+    else if(item.wrong)               renderMCQ(container,ti,item);
+    else                              renderInput(container,ti,item);
+  });
+  updateProgress();
+}
+
+// ================================================================
+// CARD META
+// ================================================================
+function cardClass(t){
+  if(t==='negation')  return 'neg-card';
+  if(t==='question')  return 'int-card';
+  if(t==='traduction')return 'trad-card';
+  return 'plur-card';
+}
+function cardTypeClass(t){
+  if(t==='negation')  return 'neg';
+  if(t==='question')  return 'int';
+  if(t==='structure') return 'struct';
+  if(t==='traduction')return 'trad';
+  return 'plur';
+}
+function cardLabel(t){
+  if(t==='pluriel')   return 'PLURIEL — MORPHOLOGIE';
+  if(t==='negation')  return 'NÉGATION';
+  if(t==='question')  return 'INTERROGATION';
+  if(t==='structure') return 'STRUCTURE DE LA PHRASE';
+  return 'TRADUCTION';
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function renderMCQ(container,idx,item){
+  const answer=item.answer;
+  const opts=shuffle([answer,...(item.wrong||[])].slice(0,4));
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+  const displayed=item.blank.replace('___',`<span style="color:var(--mn2);font-style:italic">___</span>`);
+  const card=document.createElement('div');
+  card.className=`exercise-card ${cardClass(item.type)}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ${cardTypeClass(item.type)}">${cardLabel(item.type)}</span></div>
+    <div class="hint-text">CHOISISSEZ LA BONNE RÉPONSE${item.hint?' — '+item.hint.toUpperCase():''}</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:8px">${item.en}</div>
+    <div class="choices" id="choices-${idx}">${opts.map(c=>`<button class="choice-btn" onclick="checkMCQ(${idx},this)">${c}</button>`).join('')}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderInput(container,idx,item){
+  const answer=item.answer;
+  const displayed=item.blank.replace('___',`<span style="color:var(--mn2);font-style:italic">___</span>`);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+  const card=document.createElement('div');
+  card.className=`exercise-card ${cardClass(item.type)}`; card.id=`card-${idx}`;
+  // hint for width
+  const w = answer.length > 15 ? '100%;max-width:520px' : answer.length > 8 ? '300px;max-width:100%' : '180px;max-width:100%';
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ${cardTypeClass(item.type)}">${cardLabel(item.type)}</span></div>
+    <div class="hint-text">COMPLÉTEZ${item.hint?' — '+item.hint.toUpperCase():''}</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:12px">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder="…"
+      style="width:${w}" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')doCheckInput(${idx})">
+    <button class="check-btn" onclick="doCheckInput(${idx})">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderTrad(container,idx,item){
+  const answer=item.answer.replace(/[.!?]+$/,'');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+  const card=document.createElement('div');
+  card.className='exercise-card trad-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS${item.hint?' — '+item.hint.toUpperCase():''}</div>
+    <div class="sentence-display" style="color:var(--mn3)">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder=""
+      style="width:100%;max-width:560px" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')doCheckInput(${idx})">
+    <button class="check-btn" onclick="doCheckInput(${idx})">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK
+// ================================================================
+function doCheckInput(idx){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===ex.answer;
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.querySelectorAll(`#card-${idx} .check-btn`).forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,ex.answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx,btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const chosen=normalise(btn.textContent.trim());
+  const isOk=chosen===ex.answer;
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===ex.answer) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,ex.answer); markAnswered(idx,isOk);
+}
+function showFeedback(idx,isOk,displayAnswer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=["Parfait !","Excellent !","Très bien !","Bravo !","Super !","C'est ça !"];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${displayAnswer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${displayAnswer}</strong>`;
+}
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk; answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='PARFAIT !';sub='Maîtrise parfaite — pluriels, négation et questions n\'ont plus de secrets !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';sub='Très bien — attention aux pluriels irréguliers et au -t- euphonique !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';sub='Bon effort — révisez ne…plus/jamais/rien et les 3 formes interrogatives !';}
+  else{emoji='📚';title='CONTINUEZ !';sub='Rappel : ne+V+pas · -al→-aux · -eau→-eaux · Est-ce que + ordre normal.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

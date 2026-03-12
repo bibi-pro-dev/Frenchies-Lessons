@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 25 — Les Pronoms Relatifs</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440; --border:#1e2d4a;
+    --cyan:#00f5ff; --gold:#ffd166; --green:#06d6a0; --red:#ff4757; --teal:#14b8a6;
+    --mg:#c026d3; --mg2:#e879f9; --mg3:#fae8ff;
+    --accent:#c026d3;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(192,38,211,0.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(192,38,211,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(0,245,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(0,245,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:720px; height:720px; top:-240px; left:-180px; background:rgba(192,38,211,0.09); }
+  .h2{ width:560px; height:560px; bottom:-200px; right:-150px; background:rgba(0,245,255,0.05); }
+  .h3{ width:270px; height:270px; top:46%; right:22%; background:rgba(255,209,102,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:78vh; top:10vh; right:13%; background:linear-gradient(to bottom,transparent,var(--mg),transparent); transform:rotate(9deg); }
+  .al2{ width:1px; height:58vh; top:22vh; left:11%; background:linear-gradient(to bottom,transparent,var(--cyan),transparent); transform:rotate(-9deg); }
+
+  .bg-mark{ position:fixed; left:-46px; top:10%; opacity:0.022; font-family:'Bebas Neue',sans-serif;
+    font-size:190px; color:var(--mg); transform:rotate(-7deg); pointer-events:none; z-index:0; line-height:0.82; }
+
+  .wrapper{ position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--mg2);
+    border:1px solid rgba(192,38,211,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(192,38,211,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--mg2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,7.5vw,88px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--mg2) 44%,var(--cyan) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── PRONOUN REFERENCE CARDS ── */
+  .ref-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:22px; }
+  @media(max-width:680px){ .ref-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:400px){ .ref-grid{ grid-template-columns:1fr; } }
+
+  .ref-card{ background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.2s,transform 0.2s; }
+  .ref-card:hover{ transform:translateY(-2px); }
+  .ref-card.qui { border-top:2px solid var(--mg2); }
+  .ref-card.que { border-top:2px solid var(--cyan); }
+  .ref-card.ou  { border-top:2px solid var(--gold); }
+  .ref-card.dont{ border-top:2px solid var(--teal); }
+
+  .rc-head{ padding:12px 14px; border-bottom:1px solid var(--border); }
+  .rc-pron{ font-family:'Bebas Neue',sans-serif; font-size:38px; line-height:1; margin-bottom:2px; }
+  .rc-pron.qui { color:var(--mg2); }
+  .rc-pron.que { color:var(--cyan); }
+  .rc-pron.ou  { color:var(--gold); }
+  .rc-pron.dont{ color:var(--teal); }
+  .rc-role{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .rc-body{ padding:12px 14px; font-size:12px; color:var(--text2); line-height:1.75; }
+  .rc-rule{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; margin-bottom:5px; }
+  .rc-rule.qui { color:var(--mg2); } .rc-rule.que{ color:var(--cyan); }
+  .rc-rule.ou  { color:var(--gold); }.rc-rule.dont{ color:var(--teal); }
+  .rc-ex{ font-family:'DM Serif Display',serif; font-size:14px; }
+  .rc-ex .hl{ } 
+  .rc-ex .hq{ color:var(--mg2); } .rc-ex .hc{ color:var(--cyan); }
+  .rc-ex .ho{ color:var(--gold); }.rc-ex .hd{ color:var(--teal); }
+  .rc-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── LEQUEL SECTION ── */
+  .lequel-section{ margin-bottom:22px; }
+  .lequel-card{ background:linear-gradient(135deg,rgba(192,38,211,0.06),rgba(0,245,255,0.03));
+    border:1px solid rgba(192,38,211,0.2); border-radius:13px; padding:18px 22px; }
+  .lq-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px; }
+  @media(max-width:560px){ .lq-grid{ grid-template-columns:1fr; } }
+  .lq-table{ width:100%; border-collapse:collapse; }
+  .lq-table th{ padding:6px 12px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); }
+  .lq-table td{ padding:7px 12px; border-bottom:1px solid rgba(30,45,74,0.4); font-size:13px; }
+  .lq-table tr:last-child td{ border-bottom:none; }
+  .lq-form{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--mg2); }
+  .lq-when{ font-size:12px; color:var(--text3); }
+  .lq-ex  { font-family:'DM Serif Display',serif; font-size:13px; color:var(--text2); }
+  .lq-note{ font-size:11px; color:var(--text3); font-style:italic; margin-top:8px; }
+
+  /* ── DONT DEEP DIVE ── */
+  .dont-section{ margin-bottom:22px; }
+  .dont-rows{ display:flex; flex-direction:column; gap:8px; }
+  .dont-row{ background:var(--card); border:1px solid rgba(20,184,166,0.2); border-radius:9px; padding:10px 15px;
+    display:grid; grid-template-columns:0.5fr 1fr 1fr; align-items:center; gap:12px; }
+  @media(max-width:560px){ .dont-row{ grid-template-columns:1fr; } }
+  .dr-use{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--teal); }
+  .dr-fr { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); line-height:1.55; }
+  .dr-fr .hd{ color:var(--teal); }
+  .dr-en { font-size:11px; color:var(--text3); font-style:italic; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--mg2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:880px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(192,38,211,0.02); }
+  .vfr{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vpron{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--mg2); }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--mg); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(192,38,211,0.4); background:rgba(192,38,211,0.07); color:var(--mg2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(6,214,160,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(192,38,211,0.12),transparent); }
+  .level-pill.c1::before{ background:linear-gradient(135deg,rgba(255,209,102,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.b1.active{ border-color:var(--teal); color:var(--teal); }
+  .level-pill.b2.active{ border-color:var(--mg);   color:var(--mg2); }
+  .level-pill.c1.active{ border-color:var(--gold);  color:var(--gold); }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--mg2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--mg),var(--cyan)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(192,38,211,0.14),rgba(0,245,255,0.07));
+    border:1px solid rgba(192,38,211,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(192,38,211,0.26),rgba(0,245,255,0.14));
+    border-color:var(--mg2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(192,38,211,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--mg2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.que-card::before { background:linear-gradient(90deg,transparent,var(--cyan),transparent); }
+  .exercise-card.ou-card::before  { background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card.dont-card::before{ background:linear-gradient(90deg,transparent,var(--teal),transparent); }
+  .exercise-card.lq-card::before  { background:linear-gradient(90deg,transparent,var(--mg3),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card      { border-color:rgba(192,38,211,0.22); transform:translateY(-1px); }
+  .exercise-card.que-card.active-card { border-color:rgba(0,245,255,0.22); }
+  .exercise-card.ou-card.active-card  { border-color:rgba(255,209,102,0.22); }
+  .exercise-card.dont-card.active-card{ border-color:rgba(20,184,166,0.22); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* pronoun badge */
+  .pr-badge{ display:inline-flex; align-items:center; gap:8px; border-radius:5px; padding:4px 14px; margin-bottom:9px; }
+  .pr-badge.qui { background:rgba(192,38,211,0.08); border:1px solid rgba(192,38,211,0.28); }
+  .pr-badge.que { background:rgba(0,245,255,0.07);  border:1px solid rgba(0,245,255,0.25); }
+  .pr-badge.ou  { background:rgba(255,209,102,0.07);border:1px solid rgba(255,209,102,0.25); }
+  .pr-badge.dont{ background:rgba(20,184,166,0.07); border:1px solid rgba(20,184,166,0.25); }
+  .pr-badge.lq  { background:rgba(192,38,211,0.06); border:1px solid rgba(192,38,211,0.2); }
+  .pb-pron{ font-family:'Bebas Neue',sans-serif; font-size:24px; line-height:1; }
+  .pb-pron.qui { color:var(--mg2); } .pb-pron.que{ color:var(--cyan); }
+  .pb-pron.ou  { color:var(--gold);} .pb-pron.dont{ color:var(--teal); }
+  .pb-pron.lq  { color:var(--mg2); }
+  .pb-role{ font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; color:var(--text3); }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.qui  { color:var(--mg2); border:1px solid rgba(192,38,211,0.28); background:rgba(192,38,211,0.05); }
+  .card-type.que  { color:var(--cyan);border:1px solid rgba(0,245,255,0.25);  background:rgba(0,245,255,0.04); }
+  .card-type.ou   { color:var(--gold);border:1px solid rgba(255,209,102,0.28);background:rgba(255,209,102,0.05); }
+  .card-type.dont { color:var(--teal);border:1px solid rgba(20,184,166,0.28); background:rgba(20,184,166,0.05); }
+  .card-type.lq   { color:var(--mg3); border:1px solid rgba(250,232,255,0.2); background:rgba(250,232,255,0.04); }
+  .card-type.mcq  { color:var(--mg2); border:1px solid rgba(192,38,211,0.22); background:rgba(192,38,211,0.04); }
+  .card-type.jonc { color:var(--gold);border:1px solid rgba(255,209,102,0.22);background:rgba(255,209,102,0.04); }
+  .card-type.trad { color:#86efac;    border:1px solid rgba(134,239,172,0.25);background:rgba(134,239,172,0.04); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(15px,2.5vw,20px); line-height:1.9; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:17px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--mg2); box-shadow:0 0 0 2px rgba(192,38,211,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--mg2); color:var(--text); background:rgba(192,38,211,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red); color:var(--red); background:rgba(255,71,87,0.08); cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(192,38,211,0.4);
+    background:rgba(192,38,211,0.06); color:var(--mg2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(192,38,211,0.16); border-color:var(--mg2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(192,38,211,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(192,38,211,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--mg2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); } .score-stat-num.bad{ color:var(--red); } .score-stat-num.neu{ color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(192,38,211,0.4);
+    background:rgba(192,38,211,0.08); color:var(--mg2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(192,38,211,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .ref-grid{ grid-template-columns:repeat(2,1fr); }
+    .dont-row{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">QUI<br>QUE<br>OÙ<br>DONT</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 25 · FRANÇAIS</div>
+    <h1>Les Pronoms<br>Relatifs</h1>
+    <p class="subtitle">L'homme <span style="color:var(--mg2)">qui</span> parle · le livre <span style="color:var(--cyan)">que</span> tu lis · la ville <span style="color:var(--gold)">où</span> elle habite · le sujet <span style="color:var(--teal)">dont</span> il parle...</p>
+    <p class="subtitle2">QUI · QUE / QU' · OÙ · DONT · LEQUEL / LAQUELLE · JONCTIONS DE PROPOSITIONS · B1 → C1</p>
+  </header>
+
+  <!-- FOUR REFERENCE CARDS -->
+  <div class="section-title">✦ LES QUATRE PRONOMS RELATIFS ESSENTIELS</div>
+  <div class="ref-grid">
+    <!-- QUI -->
+    <div class="ref-card qui">
+      <div class="rc-head">
+        <div class="rc-pron qui">QUI</div>
+        <div class="rc-role">SUJET DE LA RELATIVE</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-rule qui">QUAND L'UTILISER</div>
+        <div class="rc-ex">Remplace un nom qui est le <strong>sujet</strong> du verbe de la proposition relative.</div>
+        <div class="rc-ex" style="margin-top:7px">L'homme <span class="hq">qui</span> parle est mon père.<br>
+        Les idées <span class="hq">qui</span> me touchent sont rares.<br>
+        C'est toi <span class="hq">qui</span> as raison.</div>
+        <div class="rc-en">The man who speaks · ideas that touch me</div>
+      </div>
+    </div>
+    <!-- QUE -->
+    <div class="ref-card que">
+      <div class="rc-head">
+        <div class="rc-pron que">QUE</div>
+        <div class="rc-role">COD DE LA RELATIVE</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-rule que">QUAND L'UTILISER</div>
+        <div class="rc-ex">Remplace un nom qui est le <strong>COD</strong> du verbe de la relative. Élision → <strong>qu'</strong> devant voyelle.</div>
+        <div class="rc-ex" style="margin-top:7px">Le livre <span class="hc">que</span> tu lis est beau.<br>
+        La chanson <span class="hc">qu'</span>elle chante me plaît.<br>
+        Les gens <span class="hc">que</span> j'admire sont rares.</div>
+        <div class="rc-en">The book you read · the song she sings</div>
+      </div>
+    </div>
+    <!-- OÙ -->
+    <div class="ref-card ou">
+      <div class="rc-head">
+        <div class="rc-pron ou">OÙ</div>
+        <div class="rc-role">LIEU OU TEMPS</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-rule ou">QUAND L'UTILISER</div>
+        <div class="rc-ex">Remplace un <strong>lieu</strong> ou un <strong>moment dans le temps</strong>.</div>
+        <div class="rc-ex" style="margin-top:7px">La ville <span class="ho">où</span> elle habite est belle.<br>
+        Le jour <span class="ho">où</span> il est parti fut triste.<br>
+        L'époque <span class="ho">où</span> tout était simple.</div>
+        <div class="rc-en">The city where she lives · the day when he left</div>
+      </div>
+    </div>
+    <!-- DONT -->
+    <div class="ref-card dont">
+      <div class="rc-head">
+        <div class="rc-pron dont">DONT</div>
+        <div class="rc-role">DE + NOM / COI AVEC DE</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-rule dont">QUAND L'UTILISER</div>
+        <div class="rc-ex">Remplace <strong>de + nom</strong> : pour les verbes construits avec <em>de</em>, la possession, etc.</div>
+        <div class="rc-ex" style="margin-top:7px">Le sujet <span class="hd">dont</span> il parle est délicat.<br>
+        L'ami <span class="hd">dont</span> je t'ai parlé est là.<br>
+        Une question <span class="hd">dont</span> je suis fier.</div>
+        <div class="rc-en">The topic he talks about · the friend I told you about</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DONT DEEP DIVE -->
+  <div class="dont-section">
+    <div class="section-title">✦ DONT — QUATRE USAGES CLÉS</div>
+    <div class="dont-rows">
+      <div class="dont-row">
+        <div class="dr-use">VERBE + DE</div>
+        <div class="dr-fr">parler de → Le sujet <span class="hd">dont</span> il parle.<br>avoir besoin de → Ce <span class="hd">dont</span> j'ai besoin.</div>
+        <div class="dr-en">The topic he talks about · what I need</div>
+      </div>
+      <div class="dont-row">
+        <div class="dr-use">POSSESSION</div>
+        <div class="dr-fr">L'artiste <span class="hd">dont</span> j'admire le travail.<br>Un pays <span class="hd">dont</span> la culture est riche.</div>
+        <div class="dr-en">The artist whose work I admire · a country whose culture is rich</div>
+      </div>
+      <div class="dont-row">
+        <div class="dr-use">ÊTRE FIER/CONTENT DE</div>
+        <div class="dr-fr">C'est une réussite <span class="hd">dont</span> il est fier.<br>Une décision <span class="hd">dont</span> je suis satisfait.</div>
+        <div class="dr-en">An achievement he is proud of · a decision I'm satisfied with</div>
+      </div>
+      <div class="dont-row">
+        <div class="dr-use">INCLUSION</div>
+        <div class="dr-fr">Trois projets, <span class="hd">dont</span> deux sont terminés.<br>Plusieurs livres, <span class="hd">dont</span> un roman.</div>
+        <div class="dr-en">Three projects, two of which are done · several books, including one novel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEQUEL SECTION -->
+  <div class="lequel-section">
+    <div class="section-title">✦ LEQUEL / LAQUELLE / LESQUELS / LESQUELLES — AVEC PRÉPOSITION</div>
+    <div class="lequel-card">
+      <div class="order-note" style="font-size:12px;color:var(--text2);margin-bottom:10px">
+        Utilisé après une <strong style="color:var(--mg2)">préposition autre que de</strong> (avec, pour, sur, dans, par, sans…) pour remplacer une chose ou un animal (pas une personne → on utilise qui).
+      </div>
+      <div class="lq-grid">
+        <table class="lq-table">
+          <thead><tr><th>FORME</th><th>USAGE</th><th>EXEMPLE</th></tr></thead>
+          <tbody>
+            <tr><td class="lq-form">lequel</td><td class="lq-when">m. sing.</td><td class="lq-ex">Le stylo avec <span style="color:var(--mg2)">lequel</span> j'écris.</td></tr>
+            <tr><td class="lq-form">laquelle</td><td class="lq-when">f. sing.</td><td class="lq-ex">La table sur <span style="color:var(--mg2)">laquelle</span> il écrit.</td></tr>
+            <tr><td class="lq-form">lesquels</td><td class="lq-when">m. plur.</td><td class="lq-ex">Les outils sans <span style="color:var(--mg2)">lesquels</span> je ne peux pas travailler.</td></tr>
+            <tr><td class="lq-form">lesquelles</td><td class="lq-when">f. plur.</td><td class="lq-ex">Les raisons pour <span style="color:var(--mg2)">lesquelles</span> il a démissionné.</td></tr>
+          </tbody>
+        </table>
+        <div>
+          <div class="lq-note">⚠ <strong style="color:var(--mg2)">auquel / auxquels / auxquelles</strong> = à + lequel/lesquels/lesquelles<br>
+          <em>Le problème <strong style="color:var(--mg2)">auquel</strong> je fais face.</em></div>
+          <div class="lq-note" style="margin-top:8px">⚠ <strong style="color:var(--mg2)">duquel / desquels / desquelles</strong> = de + lequel/lesquels/lesquelles<br>
+          <em>Le projet <strong style="color:var(--mg2)">duquel</strong> je suis responsable.</em><br>
+          (→ souvent remplacé par <strong style="color:var(--teal)">dont</strong> à l'oral)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — SOCIÉTÉ, INSTITUTIONS &amp; ABSTRACTIONS</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>MOT / EXPRESSION</th><th>PRONOM RELATIF NATUREL</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CAT.</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">un enjeu</td><td class="vpron">dont on parle / qui est important</td><td class="ven">a stake / issue</td><td class="ves">un desafío</td><td class="vcat">société</td><td class="vex">C'est un enjeu dont tout le monde débat.</td></tr>
+          <tr><td class="vfr">une valeur</td><td class="vpron">que l'on partage / dont on est fier</td><td class="ven">a value</td><td class="ves">un valor</td><td class="vcat">société</td><td class="vex">Les valeurs que nous défendons sont universelles.</td></tr>
+          <tr><td class="vfr">une contrainte</td><td class="vpron">à laquelle on est soumis</td><td class="ven">a constraint</td><td class="ves">una restricción</td><td class="vcat">abstrait</td><td class="vex">La contrainte à laquelle il est soumis est lourde.</td></tr>
+          <tr><td class="vfr">un témoignage</td><td class="vpron">dont on se souvient / qui émeut</td><td class="ven">a testimony</td><td class="ves">un testimonio</td><td class="vcat">société</td><td class="vex">C'est un témoignage dont je me souviens.</td></tr>
+          <tr><td class="vfr">un mécanisme</td><td class="vpron">sur lequel repose / qui régit</td><td class="ven">a mechanism</td><td class="ves">un mecanismo</td><td class="vcat">abstrait</td><td class="vex">Le mécanisme sur lequel repose ce système est fragile.</td></tr>
+          <tr><td class="vfr">une inégalité</td><td class="vpron">dont souffre / que l'on observe</td><td class="ven">an inequality</td><td class="ves">una desigualdad</td><td class="vcat">société</td><td class="vex">Les inégalités dont souffre cette population sont criantes.</td></tr>
+          <tr><td class="vfr">un compromis</td><td class="vpron">auquel on parvient / que l'on cherche</td><td class="ven">a compromise</td><td class="ves">un compromiso</td><td class="vcat">société</td><td class="vex">Le compromis auquel nous sommes parvenus est fragile.</td></tr>
+          <tr><td class="vfr">une tendance</td><td class="vpron">que l'on observe / dont on parle</td><td class="ven">a trend</td><td class="ves">una tendencia</td><td class="vcat">abstrait</td><td class="vex">C'est une tendance que les économistes observent.</td></tr>
+          <tr><td class="vfr">une rupture</td><td class="vpron">dont on parle / qui marque</td><td class="ven">a break / rupture</td><td class="ves">una ruptura</td><td class="vcat">société</td><td class="vex">C'est une rupture dont on parle depuis longtemps.</td></tr>
+          <tr><td class="vfr">un outil</td><td class="vpron">avec lequel / dont on dispose</td><td class="ven">a tool</td><td class="ves">una herramienta</td><td class="vcat">concret</td><td class="vex">L'outil avec lequel il travaille est innovant.</td></tr>
+          <tr><td class="vfr">une époque</td><td class="vpron">où / durant laquelle</td><td class="ven">an era / time</td><td class="ves">una época</td><td class="vcat">temps</td><td class="vex">L'époque où tout semblait possible est révolue.</td></tr>
+          <tr><td class="vfr">un défi</td><td class="vpron">auquel on fait face / dont on parle</td><td class="ven">a challenge</td><td class="ves">un reto</td><td class="vcat">abstrait</td><td class="vex">Le défi auquel nous faisons face est immense.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="qui"        onclick="setFilter('qui',this)">QUI</button>
+      <button class="filter-pill"        data-f="que"        onclick="setFilter('que',this)">QUE / QU'</button>
+      <button class="filter-pill"        data-f="ou"         onclick="setFilter('ou',this)">OÙ</button>
+      <button class="filter-pill"        data-f="dont"       onclick="setFilter('dont',this)">DONT</button>
+      <button class="filter-pill"        data-f="lequel"     onclick="setFilter('lequel',this)">LEQUEL</button>
+      <button class="filter-pill"        data-f="jonction"   onclick="setFilter('jonction',this)">JONCTION</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill b1 active" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2"        onclick="setLevel('B2',this)">B2</button>
+      <button class="level-pill c1"        onclick="setLevel('C1',this)">C1</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title" id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// SENTENCE DATABASE
+// ================================================================
+
+// Each entry: { p1, p2, pron, blank_sent, answer, en, hint, type, B1/B2/C1 variants }
+const ALL_ITEMS = [
+
+  // ── QUI ──
+  { pron:'qui', type:'qui', en:"The man who is speaking is my father.",
+    blank:`L'homme ___ parle est mon père.`, answer:'qui', hint:'sujet du verbe parle' },
+  { pron:'qui', type:'qui', en:"The ideas that move me are rare.",
+    blank:`Les idées ___ me touchent sont rares.`, answer:'qui', hint:'sujet du verbe touchent' },
+  { pron:'qui', type:'qui', en:"It's you who are right.",
+    blank:`C'est toi ___ as raison.`, answer:'qui', hint:'sujet de as raison' },
+  { pron:'qui', type:'qui', en:"The children who play outside are happy.",
+    blank:`Les enfants ___ jouent dehors sont heureux.`, answer:'qui', hint:'sujet de jouent' },
+  { pron:'qui', type:'qui', en:"The values that guide us are important.",
+    blank:`Les valeurs ___ nous guident sont importantes.`, answer:'qui', hint:'sujet de guident' },
+  { pron:'qui', type:'qui', en:"The challenge that faces us is immense.",
+    blank:`Le défi ___ se pose à nous est immense.`, answer:'qui', hint:'sujet de se pose', level:'B2' },
+  { pron:'qui', type:'qui', en:"The mechanism that regulates this system is complex.",
+    blank:`Le mécanisme ___ régit ce système est complexe.`, answer:'qui', hint:'sujet de régit', level:'C1' },
+
+  // ── QUE / QU' ──
+  { pron:'que', type:'que', en:"The book you are reading is beautiful.",
+    blank:`Le livre ___ tu lis est beau.`, answer:'que', hint:'COD de lis' },
+  { pron:'que', type:'que', en:"The song she sings pleases me.",
+    blank:`La chanson ___ elle chante me plaît.`, answer:'que', hint:'COD de chante' },
+  { pron:'que', type:'que', en:"The decision we made was difficult.",
+    blank:`La décision ___ nous avons prise était difficile.`, answer:'que', hint:'COD de avons prise' },
+  { pron:"qu'", type:'que', en:"The film I watched was excellent.",
+    blank:`Le film ___ j'ai regardé était excellent.`, answer:"qu'", hint:"élision devant j' → qu'" },
+  { pron:'que', type:'que', en:"The inequalities we observe are alarming.",
+    blank:`Les inégalités ___ on observe sont alarmantes.`, answer:'que', hint:'COD de observe', level:'B2' },
+  { pron:'que', type:'que', en:"The compromise we reached is fragile.",
+    blank:`Le compromis ___ nous avons atteint est fragile.`, answer:'que', hint:'COD de avons atteint', level:'C1' },
+
+  // ── OÙ ──
+  { pron:'où', type:'ou', en:"The city where she lives is beautiful.",
+    blank:`La ville ___ elle habite est belle.`, answer:'où', hint:'lieu' },
+  { pron:'où', type:'ou', en:"The day when he left was sad.",
+    blank:`Le jour ___ il est parti fut triste.`, answer:'où', hint:'moment dans le temps' },
+  { pron:'où', type:'ou', en:"The era when everything seemed simple is over.",
+    blank:`L'époque ___ tout semblait simple est révolue.`, answer:'où', hint:'moment dans le temps' },
+  { pron:'où', type:'ou', en:"The country where I was born has changed a lot.",
+    blank:`Le pays ___ je suis né a beaucoup changé.`, answer:'où', hint:'lieu' },
+  { pron:'où', type:'ou', en:"The moment when I understood was decisive.",
+    blank:`Le moment ___ j'ai compris fut décisif.`, answer:'où', hint:'moment dans le temps', level:'B2' },
+
+  // ── DONT ──
+  { pron:'dont', type:'dont', en:"The topic he talks about is sensitive.",
+    blank:`Le sujet ___ il parle est délicat.`, answer:'dont', hint:'parler de → dont' },
+  { pron:'dont', type:'dont', en:"The friend I told you about is here.",
+    blank:`L'ami ___ je t'ai parlé est là.`, answer:'dont', hint:'parler de → dont' },
+  { pron:'dont', type:'dont', en:"It's an achievement he is proud of.",
+    blank:`C'est une réussite ___ il est fier.`, answer:'dont', hint:'être fier de → dont' },
+  { pron:'dont', type:'dont', en:"Three projects, two of which are finished.",
+    blank:`Trois projets, ___ deux sont terminés.`, answer:'dont', hint:'inclusion : dont = y compris', level:'B2' },
+  { pron:'dont', type:'dont', en:"The tool he has at his disposal is innovative.",
+    blank:`L'outil ___ il dispose est innovant.`, answer:'dont', hint:'disposer de → dont', level:'B2' },
+  { pron:'dont', type:'dont', en:"An issue that the whole country is talking about.",
+    blank:`Un enjeu ___ tout le pays débat.`, answer:'dont', hint:'débattre de → dont', level:'C1' },
+  { pron:'dont', type:'dont', en:"The artist whose work I admire is here.",
+    blank:`L'artiste ___ j'admire le travail est ici.`, answer:'dont', hint:'possession : dont = whose', level:'B2' },
+
+  // ── LEQUEL ──
+  { pron:'lequel', type:'lequel', en:"The pen with which I write has run out.",
+    blank:`Le stylo avec ___ j'écris est vide.`, answer:'lequel', hint:'avec + m. sing. → lequel' },
+  { pron:'laquelle', type:'lequel', en:"The table on which he writes is old.",
+    blank:`La table sur ___ il écrit est ancienne.`, answer:'laquelle', hint:'sur + f. sing. → laquelle' },
+  { pron:'lesquelles', type:'lequel', en:"The reasons for which he resigned are unclear.",
+    blank:`Les raisons pour ___ il a démissionné sont floues.`, answer:'lesquelles', hint:'pour + f. plur. → lesquelles', level:'B2' },
+  { pron:'auquel', type:'lequel', en:"The challenge we are facing is immense.",
+    blank:`Le défi ___ nous faisons face est immense.`, answer:'auquel', hint:'à + m. sing. → auquel', level:'C1' },
+  { pron:'auxquels', type:'lequel', en:"The problems to which they are exposed are serious.",
+    blank:`Les problèmes ___ ils sont exposés sont graves.`, answer:'auxquels', hint:'à + m. plur. → auxquels', level:'C1' },
+
+  // ── MIXED MCQ (qui vs que vs où vs dont) ──
+  { pron:'qui', type:'mcq', en:"The colleague who helped me.",
+    blank:`Le collègue ___ m'a aidé.`, answer:'qui',
+    wrong:['que','dont','où'], hint:'sujet de a aidé' },
+  { pron:'que', type:'mcq', en:"The report that I read was long.",
+    blank:`Le rapport ___ j'ai lu était long.`, answer:'que',
+    wrong:['qui','dont','où'], hint:'COD de ai lu' },
+  { pron:'dont', type:'mcq', en:"The project I'm responsible for.",
+    blank:`Le projet ___ je suis responsable.`, answer:'dont',
+    wrong:['qui','que','où'], hint:'être responsable de → dont' },
+  { pron:'où', type:'mcq', en:"The office where he works.",
+    blank:`Le bureau ___ il travaille.`, answer:'où',
+    wrong:['qui','que','dont'], hint:'lieu' },
+  { pron:'dont', type:'mcq', en:"A testimony I still remember.",
+    blank:`Un témoignage ___ je me souviens encore.`, answer:'dont',
+    wrong:['qui','que','où'], hint:'se souvenir de → dont', level:'B2' },
+  { pron:'que', type:'mcq', en:"The trend analysts are observing.",
+    blank:`La tendance ___ les analystes observent.`, answer:'que',
+    wrong:['qui','dont','où'], hint:'COD de observent', level:'B2' },
+  { pron:'qui', type:'mcq', en:"The inequality that affects the region.",
+    blank:`L'inégalité ___ touche la région.`, answer:'qui',
+    wrong:['que','dont','où'], hint:'sujet de touche', level:'B2' },
+
+  // ── JONCTION (combine two sentences) ──
+  { type:'jonction', pron:'qui',
+    s1:"Je connais un homme.", s2:"Cet homme parle cinq langues.",
+    answer:"Je connais un homme qui parle cinq langues.",
+    hint:"l'homme = sujet du verbe parle → qui",
+    en:"I know a man who speaks five languages." },
+  { type:'jonction', pron:'que',
+    s1:"C'est un film.", s2:"J'ai adoré ce film.",
+    answer:"C'est un film que j'ai adoré.",
+    hint:"le film = COD de ai adoré → que",
+    en:"It's a film that I loved." },
+  { type:'jonction', pron:'où',
+    s1:"C'est la ville.", s2:"Elle est née dans cette ville.",
+    answer:"C'est la ville où elle est née.",
+    hint:"la ville = lieu → où",
+    en:"It's the city where she was born." },
+  { type:'jonction', pron:'dont',
+    s1:"C'est un enjeu.", s2:"Tout le monde parle de cet enjeu.",
+    answer:"C'est un enjeu dont tout le monde parle.",
+    hint:"parler de → dont",
+    en:"It's an issue everyone talks about." },
+  { type:'jonction', pron:'dont',
+    s1:"C'est un projet.", s2:"Je suis fier de ce projet.",
+    answer:"C'est un projet dont je suis fier.",
+    hint:"être fier de → dont",
+    en:"It's a project I'm proud of.", level:'B2' },
+  { type:'jonction', pron:'que',
+    s1:"C'est une contrainte.", s2:"Nous devons accepter cette contrainte.",
+    answer:"C'est une contrainte que nous devons accepter.",
+    hint:"la contrainte = COD → que",
+    en:"It's a constraint we must accept.", level:'B2' },
+  { type:'jonction', pron:'lequel',
+    s1:"C'est un outil.", s2:"Il travaille avec cet outil.",
+    answer:"C'est un outil avec lequel il travaille.",
+    hint:"avec + m. sing. → lequel",
+    en:"It's a tool he works with.", level:'C1' },
+
+  // ── TRADUCTION ──
+  { type:'trad', pron:'dont',
+    en:"The book whose author I met.",
+    answer:"Le livre dont j'ai rencontré l'auteur.",
+    hint:"possession : dont = whose", level:'C1' },
+  { type:'trad', pron:'qui',
+    en:"The students who work hard succeed.",
+    answer:"Les étudiants qui travaillent dur réussissent.",
+    hint:"sujet de travaillent" },
+  { type:'trad', pron:'que',
+    en:"The solution you proposed is excellent.",
+    answer:"La solution que tu as proposée est excellente.",
+    hint:"COD de as proposée · accord PP" },
+  { type:'trad', pron:'où',
+    en:"The moment when everything changed.",
+    answer:"Le moment où tout a changé.",
+    hint:"moment dans le temps → où" },
+  { type:'trad', pron:'dont',
+    en:"An issue everyone is talking about.",
+    answer:"Un enjeu dont tout le monde parle.",
+    hint:"parler de → dont", level:'B2' },
+  { type:'trad', pron:'lequel',
+    en:"The reason for which she refused.",
+    answer:"La raison pour laquelle elle a refusé.",
+    hint:"pour + f. sing. → laquelle", level:'C1' },
+];
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ return [...a].sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/\u2019/g,"\\'").replace(/'/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/'/g,"'").replace(/'/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'');
+}
+
+function levelOk(item){ const lv={B1:1,B2:2,C1:3}; const il=lv[item.level||'B1']||1; return il<=(lv[currentLevel]||2); }
+function pronClass(p){ return p==='où'?'ou':p==='qu\''?'que':p.startsWith('l')?'lq':p; }
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel='B1', exFilter='tous';
+let exercises=[], answered=0, correct=0;
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx=currentLevel==='B1'?8:currentLevel==='B2'?10:12;
+
+  // Filter pool by level and focus
+  let pool=ALL_ITEMS.filter(i=>levelOk(i));
+  if     (exFilter==='qui')       pool=pool.filter(i=>i.type==='qui');
+  else if(exFilter==='que')       pool=pool.filter(i=>i.type==='que');
+  else if(exFilter==='ou')        pool=pool.filter(i=>i.type==='ou');
+  else if(exFilter==='dont')      pool=pool.filter(i=>i.type==='dont');
+  else if(exFilter==='lequel')    pool=pool.filter(i=>i.type==='lequel');
+  else if(exFilter==='jonction')  pool=pool.filter(i=>i.type==='jonction');
+  else if(exFilter==='traduction')pool=pool.filter(i=>i.type==='trad');
+
+  if(!pool.length) pool=ALL_ITEMS.filter(i=>levelOk(i));
+
+  const selected=shuffle(pool).slice(0,numEx);
+  selected.forEach((item,ti)=>{
+    if     (item.type==='mcq')      renderMCQ(container,ti,item);
+    else if(item.type==='jonction') renderJonction(container,ti,item);
+    else if(item.type==='trad')     renderTrad(container,ti,item);
+    else if(item.type==='lequel')   renderLequelInput(container,ti,item);
+    else                            renderBlankInput(container,ti,item);
+  });
+  updateProgress();
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function prBadge(p){
+  const pc=pronClass(p);
+  const roles={qui:'sujet',que:'COD',qu:'COD (élision)',où:'lieu/temps',dont:'de + nom',lq:'avec préposition'};
+  const role=roles[pc]||pc;
+  return `<div class="pr-badge ${pc}"><span class="pb-pron ${pc}">${p.toUpperCase()}</span><span class="pb-role">${role}</span></div>`;
+}
+
+// 1) Blank input — fill in the relative pronoun
+function renderBlankInput(container, idx, item){
+  const answer=item.answer;
+  const displayed=item.blank.replace('___',`<span style="color:var(--mg2);font-style:italic">___</span>`);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const pc=pronClass(item.pron);
+  const card=document.createElement('div');
+  card.className=`exercise-card ${pc==='ou'?'ou-card':pc==='dont'?'dont-card':pc==='que'?'que-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ${pc}">${item.pron.toUpperCase()} — COMPLÉTER</span></div>
+    ${prBadge(item.pron)}
+    <div class="hint-text">COMPLÉTEZ AVEC LE PRONOM RELATIF CORRECT (${item.hint||''})</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:12px">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder="${answer.slice(0,3)}..."
+      style="width:160px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) MCQ — choose among qui/que/où/dont
+function renderMCQ(container, idx, item){
+  const answer=item.answer;
+  const options=shuffle([answer,...(item.wrong||['qui','que','où','dont'].filter(x=>x!==answer).slice(0,3))]);
+  const choices=options.map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const pc=pronClass(item.pron);
+  const displayed=item.blank.replace('___',`<span style="color:var(--mg2);font-style:italic">___</span>`);
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type mcq">PRONOM RELATIF — CHOIX</span></div>
+    <div class="hint-text">QUEL PRONOM RELATIF CONVIENT ? (${item.hint||''})</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:12px">${item.en}</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) Jonction — combine two sentences
+function renderJonction(container, idx, item){
+  const answer=item.answer.replace(/[.!?]+$/,'');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const pc=pronClass(item.pron);
+  const card=document.createElement('div');
+  card.className=`exercise-card ${pc==='ou'?'ou-card':pc==='dont'?'dont-card':pc==='que'?'que-card':pc==='lq'?'lq-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type jonc">JONCTION — RELIER LES PROPOSITIONS</span></div>
+    ${prBadge(item.pron)}
+    <div class="hint-text">COMBINEZ LES DEUX PHRASES EN UNE SEULE AVEC ${item.pron.toUpperCase()}</div>
+    <div class="sentence-display" style="color:var(--mg2)">${item.s1}</div>
+    <div class="sentence-display" style="color:var(--text2);margin-top:-8px">${item.s2}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:12px">${item.en} (indice : ${item.hint})</div>
+    <input class="answer-input" id="input-${idx}" placeholder="${item.s1.split(' ').slice(0,3).join(' ').toLowerCase()}..."
+      style="width:100%;max-width:520px" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 4) Lequel input
+function renderLequelInput(container, idx, item){
+  const answer=item.answer;
+  const displayed=item.blank.replace('___',`<span style="color:var(--mg2);font-style:italic">___</span>`);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card lq-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type lq">LEQUEL — FORME ACCORDÉE</span></div>
+    ${prBadge(item.pron)}
+    <div class="hint-text">ACCORDEZ LEQUEL / LAQUELLE / LESQUELS… (${item.hint||''})</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:12px">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder="${answer.slice(0,4)}..."
+      style="width:180px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 5) Traduction — type full sentence
+function renderTrad(container, idx, item){
+  const answer=item.answer.replace(/[.!?]+$/,'');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const pc=pronClass(item.pron);
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    ${prBadge(item.pron)}
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS — UTILISEZ ${item.pron.toUpperCase()} (${item.hint||''})</div>
+    <div class="sentence-display" style="color:var(--mg3)">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder=""
+      style="width:100%;max-width:520px" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK / PROGRESS
+// ================================================================
+function checkInput(idx,answer){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx,chosen,answer,btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=["Parfait !","Excellent !","Très bien !","Bravo !","Super !","C'est ça !"];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk; answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t>0?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='PARFAIT !';sub='Maîtrise parfaite — qui, que, où, dont, lequel… vous les dominez tous !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';sub='Très bien — qui=sujet, que=COD, où=lieu/temps, dont=de+nom !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';sub='Bon effort — attention à dont (verbe + de) et lequel (avec préposition) !';}
+  else{emoji='📚';title='CONTINUEZ !';sub:'Rappel : qui=sujet · que=COD · où=lieu · dont=de+nom · lequel=avec préposition.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

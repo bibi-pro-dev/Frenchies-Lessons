@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 22 — Les Pronoms COD &amp; COI</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --cyan:#00f5ff; --violet:#b44fff; --gold:#ffd166; --green:#06d6a0; --red:#ff4757;
+    --rose:#fb7185; --rose2:#fda4af; --rose3:#ffe4e6;
+    --accent:#fb7185;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(251,113,133,0.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(251,113,133,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:680px; height:680px; top:-200px; left:-150px; background:rgba(251,113,133,0.09); }
+  .h2{ width:540px; height:540px; bottom:-180px; right:-130px; background:rgba(180,79,255,0.06); }
+  .h3{ width:260px; height:260px; top:48%; right:20%; background:rgba(0,245,255,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:76vh; top:10vh; right:13%; background:linear-gradient(to bottom,transparent,var(--rose),transparent); transform:rotate(10deg); }
+  .al2{ width:1px; height:56vh; top:22vh; left:11%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(-9deg); }
+
+  .bg-mark{ position:fixed; right:-44px; top:15%; opacity:0.022; font-family:'Bebas Neue',sans-serif;
+    font-size:190px; color:var(--rose); transform:rotate(8deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  .wrapper{ position:relative; z-index:1; max-width:980px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--rose2);
+    border:1px solid rgba(251,113,133,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(251,113,133,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--rose2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(42px,7vw,82px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--rose2) 44%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── PRONOUN TABLE ── */
+  .pron-section{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px; }
+  @media(max-width:560px){ .pron-section{ grid-template-columns:1fr; } }
+
+  .pron-card{ background:var(--card); border:1px solid var(--border); border-radius:13px; overflow:hidden; }
+  .pron-head{ padding:11px 18px; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; border-bottom:1px solid var(--border); }
+  .pron-head.cod{ color:var(--rose2); background:rgba(251,113,133,0.05); }
+  .pron-head.coi{ color:var(--violet); background:rgba(180,79,255,0.05); }  /* fixed: was rose2 */
+  .pron-head.coi { color:#d8a8ff; background:rgba(180,79,255,0.05); }
+  .pron-row{ display:grid; grid-template-columns:1fr 1fr; padding:8px 18px; border-bottom:1px solid rgba(30,45,74,0.4); align-items:center; gap:10px; }
+  .pron-row:last-child{ border-bottom:none; }
+  .pr-en  { font-size:12px; color:var(--text3); }
+  .pr-fr  { font-family:'DM Serif Display',serif; font-size:18px; }
+  .pr-fr.cod{ color:var(--rose2); }
+  .pr-fr.coi{ color:#d8a8ff; }
+  .pr-note{ font-size:10px; color:var(--text3); font-style:italic; }
+
+  /* ── FORMULA / PLACEMENT ── */
+  .formula-section{ margin-bottom:22px; }
+  .formula-card{ background:linear-gradient(135deg,rgba(251,113,133,0.07),rgba(180,79,255,0.05));
+    border:1px solid rgba(251,113,133,0.22); border-radius:14px; padding:18px 22px; margin-bottom:10px; }
+
+  .formula-row{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+  .formula-row:last-child{ margin-bottom:0; }
+  .f-block{ text-align:center; padding:7px 11px; border-radius:7px; min-width:52px; }
+  .f-block.sub { background:rgba(255,255,255,0.04); border:1px solid var(--border); }
+  .f-block.pron{ background:rgba(251,113,133,0.08); border:1px solid rgba(251,113,133,0.25); }
+  .f-block.pron.coi{ background:rgba(180,79,255,0.08); border:1px solid rgba(180,79,255,0.25); }
+  .f-block.verb{ background:rgba(0,245,255,0.06); border:1px solid rgba(0,245,255,0.2); }
+  .f-block.ne  { background:rgba(255,71,87,0.07); border:1px solid rgba(255,71,87,0.2); }
+  .f-block.pas { background:rgba(255,71,87,0.07); border:1px solid rgba(255,71,87,0.2); }
+  .f-block.pp  { background:rgba(6,214,160,0.07); border:1px solid rgba(6,214,160,0.2); }
+  .f-label{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; color:var(--text3); }
+  .f-val  { font-family:'DM Serif Display',serif; font-size:14px; margin-top:2px; }
+  .f-val.sub { color:var(--text2); } .f-val.pron{ color:var(--rose2); }
+  .f-val.pron.coi{ color:#d8a8ff; } .f-val.verb{ color:var(--cyan); }
+  .f-val.ne  { color:var(--red); }  .f-val.pas { color:var(--red); }
+  .f-val.pp  { color:var(--green); }
+  .f-plus{ font-size:18px; color:var(--border); font-family:'Bebas Neue',sans-serif; }
+  .f-row-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); min-width:70px; }
+
+  /* examples strip */
+  .ex-strip{ display:flex; flex-direction:column; gap:7px; margin-top:14px; }
+  .ex-row{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:9px 14px;
+    display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:center; }
+  @media(max-width:500px){ .ex-row{ grid-template-columns:1fr; } }
+  .ex-fr{ font-family:'DM Serif Display',serif; font-size:15px; line-height:1.5; }
+  .ex-fr .hl-cod{ color:var(--rose2); } .ex-fr .hl-coi{ color:#d8a8ff; }
+  .ex-en{ font-size:12px; color:var(--text3); font-style:italic; }
+
+  /* accord note */
+  .accord-note{ background:rgba(6,214,160,0.05); border:1px solid rgba(6,214,160,0.2); border-radius:8px; padding:11px 16px; margin-bottom:22px; font-size:13px; color:var(--text2); line-height:1.7; }
+  .accord-note .hl{ color:var(--green); font-family:'DM Serif Display',serif; }
+  .accord-note .hl-r{ color:var(--rose2); font-family:'DM Serif Display',serif; }
+
+  /* COD vs COI comparison */
+  .compare-section{ margin-bottom:22px; }
+  .compare-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media(max-width:500px){ .compare-grid{ grid-template-columns:1fr; } }
+  .cmp-cell{ background:var(--card); border:1px solid var(--border); border-radius:9px; padding:12px 15px; }
+  .cmp-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; margin-bottom:7px; }
+  .cmp-title.cod{ color:var(--rose2); } .cmp-title.coi{ color:#d8a8ff; }
+  .cmp-fr{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); line-height:1.6; }
+  .cmp-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:4px; }
+  .cmp-rule{ font-size:11px; color:var(--text3); margin-top:5px; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--rose2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:860px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(251,113,133,0.02); }
+  .vfr{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vcod{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--rose2); }
+  .vcoi{ font-family:'DM Serif Display',serif; font-size:13px; color:#d8a8ff; }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--rose); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(251,113,133,0.4); background:rgba(251,113,133,0.07); color:var(--rose2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(6,214,160,0.12),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(251,113,133,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a2.active{ border-color:var(--green);  color:var(--green); }
+  .level-pill.b1.active{ border-color:var(--rose);   color:var(--rose2); }
+  .level-pill.b2.active{ border-color:var(--violet); color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--rose2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--rose),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(251,113,133,0.14),rgba(180,79,255,0.09));
+    border:1px solid rgba(251,113,133,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(251,113,133,0.26),rgba(180,79,255,0.18));
+    border-color:var(--rose2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(251,113,133,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(0,245,255,0.4); color:var(--cyan); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--rose2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.coi-card::before { background:linear-gradient(90deg,transparent,#d8a8ff,transparent); }
+  .exercise-card.neg-card::before  { background:linear-gradient(90deg,transparent,var(--red),transparent); }
+  .exercise-card.pc-card::before   { background:linear-gradient(90deg,transparent,var(--green),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card     { border-color:rgba(251,113,133,0.22); transform:translateY(-1px); }
+  .exercise-card.coi-card.active-card{ border-color:rgba(180,79,255,0.22); }
+  .exercise-card.neg-card.active-card{ border-color:rgba(255,71,87,0.22); }
+  .exercise-card.pc-card.active-card { border-color:rgba(6,214,160,0.22); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* pronoun badge */
+  .pron-badge{ display:inline-flex; align-items:center; gap:8px; border-radius:4px; padding:3px 12px; margin-bottom:8px; }
+  .pron-badge.cod{ background:rgba(251,113,133,0.07); border:1px solid rgba(251,113,133,0.25); }
+  .pron-badge.coi{ background:rgba(180,79,255,0.07);  border:1px solid rgba(180,79,255,0.25); }
+  .pb-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .pb-val{ font-family:'DM Serif Display',serif; font-size:16px; }
+  .pb-val.cod{ color:var(--rose2); } .pb-val.coi{ color:#d8a8ff; }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.cod  { color:var(--rose2);border:1px solid rgba(251,113,133,0.28);background:rgba(251,113,133,0.05); }
+  .card-type.coi  { color:#d8a8ff;    border:1px solid rgba(180,79,255,0.28); background:rgba(180,79,255,0.05); }
+  .card-type.neg  { color:var(--red); border:1px solid rgba(255,71,87,0.28);  background:rgba(255,71,87,0.05); }
+  .card-type.pc   { color:var(--green);border:1px solid rgba(6,214,160,0.28); background:rgba(6,214,160,0.05); }
+  .card-type.choix{ color:var(--rose3);border:1px solid rgba(255,228,230,0.2);background:rgba(255,228,230,0.04); }
+  .card-type.trad { color:var(--gold); border:1px solid rgba(255,209,102,0.28);background:rgba(255,209,102,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(15px,2.6vw,20px); line-height:1.9; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--rose2); box-shadow:0 0 0 2px rgba(251,113,133,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled { opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--rose2); color:var(--text); background:rgba(251,113,133,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(251,113,133,0.4);
+    background:rgba(251,113,133,0.06); color:var(--rose2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(251,113,133,0.16); border-color:var(--rose2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(251,113,133,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(251,113,133,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--rose2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); } .score-stat-num.bad{ color:var(--red); } .score-stat-num.neu{ color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(251,113,133,0.4);
+    background:rgba(251,113,133,0.08); color:var(--rose2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(251,113,133,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .pron-section{ grid-template-columns:1fr; }
+    .compare-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">LE<br>LA<br>LUI<br>LEUR</div>
+
+<div class="wrapper">
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 22 · FRANÇAIS</div>
+    <h1>Pronoms<br>COD &amp; COI</h1>
+    <p class="subtitle">Je <span style="color:var(--rose2)">le</span> vois · Tu <span style="color:var(--rose2)">lui</span> parles · Ils <span style="color:var(--rose2)">les</span> ont appelés...</p>
+    <p class="subtitle2">LE / LA / LES / LUI / LEUR · PLACEMENT · ACCORD PP · NÉGATIF · A2 → B2</p>
+  </header>
+
+  <!-- PRONOUN TABLES -->
+  <div class="section-title">✦ LES PRONOMS OBJETS — TABLEAU</div>
+  <div class="pron-section">
+    <!-- COD -->
+    <div class="pron-card">
+      <div class="pron-head cod">COD — COMPLÉMENT D'OBJET DIRECT (remplace un nom sans préposition)</div>
+      <div class="pron-row"><span class="pr-en">me (1re sg.)</span><span class="pr-fr cod">me / m'</span></div>
+      <div class="pron-row"><span class="pr-en">you (2e sg.)</span><span class="pr-fr cod">te / t'</span></div>
+      <div class="pron-row"><span class="pr-en">him / it (m.)</span><span class="pr-fr cod">le / l'</span></div>
+      <div class="pron-row"><span class="pr-en">her / it (f.)</span><span class="pr-fr cod">la / l'</span></div>
+      <div class="pron-row"><span class="pr-en">us</span><span class="pr-fr cod">nous</span></div>
+      <div class="pron-row"><span class="pr-en">you (pl./formal)</span><span class="pr-fr cod">vous</span></div>
+      <div class="pron-row"><span class="pr-en">them (m./mixed)</span><span class="pr-fr cod">les</span></div>
+      <div class="pron-row"><span class="pr-en">them (f.)</span><span class="pr-fr cod">les</span></div>
+      <div class="pron-row"><span class="pr-note">Verbes : voir, appeler, aimer, inviter, chercher, regarder…</span></div>
+    </div>
+    <!-- COI -->
+    <div class="pron-card">
+      <div class="pron-head coi">COI — COMPLÉMENT D'OBJET INDIRECT (remplace à + personne)</div>
+      <div class="pron-row"><span class="pr-en">to me</span><span class="pr-fr coi">me / m'</span></div>
+      <div class="pron-row"><span class="pr-en">to you (sg.)</span><span class="pr-fr coi">te / t'</span></div>
+      <div class="pron-row"><span class="pr-en">to him / to her</span><span class="pr-fr coi">lui</span></div>
+      <div class="pron-row"><span class="pr-en">to us</span><span class="pr-fr coi">nous</span></div>
+      <div class="pron-row"><span class="pr-en">to you (pl./formal)</span><span class="pr-fr coi">vous</span></div>
+      <div class="pron-row"><span class="pr-en">to them</span><span class="pr-fr coi">leur</span></div>
+      <div class="pron-row"><span class="pr-note">Verbes : parler à, téléphoner à, écrire à, répondre à, dire à, donner à…</span></div>
+    </div>
+  </div>
+
+  <!-- FORMULA / PLACEMENT -->
+  <div class="formula-section">
+    <div class="section-title">✦ PLACEMENT DU PRONOM — AVANT LE VERBE CONJUGUÉ</div>
+    <div class="formula-card">
+      <!-- Affirmative present -->
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--rose2);margin-bottom:8px">TEMPS SIMPLE — AFFIRMATIF</div>
+      <div class="formula-row">
+        <span class="f-row-label">FORMULE :</span>
+        <div class="f-block sub"><div class="f-label">SUJET</div><div class="f-val sub">je</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-block pron"><div class="f-label">PRONOM</div><div class="f-val pron">le/la/lui</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-block verb"><div class="f-label">VERBE</div><div class="f-val verb">vois</div></div>
+      </div>
+      <!-- Negative present -->
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--red);margin-bottom:8px;margin-top:4px">TEMPS SIMPLE — NÉGATIF</div>
+      <div class="formula-row">
+        <span class="f-row-label">FORMULE :</span>
+        <div class="f-block sub"><div class="f-label">SUJET</div><div class="f-val sub">je</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-block ne"><div class="f-label">NE / N'</div><div class="f-val ne">ne</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-block pron"><div class="f-label">PRONOM</div><div class="f-val pron">le</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-block verb"><div class="f-label">VERBE</div><div class="f-val verb">vois</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-block pas"><div class="f-label">PAS</div><div class="f-val pas">pas</div></div>
+      </div>
+      <!-- Passé composé -->
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:8px;margin-top:4px">PASSÉ COMPOSÉ — PRONOM AVANT L'AUXILIAIRE</div>
+      <div class="formula-row" style="margin-bottom:0">
+        <span class="f-row-label">FORMULE :</span>
+        <div class="f-block sub"><div class="f-label">SUJET</div><div class="f-val sub">je</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-block pron"><div class="f-label">PRONOM</div><div class="f-val pron">l'</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-block verb"><div class="f-label">AUX</div><div class="f-val verb">ai</div></div>
+        <div class="f-plus">+</div>
+        <div class="f-block pp"><div class="f-label">PP (+accord)</div><div class="f-val pp">vue</div></div>
+      </div>
+    </div>
+
+    <!-- Examples strip -->
+    <div class="ex-strip">
+      <div class="ex-row">
+        <div class="ex-fr">Je vois Marie → Je <span class="hl-cod">la</span> vois.</div>
+        <div class="ex-en">I see Mary → I see her.</div>
+      </div>
+      <div class="ex-row">
+        <div class="ex-fr">Tu appelles Marc → Tu <span class="hl-cod">l'</span>appelles.</div>
+        <div class="ex-en">You call Marc → You call him.</div>
+      </div>
+      <div class="ex-row">
+        <div class="ex-fr">Elle parle à son ami → Elle <span class="hl-coi">lui</span> parle.</div>
+        <div class="ex-en">She talks to her friend → She talks to him.</div>
+      </div>
+      <div class="ex-row">
+        <div class="ex-fr">Je n'<span class="hl-cod">le</span> vois pas souvent.</div>
+        <div class="ex-en">I don't see him often.</div>
+      </div>
+      <div class="ex-row">
+        <div class="ex-fr">Tu <span class="hl-cod">leur</span> as écrit ? (COI pluriel)</div>
+        <div class="ex-en">Did you write to them?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCORD NOTE -->
+  <div class="accord-note">
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:var(--green)">✦ ACCORD DU PP AVEC LE COD AU PASSÉ COMPOSÉ :</span><br>
+    Quand le <span class="hl-r">COD précède</span> le verbe (pronom COD), le PP s'accorde avec ce COD :<br>
+    <em>La lettre que j'ai <span class="hl">écrite</span>.</em> · <em>Je <span class="hl-r">l'</span>ai <span class="hl">vue</span>.</em> (la = fém. sing.) · <em>Je <span class="hl-r">les</span> ai <span class="hl">appelés</span>.</em> (masc. plur.)<br>
+    Avec <span class="hl-r">COI</span> (lui/leur) → <strong>pas d'accord</strong> : <em>Je lui ai parlé.</em>
+  </div>
+
+  <!-- COD vs COI compare -->
+  <div class="compare-section">
+    <div class="section-title">✦ COD vs COI — COMMENT DISTINGUER ?</div>
+    <div class="compare-grid">
+      <div class="cmp-cell">
+        <div class="cmp-title cod">COD — VERBE + NOM (sans préposition)</div>
+        <div class="cmp-fr">Je vois <u>Marie</u>. → Je <span style="color:var(--rose2)">la</span> vois.<br>
+        Il invite <u>ses amis</u>. → Il <span style="color:var(--rose2)">les</span> invite.</div>
+        <div class="cmp-rule">Question : verbe + qui / quoi ?</div>
+        <div class="cmp-en">Sees whom? Marie → her</div>
+      </div>
+      <div class="cmp-cell">
+        <div class="cmp-title coi">COI — VERBE + À + PERSONNE</div>
+        <div class="cmp-fr">Je parle <u>à Marie</u>. → Je <span style="color:#d8a8ff">lui</span> parle.<br>
+        Il écrit <u>à ses amis</u>. → Il <span style="color:#d8a8ff">leur</span> écrit.</div>
+        <div class="cmp-rule">Question : verbe + à qui ?</div>
+        <div class="cmp-en">Speaks to whom? Marie → to her</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — COMMUNICATION &amp; ÉCHANGES</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>VERBE</th><th>PRONOM COD</th><th>PRONOM COI</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">contacter</td><td class="vcod">le/la/les contacter</td><td class="vcoi">—</td><td class="ven">to contact</td><td class="ves">contactar</td><td class="vex">Je vais le contacter demain.</td></tr>
+          <tr><td class="vfr">interrompre</td><td class="vcod">l'interrompre</td><td class="vcoi">—</td><td class="ven">to interrupt</td><td class="ves">interrumpir</td><td class="vex">Ne l'interromps pas !</td></tr>
+          <tr><td class="vfr">convaincre</td><td class="vcod">le/la convaincre</td><td class="vcoi">—</td><td class="ven">to convince</td><td class="ves">convencer</td><td class="vex">Tu l'as convaincu facilement.</td></tr>
+          <tr><td class="vfr">féliciter</td><td class="vcod">le/la féliciter</td><td class="vcoi">—</td><td class="ven">to congratulate</td><td class="ves">felicitar</td><td class="vex">Je l'ai félicitée pour son succès.</td></tr>
+          <tr><td class="vfr">critiquer</td><td class="vcod">le/la critiquer</td><td class="vcoi">—</td><td class="ven">to criticize</td><td class="ves">criticar</td><td class="vex">Il ne faut pas les critiquer.</td></tr>
+          <tr><td class="vfr">soutenir</td><td class="vcod">le/la soutenir</td><td class="vcoi">—</td><td class="ven">to support</td><td class="ves">apoyar</td><td class="vex">Elle l'a soutenu dans l'épreuve.</td></tr>
+          <tr><td class="vfr">mentionner</td><td class="vcod">le/la/les mentionner</td><td class="vcoi">—</td><td class="ven">to mention</td><td class="ves">mencionar</td><td class="vex">Tu l'as mentionné hier.</td></tr>
+          <tr><td class="vfr">répondre à</td><td class="vcod">—</td><td class="vcoi">lui/leur répondre</td><td class="ven">to answer s.o.</td><td class="ves">responder a</td><td class="vex">Je lui ai répondu immédiatement.</td></tr>
+          <tr><td class="vfr">conseiller à</td><td class="vcod">—</td><td class="vcoi">lui/leur conseiller</td><td class="ven">to advise s.o.</td><td class="ves">aconsejar a</td><td class="vex">Je lui ai conseillé de partir.</td></tr>
+          <tr><td class="vfr">promettre à</td><td class="vcod">—</td><td class="vcoi">lui/leur promettre</td><td class="ven">to promise s.o.</td><td class="ves">prometer a</td><td class="vex">Il lui a promis de revenir.</td></tr>
+          <tr><td class="vfr">reprocher à</td><td class="vcod">—</td><td class="vcoi">lui/leur reprocher</td><td class="ven">to reproach s.o.</td><td class="ves">reprochar a</td><td class="vex">Elle lui a reproché son attitude.</td></tr>
+          <tr><td class="vfr">présenter à</td><td class="vcod">le/la présenter</td><td class="vcoi">lui/leur présenter</td><td class="ven">to introduce / present</td><td class="ves">presentar a</td><td class="vex">Je te la présente. / Je lui ai présenté mon plan.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="cod"        onclick="setFilter('cod',this)">COD (le/la/les)</button>
+      <button class="filter-pill"        data-f="coi"        onclick="setFilter('coi',this)">COI (lui/leur)</button>
+      <button class="filter-pill"        data-f="negatif"    onclick="setFilter('negatif',this)">NÉGATIF</button>
+      <button class="filter-pill"        data-f="pc"         onclick="setFilter('pc',this)">PASSÉ COMPOSÉ + ACCORD</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a2"        onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1 active" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2"        onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title" id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+
+// Verbs: type = 'cod' | 'coi' | 'both'
+// pp = past participle, pp_f pp_mp pp_fp = agreed forms
+const VERBS = {
+  // NEW VOCAB
+  contacter:   { type:'cod', pp:'contacté',  pp_f:'contactée',  pp_mp:'contactés',  pp_fp:'contactées',  en:'contact',      prep:'' },
+  interrompre: { type:'cod', pp:'interrompu',pp_f:'interrompue',pp_mp:'interrompus', pp_fp:'interrompues',en:'interrupt',    prep:'' },
+  convaincre:  { type:'cod', pp:'convaincu', pp_f:'convaincue', pp_mp:'convaincus',  pp_fp:'convaincues', en:'convince',     prep:'' },
+  féliciter:   { type:'cod', pp:'félicité',  pp_f:'félicitée',  pp_mp:'félicités',   pp_fp:'félicitées',  en:'congratulate', prep:'' },
+  critiquer:   { type:'cod', pp:'critiqué',  pp_f:'critiquée',  pp_mp:'critiqués',   pp_fp:'critiquées',  en:'criticize',    prep:'' },
+  soutenir:    { type:'cod', pp:'soutenu',   pp_f:'soutenue',   pp_mp:'soutenus',    pp_fp:'soutenues',   en:'support',      prep:'' },
+  mentionner:  { type:'cod', pp:'mentionné', pp_f:'mentionnée', pp_mp:'mentionnés',  pp_fp:'mentionnées', en:'mention',      prep:'' },
+  'répondre à':{ type:'coi', pp:'répondu',   pp_f:'répondu',    pp_mp:'répondu',     pp_fp:'répondu',     en:'answer',       prep:'à' },
+  'conseiller à':{ type:'coi',pp:'conseillé',pp_f:'conseillé',  pp_mp:'conseillé',   pp_fp:'conseillé',   en:'advise',       prep:'à' },
+  'promettre à':{ type:'coi', pp:'promis',   pp_f:'promis',     pp_mp:'promis',      pp_fp:'promis',      en:'promise',      prep:'à' },
+  'reprocher à':{ type:'coi', pp:'reproché', pp_f:'reproché',   pp_mp:'reproché',    pp_fp:'reproché',    en:'reproach',     prep:'à' },
+  présenter:   { type:'both',pp:'présenté',  pp_f:'présentée',  pp_mp:'présentés',   pp_fp:'présentées',  en:'introduce',    prep:'' },
+  // KNOWN VERBS
+  voir:        { type:'cod', pp:'vu',        pp_f:'vue',        pp_mp:'vus',         pp_fp:'vues',        en:'see',          prep:'' },
+  appeler:     { type:'cod', pp:'appelé',    pp_f:'appelée',    pp_mp:'appelés',     pp_fp:'appelées',    en:'call',         prep:'' },
+  inviter:     { type:'cod', pp:'invité',    pp_f:'invitée',    pp_mp:'invités',     pp_fp:'invitées',    en:'invite',       prep:'' },
+  aimer:       { type:'cod', pp:'aimé',      pp_f:'aimée',      pp_mp:'aimés',       pp_fp:'aimées',      en:'love',         prep:'' },
+  chercher:    { type:'cod', pp:'cherché',   pp_f:'cherchée',   pp_mp:'cherchés',    pp_fp:'cherchées',   en:'look for',     prep:'' },
+  regarder:    { type:'cod', pp:'regardé',   pp_f:'regardée',   pp_mp:'regardés',    pp_fp:'regardées',   en:'watch',        prep:'' },
+  écouter:     { type:'cod', pp:'écouté',    pp_f:'écoutée',    pp_mp:'écoutés',     pp_fp:'écoutées',    en:'listen to',    prep:'' },
+  connaître:   { type:'cod', pp:'connu',     pp_f:'connue',     pp_mp:'connus',      pp_fp:'connues',     en:'know',         prep:'' },
+  lire:        { type:'cod', pp:'lu',        pp_f:'lue',        pp_mp:'lus',         pp_fp:'lues',        en:'read',         prep:'' },
+  attendre:    { type:'cod', pp:'attendu',   pp_f:'attendue',   pp_mp:'attendus',    pp_fp:'attendues',   en:'wait for',     prep:'' },
+  'parler à':  { type:'coi', pp:'parlé',     pp_f:'parlé',      pp_mp:'parlé',       pp_fp:'parlé',       en:'speak to',     prep:'à' },
+  'téléphoner à':{ type:'coi',pp:'téléphoné',pp_f:'téléphoné',  pp_mp:'téléphoné',   pp_fp:'téléphoné',   en:'call (phone)', prep:'à' },
+  'écrire à':  { type:'coi', pp:'écrit',     pp_f:'écrit',      pp_mp:'écrit',       pp_fp:'écrit',       en:'write to',     prep:'à' },
+  'dire à':    { type:'coi', pp:'dit',       pp_f:'dit',        pp_mp:'dit',         pp_fp:'dit',         en:'tell',         prep:'à' },
+  'donner à':  { type:'coi', pp:'donné',     pp_f:'donné',      pp_mp:'donné',       pp_fp:'donné',       en:'give to',      prep:'à' },
+  'envoyer à': { type:'coi', pp:'envoyé',    pp_f:'envoyé',     pp_mp:'envoyé',      pp_fp:'envoyé',      en:'send to',      prep:'à' },
+  'demander à':{ type:'coi', pp:'demandé',   pp_f:'demandé',    pp_mp:'demandé',     pp_fp:'demandé',     en:'ask',          prep:'à' },
+};
+
+// Persons for sentences
+const PERSONS = {
+  ms: { sub:'il',   pron_cod:{ ms:'le',  fs:'la',  pl:'les' }, pron_coi:'lui',  gender:'m',  label:'homme' },
+  fs: { sub:'elle', pron_cod:{ ms:'la',  fs:'la',  pl:'les' }, pron_coi:'lui',  gender:'f',  label:'femme' },
+  mp: { sub:'ils',  pron_cod:{ ms:'le',  fs:'la',  pl:'les' }, pron_coi:'leur', gender:'mp', label:'amis' },
+  fp: { sub:'elles',pron_cod:{ ms:'le',  fs:'la',  pl:'les' }, pron_coi:'leur', gender:'fp', label:'amies' },
+};
+
+// Object persons for the pronoun target
+const OBJ_PERSONS = [
+  { gender:'ms', label:'Marc', pron_cod:'le', pron_coi:'lui', pp_key:'m'  },
+  { gender:'fs', label:'Sophie', pron_cod:'la', pron_coi:'lui', pp_key:'f' },
+  { gender:'mp', label:'mes amis', pron_cod:'les', pron_coi:'leur', pp_key:'mp' },
+  { gender:'fp', label:'mes amies', pron_cod:'les', pron_coi:'leur', pp_key:'fp' },
+];
+
+// Subjects for sentences
+const SUBJECTS = ['Je','Tu','Il','Elle','Nous','Vous','Ils','Elles'];
+const SUBJ_PRON = { Je:'je',Tu:'tu',Il:'il',Elle:'elle',Nous:'nous',Vous:'vous',Ils:'ils',Elles:'elles' };
+const AUX = { Je:'ai',Tu:'as',Il:'a',Elle:'a',Nous:'avons',Vous:'avez',Ils:'ont',Elles:'ont' };
+
+const ALL_VERBS = Object.keys(VERBS);
+const COD_VERBS = ALL_VERBS.filter(k=>VERBS[k].type==='cod'||VERBS[k].type==='both');
+const COI_VERBS = ALL_VERBS.filter(k=>VERBS[k].type==='coi'||VERBS[k].type==='both');
+
+// Contexts B1/B2
+const CTX = {
+  voir:       { A2:'tous les jours', B1:'au bureau chaque matin', B2:'dans ce contexte professionnel' },
+  appeler:    { A2:'le soir',        B1:'pour lui annoncer la nouvelle', B2:'dès que possible' },
+  inviter:    { A2:'à ma fête',      B1:'à cette conférence importante', B2:'à prendre part à ce projet' },
+  soutenir:   { A2:'dans tes études',B1:'dans cette période difficile',  B2:'dans cette démarche ambitieuse' },
+  convaincre: { A2:'facilement',     B1:'après une longue discussion',   B2:'grâce à ses arguments solides' },
+  féliciter:  { A2:'pour son succès',B1:'pour cette promotion méritée',  B2:'pour l\'excellence de son travail' },
+  critiquer:  { A2:'tout le temps',  B1:'sans raison valable',           B2:'de façon aussi systématique' },
+  'répondre à':{ A2:'vite',          B1:'immédiatement',                 B2:'avec toute la clarté nécessaire' },
+  'parler à': { A2:'souvent',        B1:'de ce problème délicat',        B2:'franchement de ses inquiétudes' },
+  'écrire à': { A2:'une lettre',     B1:'pour expliquer la situation',   B2:'afin de clarifier sa position' },
+  'dire à':   { A2:'la vérité',      B1:'ce que je pense vraiment',      B2:'exactement ce qu\'il en est' },
+  'donner à': { A2:'un cadeau',      B1:'toutes les informations nécessaires', B2:'les documents demandés' },
+};
+
+function getCtx(verb, lv){ const c=CTX[verb]; return (c&&c[lv])||(c&&c['B1'])||''; }
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/\u2019/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/'/g,"'").replace(/\s+/g,' ');
+}
+
+// Get COD pronoun with elision before vowel
+function codPron(pron, nextWord){
+  if((pron==='le'||pron==='la') && /^[aeiouéèàâhî]/i.test(nextWord)) return "l'";
+  return pron;
+}
+
+// Get agreed PP for COD
+function agreedPP(verb, pp_key){
+  const v=VERBS[verb]; if(!v) return v?.pp||verb;
+  if(pp_key==='f')  return v.pp_f;
+  if(pp_key==='mp') return v.pp_mp;
+  if(pp_key==='fp') return v.pp_fp;
+  return v.pp;
+}
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel='B1', exFilter='tous';
+let exercises=[], answered=0, correct=0;
+
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx=currentLevel==='A2'?7:currentLevel==='B1'?9:11;
+
+  let typePool, verbPool;
+  if     (exFilter==='cod')       { typePool=['cod_mcq','cod_input']; verbPool=COD_VERBS; }
+  else if(exFilter==='coi')       { typePool=['coi_mcq','coi_input']; verbPool=COI_VERBS; }
+  else if(exFilter==='negatif')   { typePool=['negatif']; verbPool=ALL_VERBS; }
+  else if(exFilter==='pc')        { typePool=['pc_input','pc_accord']; verbPool=COD_VERBS; }
+  else if(exFilter==='traduction'){ typePool=['traduction']; verbPool=ALL_VERBS; }
+  else{ typePool=['cod_mcq','coi_mcq','cod_input','coi_input','negatif','pc_input','pc_accord','traduction']; verbPool=ALL_VERBS; }
+
+  const types=[]; for(let i=0;i<numEx;i++) types.push(typePool[i%typePool.length]);
+  shuffle(types);
+
+  const used=new Set(); let ti=0;
+  for(const type of types){
+    let tries=0, verb, obj;
+    do{
+      const pool = type.includes('cod')||type==='pc_input'||type==='pc_accord'
+        ? COD_VERBS
+        : type.includes('coi') ? COI_VERBS : verbPool;
+      verb=pool[Math.floor(Math.random()*pool.length)];
+      obj=rand(OBJ_PERSONS);
+      tries++;
+    } while(used.has(verb+obj.gender)&&tries<60);
+    used.add(verb+obj.gender);
+
+    if     (type==='cod_mcq')   renderCODMCQ(container,ti,verb,obj);
+    else if(type==='coi_mcq')   renderCOIMCQ(container,ti,verb,obj);
+    else if(type==='cod_input') renderCODInput(container,ti,verb,obj);
+    else if(type==='coi_input') renderCOIInput(container,ti,verb,obj);
+    else if(type==='negatif')   renderNegatif(container,ti,verb,obj);
+    else if(type==='pc_input')  renderPCInput(container,ti,verb,obj);
+    else if(type==='pc_accord') renderPCAccord(container,ti,verb,obj);
+    else                        renderTraduction(container,ti,verb,obj);
+    ti++;
+  }
+  updateProgress();
+}
+
+// ================================================================
+// RENDER HELPERS
+// ================================================================
+function pronBadge(type, pron){
+  return `<div class="pron-badge ${type}"><span class="pb-label">${type.toUpperCase()}</span><span class="pb-val ${type}">${pron}</span></div>`;
+}
+
+// Get a present-tense verb form (simplified)
+const PRES = {
+  voir:    { Je:'vois',Tu:'vois',Il:'voit',Elle:'voit',Nous:'voyons',Vous:'voyez',Ils:'voient',Elles:'voient' },
+  appeler: { Je:'appelle',Tu:'appelles',Il:'appelle',Elle:'appelle',Nous:'appelons',Vous:'appelez',Ils:'appellent',Elles:'appellent' },
+  inviter: { Je:'invite',Tu:'invites',Il:'invite',Elle:'invite',Nous:'invitons',Vous:'invitez',Ils:'invitent',Elles:'invitent' },
+  aimer:   { Je:'aime',Tu:'aimes',Il:'aime',Elle:'aime',Nous:'aimons',Vous:'aimez',Ils:'aiment',Elles:'aiment' },
+  écouter: { Je:'écoute',Tu:'écoutes',Il:'écoute',Elle:'écoute',Nous:'écoutons',Vous:'écoutez',Ils:'écoutent',Elles:'écoutent' },
+  chercher:{ Je:'cherche',Tu:'cherches',Il:'cherche',Elle:'cherche',Nous:'cherchons',Vous:'cherchez',Ils:'cherchent',Elles:'cherchent' },
+  regarder:{ Je:'regarde',Tu:'regardes',Il:'regarde',Elle:'regarde',Nous:'regardons',Vous:'regardez',Ils:'regardent',Elles:'regardent' },
+  soutenir:{ Je:'soutiens',Tu:'soutiens',Il:'soutient',Elle:'soutient',Nous:'soutenons',Vous:'soutenez',Ils:'soutiennent',Elles:'soutiennent' },
+  convaincre:{ Je:'convaincs',Tu:'convaincs',Il:'convainc',Elle:'convainc',Nous:'convainquons',Vous:'convainquez',Ils:'convainquent',Elles:'convainquent' },
+  contacter:{ Je:'contacte',Tu:'contactes',Il:'contacte',Elle:'contacte',Nous:'contactons',Vous:'contactez',Ils:'contactent',Elles:'contactent' },
+  féliciter:{ Je:'félicite',Tu:'félicites',Il:'félicite',Elle:'félicite',Nous:'félicitons',Vous:'félicitez',Ils:'félicitent',Elles:'félicitent' },
+  critiquer:{ Je:'critique',Tu:'critiques',Il:'critique',Elle:'critique',Nous:'critiquons',Vous:'critiquez',Ils:'critiquent',Elles:'critiquent' },
+  mentionner:{ Je:'mentionne',Tu:'mentionnes',Il:'mentionne',Elle:'mentionne',Nous:'mentionnons',Vous:'mentionnez',Ils:'mentionnent',Elles:'mentionnent' },
+  présenter:{ Je:'présente',Tu:'présentes',Il:'présente',Elle:'présente',Nous:'présentons',Vous:'présentez',Ils:'présentent',Elles:'présentent' },
+  attendre:{ Je:'attends',Tu:'attends',Il:'attend',Elle:'attend',Nous:'attendons',Vous:'attendez',Ils:'attendent',Elles:'attendent' },
+  connaître:{ Je:'connais',Tu:'connais',Il:'connaît',Elle:'connaît',Nous:'connaissons',Vous:'connaissez',Ils:'connaissent',Elles:'connaissent' },
+  lire:    { Je:'lis',Tu:'lis',Il:'lit',Elle:'lit',Nous:'lisons',Vous:'lisez',Ils:'lisent',Elles:'lisent' },
+  'parler à':{ Je:'parle',Tu:'parles',Il:'parle',Elle:'parle',Nous:'parlons',Vous:'parlez',Ils:'parlent',Elles:'parlent' },
+  'téléphoner à':{ Je:'téléphone',Tu:'téléphones',Il:'téléphone',Elle:'téléphone',Nous:'téléphonons',Vous:'téléphonez',Ils:'téléphonent',Elles:'téléphonent' },
+  'écrire à':{ Je:'écris',Tu:'écris',Il:'écrit',Elle:'écrit',Nous:'écrivons',Vous:'écrivez',Ils:'écrivent',Elles:'écrivent' },
+  'dire à':  { Je:'dis',Tu:'dis',Il:'dit',Elle:'dit',Nous:'disons',Vous:'dites',Ils:'disent',Elles:'disent' },
+  'donner à':{ Je:'donne',Tu:'donnes',Il:'donne',Elle:'donne',Nous:'donnons',Vous:'donnez',Ils:'donnent',Elles:'donnent' },
+  'envoyer à':{ Je:'envoie',Tu:'envoies',Il:'envoie',Elle:'envoie',Nous:'envoyons',Vous:'envoyez',Ils:'envoient',Elles:'envoient' },
+  'demander à':{ Je:'demande',Tu:'demandes',Il:'demande',Elle:'demande',Nous:'demandons',Vous:'demandez',Ils:'demandent',Elles:'demandent' },
+  'répondre à':{ Je:'réponds',Tu:'réponds',Il:'répond',Elle:'répond',Nous:'répondons',Vous:'répondez',Ils:'répondent',Elles:'répondent' },
+  'conseiller à':{ Je:'conseille',Tu:'conseilles',Il:'conseille',Elle:'conseille',Nous:'conseillons',Vous:'conseillez',Ils:'conseillent',Elles:'conseillent' },
+  'promettre à':{ Je:'promets',Tu:'promets',Il:'promet',Elle:'promet',Nous:'promettons',Vous:'promettez',Ils:'promettent',Elles:'promettent' },
+  'reprocher à':{ Je:'reproche',Tu:'reproches',Il:'reproche',Elle:'reproche',Nous:'reprochons',Vous:'reprochez',Ils:'reprochent',Elles:'reprochent' },
+};
+
+function getPresForm(verb, sub){ return (PRES[verb]&&PRES[verb][sub])||verb; }
+
+// 1) COD MCQ — choose correct COD pronoun
+function renderCODMCQ(container, idx, verb, obj){
+  const data=VERBS[verb]; if(!data) return;
+  const sub=rand(SUBJECTS);
+  const pron_answer=obj.pron_cod;
+  const verbBase=verb.replace(/ à$/,'');
+  const presForm=getPresForm(verb,sub);
+  const ctx=getCtx(verb,currentLevel);
+
+  // Wrong options: other COD pronouns + COI
+  const wrongs=shuffle(['le','la','les','lui','leur','me','te'].filter(p=>p!==pron_answer)).slice(0,3);
+  const choices=shuffle([pron_answer,...wrongs]).map(c=>{
+    const disp=codPron(c,presForm);
+    return `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(pron_answer)}',this)">${disp}</button>`;
+  }).join('');
+  exercises.push({id:idx,answer:normalise(pron_answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type cod">COD</span></div>
+    ${pronBadge('cod',obj.pron_cod)}
+    <div class="hint-text">QUEL PRONOM COD POUR « ${obj.label.toUpperCase()} » ?</div>
+    <div class="sentence-display">
+      <span style="color:var(--text2)">${sub} <span style="color:var(--text3)">___</span> ${presForm}</span>
+      ${ctx ? `<span style="color:var(--text3)"> ${ctx}</span>` : ''}
+      <span style="color:var(--text3)">.</span><br>
+      <span style="font-size:13px;color:var(--text3)">(objet : <em>${obj.label}</em> → verbe : <em>${verbBase}</em>)</span>
+    </div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) COI MCQ — choose correct COI pronoun
+function renderCOIMCQ(container, idx, verb, obj){
+  const data=VERBS[verb]; if(!data) return;
+  const sub=rand(SUBJECTS);
+  const pron_answer=obj.pron_coi;
+  const presForm=getPresForm(verb,sub);
+  const ctx=getCtx(verb,currentLevel);
+  const verbDisplay=verb.replace(/ à$/,'');
+
+  const wrongs=shuffle(['lui','leur','le','la','les','me','te'].filter(p=>p!==pron_answer)).slice(0,3);
+  const choices=shuffle([pron_answer,...wrongs]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(pron_answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(pron_answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card coi-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type coi">COI</span></div>
+    ${pronBadge('coi',obj.pron_coi)}
+    <div class="hint-text">QUEL PRONOM COI POUR « À ${obj.label.toUpperCase()} » ?</div>
+    <div class="sentence-display">
+      <span style="color:var(--text2)">${sub} <span style="color:var(--text3)">___</span> ${presForm}</span>
+      ${ctx ? `<span style="color:var(--text3)"> ${ctx}</span>` : ''}
+      <span style="color:var(--text3)">.</span><br>
+      <span style="font-size:13px;color:var(--text3)">(objet indirect : <em>à ${obj.label}</em> → verbe : <em>${verbDisplay}</em>)</span>
+    </div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) COD Input — rewrite sentence with pronoun
+function renderCODInput(container, idx, verb, obj){
+  const data=VERBS[verb]; if(!data) return;
+  const sub=rand(SUBJECTS);
+  const pron=obj.pron_cod;
+  const presForm=getPresForm(verb,sub);
+  const verbBase=verb.replace(/ à$/,'');
+  const elided=codPron(pron,presForm);
+  const answer=`${sub.toLowerCase()} ${elided}${elided.endsWith("'")? '' : ' '}${presForm}`.replace(/\s+/g,' ');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type cod">COD — RÉÉCRITURE</span></div>
+    ${pronBadge('cod',pron)}
+    <div class="hint-text">RÉÉCRIVEZ EN REMPLAÇANT « ${obj.label.toUpperCase()} » PAR UN PRONOM COD</div>
+    <div class="sentence-display" style="color:var(--rose2)">${sub} ${verbBase} <u>${obj.label}</u>.</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${sub.toLowerCase()} ${elided}..."
+        style="width:280px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 4) COI Input — rewrite with COI pronoun
+function renderCOIInput(container, idx, verb, obj){
+  const data=VERBS[verb]; if(!data) return;
+  const sub=rand(SUBJECTS);
+  const pron=obj.pron_coi;
+  const presForm=getPresForm(verb,sub);
+  const verbBase=verb.replace(/ à$/,'');
+  const answer=`${sub.toLowerCase()} ${pron} ${presForm}`;
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card coi-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type coi">COI — RÉÉCRITURE</span></div>
+    ${pronBadge('coi',pron)}
+    <div class="hint-text">RÉÉCRIVEZ EN REMPLAÇANT « À ${obj.label.toUpperCase()} » PAR UN PRONOM COI</div>
+    <div class="sentence-display" style="color:#d8a8ff">${sub} ${verbBase} à <u>${obj.label}</u>.</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${sub.toLowerCase()} ${pron}..."
+        style="width:280px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 5) Négatif — type negative sentence with pronoun
+function renderNegatif(container, idx, verb, obj){
+  const data=VERBS[verb]; if(!data) return;
+  const isCOI=data.type==='coi';
+  const sub=rand(SUBJECTS);
+  const pron=isCOI ? obj.pron_coi : obj.pron_cod;
+  const presForm=getPresForm(verb,sub);
+  const elided=isCOI?pron:codPron(pron,presForm);
+  const subL=sub.toLowerCase();
+  const ne=/^[aeiouéèàh]/i.test(elided||presForm)?"n'":"ne ";
+  let answer;
+  if(isCOI) answer=`${subL} ${ne}${pron} ${presForm} pas`;
+  else answer=`${subL} ${ne}${elided}${elided.endsWith("'")?'':' '}${presForm} pas`.replace(/\s+/g,' ');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const verbBase=verb.replace(/ à$/,'');
+  const card=document.createElement('div');
+  card.className='exercise-card neg-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type neg">NÉGATIF</span></div>
+    <div class="hint-text">METTEZ À LA FORME NÉGATIVE AVEC PRONOM ${isCOI?'COI':'COD'}</div>
+    <div class="sentence-display" style="color:var(--rose2)">${sub} ${verbBase} ${obj.label}.</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${subL} ne..."
+        style="width:320px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 6) Passé composé — type with pronoun before aux
+function renderPCInput(container, idx, verb, obj){
+  const data=VERBS[verb]; if(!data||data.type==='coi') return;
+  const sub=rand(SUBJECTS);
+  const pron=obj.pron_cod;
+  const aux=AUX[sub]||'a';
+  const pp=agreedPP(verb,obj.pp_key);
+  const elided=codPron(pron,aux);
+  const subL=sub.toLowerCase();
+  const answer=`${subL} ${elided}${elided.endsWith("'")?'':' '}${aux} ${pp}`.replace(/\s+/g,' ');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const verbBase=verb.replace(/ à$/,'');
+  const ctx=getCtx(verb,currentLevel);
+  const card=document.createElement('div');
+  card.className='exercise-card pc-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type pc">PASSÉ COMPOSÉ + PRONOM</span></div>
+    ${pronBadge('cod',pron)}
+    <div class="hint-text">RÉÉCRIVEZ AU PASSÉ COMPOSÉ AVEC PRONOM COD (PRONOM AVANT L'AUXILIAIRE)</div>
+    <div class="sentence-display" style="color:var(--rose2)">${sub} ${verbBase} <u>${obj.label}</u> ${ctx}.</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${subL} ${elided}..."
+        style="width:300px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <div class="hint-text" style="margin-top:2px">Accordez le PP avec le COD : <em>${obj.label}</em> → PP : <strong style="color:var(--green)">${pp}</strong></div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 7) Accord du PP MCQ — choose correct agreed PP
+function renderPCAccord(container, idx, verb, obj){
+  const data=VERBS[verb]; if(!data) return;
+  const sub=rand(SUBJECTS);
+  const pron=obj.pron_cod;
+  const aux=AUX[sub]||'a';
+  const ppCorrect=agreedPP(verb,obj.pp_key);
+  const ppBase=data.pp;
+  const wrongs=shuffle([...new Set([data.pp,data.pp_f,data.pp_mp,data.pp_fp])].filter(p=>p!==ppCorrect)).slice(0,3);
+  const elided=codPron(pron,aux);
+  const choices=shuffle([ppCorrect,...wrongs]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(ppCorrect)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(ppCorrect),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card pc-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type pc">ACCORD DU PP</span></div>
+    ${pronBadge('cod',pron)}
+    <div class="hint-text">QUEL PARTICIPE PASSÉ ACCORDÉ — COD = « ${obj.label.toUpperCase()} » ?</div>
+    <div class="sentence-display">
+      <span style="color:var(--text2)">${sub} ${elided}${elided.endsWith("'")?'':' '}${aux}</span>
+      <span style="color:var(--text3);font-style:italic"> ___</span>
+      <span style="font-size:13px;color:var(--text3)"> (PP de base : <em>${ppBase}</em>)</span>
+    </div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 8) Traduction
+function renderTraduction(container, idx, verb, obj){
+  const data=VERBS[verb]; if(!data) return;
+  const isCOI=data.type==='coi';
+  const sub=rand(SUBJECTS);
+  const pron=isCOI?obj.pron_coi:obj.pron_cod;
+  const presForm=getPresForm(verb,sub);
+  const subL=sub.toLowerCase();
+  const elided=isCOI?pron:codPron(pron,presForm);
+  let answer;
+  if(isCOI) answer=`${subL} ${pron} ${presForm}`;
+  else answer=`${subL} ${elided}${elided.endsWith("'")?'':' '}${presForm}`.replace(/\s+/g,' ');
+  const enSub={'Je':'I','Tu':'You','Il':'He','Elle':'She','Nous':'We','Vous':'You','Ils':'They','Elles':'They'};
+  const verbBase=verb.replace(/ à$/,'');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card${isCOI?' coi-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    ${pronBadge(isCOI?'coi':'cod',pron)}
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS — UTILISEZ UN PRONOM ${isCOI?'COI':'COD'}</div>
+    <div class="sentence-display" style="color:var(--rose3)">${enSub[sub]||sub} ${data.en}s ${isCOI?'to ':''}${obj.label === obj.label ? obj.label.replace('mes ','my ') : obj.label}.</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${subL}..."
+        style="width:280px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <div class="hint-text" style="margin-top:2px">Verbe : <em>${verbBase}</em> · Pronom : <strong style="color:${isCOI?'#d8a8ff':'var(--rose2)'}">${pron}</strong></div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK / PROGRESS
+// ================================================================
+function checkInput(idx,answer){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx,chosen,answer,btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=["Parfait !","Excellent !","Très bien !","Bravo !","Super !","C'est ça !"];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t>0?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='PARFAIT !';sub='Maîtrise parfaite — COD, COI, accord du PP, négatif !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';sub='Très bien — les pronoms COD/COI n\'ont presque plus de secrets !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';sub='Bon effort — COD = direct (le/la/les), COI = indirect (lui/leur) !';}
+  else{emoji='📚';title='CONTINUEZ !';sub='Rappel : COD → verbe sans préposition, COI → verbe + à + personne.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

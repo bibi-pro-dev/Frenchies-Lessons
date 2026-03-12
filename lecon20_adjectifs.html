@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 20 — Les Adjectifs</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --cyan:#00f5ff; --violet:#b44fff; --red:#ff4757; --gold:#ffd166;
+    --lim:#84cc16; --lim2:#a3e635; --lim3:#d9f99d;
+    --accent:#84cc16;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(132,204,22,0.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(132,204,22,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:680px; height:680px; top:-200px; left:-160px; background:rgba(132,204,22,0.09); }
+  .h2{ width:540px; height:540px; bottom:-180px; right:-130px; background:rgba(180,79,255,0.06); }
+  .h3{ width:260px; height:260px; top:55%; right:20%; background:rgba(0,245,255,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:78vh; top:8vh; right:13%; background:linear-gradient(to bottom,transparent,var(--lim),transparent); transform:rotate(10deg); }
+  .al2{ width:1px; height:54vh; top:25vh; left:10%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(-9deg); }
+
+  .bg-mark{ position:fixed; left:-48px; bottom:10%; opacity:0.025; font-family:'Bebas Neue',sans-serif;
+    font-size:190px; color:var(--lim); transform:rotate(-7deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  .wrapper{ position:relative; z-index:1; max-width:980px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--lim2);
+    border:1px solid rgba(132,204,22,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(132,204,22,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--lim2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(50px,8vw,90px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--lim2) 44%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── AGREEMENT CARD ── */
+  .agree-card{ background:linear-gradient(135deg,rgba(132,204,22,0.07),rgba(180,79,255,0.05));
+    border:1px solid rgba(132,204,22,0.22); border-radius:14px; padding:22px 26px; margin-bottom:22px; }
+
+  .agree-cols{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:560px){ .agree-cols{ grid-template-columns:1fr; } }
+
+  .ac-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; margin-bottom:8px; }
+  .ac-title.masc{ color:var(--cyan); }
+  .ac-title.fem { color:var(--lim2); }
+
+  .agree-table{ width:100%; border-collapse:collapse; }
+  .agree-table th{ padding:7px 12px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); }
+  .agree-table td{ padding:8px 12px; border-bottom:1px solid rgba(30,45,74,0.4); font-size:13px; }
+  .agree-table tr:last-child td{ border-bottom:none; }
+  .at-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; color:var(--text3); }
+  .at-form { font-family:'DM Serif Display',serif; font-size:16px; }
+  .at-form.m { color:var(--cyan); }
+  .at-form.f { color:var(--lim2); }
+  .at-form.mp{ color:var(--cyan); }
+  .at-form.fp{ color:var(--lim2); }
+  .at-rule{ font-size:11px; color:var(--text3); font-style:italic; }
+
+  /* irregular suffixes note */
+  .irr-note{ background:rgba(255,209,102,0.05); border:1px solid rgba(255,209,102,0.2);
+    border-radius:8px; padding:11px 16px; margin-top:12px; font-size:12.5px; color:var(--text2); line-height:1.8; }
+  .irr-note strong{ color:var(--gold); }
+
+  /* ── BANGS CARD ── */
+  .bangs-section{ margin-bottom:22px; }
+  .bangs-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+  @media(max-width:600px){ .bangs-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:400px){ .bangs-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .bang-cell{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 10px; text-align:center; transition:border-color 0.2s,transform 0.2s; cursor:default; }
+  .bang-cell:hover{ border-color:rgba(132,204,22,0.3); transform:translateY(-2px); }
+  .bang-letter{ font-family:'Bebas Neue',sans-serif; font-size:36px; line-height:1; }
+  .bang-letter.b{ color:var(--lim2); }
+  .bang-letter.a{ color:var(--cyan); }
+  .bang-letter.n{ color:var(--gold); }
+  .bang-letter.g{ color:#f472b6; }
+  .bang-letter.s{ color:var(--violet); }
+  .bang-word{ font-family:'DM Serif Display',serif; font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+  .bang-examples{ font-size:10px; color:var(--text3); margin-top:5px; line-height:1.5; }
+
+  /* placement examples */
+  .placement-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+  @media(max-width:500px){ .placement-grid{ grid-template-columns:1fr; } }
+  .plc-cell{ background:var(--card); border:1px solid var(--border); border-radius:9px; padding:11px 15px; }
+  .plc-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; margin-bottom:6px; }
+  .plc-title.before{ color:var(--lim2); }
+  .plc-title.after { color:var(--violet); }
+  .plc-fr  { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); line-height:1.7; }
+  .plc-fr .hl-b{ color:var(--lim2); }
+  .plc-fr .hl-a{ color:var(--violet); }
+  .plc-en  { font-size:11px; color:var(--text3); font-style:italic; margin-top:4px; }
+
+  /* ── MEANING-SHIFT CARD ── */
+  .shift-section{ margin-bottom:22px; }
+  .shift-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:9px; }
+  @media(max-width:540px){ .shift-grid{ grid-template-columns:1fr; } }
+  .shift-cell{ background:var(--card); border:1px solid var(--border); border-radius:9px; padding:11px 14px; }
+  .shift-adj  { font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:2px; color:var(--lim2); margin-bottom:5px; }
+  .shift-row  { font-size:12px; color:var(--text2); line-height:1.6; }
+  .shift-row .hl{ color:var(--gold); font-family:'DM Serif Display',serif; font-size:14px; }
+  .shift-row em{ color:var(--text3); }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--lim2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:860px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(132,204,22,0.02); }
+  .vfr { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vfem{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--lim2); }
+  .ven { color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--lim); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vpos{ font-size:11px; color:var(--text3); font-family:'Bebas Neue',sans-serif; letter-spacing:1px; }
+  .vex { color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(132,204,22,0.4); background:rgba(132,204,22,0.07); color:var(--lim2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(0,245,255,0.12),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(132,204,22,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a2.active{ border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b1.active{ border-color:var(--lim);   color:var(--lim2); }
+  .level-pill.b2.active{ border-color:var(--violet); color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--lim2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--lim),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(132,204,22,0.14),rgba(180,79,255,0.09));
+    border:1px solid rgba(132,204,22,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(132,204,22,0.26),rgba(180,79,255,0.18));
+    border-color:var(--lim2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(132,204,22,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(0,245,255,0.4); color:var(--cyan); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--lim2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.plc-card::before  { background:linear-gradient(90deg,transparent,var(--violet),transparent); }
+  .exercise-card.agree-card::before{ background:linear-gradient(90deg,transparent,var(--cyan),transparent); }
+  .exercise-card.shift-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card.neg-card::before  { background:linear-gradient(90deg,transparent,var(--red),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(132,204,22,0.2); transform:translateY(-1px); }
+  .exercise-card.plc-card.active-card  { border-color:rgba(180,79,255,0.2); }
+  .exercise-card.agree-card.active-card{ border-color:rgba(0,245,255,0.2); }
+  .exercise-card.shift-card.active-card{ border-color:rgba(255,209,102,0.2); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* gender badge */
+  .gender-badge{ display:inline-flex; align-items:center; gap:8px;
+    border-radius:4px; padding:3px 12px; margin-bottom:8px; }
+  .gender-badge.m { background:rgba(0,245,255,0.07);  border:1px solid rgba(0,245,255,0.22); }
+  .gender-badge.f { background:rgba(132,204,22,0.07); border:1px solid rgba(132,204,22,0.22); }
+  .gender-badge.mp{ background:rgba(0,245,255,0.05);  border:1px solid rgba(0,245,255,0.18); }
+  .gender-badge.fp{ background:rgba(132,204,22,0.05); border:1px solid rgba(132,204,22,0.18); }
+  .gb-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .gb-val  { font-family:'DM Serif Display',serif; font-size:14px; }
+  .gb-val.m { color:var(--cyan); } .gb-val.f { color:var(--lim2); }
+  .gb-val.mp{ color:var(--cyan); } .gb-val.fp{ color:var(--lim2); }
+
+  /* placement badge */
+  .plc-badge{ display:inline-flex; align-items:center; gap:6px;
+    border-radius:4px; padding:3px 11px; margin-bottom:8px; }
+  .plc-badge.before{ background:rgba(132,204,22,0.06); border:1px solid rgba(132,204,22,0.22); }
+  .plc-badge.after { background:rgba(180,79,255,0.06); border:1px solid rgba(180,79,255,0.22); }
+  .pb-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .pb-val  { font-family:'DM Serif Display',serif; font-size:14px; }
+  .pb-val.before{ color:var(--lim2); }
+  .pb-val.after { color:#d8a8ff; }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.accord { color:var(--lim2); border:1px solid rgba(132,204,22,0.28); background:rgba(132,204,22,0.05); }
+  .card-type.place  { color:#d8a8ff;    border:1px solid rgba(180,79,255,0.28);  background:rgba(180,79,255,0.05); }
+  .card-type.bangs  { color:var(--gold);border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.shift  { color:var(--gold);border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.complet{ color:var(--cyan); border:1px solid rgba(0,245,255,0.28);  background:rgba(0,245,255,0.05); }
+  .card-type.trad   { color:#4ade80;    border:1px solid rgba(74,222,128,0.28);  background:rgba(74,222,128,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(16px,2.6vw,21px); line-height:1.8; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--lim2); box-shadow:0 0 0 2px rgba(132,204,22,0.1); }
+  .answer-input.correct  { border-color:#4ade80; color:#4ade80; box-shadow:0 0 0 2px rgba(74,222,128,0.1); }
+  .answer-input.incorrect{ border-color:var(--red); color:var(--red); box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--lim2); color:var(--text); background:rgba(132,204,22,0.04); }
+  .choice-btn.selected-correct{ border-color:#4ade80; color:#4ade80; background:rgba(74,222,128,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red); color:var(--red); background:rgba(255,71,87,0.08); cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:#4ade80; color:#4ade80; opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(74,222,128,0.08);  border:1px solid rgba(74,222,128,0.2);  color:#4ade80; }
+  .feedback.error  { background:rgba(255,71,87,0.08);   border:1px solid rgba(255,71,87,0.2);   color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(132,204,22,0.4);
+    background:rgba(132,204,22,0.06); color:var(--lim2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(132,204,22,0.16); border-color:var(--lim2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(132,204,22,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(132,204,22,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--lim2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:#4ade80; }
+  .score-stat-num.bad { color:var(--red); }
+  .score-stat-num.neu { color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(132,204,22,0.4);
+    background:rgba(132,204,22,0.08); color:var(--lim2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(132,204,22,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .bangs-grid{ grid-template-columns:repeat(3,1fr); }
+    .agree-cols{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">ADJ<br>BEAU<br>GRAND<br>VIEUX</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 20 · FRANÇAIS</div>
+    <h1>Les Adjectifs</h1>
+    <p class="subtitle">un <span style="color:var(--lim2)">beau</span> livre · une <span style="color:var(--lim2)">belle</span> maison · des idées <span style="color:var(--lim2)">intéressantes</span>...</p>
+    <p class="subtitle2">ACCORD · PLACEMENT · BANGS · SENS SELON POSITION · A2 → B2</p>
+  </header>
+
+  <!-- AGREEMENT CARD -->
+  <div class="agree-card">
+    <div class="section-title" style="margin-bottom:14px">✦ ACCORD DES ADJECTIFS — RÈGLES GÉNÉRALES</div>
+    <div class="agree-cols">
+      <div>
+        <div class="ac-title masc">MASCULIN → FÉMININ</div>
+        <table class="agree-table">
+          <thead><tr><th>TERMINAISON M.</th><th>FORME F.</th><th>EXEMPLE</th></tr></thead>
+          <tbody>
+            <tr><td class="at-label">base</td><td class="at-form f">+ e</td><td class="at-rule">grand → grande</td></tr>
+            <tr><td class="at-label">-eux</td><td class="at-form f">-euse</td><td class="at-rule">heureux → heureuse</td></tr>
+            <tr><td class="at-label">-eur</td><td class="at-form f">-euse / -eure</td><td class="at-rule">trompeur → trompeuse</td></tr>
+            <tr><td class="at-label">-f</td><td class="at-form f">-ve</td><td class="at-rule">actif → active</td></tr>
+            <tr><td class="at-label">-er</td><td class="at-form f">-ère</td><td class="at-rule">dernier → dernière</td></tr>
+            <tr><td class="at-label">-el/-eil/-ien</td><td class="at-form f">double consonne + e</td><td class="at-rule">naturel → naturelle</td></tr>
+            <tr><td class="at-label">-c</td><td class="at-form f">-che / -que</td><td class="at-rule">blanc → blanche</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="ac-title fem">SINGULIER → PLURIEL</div>
+        <table class="agree-table">
+          <thead><tr><th>TERMINAISON S.</th><th>FORME PL.</th><th>EXEMPLE</th></tr></thead>
+          <tbody>
+            <tr><td class="at-label">base</td><td class="at-form mp">+ s</td><td class="at-rule">grand → grands</td></tr>
+            <tr><td class="at-label">-s / -x déjà</td><td class="at-form mp">invariable</td><td class="at-rule">gris → gris</td></tr>
+            <tr><td class="at-label">-eau</td><td class="at-form mp">-eaux</td><td class="at-rule">beau → beaux</td></tr>
+            <tr><td class="at-label">-al</td><td class="at-form mp">-aux</td><td class="at-rule">loyal → loyaux</td></tr>
+            <tr><td class="at-label">fém. -e</td><td class="at-form fp">+ s</td><td class="at-rule">grande → grandes</td></tr>
+          </tbody>
+        </table>
+        <div class="irr-note">
+          <strong>Irréguliers courants :</strong><br>
+          beau / bel / belle / beaux / belles<br>
+          nouveau / nouvel / nouvelle / nouveaux<br>
+          vieux / vieil / vieille / vieux / vieilles<br>
+          bon → bonne · long → longue · doux → douce<br>
+          gros → grosse · bas → basse · épais → épaisse
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANGS SECTION -->
+  <div class="bangs-section">
+    <div class="section-title">✦ LA RÈGLE BANGS — ADJECTIFS AVANT LE NOM</div>
+    <div class="bangs-grid">
+      <div class="bang-cell">
+        <div class="bang-letter b">B</div>
+        <div class="bang-word">Beauty</div>
+        <div class="bang-examples">beau · joli · magnifique · élégant</div>
+      </div>
+      <div class="bang-cell">
+        <div class="bang-letter a">A</div>
+        <div class="bang-word">Age</div>
+        <div class="bang-examples">vieux · jeune · nouveau · ancien</div>
+      </div>
+      <div class="bang-cell">
+        <div class="bang-letter n">N</div>
+        <div class="bang-word">Number</div>
+        <div class="bang-examples">premier · deuxième · dernier · prochain</div>
+      </div>
+      <div class="bang-cell">
+        <div class="bang-letter g">G</div>
+        <div class="bang-word">Goodness</div>
+        <div class="bang-examples">bon · mauvais · gentil · méchant</div>
+      </div>
+      <div class="bang-cell">
+        <div class="bang-letter s">S</div>
+        <div class="bang-word">Size</div>
+        <div class="bang-examples">grand · petit · gros · court · long</div>
+      </div>
+    </div>
+
+    <!-- Placement examples -->
+    <div class="placement-grid">
+      <div class="plc-cell">
+        <div class="plc-title before">AVANT LE NOM — BANGS</div>
+        <div class="plc-fr">une <span class="hl-b">belle</span> femme · un <span class="hl-b">petit</span> chat<br>un <span class="hl-b">jeune</span> homme · une <span class="hl-b">bonne</span> idée<br>le <span class="hl-b">dernier</span> film</div>
+        <div class="plc-en">a beautiful woman · a small cat · a good idea</div>
+      </div>
+      <div class="plc-cell">
+        <div class="plc-title after">APRÈS LE NOM — TOUS LES AUTRES</div>
+        <div class="plc-fr">une femme <span class="hl-a">intelligente</span><br>un livre <span class="hl-a">intéressant</span><br>une robe <span class="hl-a">rouge</span> · un accent <span class="hl-a">français</span></div>
+        <div class="plc-en">an intelligent woman · an interesting book · a red dress</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEANING SHIFT SECTION -->
+  <div class="shift-section">
+    <div class="section-title">✦ ADJECTIFS QUI CHANGENT DE SENS SELON LA POSITION</div>
+    <div class="shift-grid">
+      <div class="shift-cell">
+        <div class="shift-adj">ANCIEN</div>
+        <div class="shift-row"><span class="hl">avant</span> → former : <em>mon ancien professeur</em> (my former teacher)</div>
+        <div class="shift-row"><span class="hl">après</span> → old/ancient : <em>un bâtiment ancien</em> (an old building)</div>
+      </div>
+      <div class="shift-cell">
+        <div class="shift-adj">GRAND</div>
+        <div class="shift-row"><span class="hl">avant</span> → great (fig.) : <em>un grand homme</em> (a great man)</div>
+        <div class="shift-row"><span class="hl">après</span> → tall/big : <em>un homme grand</em> (a tall man)</div>
+      </div>
+      <div class="shift-cell">
+        <div class="shift-adj">CHER</div>
+        <div class="shift-row"><span class="hl">avant</span> → dear/beloved : <em>mon cher ami</em> (my dear friend)</div>
+        <div class="shift-row"><span class="hl">après</span> → expensive : <em>un restaurant cher</em> (an expensive restaurant)</div>
+      </div>
+      <div class="shift-cell">
+        <div class="shift-adj">PROPRE</div>
+        <div class="shift-row"><span class="hl">avant</span> → own : <em>ma propre voiture</em> (my own car)</div>
+        <div class="shift-row"><span class="hl">après</span> → clean : <em>une voiture propre</em> (a clean car)</div>
+      </div>
+      <div class="shift-cell">
+        <div class="shift-adj">SEUL</div>
+        <div class="shift-row"><span class="hl">avant</span> → only : <em>la seule solution</em> (the only solution)</div>
+        <div class="shift-row"><span class="hl">après</span> → alone : <em>une femme seule</em> (a woman alone)</div>
+      </div>
+      <div class="shift-cell">
+        <div class="shift-adj">PAUVRE</div>
+        <div class="shift-row"><span class="hl">avant</span> → unfortunate : <em>le pauvre homme</em> (the poor fellow)</div>
+        <div class="shift-row"><span class="hl">après</span> → financially poor : <em>un homme pauvre</em></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — DESCRIPTIONS &amp; PERSONNALITÉ</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>MASC. SING.</th><th>FÉM. SING.</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>POSITION</th><th>CATÉGORIE</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">ambitieux</td><td class="vfem">ambitieuse</td><td class="ven">ambitious</td><td class="ves">ambicioso/a</td><td class="vpos">APRÈS</td><td class="vcat">perso.</td><td class="vex">une personne ambitieuse</td></tr>
+          <tr><td class="vfr">courageux</td><td class="vfem">courageuse</td><td class="ven">courageous / brave</td><td class="ves">valiente</td><td class="vpos">APRÈS</td><td class="vcat">perso.</td><td class="vex">un geste courageux</td></tr>
+          <tr><td class="vfr">orgueilleux</td><td class="vfem">orgueilleuse</td><td class="ven">proud / arrogant</td><td class="ves">orgulloso/a</td><td class="vpos">APRÈS</td><td class="vcat">perso.</td><td class="vex">un caractère orgueilleux</td></tr>
+          <tr><td class="vfr">timide</td><td class="vfem">timide</td><td class="ven">shy / timid</td><td class="ves">tímido/a</td><td class="vpos">APRÈS</td><td class="vcat">perso.</td><td class="vex">un enfant très timide</td></tr>
+          <tr><td class="vfr">sincère</td><td class="vfem">sincère</td><td class="ven">sincere / honest</td><td class="ves">sincero/a</td><td class="vpos">APRÈS</td><td class="vcat">perso.</td><td class="vex">une réponse sincère</td></tr>
+          <tr><td class="vfr">fidèle</td><td class="vfem">fidèle</td><td class="ven">faithful / loyal</td><td class="ves">fiel</td><td class="vpos">APRÈS</td><td class="vcat">relation</td><td class="vex">un ami fidèle</td></tr>
+          <tr><td class="vfr">discret</td><td class="vfem">discrète</td><td class="ven">discreet / reserved</td><td class="ves">discreto/a</td><td class="vpos">APRÈS</td><td class="vcat">perso.</td><td class="vex">une personne discrète</td></tr>
+          <tr><td class="vfr">naïf</td><td class="vfem">naïve</td><td class="ven">naive / innocent</td><td class="ves">ingenuo/a</td><td class="vpos">APRÈS</td><td class="vcat">perso.</td><td class="vex">une vision naïve</td></tr>
+          <tr><td class="vfr">brillant</td><td class="vfem">brillante</td><td class="ven">brilliant / bright</td><td class="ves">brillante</td><td class="vpos">APRÈS/AVANT</td><td class="vcat">intellect</td><td class="vex">un étudiant brillant</td></tr>
+          <tr><td class="vfr">remarquable</td><td class="vfem">remarquable</td><td class="ven">remarkable / outstanding</td><td class="ves">notable</td><td class="vpos">APRÈS</td><td class="vcat">qualité</td><td class="vex">un travail remarquable</td></tr>
+          <tr><td class="vfr">superficiel</td><td class="vfem">superficielle</td><td class="ven">superficial / shallow</td><td class="ves">superficial</td><td class="vpos">APRÈS</td><td class="vcat">perso.</td><td class="vex">un jugement superficiel</td></tr>
+          <tr><td class="vfr">déterminé</td><td class="vfem">déterminée</td><td class="ven">determined / resolute</td><td class="ves">decidido/a</td><td class="vpos">APRÈS</td><td class="vcat">perso.</td><td class="vex">une femme déterminée</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="accord"     onclick="setFilter('accord',this)">ACCORD (genre/nb)</button>
+      <button class="filter-pill"        data-f="placement"  onclick="setFilter('placement',this)">PLACEMENT BANGS</button>
+      <button class="filter-pill"        data-f="complet"    onclick="setFilter('complet',this)">PHRASE COMPLÈTE</button>
+      <button class="filter-pill"        data-f="shift"      onclick="setFilter('shift',this)">CHANGEMENT DE SENS</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a2"       onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1 active"onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2"       onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji"    id="scoreEmoji">🎉</div>
+    <div class="score-title"    id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// ADJECTIVE DATABASE
+// ================================================================
+// Each adjective: { m, f, mp, fp, pos ('avant'|'apres'|'both'), bangs, en, es, cat }
+const ADJS = {
+  // ── NEW VOCAB ──
+  ambitieux:   { m:'ambitieux',   f:'ambitieuse',   mp:'ambitieux',    fp:'ambitieuses',   pos:'apres', bangs:false, en:'ambitious',          es:'ambicioso/a',  cat:'new' },
+  courageux:   { m:'courageux',   f:'courageuse',   mp:'courageux',    fp:'courageuses',   pos:'apres', bangs:false, en:'courageous',         es:'valiente',     cat:'new' },
+  orgueilleux: { m:'orgueilleux', f:'orgueilleuse', mp:'orgueilleux',  fp:'orgueilleuses', pos:'apres', bangs:false, en:'arrogant',           es:'orgulloso/a',  cat:'new' },
+  timide:      { m:'timide',      f:'timide',       mp:'timides',      fp:'timides',       pos:'apres', bangs:false, en:'shy',                es:'tímido/a',     cat:'new' },
+  sincère:     { m:'sincère',     f:'sincère',      mp:'sincères',     fp:'sincères',      pos:'apres', bangs:false, en:'sincere',            es:'sincero/a',    cat:'new' },
+  fidèle:      { m:'fidèle',      f:'fidèle',       mp:'fidèles',      fp:'fidèles',       pos:'apres', bangs:false, en:'faithful',           es:'fiel',         cat:'new' },
+  discret:     { m:'discret',     f:'discrète',     mp:'discrets',     fp:'discrètes',     pos:'apres', bangs:false, en:'discreet',           es:'discreto/a',   cat:'new' },
+  naïf:        { m:'naïf',        f:'naïve',        mp:'naïfs',        fp:'naïves',        pos:'apres', bangs:false, en:'naive',              es:'ingenuo/a',    cat:'new' },
+  brillant:    { m:'brillant',    f:'brillante',    mp:'brillants',    fp:'brillantes',    pos:'apres', bangs:false, en:'brilliant',          es:'brillante',    cat:'new' },
+  remarquable: { m:'remarquable', f:'remarquable',  mp:'remarquables', fp:'remarquables',  pos:'apres', bangs:false, en:'remarkable',         es:'notable',      cat:'new' },
+  superficiel: { m:'superficiel', f:'superficielle',mp:'superficiels', fp:'superficielles',pos:'apres', bangs:false, en:'superficial',        es:'superficial',  cat:'new' },
+  déterminé:   { m:'déterminé',   f:'déterminée',   mp:'déterminés',   fp:'déterminées',   pos:'apres', bangs:false, en:'determined',         es:'decidido/a',   cat:'new' },
+  // ── BANGS ──
+  beau:        { m:'beau',   f:'belle',     mp:'beaux',    fp:'belles',    pos:'avant', bangs:true,  en:'beautiful',  es:'bello/a',    cat:'bangs', bel:'bel' },
+  joli:        { m:'joli',   f:'jolie',     mp:'jolis',    fp:'jolies',    pos:'avant', bangs:true,  en:'pretty',     es:'bonito/a',   cat:'bangs' },
+  jeune:       { m:'jeune',  f:'jeune',     mp:'jeunes',   fp:'jeunes',    pos:'avant', bangs:true,  en:'young',      es:'joven',      cat:'bangs' },
+  vieux:       { m:'vieux',  f:'vieille',   mp:'vieux',    fp:'vieilles',  pos:'avant', bangs:true,  en:'old',        es:'viejo/a',    cat:'bangs', vieil:'vieil' },
+  nouveau:     { m:'nouveau',f:'nouvelle',  mp:'nouveaux', fp:'nouvelles', pos:'avant', bangs:true,  en:'new',        es:'nuevo/a',    cat:'bangs', nouvel:'nouvel' },
+  ancien:      { m:'ancien', f:'ancienne',  mp:'anciens',  fp:'anciennes', pos:'both',  bangs:true,  en:'old/former', es:'antiguo/a',  cat:'bangs' },
+  premier:     { m:'premier',f:'première',  mp:'premiers', fp:'premières', pos:'avant', bangs:true,  en:'first',      es:'primero/a',  cat:'bangs' },
+  dernier:     { m:'dernier',f:'dernière',  mp:'derniers', fp:'dernières', pos:'avant', bangs:true,  en:'last',       es:'último/a',   cat:'bangs' },
+  bon:         { m:'bon',    f:'bonne',     mp:'bons',     fp:'bonnes',    pos:'avant', bangs:true,  en:'good',       es:'bueno/a',    cat:'bangs' },
+  mauvais:     { m:'mauvais',f:'mauvaise',  mp:'mauvais',  fp:'mauvaises', pos:'avant', bangs:true,  en:'bad',        es:'malo/a',     cat:'bangs' },
+  grand:       { m:'grand',  f:'grande',    mp:'grands',   fp:'grandes',   pos:'both',  bangs:true,  en:'big/great',  es:'grande',     cat:'bangs' },
+  petit:       { m:'petit',  f:'petite',    mp:'petits',   fp:'petites',   pos:'avant', bangs:true,  en:'small',      es:'pequeño/a',  cat:'bangs' },
+  gros:        { m:'gros',   f:'grosse',    mp:'gros',     fp:'grosses',   pos:'avant', bangs:true,  en:'big/fat',    es:'gordo/a',    cat:'bangs' },
+  long:        { m:'long',   f:'longue',    mp:'longs',    fp:'longues',   pos:'avant', bangs:true,  en:'long',       es:'largo/a',    cat:'bangs' },
+  court:       { m:'court',  f:'courte',    mp:'courts',   fp:'courtes',   pos:'avant', bangs:true,  en:'short',      es:'corto/a',    cat:'bangs' },
+  // ── NON-BANGS (common) ──
+  intelligent: { m:'intelligent',f:'intelligente',mp:'intelligents',fp:'intelligentes',pos:'apres',bangs:false,en:'intelligent',es:'inteligente',cat:'known' },
+  intéressant: { m:'intéressant',f:'intéressante',mp:'intéressants',fp:'intéressantes',pos:'apres',bangs:false,en:'interesting',es:'interesante',cat:'known' },
+  important:   { m:'important',  f:'importante',  mp:'importants',  fp:'importantes',  pos:'apres',bangs:false,en:'important',  es:'importante', cat:'known' },
+  difficile:   { m:'difficile',  f:'difficile',   mp:'difficiles',  fp:'difficiles',   pos:'apres',bangs:false,en:'difficult',  es:'difícil',    cat:'known' },
+  facile:      { m:'facile',     f:'facile',      mp:'faciles',     fp:'faciles',      pos:'apres',bangs:false,en:'easy',       es:'fácil',      cat:'known' },
+  différent:   { m:'différent',  f:'différente',  mp:'différents',  fp:'différentes',  pos:'apres',bangs:false,en:'different',  es:'diferente',  cat:'known' },
+  actif:       { m:'actif',      f:'active',      mp:'actifs',      fp:'actives',      pos:'apres',bangs:false,en:'active',     es:'activo/a',   cat:'known' },
+  créatif:     { m:'créatif',    f:'créative',    mp:'créatifs',    fp:'créatives',    pos:'apres',bangs:false,en:'creative',   es:'creativo/a', cat:'known' },
+  heureux:     { m:'heureux',    f:'heureuse',    mp:'heureux',     fp:'heureuses',    pos:'apres',bangs:false,en:'happy',      es:'feliz',      cat:'known' },
+  triste:      { m:'triste',     f:'triste',      mp:'tristes',     fp:'tristes',      pos:'apres',bangs:false,en:'sad',        es:'triste',     cat:'known' },
+  fier:        { m:'fier',       f:'fière',       mp:'fiers',       fp:'fières',       pos:'apres',bangs:false,en:'proud',      es:'orgulloso/a',cat:'known' },
+  loyal:       { m:'loyal',      f:'loyale',      mp:'loyaux',      fp:'loyales',      pos:'apres',bangs:false,en:'loyal',      es:'leal',       cat:'known' },
+  // ── MEANING-SHIFT ──
+  cher:        { m:'cher',   f:'chère',     mp:'chers',    fp:'chères',    pos:'both',  bangs:false, en:'dear/expensive', es:'querido/caro', cat:'shift',
+                 shiftBefore:'dear/beloved', shiftAfter:'expensive' },
+  propre:      { m:'propre', f:'propre',    mp:'propres',  fp:'propres',   pos:'both',  bangs:false, en:'own/clean',      es:'propio/limpio', cat:'shift',
+                 shiftBefore:'own',          shiftAfter:'clean' },
+  seul:        { m:'seul',   f:'seule',     mp:'seuls',    fp:'seules',    pos:'both',  bangs:false, en:'only/alone',     es:'solo/único',    cat:'shift',
+                 shiftBefore:'only',         shiftAfter:'alone' },
+  pauvre:      { m:'pauvre', f:'pauvre',    mp:'pauvres',  fp:'pauvres',   pos:'both',  bangs:false, en:'unfortunate/poor',es:'pobre',        cat:'shift',
+                 shiftBefore:'unfortunate',  shiftAfter:'financially poor' },
+};
+
+// Nouns for context, with gender
+const NOUNS = {
+  m:  ['homme','ami','garçon','étudiant','professeur','acteur','directeur','écrivain','artiste','journaliste','médecin','avocat'],
+  f:  ['femme','amie','fille','étudiante','professeure','actrice','directrice','écrivaine','artiste','journaliste','personne','idée'],
+  mp: ['hommes','amis','garçons','étudiants','acteurs','directeurs','artistes','médecins'],
+  fp: ['femmes','amies','filles','étudiantes','actrices','artistes','personnes','idées'],
+};
+
+const NOUNS_INANIM = {
+  m:  ['livre','film','projet','résultat','discours','choix','travail','pays','style'],
+  f:  ['solution','décision','idée','réponse','attitude','carrière','relation','vision'],
+  mp: ['livres','films','projets','résultats','discours'],
+  fp: ['solutions','décisions','idées','réponses','attitudes'],
+};
+
+// Gender codes
+const GENDERS = ['m','f','mp','fp'];
+const GENDER_LABEL = { m:'Masc. sing.', f:'Fém. sing.', mp:'Masc. plur.', fp:'Fém. plur.' };
+
+// Article by gender
+const ART = { m:'un', f:'une', mp:'des', fp:'des' };
+const ART_DEF = { m:'le', f:'la', mp:'les', fp:'les' };
+
+const ALL_ADJ_KEYS = Object.keys(ADJS);
+const BANGS_KEYS   = ALL_ADJ_KEYS.filter(k => ADJS[k].bangs);
+const NON_BANGS    = ALL_ADJ_KEYS.filter(k => !ADJS[k].bangs && ADJS[k].pos==='apres');
+const SHIFT_KEYS   = ALL_ADJ_KEYS.filter(k => ADJS[k].cat==='shift');
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/\u2019/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c').replace(/'/g,"'").replace(/\s+/g,' ');
+}
+
+// Get adjective form for a given gender
+function adjForm(key, gender){ return ADJS[key]?.[gender] || ADJS[key]?.m || key; }
+
+// Build NP: article + [adj] + noun + [adj]
+function buildNP(adjKey, gender, animate=true) {
+  const data = ADJS[adjKey];
+  const form = adjForm(adjKey, gender);
+  const nounPool = animate ? NOUNS[gender] : NOUNS_INANIM[gender];
+  const noun = rand(nounPool || NOUNS[gender]);
+  const art  = ART[gender];
+
+  // Handle bel/vieil/nouvel before vowel
+  let displayForm = form;
+  if (gender==='m') {
+    if (adjKey==='beau' && /^[aeiouéh]/i.test(noun)) displayForm = 'bel';
+    if (adjKey==='vieux' && /^[aeiouéh]/i.test(noun)) displayForm = 'vieil';
+    if (adjKey==='nouveau' && /^[aeiouéh]/i.test(noun)) displayForm = 'nouvel';
+  }
+
+  if (data.pos === 'avant' || data.pos === 'both') {
+    return { np: `${art} ${displayForm} ${noun}`, adj:displayForm, noun, placement:'avant' };
+  }
+  return { np: `${art} ${noun} ${displayForm}`, adj:displayForm, noun, placement:'apres' };
+}
+
+// All four forms of an adjective
+function allForms(key){ return [ADJS[key].m, ADJS[key].f, ADJS[key].mp, ADJS[key].fp]; }
+
+// ================================================================
+// CONTEXTS
+// ================================================================
+const CTX_ANIMATE = {
+  A2:'dans cette classe',  B1:'que j\'ai rencontré(e) hier',  B2:'que j\'admire beaucoup'
+};
+const CTX_INANIM = {
+  A2:'que nous avons choisi', B1:'qui m\'a vraiment impressionné(e)', B2:'qui mérite d\'être analysé en profondeur'
+};
+
+function getCtx(animate, lv){ return animate ? (CTX_ANIMATE[lv]||CTX_ANIMATE.B1) : (CTX_INANIM[lv]||CTX_INANIM.B1); }
+
+const EN_PHRASES = {
+  ambitieux:'an ambitious student', courageux:'a courageous gesture', orgueilleux:'an arrogant character',
+  timide:'a very shy child', sincère:'a sincere answer', fidèle:'a faithful friend',
+  discret:'a discreet person', naïf:'a naive vision', brillant:'a brilliant student',
+  remarquable:'remarkable work', superficiel:'a superficial judgment', déterminé:'a determined woman',
+  beau:'a beautiful house', joli:'a pretty garden', jeune:'a young woman',
+  vieux:'an old man', nouveau:'a new idea', bon:'a good decision',
+  mauvais:'a bad result', grand:'a great man', petit:'a small child',
+  intelligent:'an intelligent person', intéressant:'an interesting book',
+  actif:'an active lifestyle', heureux:'a happy family', triste:'a sad story',
+  fidèle:'a loyal friend', loyal:'a loyal employee', cher:'a dear friend',
+  propre:'my own car', seul:'the only solution', pauvre:'the poor fellow',
+};
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel = 'B1';
+let exFilter     = 'tous';
+let exercises    = [];
+let answered     = 0;
+let correct      = 0;
+
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container = document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx = currentLevel==='A2'?7:currentLevel==='B1'?9:11;
+
+  let typePool, adjPool;
+  if     (exFilter==='accord')    { typePool=['accord_input','accord_mcq']; adjPool=ALL_ADJ_KEYS; }
+  else if(exFilter==='placement') { typePool=['placement_mcq']; adjPool=ALL_ADJ_KEYS; }
+  else if(exFilter==='complet')   { typePool=['np_input'];  adjPool=ALL_ADJ_KEYS; }
+  else if(exFilter==='shift')     { typePool=['shift_mcq']; adjPool=SHIFT_KEYS; }
+  else if(exFilter==='traduction'){ typePool=['traduction']; adjPool=ALL_ADJ_KEYS; }
+  else { typePool=['accord_input','accord_mcq','placement_mcq','np_input','shift_mcq','traduction','accord_mcq']; adjPool=ALL_ADJ_KEYS; }
+
+  const types=[]; for(let i=0;i<numEx;i++) types.push(typePool[i%typePool.length]);
+  shuffle(types);
+
+  const used=new Set();
+  let ti=0;
+  for(const type of types){
+    let tries=0, key, gender;
+    do{
+      key    = adjPool[Math.floor(Math.random()*adjPool.length)];
+      gender = rand(GENDERS);
+      tries++;
+    } while(used.has(key+gender) && tries<60);
+    used.add(key+gender);
+
+    if     (type==='accord_input') renderAccordInput(container,ti,key,gender);
+    else if(type==='accord_mcq')   renderAccordMCQ(container,ti,key,gender);
+    else if(type==='placement_mcq')renderPlacementMCQ(container,ti,key,gender);
+    else if(type==='np_input')     renderNPInput(container,ti,key,gender);
+    else if(type==='shift_mcq')    renderShiftMCQ(container,ti,rand(SHIFT_KEYS),gender);
+    else                           renderTraduction(container,ti,key,gender);
+    ti++;
+  }
+  updateProgress();
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+
+function gBadge(gender){
+  const cls = gender==='f'||gender==='fp' ? 'f' : gender==='mp' ? 'mp' : 'm';
+  return `<div class="gender-badge ${cls}"><span class="gb-label">GENRE</span><span class="gb-val ${cls}">${GENDER_LABEL[gender]||gender}</span></div>`;
+}
+
+// 1) Type the agreed form
+function renderAccordInput(container, idx, key, gender){
+  const data   = ADJS[key]; if(!data) return;
+  const answer = adjForm(key, gender);
+  exercises.push({id:idx, answer:normalise(answer), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card agree-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type accord">ACCORD</span></div>
+    ${gBadge(gender)}
+    <div class="hint-text">ACCORDEZ « ${data.m.toUpperCase()} » (${GENDER_LABEL[gender]})</div>
+    <div class="sentence-display">
+      Forme de base : <span style="color:var(--lim2)">${data.m}</span> →
+      <input class="answer-input" id="input-${idx}" placeholder="${data.m}..."
+        style="width:200px" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <div class="hint-text" style="margin-top:2px">Anglais : <em>${data.en}</em></div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) MCQ — choose correct agreed form
+function renderAccordMCQ(container, idx, key, gender){
+  const data   = ADJS[key]; if(!data) return;
+  const answer = adjForm(key, gender);
+  const forms  = [...new Set(allForms(key))];
+  // add wrong forms from other adjectives
+  const extras = shuffle(ALL_ADJ_KEYS.filter(k=>k!==key)).slice(0,4).map(k=>adjForm(k,gender));
+  const pool   = shuffle([...new Set([...forms,...extras])].filter(f=>f!==answer)).slice(0,3);
+  const choices= shuffle([answer,...pool]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx, answer:normalise(answer), answered:false, correct:false});
+
+  const noun = rand(gender==='m'||gender==='mp' ? NOUNS.m.concat(NOUNS_INANIM.m) : NOUNS.f.concat(NOUNS_INANIM.f));
+  const card=document.createElement('div');
+  card.className='exercise-card agree-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type accord">ACCORD MCQ</span></div>
+    ${gBadge(gender)}
+    <div class="hint-text">QUELLE FORME DE « ${data.m.toUpperCase()} » POUR ${GENDER_LABEL[gender].toUpperCase()} ?</div>
+    <div class="sentence-display">
+      C'est ${ART[gender]} ${noun} <span style="color:var(--text3)">très ___</span>.
+    </div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) Placement MCQ — avant ou après?
+function renderPlacementMCQ(container, idx, key, gender){
+  const data   = ADJS[key]; if(!data) return;
+  const form   = adjForm(key, gender);
+  const noun   = rand(NOUNS[gender] || NOUNS.m);
+  const art    = ART[gender];
+  const isBangs= data.bangs || data.pos==='avant';
+  const answer = isBangs ? `avant` : `après`;
+
+  // Build correct vs wrong NP
+  const npCorrect = isBangs ? `${art} ${form} ${noun}` : `${art} ${noun} ${form}`;
+  const npWrong   = isBangs ? `${art} ${noun} ${form}` : `${art} ${form} ${noun}`;
+  const choices = shuffle([npCorrect,npWrong]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQFull(${idx},'${esc(c)}','${esc(npCorrect)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx, answer:normalise(npCorrect), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card plc-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type place">PLACEMENT</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      ${isBangs?'<div class="plc-badge before"><span class="pb-label">BANGS</span><span class="pb-val before">avant</span></div>':
+                '<div class="plc-badge after"><span class="pb-label">POSITION</span><span class="pb-val after">après</span></div>'}
+      ${gBadge(gender)}
+    </div>
+    <div class="hint-text">QUELLE CONSTRUCTION EST CORRECTE POUR « ${data.m.toUpperCase()} » ?</div>
+    <div class="sentence-display">Choisissez l'ordre correct :</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 4) Full NP input — type the agreed adj in a sentence
+function renderNPInput(container, idx, key, gender){
+  const data    = ADJS[key]; if(!data) return;
+  const animate = Math.random()>0.4;
+  const nounP   = animate ? NOUNS[gender] : NOUNS_INANIM[gender];
+  const noun    = rand(nounP || NOUNS[gender]);
+  const art     = ART[gender];
+  const form    = adjForm(key, gender);
+  const ctx     = getCtx(animate, currentLevel);
+
+  // Handle bel/vieil/nouvel
+  let displayForm = form;
+  if (gender==='m') {
+    if (key==='beau' && /^[aeiouéh]/i.test(noun)) displayForm='bel';
+    if (key==='vieux' && /^[aeiouéh]/i.test(noun)) displayForm='vieil';
+    if (key==='nouveau' && /^[aeiouéh]/i.test(noun)) displayForm='nouvel';
+  }
+
+  const isBefore = data.pos==='avant';
+  exercises.push({id:idx, answer:normalise(displayForm), answered:false, correct:false});
+
+  const sent = isBefore
+    ? `${art} <span style="color:var(--text3)">___</span> ${noun} ${ctx}.`
+    : `${art} ${noun} <span style="color:var(--text3)">___</span> ${ctx}.`;
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type complet">PHRASE COMPLÈTE</span></div>
+    ${gBadge(gender)}
+    <div class="hint-text">INSÉREZ « ${data.m.toUpperCase()} » ACCORDÉ — POSITION : ${isBefore?'AVANT LE NOM (BANGS)':'APRÈS LE NOM'}</div>
+    <div class="sentence-display">${sent}</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${data.m}..."
+        style="width:200px" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(displayForm)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(displayForm)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 5) Meaning-shift MCQ
+function renderShiftMCQ(container, idx, key, gender){
+  const data = ADJS[key]; if(!data||!data.shiftBefore) return;
+  const form  = adjForm(key, gender);
+  const nounA = rand(NOUNS[gender]||NOUNS.m);
+  const nounB = rand(NOUNS_INANIM[gender]||NOUNS_INANIM.m);
+  const art   = ART[gender];
+
+  // Pick one of the two positions
+  const pos    = Math.random()>0.5 ? 'avant' : 'apres';
+  const meaning= pos==='avant' ? data.shiftBefore : data.shiftAfter;
+  const noun   = pos==='avant' ? nounA : nounB;
+  const np     = pos==='avant' ? `${art} ${form} ${noun}` : `${art} ${noun} ${form}`;
+  const wrong1 = pos==='avant' ? data.shiftAfter : data.shiftBefore;
+  const wrong2 = rand(['indifferent','irrelevant','contradictory','unrelated']);
+
+  const choices = shuffle([meaning, wrong1]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(meaning)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx, answer:normalise(meaning), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card shift-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type shift">CHANGEMENT DE SENS</span></div>
+    <div class="hint-text">QUEL EST LE SENS DE « ${key.toUpperCase()} » DANS CETTE POSITION ?</div>
+    <div class="sentence-display" style="font-style:italic;color:var(--lim3)">${np}</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 6) Translation
+function renderTraduction(container, idx, key, gender){
+  const data  = ADJS[key]; if(!data) return;
+  const form  = adjForm(key, gender);
+  const en    = EN_PHRASES[key] || `a ${data.en} ${rand(['person','thing','day'])}`;
+  exercises.push({id:idx, answer:normalise(form), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    ${gBadge(gender)}
+    <div class="hint-text">TRADUISEZ L'ADJECTIF EN FRANÇAIS (FORME ACCORDÉE)</div>
+    <div class="sentence-display" style="color:var(--lim3)">${en}</div>
+    <div style="margin-top:14px;margin-bottom:4px">
+      <input class="answer-input" id="input-${idx}" placeholder="${data.m}..."
+        style="width:220px" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(form)}')">
+    </div>
+    <div class="hint-text" style="margin-top:6px">Adjectif : <em>${key}</em> → genre : <strong>${GENDER_LABEL[gender]}</strong></div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(form)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK / PROGRESS
+// ================================================================
+function checkInput(idx, answer){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx, chosen, answer, btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQFull(idx, chosen, answer, btn){ checkMCQ(idx, chosen, answer, btn); }
+
+function showFeedback(idx, isOk, answer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=['Parfait !','Excellent !','Très bien !','Bravo !','Super !','C\'est ça !'];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+function markAnswered(idx, isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t>0?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if     (pct>=90){emoji='🏆';title='PARFAIT !';   sub='Maîtrise parfaite des adjectifs : accord, placement et sens !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';     sub='Très bien — les adjectifs BANGS avant le nom n\'ont plus de secrets !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';      sub='Bon effort — révisez : BANGS avant, autres après + accord en genre/nombre.';}
+  else            {emoji='📚';title='CONTINUEZ !'; sub='Rappel : BANGS = Beauty, Age, Number, Goodness, Size → avant le nom !';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

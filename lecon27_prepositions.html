@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 27 — Les Prépositions</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440; --border:#1e2d4a;
+    --violet:#b44fff; --cyan:#00f5ff; --gold:#ffd166; --red:#ff4757;
+    --jd:#16a34a; --jd2:#4ade80; --jd3:#dcfce7;
+    --accent:#16a34a;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(22,163,74,0.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(22,163,74,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-230px; left:-180px; background:rgba(22,163,74,0.09); }
+  .h2{ width:560px; height:560px; bottom:-190px; right:-150px; background:rgba(180,79,255,0.06); }
+  .h3{ width:260px; height:260px; top:46%; right:22%; background:rgba(255,209,102,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:78vh; top:10vh; right:12%; background:linear-gradient(to bottom,transparent,var(--jd),transparent); transform:rotate(9deg); }
+  .al2{ width:1px; height:58vh; top:22vh; left:11%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(-9deg); }
+
+  .bg-mark{ position:fixed; left:-40px; bottom:8%; opacity:0.022; font-family:'Bebas Neue',sans-serif;
+    font-size:180px; color:var(--jd); transform:rotate(-7deg); pointer-events:none; z-index:0; line-height:0.82; }
+
+  .wrapper{ position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--jd2);
+    border:1px solid rgba(22,163,74,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(22,163,74,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--jd2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,7.5vw,88px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--jd2) 44%,var(--cyan) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── PREP REFERENCE TILES ── */
+  .tiles-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:10px; }
+  .tiles-grid2{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:22px; }
+  @media(max-width:680px){ .tiles-grid{ grid-template-columns:repeat(2,1fr); } .tiles-grid2{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:380px){ .tiles-grid,.tiles-grid2{ grid-template-columns:1fr; } }
+
+  .prep-tile{ background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.2s,transform 0.2s; }
+  .prep-tile:hover{ transform:translateY(-2px); }
+  .pt-head{ padding:11px 14px; border-bottom:1px solid var(--border); }
+  .pt-prep{ font-family:'Bebas Neue',sans-serif; font-size:34px; line-height:1; margin-bottom:1px; }
+  .pt-use { font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; }
+  .pt-body{ padding:10px 14px; font-size:12px; color:var(--text2); line-height:1.75; }
+  .pt-ex  { font-family:'DM Serif Display',serif; font-size:13.5px; color:var(--text); }
+  .pt-en  { font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* colour per prep */
+  .tile-a   .pt-prep{ color:var(--jd2); }   .tile-a   .pt-use{ color:var(--jd); }   .tile-a  { border-top:2px solid var(--jd); }
+  .tile-en  .pt-prep{ color:var(--cyan); }  .tile-en  .pt-use{ color:#67e8f9; }      .tile-en { border-top:2px solid #67e8f9; }
+  .tile-dans.pt-prep{ color:var(--gold); }  .tile-dans.pt-use{ color:#fbbf24; }      .tile-dans{ border-top:2px solid #fbbf24; }
+  .tile-sur .pt-prep{ color:#f472b6; }      .tile-sur .pt-use{ color:#f472b6; }      .tile-sur { border-top:2px solid #f472b6; }
+  .tile-sous.pt-prep{ color:#a78bfa; }      .tile-sous.pt-use{ color:#a78bfa; }      .tile-sous{ border-top:2px solid #a78bfa; }
+  .tile-chez.pt-prep{ color:#fb923c; }      .tile-chez.pt-use{ color:#fb923c; }      .tile-chez{ border-top:2px solid #fb923c; }
+  .tile-dep .pt-prep{ color:#38bdf8; }      .tile-dep .pt-use{ color:#38bdf8; }      .tile-dep { border-top:2px solid #38bdf8; }
+
+  /* ── À vs EN vs DANS — PAYS TABLE ── */
+  .pays-section{ margin-bottom:22px; }
+  .pays-card{ background:linear-gradient(135deg,rgba(22,163,74,0.07),rgba(180,79,255,0.04));
+    border:1px solid rgba(22,163,74,0.22); border-radius:13px; padding:18px 22px; }
+  .pays-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; color:var(--jd2); margin-bottom:12px; }
+  .pays-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  @media(max-width:540px){ .pays-grid{ grid-template-columns:1fr; } }
+  .pays-col{ background:var(--bg2); border:1px solid var(--border); border-radius:9px; padding:12px 14px; }
+  .pc-label{ font-family:'Bebas Neue',sans-serif; font-size:22px; line-height:1; margin-bottom:5px; }
+  .pc-label.a   { color:var(--jd2); }
+  .pc-label.en  { color:var(--cyan); }
+  .pc-label.dans{ color:var(--gold); }
+  .pc-rule{ font-size:11px; color:var(--text3); margin-bottom:7px; line-height:1.5; }
+  .pc-ex  { font-family:'DM Serif Display',serif; font-size:13.5px; color:var(--text); line-height:1.7; }
+
+  /* ── DEPUIS / PENDANT / POUR ── */
+  .time-section{ margin-bottom:22px; }
+  .time-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media(max-width:540px){ .time-grid{ grid-template-columns:1fr; } }
+  .time-cell{ background:var(--card); border:1px solid var(--border); border-radius:11px; overflow:hidden; }
+  .tc-head{ padding:10px 15px; font-family:'Bebas Neue',sans-serif; font-size:22px; line-height:1; border-bottom:1px solid var(--border); }
+  .tc-head.dep { color:var(--jd2); background:rgba(22,163,74,0.05); }
+  .tc-head.pend{ color:var(--gold); background:rgba(255,209,102,0.05); }
+  .tc-head.pour{ color:#f472b6;    background:rgba(244,114,182,0.05); }
+  .tc-body{ padding:11px 15px; font-size:12px; color:var(--text2); line-height:1.8; }
+  .tc-rule{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; margin-bottom:5px; }
+  .tc-rule.dep { color:var(--jd2); } .tc-rule.pend{ color:var(--gold); } .tc-rule.pour{ color:#f472b6; }
+  .tc-ex{ font-family:'DM Serif Display',serif; font-size:14px; color:var(--text); line-height:1.65; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--jd2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:920px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(22,163,74,0.02); }
+  .vfr{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vprep{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--jd2); }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--jd); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(22,163,74,0.4); background:rgba(22,163,74,0.07); color:var(--jd2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(22,163,74,0.12),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(0,245,255,0.1),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a2.active{ border-color:var(--jd);    color:var(--jd2); }
+  .level-pill.b1.active{ border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b2.active{ border-color:var(--violet);color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--jd2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--jd),var(--cyan)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(22,163,74,0.14),rgba(0,245,255,0.07));
+    border:1px solid rgba(22,163,74,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(22,163,74,0.26),rgba(0,245,255,0.14));
+    border-color:var(--jd2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(22,163,74,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--jd2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.en-card::before  { background:linear-gradient(90deg,transparent,var(--cyan),transparent); }
+  .exercise-card.dans-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card.dep-card::before { background:linear-gradient(90deg,transparent,#38bdf8,transparent); }
+  .exercise-card.pays-card::before{ background:linear-gradient(90deg,transparent,var(--jd2),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(22,163,74,0.22); transform:translateY(-1px); }
+  .exercise-card.en-card.active-card  { border-color:rgba(0,245,255,0.22); }
+  .exercise-card.dans-card.active-card{ border-color:rgba(255,209,102,0.22); }
+  .exercise-card.dep-card.active-card { border-color:rgba(56,189,248,0.22); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  .prep-badge{ display:inline-flex; align-items:center; gap:8px; border-radius:5px; padding:4px 14px; margin-bottom:9px; }
+  .prep-badge.a   { background:rgba(22,163,74,0.08);  border:1px solid rgba(22,163,74,0.28); }
+  .prep-badge.en  { background:rgba(0,245,255,0.07);  border:1px solid rgba(0,245,255,0.25); }
+  .prep-badge.dans{ background:rgba(255,209,102,0.07);border:1px solid rgba(255,209,102,0.25); }
+  .prep-badge.dep { background:rgba(56,189,248,0.07); border:1px solid rgba(56,189,248,0.25); }
+  .prep-badge.chez{ background:rgba(251,146,60,0.07); border:1px solid rgba(251,146,60,0.25); }
+  .prep-badge.mix { background:rgba(22,163,74,0.05);  border:1px solid rgba(22,163,74,0.18); }
+  .pb-prep{ font-family:'Bebas Neue',sans-serif; font-size:22px; line-height:1; }
+  .pb-prep.a   { color:var(--jd2); } .pb-prep.en{ color:var(--cyan); }
+  .pb-prep.dans{ color:var(--gold); }.pb-prep.dep{ color:#38bdf8; }
+  .pb-prep.chez{ color:#fb923c; }   .pb-prep.mix{ color:var(--jd2); }
+  .pb-use{ font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; color:var(--text3); }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.a   { color:var(--jd2); border:1px solid rgba(22,163,74,0.28);  background:rgba(22,163,74,0.05); }
+  .card-type.en  { color:var(--cyan);border:1px solid rgba(0,245,255,0.25);  background:rgba(0,245,255,0.04); }
+  .card-type.dans{ color:var(--gold);border:1px solid rgba(255,209,102,0.28);background:rgba(255,209,102,0.05); }
+  .card-type.dep { color:#38bdf8;    border:1px solid rgba(56,189,248,0.28); background:rgba(56,189,248,0.05); }
+  .card-type.pays{ color:var(--jd2); border:1px solid rgba(22,163,74,0.22);  background:rgba(22,163,74,0.04); }
+  .card-type.mcq { color:var(--jd3); border:1px solid rgba(220,252,231,0.2); background:rgba(220,252,231,0.04); }
+  .card-type.trad{ color:#86efac;    border:1px solid rgba(134,239,172,0.25);background:rgba(134,239,172,0.04); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(15px,2.5vw,20px); line-height:1.9; margin-bottom:14px; color:var(--text); }
+  .sentence-display .hl  { color:var(--jd2); }
+  .sentence-display .hl2 { color:var(--cyan); }
+  .sentence-display .hl3 { color:var(--gold); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:17px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--jd2); box-shadow:0 0 0 2px rgba(22,163,74,0.1); }
+  .answer-input.correct  { border-color:var(--jd2); color:var(--jd2); box-shadow:0 0 0 2px rgba(74,222,128,0.1); }
+  .answer-input.incorrect{ border-color:var(--red); color:var(--red); box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--jd2); color:var(--text); background:rgba(22,163,74,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--jd2); color:var(--jd2); background:rgba(74,222,128,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red); color:var(--red); background:rgba(255,71,87,0.08); cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--jd2); color:var(--jd2); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.2); color:var(--jd2); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(22,163,74,0.4);
+    background:rgba(22,163,74,0.06); color:var(--jd2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(22,163,74,0.16); border-color:var(--jd2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(22,163,74,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(22,163,74,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--jd2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--jd2); } .score-stat-num.bad{ color:var(--red); } .score-stat-num.neu{ color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(22,163,74,0.4);
+    background:rgba(22,163,74,0.08); color:var(--jd2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(22,163,74,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .pays-grid{ grid-template-columns:1fr; } .time-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">À EN<br>DANS<br>CHEZ<br>DEPUIS</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 27 · FRANÇAIS</div>
+    <h1>Les<br>Prépositions</h1>
+    <p class="subtitle">Je vais <span style="color:var(--jd2)">à</span> Paris · elle habite <span style="color:var(--cyan)">en</span> France · il est <span style="color:var(--gold)">dans</span> le bureau · je travaille <span style="color:var(--jd2)">chez</span> moi...</p>
+    <p class="subtitle2">À · EN · DANS · SUR · SOUS · CHEZ · DEPUIS · PENDANT · POUR · PAR · DEVANT · DERRIÈRE · A2 → B2</p>
+  </header>
+
+  <!-- PREP TILES ROW 1 -->
+  <div class="section-title">✦ LES PRÉPOSITIONS ESSENTIELLES</div>
+  <div class="tiles-grid">
+    <div class="prep-tile tile-a">
+      <div class="pt-head"><div class="pt-prep">À</div><div class="pt-use">LIEU · DIRECTION · TEMPS · MANIÈRE</div></div>
+      <div class="pt-body">
+        <div class="pt-ex">Je vais <strong style="color:var(--jd2)">à</strong> Paris.<br>Il joue <strong style="color:var(--jd2)">à</strong> 3h.<br>Fait <strong style="color:var(--jd2)">à</strong> la main.<br>Un verre <strong style="color:var(--jd2)">à</strong> eau.</div>
+        <div class="pt-en">to/at/in · to a city · at time · by hand</div>
+      </div>
+    </div>
+    <div class="prep-tile tile-en">
+      <div class="pt-head"><div class="pt-prep">EN</div><div class="pt-use">PAYS FÉM. · TRANSPORT · MATIÈRE · DURÉE</div></div>
+      <div class="pt-body">
+        <div class="pt-ex"><strong style="color:var(--cyan)">En</strong> France / Espagne.<br><strong style="color:var(--cyan)">En</strong> voiture / avion.<br><strong style="color:var(--cyan)">En</strong> bois / soie.<br>Fait <strong style="color:var(--cyan)">en</strong> 2 heures.</div>
+        <div class="pt-en">in (f.country) · by (transport) · made of · done in</div>
+      </div>
+    </div>
+    <div class="prep-tile tile-dans">
+      <div class="pt-head"><div class="pt-prep">DANS</div><div class="pt-use">INTÉRIEUR · FUTUR PRÉCIS · CONTEXTE</div></div>
+      <div class="pt-body">
+        <div class="pt-ex">Il est <strong style="color:var(--gold)">dans</strong> la salle.<br>Il part <strong style="color:var(--gold)">dans</strong> 3 jours.<br><strong style="color:var(--gold)">Dans</strong> ce cas…<br>Je lis <strong style="color:var(--gold)">dans</strong> le livre.</div>
+        <div class="pt-en">inside · in (future) · in this case · in the book</div>
+      </div>
+    </div>
+    <div class="prep-tile tile-sur">
+      <div class="pt-head"><div class="pt-prep">SUR</div><div class="pt-use">DESSUS · SUJET · PROPORTION</div></div>
+      <div class="pt-body">
+        <div class="pt-ex">Le livre est <strong style="color:#f472b6">sur</strong> la table.<br>Un article <strong style="color:#f472b6">sur</strong> l'IA.<br>3 <strong style="color:#f472b6">sur</strong> 10 réussissent.<br>Je compte <strong style="color:#f472b6">sur</strong> toi.</div>
+        <div class="pt-en">on top of · about · out of · count on</div>
+      </div>
+    </div>
+  </div>
+  <div class="tiles-grid2">
+    <div class="prep-tile tile-sous">
+      <div class="pt-head"><div class="pt-prep">SOUS</div><div class="pt-use">DESSOUS · CONDITION</div></div>
+      <div class="pt-body">
+        <div class="pt-ex"><strong style="color:#a78bfa">Sous</strong> la table.<br><strong style="color:#a78bfa">Sous</strong> la pluie.<br><strong style="color:#a78bfa">Sous</strong> conditions.<br><strong style="color:#a78bfa">Sous</strong> pression.</div>
+        <div class="pt-en">under/below · in the rain · under conditions</div>
+      </div>
+    </div>
+    <div class="prep-tile tile-chez">
+      <div class="pt-head"><div class="pt-prep">CHEZ</div><div class="pt-use">DOMICILE · PROFESSION · CULTURE</div></div>
+      <div class="pt-body">
+        <div class="pt-ex">Je suis <strong style="color:#fb923c">chez</strong> moi.<br>Il va <strong style="color:#fb923c">chez</strong> le médecin.<br><strong style="color:#fb923c">Chez</strong> les Français…<br><strong style="color:#fb923c">Chez</strong> Apple.</div>
+        <div class="pt-en">at home · at the doctor's · among the French</div>
+      </div>
+    </div>
+    <div class="prep-tile tile-dep">
+      <div class="pt-head"><div class="pt-prep">DEPUIS</div><div class="pt-use">DÉBUT → MAINTENANT (PRÉSENT / IMPARFAIT)</div></div>
+      <div class="pt-body">
+        <div class="pt-ex">J'habite ici <strong style="color:#38bdf8">depuis</strong> 5 ans.<br>Il pleut <strong style="color:#38bdf8">depuis</strong> hier.<br>Elle attendait <strong style="color:#38bdf8">depuis</strong> longtemps.</div>
+        <div class="pt-en">since / for (ongoing action)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- À / EN / DANS — PAYS TABLE -->
+  <div class="pays-section">
+    <div class="section-title">✦ À / EN / DANS / AU / AUX — PAYS, VILLES &amp; RÉGIONS</div>
+    <div class="pays-card">
+      <div class="pays-grid">
+        <div class="pays-col">
+          <div class="pc-label a">À</div>
+          <div class="pc-rule">Villes et îles (avec article parfois)</div>
+          <div class="pc-ex">
+            à Paris · à Londres<br>
+            à la Réunion<br>
+            à Cuba · à Haïti
+          </div>
+        </div>
+        <div class="pays-col">
+          <div class="pc-label en">EN</div>
+          <div class="pc-rule">Pays fém. · pays masc. voyelle · continents · régions fém.</div>
+          <div class="pc-ex">
+            en France · en Espagne<br>
+            en Iran · en Ouganda<br>
+            en Europe · en Asie<br>
+            en Bretagne · en Normandie
+          </div>
+        </div>
+        <div class="pays-col">
+          <div class="pc-label dans">AU / AUX / DANS LE</div>
+          <div class="pc-rule">Pays masc. → au · pluriel → aux · région masc. → dans le</div>
+          <div class="pc-ex">
+            au Japon · au Maroc<br>
+            aux États-Unis · aux Pays-Bas<br>
+            dans le Midi · dans le Nord<br>
+            dans les Alpes
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEPUIS / PENDANT / POUR -->
+  <div class="time-section">
+    <div class="section-title">✦ DEPUIS · PENDANT · POUR — DURÉE</div>
+    <div class="time-grid">
+      <div class="time-cell">
+        <div class="tc-head dep">DEPUIS</div>
+        <div class="tc-body">
+          <div class="tc-rule dep">ACTION EN COURS — PRÉSENT OU IMPARFAIT</div>
+          <div class="tc-ex">
+            J'étudie le français <strong style="color:var(--jd2)">depuis</strong> 2 ans.<br>
+            Il attendait <strong style="color:var(--jd2)">depuis</strong> une heure.<br>
+            <em style="font-size:11px;color:var(--text3)">Action non terminée, encore vraie</em>
+          </div>
+        </div>
+      </div>
+      <div class="time-cell">
+        <div class="tc-head pend">PENDANT</div>
+        <div class="tc-body">
+          <div class="tc-rule pend">DURÉE FINIE — PASSÉ OU FUTUR</div>
+          <div class="tc-ex">
+            J'ai travaillé <strong style="color:var(--gold)">pendant</strong> 3 heures.<br>
+            Il dormira <strong style="color:var(--gold)">pendant</strong> le vol.<br>
+            <em style="font-size:11px;color:var(--text3)">Action terminée ou délimitée</em>
+          </div>
+        </div>
+      </div>
+      <div class="time-cell">
+        <div class="tc-head pour">POUR</div>
+        <div class="tc-body">
+          <div class="tc-rule pour">DURÉE PRÉVUE — FUTUR / INTENTION</div>
+          <div class="tc-ex">
+            Je pars <strong style="color:#f472b6">pour</strong> 3 semaines.<br>
+            Il vient <strong style="color:#f472b6">pour</strong> un mois.<br>
+            <em style="font-size:11px;color:var(--text3)">Durée planifiée à l'avance</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — LIEUX, DIRECTIONS &amp; CONTEXTES</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>MOT / EXPRESSION</th><th>PRÉPOSITION CLÉ</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CAT.</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">s'orienter</td><td class="vprep">dans · vers · par</td><td class="ven">to find one's way / orient oneself</td><td class="ves">orientarse</td><td class="vcat">direction</td><td class="vex">Il s'oriente dans la forêt.</td></tr>
+          <tr><td class="vfr">se diriger vers</td><td class="vprep">vers</td><td class="ven">to head towards</td><td class="ves">dirigirse hacia</td><td class="vcat">direction</td><td class="vex">Elle se dirige vers la sortie.</td></tr>
+          <tr><td class="vfr">se trouver</td><td class="vprep">à · dans · sur · chez</td><td class="ven">to be located</td><td class="ves">encontrarse / ubicarse</td><td class="vcat">lieu</td><td class="vex">Le bureau se trouve au rez-de-chaussée.</td></tr>
+          <tr><td class="vfr">passer par</td><td class="vprep">par</td><td class="ven">to go through / via</td><td class="ves">pasar por</td><td class="vcat">itinéraire</td><td class="vex">On passe par Lyon pour aller à Marseille.</td></tr>
+          <tr><td class="vfr">longer</td><td class="vprep">le long de</td><td class="ven">to go along</td><td class="ves">bordear</td><td class="vcat">itinéraire</td><td class="vex">Nous longeons la rivière.</td></tr>
+          <tr><td class="vfr">aux alentours de</td><td class="vprep">aux alentours de</td><td class="ven">around / in the vicinity of</td><td class="ves">en los alrededores de</td><td class="vcat">lieu</td><td class="vex">Il y a un café aux alentours de la gare.</td></tr>
+          <tr><td class="vfr">à proximité de</td><td class="vprep">à proximité de</td><td class="ven">near / close to</td><td class="ves">cerca de</td><td class="vcat">lieu</td><td class="vex">L'hôpital est à proximité du centre.</td></tr>
+          <tr><td class="vfr">au-delà de</td><td class="vprep">au-delà de</td><td class="ven">beyond</td><td class="ves">más allá de</td><td class="vcat">espace/abstrait</td><td class="vex">C'est au-delà de mes capacités.</td></tr>
+          <tr><td class="vfr">en dehors de</td><td class="vprep">en dehors de</td><td class="ven">outside of / apart from</td><td class="ves">fuera de</td><td class="vcat">espace/abstrait</td><td class="vex">En dehors de ça, tout va bien.</td></tr>
+          <tr><td class="vfr">à travers</td><td class="vprep">à travers</td><td class="ven">through / across</td><td class="ves">a través de</td><td class="vcat">itinéraire</td><td class="vex">Il regarde à travers la fenêtre.</td></tr>
+          <tr><td class="vfr">à l'égard de</td><td class="vprep">à l'égard de</td><td class="ven">towards / with regard to</td><td class="ves">con respecto a</td><td class="vcat">relation</td><td class="vex">Son attitude à l'égard de ses collègues est froide.</td></tr>
+          <tr><td class="vfr">en marge de</td><td class="vprep">en marge de</td><td class="ven">on the fringes of / alongside</td><td class="ves">al margen de</td><td class="vcat">abstrait</td><td class="vex">Il vit en marge de la société.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="a"          onclick="setFilter('a',this)">À</button>
+      <button class="filter-pill"        data-f="en"         onclick="setFilter('en',this)">EN</button>
+      <button class="filter-pill"        data-f="dans"       onclick="setFilter('dans',this)">DANS</button>
+      <button class="filter-pill"        data-f="pays"       onclick="setFilter('pays',this)">PAYS / VILLES</button>
+      <button class="filter-pill"        data-f="depuis"     onclick="setFilter('depuis',this)">DEPUIS / PENDANT / POUR</button>
+      <button class="filter-pill"        data-f="chez"       onclick="setFilter('chez',this)">CHEZ / SUR / PAR</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a2"        onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1 active" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2"        onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title" id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+const ITEMS = [
+
+  // ── À ──
+  { blank:"Je vais ___ Paris ce week-end.", answer:"à", wrong:["en","dans","chez"], en:"I'm going to Paris this weekend.", hint:"ville → à", type:'a', level:'A2' },
+  { blank:"Il joue au tennis ___ 14h.", answer:"à", wrong:["en","dans","depuis"], en:"He plays tennis at 2 pm.", hint:"heure → à", type:'a', level:'A2' },
+  { blank:"Elle est ___ la maison.", answer:"à", wrong:["en","dans","chez"], en:"She is at home.", hint:"à la maison = chez soi (expression fixe)", type:'a', level:'A2' },
+  { blank:"C'est fait ___ la main.", answer:"à", wrong:["en","par","de"], en:"It's made by hand.", hint:"manière → à", type:'a', level:'B1' },
+  { blank:"Il habite ___ dix minutes d'ici.", answer:"à", wrong:["en","dans","de"], en:"He lives ten minutes from here.", hint:"distance/temps → à", type:'a', level:'B1' },
+  { blank:"Il se dirige ___ la sortie.", answer:"vers", wrong:["à","en","dans"], en:"He heads towards the exit.", hint:"direction approximative → vers", type:'a', level:'B1' },
+
+  // ── EN ──
+  { blank:"Elle habite ___ Espagne.", answer:"en", wrong:["à","au","dans"], en:"She lives in Spain.", hint:"pays féminin → en", type:'en', level:'A2' },
+  { blank:"Il voyage ___ avion.", answer:"en", wrong:["à","par","dans"], en:"He travels by plane.", hint:"transport → en", type:'en', level:'A2' },
+  { blank:"La table est ___ bois.", answer:"en", wrong:["à","de","dans"], en:"The table is made of wood.", hint:"matière → en", type:'en', level:'A2' },
+  { blank:"Il a terminé le projet ___ deux jours.", answer:"en", wrong:["dans","pendant","pour"], en:"He finished the project in two days.", hint:"durée d'accomplissement → en", type:'en', level:'B1' },
+  { blank:"Je pars ___ Italie le mois prochain.", answer:"en", wrong:["à","au","dans"], en:"I'm going to Italy next month.", hint:"pays féminin → en", type:'en', level:'A2' },
+
+  // ── DANS ──
+  { blank:"Les clés sont ___ le tiroir.", answer:"dans", wrong:["en","à","sur"], en:"The keys are in the drawer.", hint:"intérieur d'un contenant → dans", type:'dans', level:'A2' },
+  { blank:"Il part ___ trois jours.", answer:"dans", wrong:["en","depuis","pour"], en:"He's leaving in three days.", hint:"futur précis à partir de maintenant → dans", type:'dans', level:'B1' },
+  { blank:"___ ce contexte, il faut agir.", answer:"Dans", wrong:["En","À","Sur"], en:"In this context, we must act.", hint:"contexte/situation → dans", type:'dans', level:'B1' },
+  { blank:"Le bureau se trouve ___ le bâtiment principal.", answer:"dans", wrong:["en","à","sur"], en:"The office is located in the main building.", hint:"intérieur → dans", type:'dans', level:'A2' },
+
+  // ── PAYS / VILLES ──
+  { blank:"Il habite ___ Japon.", answer:"au", wrong:["en","à","dans"], en:"He lives in Japan.", hint:"pays masculin → au", type:'pays', level:'A2' },
+  { blank:"Elles sont ___ États-Unis.", answer:"aux", wrong:["en","au","à"], en:"They are in the United States.", hint:"pays pluriel → aux", type:'pays', level:'A2' },
+  { blank:"Il étudie ___ Berlin.", answer:"à", wrong:["en","au","dans"], en:"He studies in Berlin.", hint:"ville → à", type:'pays', level:'A2' },
+  { blank:"Elle vit ___ Bretagne.", answer:"en", wrong:["à","dans la","au"], en:"She lives in Brittany.", hint:"région féminine → en", type:'pays', level:'B1' },
+  { blank:"Ils passent leurs vacances ___ Maroc.", answer:"au", wrong:["en","à","dans"], en:"They spend their holidays in Morocco.", hint:"pays masculin → au", type:'pays', level:'A2' },
+  { blank:"Nous travaillons ___ Pays-Bas.", answer:"aux", wrong:["en","au","dans"], en:"We work in the Netherlands.", hint:"pays pluriel → aux", type:'pays', level:'B1' },
+  { blank:"Il se repose ___ Midi.", answer:"dans le", wrong:["en","au","à"], en:"He is resting in the South of France.", hint:"région masculine → dans le", type:'pays', level:'B2' },
+
+  // ── DEPUIS / PENDANT / POUR ──
+  { blank:"J'étudie le français ___ deux ans.", answer:"depuis", wrong:["pendant","pour","en"], en:"I've been studying French for two years (ongoing).", hint:"action en cours commencée dans le passé → depuis", type:'depuis', level:'A2' },
+  { blank:"J'ai travaillé ___ trois heures ce matin.", answer:"pendant", wrong:["depuis","pour","en"], en:"I worked for three hours this morning.", hint:"durée finie, action terminée → pendant", type:'depuis', level:'B1' },
+  { blank:"Il part en vacances ___ deux semaines.", answer:"pour", wrong:["pendant","depuis","en"], en:"He's going on holiday for two weeks (planned).", hint:"durée prévue à l'avance → pour", type:'depuis', level:'B1' },
+  { blank:"Elle attend ___ une heure.", answer:"depuis", wrong:["pendant","pour","dans"], en:"She has been waiting for an hour (still waiting).", hint:"encore en train d'attendre → depuis", type:'depuis', level:'B1' },
+  { blank:"Il a dormi ___ tout le vol.", answer:"pendant", wrong:["depuis","pour","durant"], en:"He slept throughout the whole flight.", hint:"durée délimitée, passée → pendant", type:'depuis', level:'B1' },
+  { blank:"Je suis ici ___ lundi.", answer:"depuis", wrong:["pendant","pour","dès"], en:"I've been here since Monday.", hint:"point de départ → depuis", type:'depuis', level:'A2' },
+
+  // ── CHEZ / SUR / PAR ──
+  { blank:"Il va ___ le médecin demain.", answer:"chez", wrong:["à","en","dans"], en:"He's going to the doctor's tomorrow.", hint:"professionnel à son domicile/cabinet → chez", type:'chez', level:'A2' },
+  { blank:"Nous nous retrouvons ___ moi ce soir.", answer:"chez", wrong:["à","en","dans"], en:"We're meeting at my place tonight.", hint:"domicile → chez", type:'chez', level:'A2' },
+  { blank:"Le livre est ___ la table.", answer:"sur", wrong:["dans","sous","chez"], en:"The book is on the table.", hint:"surface → sur", type:'chez', level:'A2' },
+  { blank:"On passe ___ Lyon pour aller à Marseille.", answer:"par", wrong:["à","en","de"], en:"We go through Lyon to get to Marseille.", hint:"itinéraire → par", type:'chez', level:'B1' },
+  { blank:"Il regarde à travers la fenêtre ___ curiosité.", answer:"par", wrong:["avec","de","en"], en:"He looks through the window out of curiosity.", hint:"motivation/cause → par", type:'chez', level:'B2' },
+
+  // ── TRADUCTION ──
+  { type:'trad', answer:"Il se trouve aux alentours de la gare.", en:"He's in the area around the station.", hint:"aux alentours de = in the vicinity of", level:'B1' },
+  { type:'trad', answer:"Elle vit en marge de la société.", en:"She lives on the fringes of society.", hint:"en marge de = on the fringe of", level:'B2' },
+  { type:'trad', answer:"C'est au-delà de mes capacités.", en:"It's beyond my abilities.", hint:"au-delà de = beyond", level:'B2' },
+  { type:'trad', answer:"Je travaille ici depuis cinq ans.", en:"I've been working here for five years.", hint:"ongoing → depuis + présent", level:'A2' },
+  { type:'trad', answer:"Nous longeons la rivière vers le nord.", en:"We go along the river towards the north.", hint:"longer = to go along · vers = towards", level:'B1' },
+  { type:'trad', answer:"En dehors de ça, tout va bien.", en:"Apart from that, everything is fine.", hint:"en dehors de = apart from / outside of", level:'B1' },
+  { type:'trad', answer:"Son attitude à l'égard de ses collègues est froide.", en:"His attitude towards his colleagues is cold.", hint:"à l'égard de = towards / with regard to", level:'B2' },
+  { type:'trad', answer:"Il part pour trois semaines au Japon.", en:"He's leaving for three weeks in Japan.", hint:"durée planifiée → pour · pays masc. → au", level:'B1' },
+];
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ return [...a].sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/\u2019/g,"\\'").replace(/'/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/'/g,"'").replace(/'/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'');
+}
+function levelOk(i){ const l={A2:0,B1:1,B2:2}; return (l[i.level||'A2']||0)<=(l[currentLevel]||1); }
+
+function typeToCardClass(t){
+  if(t==='en') return 'en-card';
+  if(t==='dans') return 'dans-card';
+  if(t==='depuis') return 'dep-card';
+  if(t==='pays') return 'pays-card';
+  return '';
+}
+function typeToLabel(t){
+  if(t==='a') return 'À — LIEU / TEMPS / MANIÈRE';
+  if(t==='en') return 'EN — PAYS / TRANSPORT / MATIÈRE';
+  if(t==='dans') return 'DANS — INTÉRIEUR / FUTUR';
+  if(t==='pays') return 'PAYS ET VILLES';
+  if(t==='depuis') return 'DEPUIS / PENDANT / POUR';
+  if(t==='chez') return 'CHEZ / SUR / PAR';
+  return 'PRÉPOSITION';
+}
+function typeToCardType(t){
+  if(t==='en') return 'en';
+  if(t==='dans') return 'dans';
+  if(t==='depuis') return 'dep';
+  if(t==='pays') return 'pays';
+  return 'a';
+}
+function prBadgeClass(t){
+  if(t==='en') return 'en';
+  if(t==='dans') return 'dans';
+  if(t==='depuis') return 'dep';
+  if(t==='chez') return 'chez';
+  return 'a';
+}
+function prBadgeText(t){
+  if(t==='en') return 'EN';
+  if(t==='dans') return 'DANS';
+  if(t==='depuis') return 'DEPUIS·PENDANT·POUR';
+  if(t==='chez') return 'CHEZ·SUR·PAR';
+  if(t==='pays') return 'À·EN·AU·AUX';
+  return 'À';
+}
+function prBadgeRole(t){
+  if(t==='en') return 'pays fém. · transport · matière';
+  if(t==='dans') return 'intérieur · futur précis';
+  if(t==='depuis') return 'durée : depuis / pendant / pour';
+  if(t==='chez') return 'domicile · surface · itinéraire';
+  if(t==='pays') return 'villes et pays';
+  return 'lieu · heure · manière';
+}
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel='B1', exFilter='tous';
+let exercises=[], answered=0, correct=0;
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx=currentLevel==='A2'?7:currentLevel==='B1'?10:12;
+  let pool=ITEMS.filter(i=>levelOk(i));
+
+  if     (exFilter==='a')          pool=pool.filter(i=>i.type==='a');
+  else if(exFilter==='en')         pool=pool.filter(i=>i.type==='en');
+  else if(exFilter==='dans')       pool=pool.filter(i=>i.type==='dans');
+  else if(exFilter==='pays')       pool=pool.filter(i=>i.type==='pays');
+  else if(exFilter==='depuis')     pool=pool.filter(i=>i.type==='depuis');
+  else if(exFilter==='chez')       pool=pool.filter(i=>i.type==='chez');
+  else if(exFilter==='traduction') pool=pool.filter(i=>i.type==='trad');
+
+  if(!pool.length) pool=ITEMS.filter(i=>levelOk(i));
+
+  shuffle(pool).slice(0,numEx).forEach((item,ti)=>{
+    if(item.type==='trad') renderTrad(container,ti,item);
+    else                   renderMCQ(container,ti,item);
+  });
+  updateProgress();
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function renderMCQ(container, idx, item){
+  const answer=item.answer;
+  const opts=shuffle([answer,...(item.wrong||[])].slice(0,4));
+  const choices=opts.map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const displayed=item.blank.replace('___',`<span style="color:var(--jd2);font-style:italic">___</span>`);
+  const cc=typeToCardClass(item.type);
+  const ctc=typeToCardType(item.type);
+  const pbc=prBadgeClass(item.type);
+  const pbt=prBadgeText(item.type);
+  const pbr=prBadgeRole(item.type);
+
+  const card=document.createElement('div');
+  card.className=`exercise-card ${cc}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ${ctc}">${typeToLabel(item.type)}</span></div>
+    <div class="prep-badge ${pbc}"><span class="pb-prep ${pbc}">${pbt}</span><span class="pb-use">${pbr}</span></div>
+    <div class="hint-text">QUELLE PRÉPOSITION ? (${item.hint||''})</div>
+    <div class="sentence-display">${displayed}</div>
+    <div style="color:var(--text3);font-size:12px;font-style:italic;margin-bottom:8px">${item.en}</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderTrad(container, idx, item){
+  const answer=item.answer.replace(/[.!?]+$/,'');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS — ATTENTION AUX PRÉPOSITIONS (${item.hint||''})</div>
+    <div class="sentence-display" style="color:var(--jd3)">${item.en}</div>
+    <input class="answer-input" id="input-${idx}" placeholder=""
+      style="width:100%;max-width:560px" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK / PROGRESS
+// ================================================================
+function checkInput(idx,answer){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx,chosen,answer,btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=["Parfait !","Excellent !","Très bien !","Bravo !","Super !","C'est ça !"];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk; answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='PARFAIT !';sub='Maîtrise parfaite — à, en, dans, chez, depuis… vous les dominez tous !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';sub='Très bien — n\'oubliez pas : en = pays fém., au = pays masc., depuis = ongoing !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';sub='Bon effort — attention : dans = futur précis, en = durée d\'accomplissement !';}
+  else{emoji='📚';title='CONTINUEZ !';sub='Rappel : ville → à · pays fém. → en · pays masc. → au · pluriel → aux.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

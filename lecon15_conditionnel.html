@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 15 — Le Conditionnel Présent</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --cyan:#00f5ff; --violet:#b44fff; --gold:#ffd166; --red:#ff4757;
+    --grn:#10b981; --grn2:#34d399; --grn3:#a7f3d0;
+    --accent:#10b981;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(16,185,129,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,0.025) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-230px; left:-170px;  background:rgba(16,185,129,0.09); }
+  .h2{ width:600px; height:600px; bottom:-200px; right:-150px; background:rgba(180,79,255,0.07); }
+  .h3{ width:300px; height:300px; top:50%; right:20%; background:rgba(0,245,255,0.035); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:76vh; top:12vh; right:16%; background:linear-gradient(to bottom,transparent,var(--grn),transparent); transform:rotate(9deg); }
+  .al2{ width:1px; height:56vh; top:24vh; left:12%;  background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(-10deg); }
+
+  .bg-mark{ position:fixed; right:-50px; top:18%; opacity:0.02; font-family:'Bebas Neue',sans-serif;
+    font-size:240px; color:var(--grn); transform:rotate(10deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  .wrapper{ position:relative; z-index:1; max-width:960px; margin:0 auto; padding:40px 24px 90px; }
+
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--grn);
+    border:1px solid rgba(16,185,129,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(16,185,129,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--grn); animation:blink 2.1s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,7.5vw,82px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--grn) 44%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  /* ── FORMATION ── */
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  .formation-card{ background:linear-gradient(135deg,rgba(16,185,129,0.07),rgba(180,79,255,0.06));
+    border:1px solid rgba(16,185,129,0.2); border-radius:14px; padding:22px 26px; margin-bottom:28px; }
+
+  /* formula row */
+  .formula-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .f-part{ text-align:center; min-width:72px; }
+  .f-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); margin-bottom:3px; }
+  .f-val  { font-family:'Bebas Neue',sans-serif; font-size:clamp(13px,2vw,19px); letter-spacing:1px; }
+  .f-fs{ color:var(--grn); }      /* futur simple stem */
+  .f-end{ color:var(--gold); }    /* conditional ending */
+  .f-plus{ font-size:18px; color:var(--border); font-family:'Bebas Neue',sans-serif; }
+
+  /* key insight box */
+  .insight-box{ background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.2);
+    border-radius:8px; padding:11px 16px; margin-bottom:14px; font-size:13px; }
+  .ib-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; color:var(--gold); margin-bottom:6px; }
+  .ib-text{ color:var(--text2); line-height:1.5; }
+  .ib-text .hl-fs  { color:var(--grn); font-family:'DM Serif Display',serif; }
+  .ib-text .hl-imp { color:var(--gold); font-family:'DM Serif Display',serif; }
+
+  /* endings grid */
+  .ends-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:7px; }
+  @media(max-width:420px){ .ends-grid{ grid-template-columns:repeat(2,1fr); } }
+  .end-cell{ background:var(--card); border:1px solid var(--border); border-radius:7px; padding:8px 10px; }
+  .end-pron{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:1px; color:var(--text3); }
+  .end-val { font-family:'DM Serif Display',serif; font-size:16px; color:var(--gold); }
+  .end-ex  { font-size:11px; color:var(--text3); font-style:italic; margin-top:2px; }
+
+  /* examples row */
+  .ex-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
+  @media(max-width:560px){ .ex-row{ grid-template-columns:1fr; } }
+  .ex-cell{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 13px; }
+  .ec-fr{ font-family:'DM Serif Display',serif; font-size:14px; color:var(--text); }
+  .ec-fr .stem{ color:var(--grn); }
+  .ec-fr .end { color:var(--gold); }
+  .ec-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── IRR STEMS ── */
+  .irr-section{ margin-bottom:28px; }
+  .irr-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  @media(max-width:500px){ .irr-grid{ grid-template-columns:repeat(2,1fr); } }
+  .irr-cell{ background:var(--card); border:1px solid var(--border); border-radius:9px; padding:10px 13px; transition:border-color 0.2s; }
+  .irr-cell:hover{ border-color:rgba(16,185,129,0.25); }
+  .ic-inf { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; color:var(--text3); }
+  .ic-stem{ font-family:'DM Serif Display',serif; font-size:18px; color:var(--gold); margin:2px 0; }
+  .ic-ex  { font-size:11px; color:var(--text3); font-style:italic; }
+
+  /* ── USAGES ── */
+  .usage-card{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:28px; }
+  .usage-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--grn); margin-bottom:12px; }
+  .usage-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  @media(max-width:500px){ .usage-grid{ grid-template-columns:1fr; } }
+  .ui{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:11px 14px; }
+  .ui-type{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--grn); margin-bottom:4px; }
+  .ui-desc{ font-size:12px; color:var(--text2); margin-bottom:5px; }
+  .ui-ex  { font-family:'DM Serif Display',serif; font-size:13px; color:var(--grn2); font-style:italic; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--grn); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.4s; }
+  .vocab-wrap.open{ max-height:700px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 18px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:10px 18px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13.5px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(16,185,129,0.02); }
+  .vfr{ color:var(--text); font-family:'DM Serif Display',serif; font-size:15px; }
+  .vcond{ color:var(--grn2); font-family:'DM Serif Display',serif; font-size:13px; }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--grn); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(16,185,129,0.4); background:rgba(16,185,129,0.06); color:var(--grn2); }
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(0,245,255,0.12),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(16,185,129,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a2.active{ border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b1.active{ border-color:var(--grn);   color:var(--grn); }
+  .level-pill.b2.active{ border-color:var(--violet); color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--grn); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--grn),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(16,185,129,0.14),rgba(180,79,255,0.1));
+    border:1px solid rgba(16,185,129,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(16,185,129,0.26),rgba(180,79,255,0.18));
+    border-color:var(--grn); transform:translateY(-1px); box-shadow:0 8px 28px rgba(16,185,129,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--grn),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.irr-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card.si-card::before{ background:linear-gradient(90deg,transparent,var(--violet),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(16,185,129,0.2); transform:translateY(-1px); }
+  .exercise-card.irr-card.active-card{ border-color:rgba(255,209,102,0.2); }
+  .exercise-card.si-card.active-card{ border-color:rgba(180,79,255,0.2); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* stem badge */
+  .stem-badge{ display:inline-flex; align-items:center; gap:8px;
+    background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.18);
+    border-radius:4px; padding:3px 12px; margin-bottom:10px; }
+  .sb-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .sb-stem { font-family:'DM Serif Display',serif; font-size:15px; color:var(--grn2); }
+  .sb-end  { font-family:'DM Serif Display',serif; font-size:15px; color:var(--gold); }
+
+  /* usage tag */
+  .usage-tag-card{ display:inline-flex; align-items:center; gap:6px; font-size:11px; font-style:italic;
+    color:var(--text3); padding:2px 10px; border-radius:3px;
+    border:1px solid rgba(16,185,129,0.15); background:rgba(16,185,129,0.04); margin-bottom:10px; }
+
+  /* si-clause badge */
+  .si-badge{ display:inline-flex; align-items:center; gap:8px;
+    background:rgba(180,79,255,0.07); border:1px solid rgba(180,79,255,0.25);
+    border-radius:4px; padding:4px 12px; margin-bottom:10px; font-size:12px; }
+  .si-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:#d8a8ff; }
+  .si-rule{ color:var(--text2); font-family:'DM Serif Display',serif; font-size:13px; }
+  .si-rule .imp{ color:#c4b5fd; } .si-rule .cond{ color:var(--grn2); }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.cond    { color:var(--grn);   border:1px solid rgba(16,185,129,0.28); background:rgba(16,185,129,0.05); }
+  .card-type.choix   { color:var(--gold);  border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.trad    { color:var(--cyan);  border:1px solid rgba(0,245,255,0.28);   background:rgba(0,245,255,0.05); }
+  .card-type.si-tag  { color:#d8a8ff;      border:1px solid rgba(180,79,255,0.28);  background:rgba(180,79,255,0.05); }
+  .card-type.irr-tag { color:var(--gold);  border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.negatif { color:#34d399;      border:1px solid rgba(52,211,153,0.28);  background:rgba(52,211,153,0.05); }
+  .card-type.politesse{ color:var(--cyan); border:1px solid rgba(0,245,255,0.28);   background:rgba(0,245,255,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(17px,2.8vw,23px); line-height:1.7; margin-bottom:14px; color:var(--text); }
+  .sentence-display .cond-hl{ color:var(--grn2); }
+  .sentence-display .imp-hl { color:#c4b5fd; }
+
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; width:200px; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--grn); box-shadow:0 0 0 2px rgba(16,185,129,0.1); }
+  .answer-input.correct  { border-color:#06d6a0; color:#06d6a0; box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red); color:var(--red); box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  .answer-input.inline  { font-size:17px; padding:6px 12px; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--grn); color:var(--text); background:rgba(16,185,129,0.04); }
+  .choice-btn.selected-correct{ border-color:#06d6a0; color:#06d6a0; background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red); color:var(--red); background:rgba(255,71,87,0.08); cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:#06d6a0; color:#06d6a0; opacity:.65; }
+
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:#06d6a0; }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(16,185,129,0.4);
+    background:rgba(16,185,129,0.06); color:var(--grn); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(16,185,129,0.16); border-color:var(--grn); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(16,185,129,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(16,185,129,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--grn); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:#06d6a0; }
+  .score-stat-num.bad { color:var(--red); }
+  .score-stat-num.neu { color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(16,185,129,0.4);
+    background:rgba(16,185,129,0.08); color:var(--grn); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(16,185,129,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .irr-grid{ grid-template-columns:repeat(2,1fr); }
+    .usage-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">CONDI<br>TIONNEL</div>
+
+<div class="wrapper">
+
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 15 · FRANÇAIS</div>
+    <h1>Le Conditionnel<br>Présent</h1>
+    <p class="subtitle">je voudrais · tu pourrais · si j'avais le temps, je voyagerais...</p>
+    <p class="subtitle2">POLITESSE · HYPOTHÈSE · SOUHAIT · B1 → B2</p>
+  </header>
+
+  <!-- FORMATION -->
+  <div class="formation-card">
+    <div class="section-title" style="margin-bottom:14px">✦ FORMATION DU CONDITIONNEL PRÉSENT</div>
+
+    <div class="formula-row">
+      <div class="f-part"><div class="f-label">STEM</div><div class="f-val f-fs">= FUTUR SIMPLE</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-part"><div class="f-label">TERMINAISON</div><div class="f-val f-end">= IMPARFAIT</div></div>
+    </div>
+
+    <div class="insight-box">
+      <div class="ib-title">⚡ ASTUCE CLÉ</div>
+      <div class="ib-text">
+        Le conditionnel = stem du <span class="hl-fs">futur simple</span> + terminaisons de l'<span class="hl-imp">imparfait</span><br>
+        parl<span class="hl-fs">er</span> → parl<span class="hl-imp">ais</span> / ser- → ser<span class="hl-imp">ais</span> / fer- → fer<span class="hl-imp">ais</span>
+      </div>
+    </div>
+
+    <div class="ends-grid">
+      <div class="end-cell"><div class="end-pron">JE</div><div class="end-val">-ais</div><div class="end-ex">parlerais</div></div>
+      <div class="end-cell"><div class="end-pron">TU</div><div class="end-val">-ais</div><div class="end-ex">parlerais</div></div>
+      <div class="end-cell"><div class="end-pron">IL/ELLE</div><div class="end-val">-ait</div><div class="end-ex">parlerait</div></div>
+      <div class="end-cell"><div class="end-pron">NOUS</div><div class="end-val">-ions</div><div class="end-ex">parlerions</div></div>
+      <div class="end-cell"><div class="end-pron">VOUS</div><div class="end-val">-iez</div><div class="end-ex">parleriez</div></div>
+      <div class="end-cell"><div class="end-pron">ILS/ELLES</div><div class="end-val">-aient</div><div class="end-ex">parleraient</div></div>
+    </div>
+
+    <div class="ex-row">
+      <div class="ex-cell"><div class="ec-fr"><span class="stem">parler</span><span class="end">ais</span></div><div class="ec-en">I would speak</div></div>
+      <div class="ex-cell"><div class="ec-fr"><span class="stem">finir</span><span class="end">ait</span></div><div class="ec-en">he/she would finish</div></div>
+      <div class="ex-cell"><div class="ec-fr"><span class="stem">ser</span><span class="end">ions</span></div><div class="ec-en">we would be</div></div>
+    </div>
+  </div>
+
+  <!-- IRREGULAR STEMS -->
+  <div class="irr-section">
+    <div class="section-title">✦ STEMS IRRÉGULIERS — MÊMES QU'AU FUTUR SIMPLE</div>
+    <div class="irr-grid">
+      <div class="irr-cell"><div class="ic-inf">ÊTRE</div><div class="ic-stem">ser-</div><div class="ic-ex">je serais</div></div>
+      <div class="irr-cell"><div class="ic-inf">AVOIR</div><div class="ic-stem">aur-</div><div class="ic-ex">j'aurais</div></div>
+      <div class="irr-cell"><div class="ic-inf">ALLER</div><div class="ic-stem">ir-</div><div class="ic-ex">j'irais</div></div>
+      <div class="irr-cell"><div class="ic-inf">FAIRE</div><div class="ic-stem">fer-</div><div class="ic-ex">je ferais</div></div>
+      <div class="irr-cell"><div class="ic-inf">POUVOIR</div><div class="ic-stem">pourr-</div><div class="ic-ex">je pourrais</div></div>
+      <div class="irr-cell"><div class="ic-inf">VOULOIR</div><div class="ic-stem">voudr-</div><div class="ic-ex">je voudrais</div></div>
+      <div class="irr-cell"><div class="ic-inf">VENIR</div><div class="ic-stem">viendr-</div><div class="ic-ex">je viendrais</div></div>
+      <div class="irr-cell"><div class="ic-inf">SAVOIR</div><div class="ic-stem">saur-</div><div class="ic-ex">je saurais</div></div>
+      <div class="irr-cell"><div class="ic-inf">DEVOIR</div><div class="ic-stem">devr-</div><div class="ic-ex">je devrais</div></div>
+      <div class="irr-cell"><div class="ic-inf">VOIR</div><div class="ic-stem">verr-</div><div class="ic-ex">je verrais</div></div>
+      <div class="irr-cell"><div class="ic-inf">TENIR</div><div class="ic-stem">tiendr-</div><div class="ic-ex">je tiendrais</div></div>
+      <div class="irr-cell"><div class="ic-inf">RECEVOIR</div><div class="ic-stem">recevr-</div><div class="ic-ex">je recevrais</div></div>
+    </div>
+  </div>
+
+  <!-- USAGES -->
+  <div class="usage-card">
+    <div class="usage-title">✦ USAGES DU CONDITIONNEL</div>
+    <div class="usage-grid">
+      <div class="ui">
+        <div class="ui-type">POLITESSE</div>
+        <div class="ui-desc">Demande polie, moins directe que le présent</div>
+        <div class="ui-ex">Je voudrais un café, s'il vous plaît.</div>
+      </div>
+      <div class="ui">
+        <div class="ui-type">HYPOTHÈSE — SI + IMP → COND.</div>
+        <div class="ui-desc">Condition irréelle ou imaginaire</div>
+        <div class="ui-ex">Si j'avais le temps, je voyagerais.</div>
+      </div>
+      <div class="ui">
+        <div class="ui-type">SOUHAIT / RÊVE</div>
+        <div class="ui-desc">Exprimer un désir, un idéal</div>
+        <div class="ui-ex">J'aimerais vivre au bord de la mer.</div>
+      </div>
+      <div class="ui">
+        <div class="ui-type">CONSEIL / SUGGESTION</div>
+        <div class="ui-desc">Donner un conseil avec devoir / pouvoir</div>
+        <div class="ui-ex">Tu devrais parler à un médecin.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — RÊVES &amp; PROJETS DE VIE</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>INFINITIF</th><th>COND. (je)</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CATÉGORIE</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">déménager</td><td class="vcond">déménagerais</td><td class="ven">to move house</td><td class="ves">mudarse</td><td class="vcat">projet</td><td class="vex">Je déménagerais à la campagne.</td></tr>
+          <tr><td class="vfr">postuler (à)</td><td class="vcond">postulerais</td><td class="ven">to apply (for)</td><td class="ves">postularse</td><td class="vcat">carrière</td><td class="vex">Je postulerais à cet emploi.</td></tr>
+          <tr><td class="vfr">investir</td><td class="vcond">investirais</td><td class="ven">to invest</td><td class="ves">invertir</td><td class="vcat">finance</td><td class="vex">Tu investirais dans l'immobilier.</td></tr>
+          <tr><td class="vfr">créer</td><td class="vcond">créerais</td><td class="ven">to create / start</td><td class="ves">crear</td><td class="vcat">projet</td><td class="vex">Elle créerait sa propre entreprise.</td></tr>
+          <tr><td class="vfr">s'installer (à)</td><td class="vcond">m'installerais</td><td class="ven">to settle / set up</td><td class="ves">instalarse</td><td class="vcat">vie</td><td class="vex">Nous nous installerions à l'étranger.</td></tr>
+          <tr><td class="vfr">reprendre</td><td class="vcond">reprendrais</td><td class="ven">to take over / resume</td><td class="ves">retomar</td><td class="vcat">carrière</td><td class="vex">Il reprendrait l'affaire familiale.</td></tr>
+          <tr><td class="vfr">consacrer (à)</td><td class="vcond">consacrerais</td><td class="ven">to devote to</td><td class="ves">dedicar</td><td class="vcat">passion</td><td class="vex">Je consacrerais ma vie à l'art.</td></tr>
+          <tr><td class="vfr">renoncer (à)</td><td class="vcond">renoncerais</td><td class="ven">to give up / renounce</td><td class="ves">renunciar</td><td class="vcat">choix</td><td class="vex">Je ne renoncerais jamais à mes rêves.</td></tr>
+          <tr><td class="vfr">construire</td><td class="vcond">construirais</td><td class="ven">to build</td><td class="ves">construir</td><td class="vcat">projet</td><td class="vex">Nous construirions une maison.</td></tr>
+          <tr><td class="vfr">se lancer (dans)</td><td class="vcond">me lancerais</td><td class="ven">to take the plunge / launch</td><td class="ves">lanzarse</td><td class="vcat">projet</td><td class="vex">Tu te lancerais dans l'entrepreneuriat.</td></tr>
+          <tr><td class="vfr">aspirer (à)</td><td class="vcond">aspirerais</td><td class="ven">to aspire to</td><td class="ves">aspirar a</td><td class="vcat">rêve</td><td class="vex">J'aspirerais à une vie plus simple.</td></tr>
+          <tr><td class="vfr">épanouir (s')</td><td class="vcond">m'épanouirais</td><td class="ven">to flourish / thrive</td><td class="ves">florecer</td><td class="vcat">bien-être</td><td class="vex">Je m'épanouirais dans ce métier.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="regulier"   onclick="setFilter('regulier',this)">RÉGULIERS</button>
+      <button class="filter-pill"        data-f="irregulier" onclick="setFilter('irregulier',this)">IRRÉGULIERS</button>
+      <button class="filter-pill"        data-f="politesse"  onclick="setFilter('politesse',this)">POLITESSE</button>
+      <button class="filter-pill"        data-f="si"         onclick="setFilter('si',this)">SI + IMP → COND.</button>
+      <button class="filter-pill"        data-f="negatif"    onclick="setFilter('negatif',this)">NÉGATIF</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a2" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1 active" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2" onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji"    id="scoreEmoji">🎉</div>
+    <div class="score-title"    id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle">Excellent !</div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+
+const COND_ENDS = { je:'ais', tu:'ais', il:'ait', elle:'ait', on:'ait', nous:'ions', vous:'iez', ils:'aient', elles:'aient' };
+
+const IRR_STEMS = {
+  être:'ser', avoir:'aur', aller:'ir', faire:'fer',
+  pouvoir:'pourr', vouloir:'voudr', venir:'viendr', tenir:'tiendr',
+  savoir:'saur', devoir:'devr', voir:'verr', recevoir:'recevr',
+  envoyer:'enverr', courir:'courr', mourir:'mourr', valoir:'voudr',
+  reprendre:'reprendr', construire:'construir',
+};
+
+// Regular verbs keep infinitive as stem (drop final -e for -re verbs)
+function getCondStem(verb) {
+  if (IRR_STEMS[verb]) return IRR_STEMS[verb];
+  // reflexive
+  const base = verb.replace(/^s[e']\s*/,'').replace(/^se /,'');
+  if (base !== verb) return getCondStem(base);
+  // -re: drop final e
+  if (verb.endsWith('re')) return verb.slice(0,-1);
+  // -er, -ir: keep as is
+  return verb;
+}
+
+function conjugateCOND(verb, pron) {
+  const stem = getCondStem(verb);
+  const end  = COND_ENDS[pron] || 'ait';
+  if (verb.startsWith("s'") || verb.startsWith('se ') || verb.startsWith("s'")) {
+    const rp = reflPron(pron);
+    return `${rp} ${stem}${end}`;
+  }
+  const form = `${stem}${end}`;
+  if (pron === 'je' && /^[aeiouéèàâê]/i.test(form)) return `j'${form}`;
+  return `${PRON[pron]} ${form}`;
+}
+
+function reflPron(pron) {
+  return { je:"me", tu:"te", il:"se", elle:"se", on:"s'", nous:"nous", vous:"vous", ils:"se", elles:"se" }[pron]||'se';
+}
+
+const PRON = { je:'Je', tu:'Tu', il:'Il', elle:'Elle', on:'On', nous:'Nous', vous:'Vous', ils:'Ils', elles:'Elles' };
+const EN_P = { je:'I',  tu:'You',il:'He', elle:'She', on:'One',nous:'We',  vous:'You',  ils:'They',elles:'They' };
+
+// ── Verb pools ──────────────────────────────────────────────────
+
+const REG_VERBS = [
+  'parler','manger','travailler','voyager','étudier','écouter','regarder',
+  'chanter','danser','cuisiner','chercher','inviter','réserver','explorer',
+  'déménager','postuler','créer','consacrer','renoncer','aspirer',
+  'finir','choisir','réussir','grandir','réfléchir','investir',
+  's\'installer','se lancer','s\'épanouir',
+];
+
+const IRR_VERBS = Object.keys(IRR_STEMS);
+
+// verbs used for "si + imparfait" structures
+const SI_VERBS = [
+  'avoir','être','aller','faire','pouvoir','vouloir','savoir','devoir',
+  'venir','voir','parler','travailler','voyager','finir','vivre',
+];
+
+// Imparfait stems for si-clauses
+const IMP_STEMS_SI = {
+  avoir:'av', être:'ét', aller:'all', faire:'fais', pouvoir:'pouv',
+  vouloir:'voul', savoir:'sav', devoir:'dev', venir:'ven', voir:'voy',
+  parler:'parl', travailler:'travaill', voyager:'voyage', finir:'finiss',
+  vivre:'viv',
+};
+const IMP_ENDS = { je:'ais', tu:'ais', il:'ait', elle:'ait', on:'ait', nous:'ions', vous:'iez', ils:'aient', elles:'aient' };
+
+function buildIMP(verb, pron) {
+  const stem = IMP_STEMS_SI[verb] || verb.replace(/er$|ir$/,'');
+  const end  = IMP_ENDS[pron] || 'ait';
+  const f    = `${stem}${end}`;
+  if (pron==='je' && /^[aeiouéèàâê]/i.test(f)) return `j'${f}`;
+  return `${PRON[pron]} ${f}`;
+}
+
+// ── Context strings ──────────────────────────────────────────────
+
+const CTX = {
+  // regular new vocab
+  déménager:    { A2:'à la campagne un jour', B1:'dans une ville plus dynamique', B2:'dans un pays étranger pour vivre une nouvelle aventure' },
+  postuler:     { A2:'à cet emploi', B1:'pour ce poste très convoité', B2:'à ce poste de direction dès que l\'occasion se présenterait' },
+  investir:     { A2:'dans l\'immobilier', B1:'dans des projets durables', B2:'dans des entreprises à fort impact social et environnemental' },
+  créer:        { A2:'ma propre entreprise', B1:'une start-up innovante', B2:'une structure dédiée à l\'économie solidaire' },
+  's\'installer':{ A2:'à l\'étranger', B1:'dans une petite ville calme', B2:'loin de l\'agitation urbaine si j\'en avais la possibilité' },
+  reprendre:    { A2:'mes études', B1:'l\'affaire familiale avec plaisir', B2:'la direction de ce projet abandonné à mi-chemin' },
+  consacrer:    { A2:'ma vie à la musique', B1:'plus de temps à mes proches', B2:'davantage d\'énergie à ce qui me tient vraiment à cœur' },
+  renoncer:     { A2:'jamais à mes rêves', B1:'à ce confort pour vivre autrement', B2:'à cette carrière prometteuse pour suivre ma passion' },
+  construire:   { A2:'une maison', B1:'une maison écologique', B2:'un espace de vie en accord avec mes valeurs' },
+  'se lancer':  { A2:'dans l\'entrepreneuriat', B1:'dans ce projet ambitieux', B2:'dans cette aventure incertaine mais exaltante' },
+  aspirer:      { A2:'à une vie plus simple', B1:'à plus d\'équilibre dans ma vie', B2:'à une existence plus authentique et moins consumériste' },
+  's\'épanouir':{ A2:'dans ce métier', B1:'dans un environnement bienveillant', B2:'pleinement dans un travail porteur de sens' },
+  // common verbs
+  parler:       { A2:'plusieurs langues couramment', B1:'avec plus d\'assurance en public', B2:'de mes projets sans retenue avec confiance' },
+  manger:       { A2:'plus sainement', B1:'mieux si j\'avais plus de temps', B2:'local et de saison pour réduire mon empreinte carbone' },
+  travailler:   { A2:'dans un café à Paris', B1:'dans le secteur de l\'éducation', B2:'pour une organisation internationale qui partage mes valeurs' },
+  voyager:      { A2:'autour du monde', B1:'en Asie pendant un an', B2:'à travers tous les continents sans contrainte de temps' },
+  étudier:      { A2:'la médecine', B1:'l\'architecture à l\'étranger', B2:'les relations internationales dans une grande université' },
+  chanter:      { A2:'sur scène', B1:'dans un groupe de musique', B2:'devant un grand public un jour' },
+  finir:        { A2:'ce projet', B1:'mes études plus tôt', B2:'cette thèse avant la fin de l\'année' },
+  choisir:      { A2:'une autre carrière', B1:'un mode de vie plus serein', B2:'une voie professionnelle plus alignée avec mes valeurs' },
+  réussir:      { A2:'cet examen', B1:'à changer les choses', B2:'à concilier vie professionnelle et personnelle' },
+  // irregular
+  être:         { A2:'très heureux/heureuse', B1:'plus épanoui(e) dans ce travail', B2:'davantage à l\'écoute de mes propres besoins' },
+  avoir:        { A2:'plus de temps libre', B1:'l\'opportunité de voyager', B2:'les moyens de réaliser tous mes projets' },
+  aller:        { A2:'vivre à la mer', B1:'travailler à l\'étranger', B2:'au bout de mes ambitions sans me laisser décourager' },
+  faire:        { A2:'le tour du monde', B1:'un métier qui me passionne', B2:'de chaque obstacle une occasion de me dépasser' },
+  pouvoir:      { A2:'partir en vacances quand je veux', B1:'changer de carrière', B2:'consacrer davantage de temps à ce qui compte vraiment' },
+  vouloir:      { A2:'vivre différemment', B1:'tout laisser tomber pour voyager', B2:'transformer radicalement mon rapport au travail' },
+  savoir:       { A2:'ce que je veux vraiment', B1:'comment aborder ce problème', B2:'exactement comment réaliser ce projet ambitieux' },
+  devoir:       { A2:'faire plus d\'effort', B1:'reconsidérer mes priorités', B2:'assumer pleinement mes responsabilités pour avancer' },
+  venir:        { A2:'te voir plus souvent', B1:'t\'aider si tu avais besoin', B2:'te soutenir dans n\'importe quelle situation' },
+  voir:         { A2:'le monde différemment', B1:'les choses sous un autre angle', B2:'dans quelle direction orienter ma carrière' },
+};
+
+const EN_CTX = {
+  déménager:    { A2:'to the countryside one day', B1:'to a more dynamic city', B2:'abroad for a new adventure' },
+  postuler:     { A2:'for this job', B1:'for this highly sought-after position', B2:'for this management role when the opportunity arose' },
+  investir:     { A2:'in property', B1:'in sustainable projects', B2:'in companies with strong social and environmental impact' },
+  créer:        { A2:'my own business', B1:'an innovative start-up', B2:'a structure dedicated to the solidarity economy' },
+  's\'installer':{ A2:'abroad', B1:'in a quiet small town', B2:'away from urban hustle if I had the chance' },
+  reprendre:    { A2:'my studies', B1:'the family business with pleasure', B2:'the direction of this project abandoned halfway' },
+  consacrer:    { A2:'my life to music', B1:'more time to my loved ones', B2:'more energy to what truly matters to me' },
+  renoncer:     { A2:'never to my dreams', B1:'this comfort to live differently', B2:'a promising career to follow my passion' },
+  construire:   { A2:'a house', B1:'an eco-friendly house', B2:'a living space in line with my values' },
+  'se lancer':  { A2:'into entrepreneurship', B1:'into this ambitious project', B2:'into this uncertain but thrilling adventure' },
+  aspirer:      { A2:'to a simpler life', B1:'to more balance in my life', B2:'to a more authentic and less consumerist existence' },
+  's\'épanouir':{ A2:'in this job', B1:'in a supportive environment', B2:'fully in meaningful work' },
+  parler:       { A2:'several languages fluently', B1:'with more confidence in public', B2:'about my projects without hesitation' },
+  travailler:   { A2:'in a café in Paris', B1:'in the education sector', B2:'for an international organisation sharing my values' },
+  voyager:      { A2:'around the world', B1:'in Asia for a year', B2:'across all continents without time constraints' },
+  être:         { A2:'very happy', B1:'more fulfilled in this work', B2:'more attuned to my own needs' },
+  avoir:        { A2:'more free time', B1:'the opportunity to travel', B2:'the means to realise all my projects' },
+  aller:        { A2:'live by the sea', B1:'work abroad', B2:'pursue all my ambitions without letting myself be discouraged' },
+  faire:        { A2:'a world tour', B1:'a job I am passionate about', B2:'every obstacle an opportunity to surpass myself' },
+  pouvoir:      { A2:'go on holiday when I want', B1:'change career', B2:'devote more time to what truly matters' },
+  vouloir:      { A2:'live differently', B1:'drop everything and travel', B2:'radically transform my relationship with work' },
+  savoir:       { A2:'what I really want', B1:'how to approach this problem', B2:'exactly how to realise this ambitious project' },
+  devoir:       { A2:'make more effort', B1:'reconsider my priorities', B2:'fully assume my responsibilities to move forward' },
+  venir:        { A2:'to see you more often', B1:'to help you if you needed', B2:'to support you in any situation' },
+  voir:         { A2:'the world differently', B1:'things from another angle', B2:'which direction to take my career' },
+  finir:        { A2:'this project', B1:'my studies earlier', B2:'this thesis before the end of the year' },
+};
+
+// Politesse prompts
+const POLITESSE_CTX = {
+  vouloir:  { A2:'un café, s\'il vous plaît', B1:'vous parler d\'un projet important', B2:'vous soumettre une proposition de collaboration' },
+  pouvoir:  { A2:'ouvrir la fenêtre ?', B1:'m\'expliquer comment ça fonctionne ?', B2:'me donner votre avis sur ce dossier ?' },
+  avoir:    { A2:'l\'heure, s\'il vous plaît ?', B1:'un moment pour discuter ?', B2:'l\'amabilité de me recevoir cette semaine ?' },
+  aimer:    { A2:'réserver une table', B1:'prendre un rendez-vous', B2:'vous présenter notre nouvelle offre de services' },
+  devoir:   { A2:'partir maintenant, malheureusement', B1:'reporter ce rendez-vous si possible', B2:'vous informer d\'un changement important' },
+};
+
+// Si-clause structures
+const SI_STRUCTURES = [
+  { si_verb:'avoir', si_pron:'je',   cond_verb:'voyager', cond_pron:'je',
+    A2:'plus de temps, je {COND} autour du monde.',
+    B1:'l\'opportunité, je {COND} pendant un an en Asie.',
+    B2:'les ressources nécessaires, je {COND} sans hésiter à travers tous les continents.' },
+  { si_verb:'être',  si_pron:'je',   cond_verb:'créer',   cond_pron:'je',
+    A2:'plus courageux/courageuse, je {COND} ma propre entreprise.',
+    B1:'plus confiant(e), je {COND} enfin ma start-up.',
+    B2:'moins prudent(e), je {COND} immédiatement cette structure dont je rêve.' },
+  { si_verb:'pouvoir',si_pron:'je',  cond_verb:'déménager',cond_pron:'je',
+    A2:'choisir, je {COND} au bord de la mer.',
+    B1:'choisir librement, je {COND} dans une ville plus verte.',
+    B2:'décider seul(e), je {COND} sans hésitation dans un village tranquille.' },
+  { si_verb:'avoir', si_pron:'nous', cond_verb:'construire',cond_pron:'nous',
+    A2:'assez d\'argent, nous {COND} une maison.',
+    B1:'les fonds nécessaires, nous {COND} une maison écologique.',
+    B2:'le financement adéquat, nous {COND} un habitat collectif durable.' },
+  { si_verb:'faire', si_pron:'il',   cond_verb:'aller',   cond_pron:'il',
+    A2:'beau, il {COND} à la plage.',
+    B1:'beau demain, il {COND} faire une randonnée.',
+    B2:'moins froid, il {COND} volontiers courir en plein air.' },
+  { si_verb:'vouloir',si_pron:'tu',  cond_verb:'réussir', cond_pron:'tu',
+    A2:'vraiment, tu {COND}.',
+    B1:'vraiment changer, tu {COND} à transformer ta vie.',
+    B2:'vraiment t\'investir, tu {COND} à dépasser tous ces obstacles.' },
+  { si_verb:'être',  si_pron:'ils',  cond_verb:'s\'installer',cond_pron:'ils',
+    A2:'libres, ils {COND} à l\'étranger.',
+    B1:'prêts, ils {COND} dans un nouveau pays.',
+    B2:'moins ancrés ici, ils {COND} dans un pays aux opportunités plus larges.' },
+  { si_verb:'savoir',si_pron:'elle', cond_verb:'postuler',cond_pron:'elle',
+    A2:'cela, elle {COND} tout de suite.',
+    B1:'que ce poste était disponible, elle {COND} immédiatement.',
+    B2:'que cette opportunité existait, elle {COND} sans attendre une seconde.' },
+];
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel = 'B1';
+let exFilter     = 'tous';
+let exercises    = [];
+let answered     = 0;
+let correct      = 0;
+
+function setLevel(lv, btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f, btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx = currentLevel==='A2'?8:currentLevel==='B1'?10:12;
+  const pronouns=['je','tu','il','elle','nous','vous','ils','elles'];
+
+  let typePool;
+  if     (exFilter==='regulier')   typePool=['input','mcq'];
+  else if(exFilter==='irregulier') typePool=['input','mcq','traduction'];
+  else if(exFilter==='politesse')  typePool=['politesse'];
+  else if(exFilter==='si')         typePool=['si'];
+  else if(exFilter==='negatif')    typePool=['negatif'];
+  else if(exFilter==='traduction') typePool=['traduction'];
+  else typePool=['input','mcq','si','politesse','traduction','input','negatif'];
+
+  // verb pool
+  let verbPool;
+  if(exFilter==='irregulier') verbPool=IRR_VERBS.filter(v=>CTX[v]);
+  else if(exFilter==='regulier') verbPool=[...REG_VERBS].filter(v=>CTX[v]);
+  else verbPool=[...REG_VERBS,...IRR_VERBS].filter(v=>CTX[v]);
+
+  const types=[];
+  for(let i=0;i<numEx;i++) types.push(typePool[i%typePool.length]);
+  shuffle(types);
+
+  const used=new Set();
+  let ti=0;
+  for(const type of types){
+    const idx=ti;
+    if(type==='si'){
+      const s=shuffle([...SI_STRUCTURES])[0];
+      renderSi(container,idx,s); ti++;
+    } else if(type==='politesse'){
+      const v=shuffle(Object.keys(POLITESSE_CTX))[0];
+      const p=shuffle(pronouns)[0];
+      renderPolitesse(container,idx,v,p); ti++;
+    } else {
+      let tries=0, verb, pron;
+      do{ verb=verbPool[Math.floor(Math.random()*verbPool.length)];
+          pron=pronouns[Math.floor(Math.random()*pronouns.length)];
+          tries++;
+      } while(used.has(verb+pron) && tries<40);
+      used.add(verb+pron);
+      const isIrr=!!IRR_STEMS[verb];
+      if     (type==='mcq')        renderMCQ(container,idx,verb,pron,isIrr);
+      else if(type==='negatif')    renderNegatif(container,idx,verb,pron,isIrr);
+      else if(type==='traduction') renderTraduction(container,idx,verb,pron,isIrr);
+      else                         renderInput(container,idx,verb,pron,isIrr);
+      ti++;
+    }
+  }
+  updateProgress();
+}
+
+// ================================================================
+// HELPERS
+// ================================================================
+function esc(s){ return (s||'').replace(/'/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c').replace(/\s+/g,' ');
+}
+function getCtx(v,lv){ const c=CTX[v]; return (c&&c[lv])||(c&&c['B1'])||(c&&c['A2'])||''; }
+function getEnCtx(v,lv){ const c=EN_CTX[v]; return (c&&c[lv])||(c&&c['B1'])||(c&&c['A2'])||v; }
+
+function stemBadge(verb, pron, isIrr){
+  if(!isIrr && currentLevel==='A2') return '';
+  const stem=getCondStem(verb);
+  const end=COND_ENDS[pron]||'ait';
+  return `<div class="stem-badge"><span class="sb-label">STEM</span><span class="sb-stem">${stem}</span><span style="color:var(--text3);padding:0 4px">+</span><span class="sb-end">-${end}</span></div>`;
+}
+
+function usageTagCard(verb){
+  const map={vouloir:'politesse',pouvoir:'politesse',aimer:'souhait',devoir:'conseil',
+    être:'souhait',avoir:'souhait',aller:'souhait',faire:'souhait'};
+  const u=map[verb];
+  return u?`<div class="usage-tag-card">usage : ${u}</div>`:'';
+}
+
+function wrongForms(verb, pron, correct){
+  const pool=new Set();
+  for(const p of ['je','tu','il','nous','vous','ils']){
+    const f=conjugateCOND(verb,p); if(f!==correct) pool.add(f);
+  }
+  const others=shuffle(Object.keys(IRR_STEMS).filter(v=>v!==verb)).slice(0,4);
+  for(const v of others) pool.add(conjugateCOND(v,pron));
+  return shuffle([...pool].filter(f=>f!==correct)).slice(0,3);
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+
+function renderInput(container, idx, verb, pron, isIrr){
+  const answer=conjugateCOND(verb,pron);
+  const ctx=getCtx(verb,currentLevel);
+  const sub=PRON[pron];
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card${isIrr?' irr-card':''}`;card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type ${isIrr?'irr-tag':'cond'}">${isIrr?'IRR.':'CONDITIONNEL'}</span></div>
+    ${stemBadge(verb,pron,isIrr)}${usageTagCard(verb)}
+    <div class="hint-text">CONJUGUEZ « ${verb.toUpperCase()} » AU CONDITIONNEL PRÉSENT</div>
+    <div class="sentence-display">
+      <span class="blank-wrapper"><input class="answer-input inline" id="input-${idx}"
+        placeholder="..." style="width:200px" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"></span> ${ctx}.
+    </div>
+    <div class="hint-text" style="margin-top:2px">Sujet : <strong>${sub}</strong></div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderMCQ(container, idx, verb, pron, isIrr){
+  const answer=conjugateCOND(verb,pron);
+  const ctx=getCtx(verb,currentLevel);
+  const sub=PRON[pron];
+  const choices=shuffle([answer,...wrongForms(verb,pron,answer)]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`).join('');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card${isIrr?' irr-card':''}`;card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type choix">CHOIX MULTIPLE</span></div>
+    ${stemBadge(verb,pron,isIrr)}
+    <div class="hint-text">QUELLE FORME DU CONDITIONNEL DE « ${verb.toUpperCase()} » POUR « ${sub.toUpperCase()} » ?</div>
+    <div class="sentence-display">${sub} ___ ${ctx}.</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderNegatif(container, idx, verb, pron, isIrr){
+  const form=conjugateCOND(verb,pron);
+  const ctx=getCtx(verb,currentLevel);
+  const isRefl=verb.startsWith("s'")||verb.startsWith('se ');
+  let neg;
+  if(isRefl){
+    // ne [refl] [stem+end] pas  — already in form
+    neg=`ne ${form} pas`;
+  } else {
+    const raw=`${getCondStem(verb)}${COND_ENDS[pron]||'ait'}`;
+    const ne=/^[aeiouéèàâê]/i.test(raw)?"n'":"ne ";
+    neg=`${ne}${raw} pas`;
+  }
+  exercises.push({id:idx,answer:normalise(neg),answered:false,correct:false});
+  const sub=PRON[pron];
+  const card=document.createElement('div');
+  card.className=`exercise-card${isIrr?' irr-card':''}`;card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type negatif">CONDITIONNEL NÉGATIF</span></div>
+    <div class="hint-text">NE/N' + CONDITIONNEL + PAS — « ${verb.toUpperCase()} »</div>
+    <div class="sentence-display">
+      ${sub} <input class="answer-input" id="input-${idx}"
+        placeholder="ne voudrais pas..." style="width:260px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(neg)}')"> ${ctx}.
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(neg)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderPolitesse(container, idx, verb, pron){
+  const answer=conjugateCOND(verb,pron);
+  const ctxObj=POLITESSE_CTX[verb]||{};
+  const ctx=(ctxObj[currentLevel]||ctxObj['B1']||ctxObj['A2']||'');
+  const sub=PRON[pron];
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card';card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type politesse">FORMULE DE POLITESSE</span></div>
+    ${stemBadge(verb,pron,!!IRR_STEMS[verb])}
+    <div class="hint-text">TRANSFORMEZ EN FORMULE POLIE — « ${verb.toUpperCase()} » AU CONDITIONNEL</div>
+    <div class="sentence-display">
+      <span style="color:var(--text3);font-size:15px;font-style:italic">→ poli :</span><br>
+      ${sub} <input class="answer-input inline" id="input-${idx}"
+        style="width:200px" placeholder="voudrais..." autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"> ${ctx}
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderSi(container, idx, s){
+  const lv=currentLevel;
+  const tmpl=s[lv]||s['B1']||s['A2']||'';
+  const cond_answer_raw=`${getCondStem(s.cond_verb)}${COND_ENDS[s.cond_pron]||'ait'}`;
+  const cond_answer=conjugateCOND(s.cond_verb,s.cond_pron);
+
+  const imp_form=buildIMP(s.si_verb,s.si_pron);
+
+  // The blank is {COND}
+  const sentFront = tmpl.split('{COND}')[0];
+  const sentBack  = tmpl.split('{COND}')[1]||'';
+
+  exercises.push({id:idx,answer:normalise(cond_answer_raw),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card si-card';card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type si-tag">SI + IMPARFAIT → CONDITIONNEL</span></div>
+    <div class="si-badge">
+      <span class="si-label">STRUCTURE</span>
+      <span class="si-rule">si + <span class="imp">imparfait</span> → <span class="cond">conditionnel</span></span>
+    </div>
+    <div class="hint-text">CONJUGUEZ « ${s.cond_verb.toUpperCase()} » AU CONDITIONNEL — SI + IMPARFAIT</div>
+    <div class="sentence-display">
+      <span style="color:var(--text3)">Si </span><span class="imp-hl">${imp_form}</span>
+      ${sentFront ? ', '+sentFront : ','} <input class="answer-input inline" id="input-${idx}"
+        style="width:220px" placeholder="conditionnel..." autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(cond_answer_raw)}')">${sentBack}
+    </div>
+    <div class="hint-text" style="margin-top:4px">
+      <span style="color:#c4b5fd">si + <em>${imp_form}</em></span> → conditionnel de « ${s.cond_verb} »
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(cond_answer_raw)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderTraduction(container, idx, verb, pron, isIrr){
+  const answer=conjugateCOND(verb,pron);
+  const ctx=getEnCtx(verb,currentLevel);
+  const ep=EN_P[pron]||'I';
+  const sub=PRON[pron];
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card${isIrr?' irr-card':''}`;card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type trad">TRADUCTION</span></div>
+    ${stemBadge(verb,pron,isIrr)}
+    <div class="hint-text">TRADUISEZ — CONDITIONNEL DE « ${verb.toUpperCase()} »</div>
+    <div class="sentence-display" style="color:var(--grn2)">${ep} would ${verb.replace(/^s[e']\s*/,'')} — <em>${ctx}</em></div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--text2)">${sub}</span>
+      <input class="answer-input" id="input-${idx}" placeholder="conditionnel..." style="width:250px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK
+// ================================================================
+function checkInput(idx,answer){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const val=input.value.trim();
+  // also accept bare stem+end without subject
+  const bare=normalise(val);
+  const isOk=bare===normalise(answer)||bare===normalise(answer.replace(/^(je|j'|tu|il|elle|on|nous|vous|ils|elles)\s+/i,''));
+  input.disabled=true;input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer);
+  markAnswered(idx,isOk);
+}
+
+function checkMCQ(idx,chosen,answer,btn){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled');btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer);markAnswered(idx,isOk);
+}
+
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`);
+  if(!fb) return;
+  const bravos=['Parfait !','Excellent !','Très bien !','Bravo !','Super !','C\'est ça !'];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  ex.answered=true;ex.correct=isOk;
+  answered++;if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+
+function updateProgress(){
+  const total=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${total}`;
+  document.getElementById('progressFill').style.width=total>0?(answered/total*100)+'%':'0%';
+}
+
+function showScore(){
+  const total=exercises.length;
+  const pct=total>0?Math.round(correct/total*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=total-correct;
+  document.getElementById('totalCount').textContent=total;
+  let emoji,title,sub;
+  if     (pct>=90){emoji='🏆';title='PARFAIT !';   sub='Vous maîtrisez le conditionnel présent !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';     sub='Très bien — les structures si + imparfait vous connaissent !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';      sub='Bon effort — révisez les stems irréguliers : ser-, aur-, ir-...';}
+  else            {emoji='📚';title='CONTINUEZ !'; sub='Rappel : stem futur simple + terminaisons imparfait (-ais,-ais,-ait...)';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+
+function resetAll(clear=true){
+  exercises=[];answered=0;correct=0;
+  if(clear){document.getElementById('exercisesContainer').innerHTML='';updateProgress();}
+}
+
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

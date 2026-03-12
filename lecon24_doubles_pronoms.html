@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 24 — Les Doubles Pronoms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440; --border:#1e2d4a;
+    --violet:#b44fff; --rose:#fb7185; --gold:#ffd166; --red:#ff4757; --cyan:#00f5ff;
+    --tl:#14b8a6; --tl2:#2dd4bf; --tl3:#ccfbf1;
+    --accent:#14b8a6;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(20,184,166,0.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(20,184,166,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-230px; right:-180px; background:rgba(20,184,166,0.09); }
+  .h2{ width:560px; height:560px; bottom:-190px; left:-150px; background:rgba(180,79,255,0.06); }
+  .h3{ width:260px; height:260px; top:48%; left:22%; background:rgba(255,209,102,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:78vh; top:10vh; left:12%; background:linear-gradient(to bottom,transparent,var(--tl),transparent); transform:rotate(-9deg); }
+  .al2{ width:1px; height:58vh; top:22vh; right:11%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(10deg); }
+
+  .bg-mark{ position:fixed; right:-44px; bottom:6%; opacity:0.022; font-family:'Bebas Neue',sans-serif;
+    font-size:190px; color:var(--tl); transform:rotate(8deg); pointer-events:none; z-index:0; line-height:0.82; }
+
+  .wrapper{ position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--tl2);
+    border:1px solid rgba(20,184,166,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(20,184,166,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--tl2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(42px,7vw,84px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--tl2) 44%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── ORDER TABLE ── */
+  .order-section{ margin-bottom:24px; }
+  .order-table-wrap{ background:linear-gradient(135deg,rgba(20,184,166,0.07),rgba(180,79,255,0.04));
+    border:1px solid rgba(20,184,166,0.22); border-radius:14px; padding:20px 24px; overflow-x:auto; }
+
+  .order-chain{ display:flex; align-items:center; gap:0; flex-wrap:nowrap; justify-content:center; margin-bottom:18px; }
+  .oc-slot{ text-align:center; padding:10px 12px; min-width:74px; border-radius:0; position:relative; }
+  .oc-slot:first-child{ border-radius:9px 0 0 9px; }
+  .oc-slot:last-child{ border-radius:0 9px 9px 0; }
+  .oc-slot.sub { background:rgba(255,255,255,0.04); border:1px solid var(--border); }
+  .oc-slot.me  { background:rgba(20,184,166,0.1);   border:1px solid rgba(20,184,166,0.3); }
+  .oc-slot.le  { background:rgba(0,245,255,0.08);   border:1px solid rgba(0,245,255,0.25); }
+  .oc-slot.lui { background:rgba(180,79,255,0.1);   border:1px solid rgba(180,79,255,0.3); }
+  .oc-slot.y   { background:rgba(255,209,102,0.08); border:1px solid rgba(255,209,102,0.25); }
+  .oc-slot.en  { background:rgba(251,113,133,0.08); border:1px solid rgba(251,113,133,0.25); }
+  .oc-slot.vb  { background:rgba(6,214,160,0.06);   border:1px solid rgba(6,214,160,0.2); }
+  .oc-arr{ font-size:14px; color:var(--text3); padding:0 4px; flex-shrink:0; }
+  .oc-label{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; color:var(--text3); margin-bottom:3px; }
+  .oc-prons{ font-family:'DM Serif Display',serif; font-size:15px; line-height:1.3; }
+  .oc-prons.sub{ color:var(--text2); }
+  .oc-prons.me { color:var(--tl2); }
+  .oc-prons.le { color:var(--cyan); }
+  .oc-prons.lui{ color:#d8a8ff; }
+  .oc-prons.y  { color:var(--gold); }
+  .oc-prons.en { color:var(--rose); }
+  .oc-prons.vb { color:#4ade80; }
+
+  .order-note{ font-size:12px; color:var(--text2); line-height:1.8; }
+  .order-note .hl-tl{ color:var(--tl2); font-family:'DM Serif Display',serif; }
+  .order-note .hl-vl{ color:#d8a8ff; font-family:'DM Serif Display',serif; }
+  .order-note .hl-yl{ color:var(--gold); font-family:'DM Serif Display',serif; }
+
+  /* ── EXAMPLE GRID ── */
+  .ex-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+  @media(max-width:560px){ .ex-grid{ grid-template-columns:1fr; } }
+  .ex-cell{ background:var(--bg2); border:1px solid var(--border); border-radius:9px; padding:10px 14px; }
+  .ex-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); margin-bottom:5px; }
+  .ex-fr{ font-family:'DM Serif Display',serif; font-size:15px; line-height:1.65; }
+  .ex-fr .hl-cod{ color:var(--cyan); }
+  .ex-fr .hl-coi{ color:#d8a8ff; }
+  .ex-fr .hl-y  { color:var(--gold); }
+  .ex-fr .hl-en { color:var(--rose); }
+  .ex-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── IMPERATIF CARD ── */
+  .imper-section{ margin-bottom:22px; }
+  .imper-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media(max-width:560px){ .imper-grid{ grid-template-columns:1fr; } }
+  .imper-cell{ background:var(--card); border:1px solid var(--border); border-radius:11px; overflow:hidden; }
+  .imper-head{ padding:10px 16px; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; border-bottom:1px solid var(--border); }
+  .imper-head.aff{ color:var(--tl2);  background:rgba(20,184,166,0.05); }
+  .imper-head.neg{ color:var(--red);  background:rgba(255,71,87,0.05); }
+  .imper-body{ padding:12px 16px; font-size:13px; color:var(--text2); line-height:1.8; }
+  .imper-body .hl{ color:var(--tl2); font-family:'DM Serif Display',serif; font-size:15px; }
+  .imper-body .hl-r{ color:var(--red); font-family:'DM Serif Display',serif; font-size:15px; }
+  .imper-rule{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); margin-bottom:6px; }
+  .imper-ex{ font-family:'DM Serif Display',serif; font-size:14px; color:var(--text); line-height:1.7; }
+  .imper-note{ font-size:11px; color:var(--text3); font-style:italic; margin-top:4px; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--tl2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:880px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(20,184,166,0.02); }
+  .vfr{ font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vdp{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--tl2); }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--tl); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(20,184,166,0.4); background:rgba(20,184,166,0.07); color:var(--tl2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(20,184,166,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.12),transparent); }
+  .level-pill.c1::before{ background:linear-gradient(135deg,rgba(255,209,102,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.b1.active{ border-color:var(--tl);    color:var(--tl2); }
+  .level-pill.b2.active{ border-color:var(--violet); color:#d8a8ff; }
+  .level-pill.c1.active{ border-color:var(--gold);   color:var(--gold); }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--tl2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--tl),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(20,184,166,0.14),rgba(180,79,255,0.09));
+    border:1px solid rgba(20,184,166,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(20,184,166,0.26),rgba(180,79,255,0.18));
+    border-color:var(--tl2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(20,184,166,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--tl2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.imp-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card.neg-card::before{ background:linear-gradient(90deg,transparent,var(--red),transparent); }
+  .exercise-card.ord-card::before{ background:linear-gradient(90deg,transparent,#d8a8ff,transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card     { border-color:rgba(20,184,166,0.22); transform:translateY(-1px); }
+  .exercise-card.imp-card.active-card{ border-color:rgba(255,209,102,0.22); }
+  .exercise-card.neg-card.active-card{ border-color:rgba(255,71,87,0.22); }
+  .exercise-card.ord-card.active-card{ border-color:rgba(180,79,255,0.22); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* double pron badge */
+  .dp-badge{ display:inline-flex; align-items:center; gap:6px; border-radius:6px; padding:5px 14px; margin-bottom:9px; }
+  .dp-badge.cod-coi{ background:rgba(20,184,166,0.07); border:1px solid rgba(20,184,166,0.25); }
+  .dp-badge.coi-cod{ background:rgba(180,79,255,0.07); border:1px solid rgba(180,79,255,0.25); }
+  .dp-badge.y-en  { background:rgba(255,209,102,0.07); border:1px solid rgba(255,209,102,0.25); }
+  .dp-p1{ font-family:'Bebas Neue',sans-serif; font-size:22px; line-height:1; }
+  .dp-arr{ font-size:13px; color:var(--text3); }
+  .dp-p2{ font-family:'Bebas Neue',sans-serif; font-size:22px; line-height:1; }
+  .dp-p1.tl{ color:var(--tl2); } .dp-p1.vl{ color:#d8a8ff; } .dp-p1.yl{ color:var(--gold); }
+  .dp-p2.tl{ color:var(--tl2); } .dp-p2.vl{ color:#d8a8ff; } .dp-p2.yl{ color:var(--gold); }
+  .dp-p2.ro{ color:var(--rose); }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.dp  { color:var(--tl2); border:1px solid rgba(20,184,166,0.28);  background:rgba(20,184,166,0.05); }
+  .card-type.ord { color:#d8a8ff;    border:1px solid rgba(180,79,255,0.28);  background:rgba(180,79,255,0.05); }
+  .card-type.imp { color:var(--gold);border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.neg { color:var(--red); border:1px solid rgba(255,71,87,0.28);   background:rgba(255,71,87,0.05); }
+  .card-type.trad{ color:var(--rose);border:1px solid rgba(251,113,133,0.28); background:rgba(251,113,133,0.05); }
+  .card-type.mcq { color:var(--tl3); border:1px solid rgba(204,251,241,0.22); background:rgba(204,251,241,0.04); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(15px,2.5vw,20px); line-height:1.9; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:17px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--tl2); box-shadow:0 0 0 2px rgba(20,184,166,0.1); }
+  .answer-input.correct  { border-color:#4ade80; color:#4ade80; box-shadow:0 0 0 2px rgba(74,222,128,0.1); }
+  .answer-input.incorrect{ border-color:var(--red); color:var(--red); box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--tl2); color:var(--text); background:rgba(20,184,166,0.04); }
+  .choice-btn.selected-correct{ border-color:#4ade80; color:#4ade80; background:rgba(74,222,128,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red); color:var(--red); background:rgba(255,71,87,0.08); cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:#4ade80; color:#4ade80; opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(74,222,128,0.08);  border:1px solid rgba(74,222,128,0.2);  color:#4ade80; }
+  .feedback.error  { background:rgba(255,71,87,0.08);   border:1px solid rgba(255,71,87,0.2);   color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(20,184,166,0.4);
+    background:rgba(20,184,166,0.06); color:var(--tl2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(20,184,166,0.16); border-color:var(--tl2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(20,184,166,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(20,184,166,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--tl2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:#4ade80; } .score-stat-num.bad{ color:var(--red); } .score-stat-num.neu{ color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(20,184,166,0.4);
+    background:rgba(20,184,166,0.08); color:var(--tl2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(20,184,166,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .order-chain{ gap:2px; }
+    .oc-slot{ min-width:52px; padding:8px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">LE<br>LUI<br>DONNE<br>Y EN</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 24 · FRANÇAIS</div>
+    <h1>Les Doubles<br>Pronoms</h1>
+    <p class="subtitle">Je <span style="color:var(--tl2)">le lui</span> donne · Elle <span style="color:var(--tl2)">me l'</span>a dit · Dis-<span style="color:var(--tl2)">le-lui</span> !</p>
+    <p class="subtitle2">ORDRE CANONIQUE · ME/TE/NOUS/VOUS + LE/LA/LES · LUI/LEUR · Y · EN · IMPÉRATIF · B1 → C1</p>
+  </header>
+
+  <!-- ORDER TABLE -->
+  <div class="order-section">
+    <div class="section-title">✦ L'ORDRE CANONIQUE DES PRONOMS — AVANT LE VERBE</div>
+    <div class="order-table-wrap">
+
+      <div class="order-chain">
+        <div class="oc-slot sub">
+          <div class="oc-label">SUJET</div>
+          <div class="oc-prons sub">je/tu<br>il/elle…</div>
+        </div>
+        <div class="oc-arr">›</div>
+        <div class="oc-slot me">
+          <div class="oc-label">POSITION 1</div>
+          <div class="oc-prons me">me/m'<br>te/t'<br>nous<br>vous<br>se/s'</div>
+        </div>
+        <div class="oc-arr">›</div>
+        <div class="oc-slot le">
+          <div class="oc-label">POSITION 2</div>
+          <div class="oc-prons le">le/l'<br>la/l'<br>les</div>
+        </div>
+        <div class="oc-arr">›</div>
+        <div class="oc-slot lui">
+          <div class="oc-label">POSITION 3</div>
+          <div class="oc-prons lui">lui<br>leur</div>
+        </div>
+        <div class="oc-arr">›</div>
+        <div class="oc-slot y">
+          <div class="oc-label">POSITION 4</div>
+          <div class="oc-prons y">y</div>
+        </div>
+        <div class="oc-arr">›</div>
+        <div class="oc-slot en">
+          <div class="oc-label">POSITION 5</div>
+          <div class="oc-prons en">en</div>
+        </div>
+        <div class="oc-arr">›</div>
+        <div class="oc-slot vb">
+          <div class="oc-label">VERBE</div>
+          <div class="oc-prons vb">donne<br>a donné<br>donnera…</div>
+        </div>
+      </div>
+
+      <div class="order-note">
+        <strong style="color:var(--tl2)">Règle clé :</strong> on ne peut combiner que deux pronoms à la fois.
+        <span class="hl-tl">me/te/nous/vous</span> (pos. 1) précèdent toujours <span class="hl-tl">le/la/les</span> (pos. 2) — ex : <em>Il me le donne.</em><br>
+        <span class="hl-tl">le/la/les</span> (pos. 2) précèdent <span class="hl-vl">lui/leur</span> (pos. 3) — ex : <em>Je le lui explique.</em>
+        <span class="hl-yl"> · Y</span> et <span style="color:var(--rose)">EN</span> toujours en dernière position.
+      </div>
+
+      <!-- Example grid -->
+      <div class="ex-grid">
+        <div class="ex-cell">
+          <div class="ex-label">ME + LE/LA/LES (pos.1 + pos.2)</div>
+          <div class="ex-fr">Il me le prête. <span style="color:var(--text3);font-size:13px">(livre)</span><br>
+          Elle me l'a expliqué. <span style="color:var(--text3);font-size:13px">(l' = le)</span></div>
+          <div class="ex-en">He lends it to me. · She explained it to me.</div>
+        </div>
+        <div class="ex-cell">
+          <div class="ex-label">LE/LA/LES + LUI/LEUR (pos.2 + pos.3)</div>
+          <div class="ex-fr">Je <span class="hl-cod">le</span> <span class="hl-coi">lui</span> donne.<br>
+          Tu <span class="hl-cod">les</span> <span class="hl-coi">leur</span> as envoyés.</div>
+          <div class="ex-en">I give it to him/her. · You sent them to them.</div>
+        </div>
+        <div class="ex-cell">
+          <div class="ex-label">LE/LA/LES + Y (pos.2 + pos.4)</div>
+          <div class="ex-fr">Il <span class="hl-cod">l'</span><span class="hl-y">y</span> a trouvé.<br>
+          Je <span class="hl-cod">les</span> <span class="hl-y">y</span> ai mis.</div>
+          <div class="ex-en">He found it there. · I put them there.</div>
+        </div>
+        <div class="ex-cell">
+          <div class="ex-label">EN + NOMBRE (pos.5)</div>
+          <div class="ex-fr">Il m'<span class="hl-en">en</span> a donné deux.<br>
+          Elle lui <span class="hl-en">en</span> a parlé.</div>
+          <div class="ex-en">He gave me two (of them). · She talked to him about it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPERATIF SECTION -->
+  <div class="imper-section">
+    <div class="section-title">✦ CAS PARTICULIER — L'IMPÉRATIF</div>
+    <div class="imper-grid">
+      <div class="imper-cell">
+        <div class="imper-head aff">IMPÉRATIF AFFIRMATIF → PRONOMS APRÈS LE VERBE (trait d'union)</div>
+        <div class="imper-body">
+          <div class="imper-rule">ORDRE : VERBE — COD — COI (inversé !) · me → moi · te → toi</div>
+          <div class="imper-ex">
+            Donne-<span class="hl">le</span>-<span class="hl">lui</span>. <em style="font-size:12px;color:var(--text3)">(donne + le + lui)</em><br>
+            Envoie-<span class="hl">la</span>-<span class="hl">leur</span>. <em style="font-size:12px;color:var(--text3)">(envoie + la + leur)</em><br>
+            Dis-<span class="hl">le</span>-<span class="hl">moi</span>. <em style="font-size:12px;color:var(--text3)">(me → moi après verbe)</em><br>
+            Explique-<span class="hl">le</span>-<span class="hl">nous</span>.
+          </div>
+          <div class="imper-note">⚠ me → moi, te → toi à l'impératif affirmatif<br>⚠ COD avant COI (ordre inversé par rapport au déclaratif)</div>
+        </div>
+      </div>
+      <div class="imper-cell">
+        <div class="imper-head neg">IMPÉRATIF NÉGATIF → ORDRE NORMAL (avant le verbe)</div>
+        <div class="imper-body">
+          <div class="imper-rule">NE + PRONOMS (ordre canonique) + VERBE + PAS</div>
+          <div class="imper-ex">
+            Ne <span class="hl-r">le</span> <span class="hl-r">lui</span> donne pas.<br>
+            Ne <span class="hl-r">la</span> <span class="hl-r">leur</span> envoie pas.<br>
+            Ne <span class="hl-r">me</span> <span class="hl-r">le</span> dis pas.<br>
+            Ne <span class="hl-r">les</span> <span class="hl-r">y</span> mets pas.
+          </div>
+          <div class="imper-note">✓ Impératif négatif = même ordre que le déclaratif</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — DONS, ÉCHANGES &amp; OBLIGATIONS</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>EXPRESSION</th><th>DOUBLE PRONOM EX.</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>TYPE</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">confier à</td><td class="vdp">le lui confier</td><td class="ven">to entrust to</td><td class="ves">confiar a</td><td class="vcat">COD+COI</td><td class="vex">Je le lui ai confié.</td></tr>
+          <tr><td class="vfr">transmettre à</td><td class="vdp">le leur transmettre</td><td class="ven">to pass on / transmit</td><td class="ves">transmitir a</td><td class="vcat">COD+COI</td><td class="vex">Il le leur a transmis.</td></tr>
+          <tr><td class="vfr">remettre à</td><td class="vdp">le lui remettre</td><td class="ven">to hand over / give back</td><td class="ves">entregar a</td><td class="vcat">COD+COI</td><td class="vex">Elle le lui a remis.</td></tr>
+          <tr><td class="vfr">accorder à</td><td class="vdp">le leur accorder</td><td class="ven">to grant / give</td><td class="ves">conceder a</td><td class="vcat">COD+COI</td><td class="vex">On le leur a accordé.</td></tr>
+          <tr><td class="vfr">imposer à</td><td class="vdp">le lui imposer</td><td class="ven">to impose on</td><td class="ves">imponer a</td><td class="vcat">COD+COI</td><td class="vex">Tu ne peux pas le lui imposer.</td></tr>
+          <tr><td class="vfr">retirer à</td><td class="vdp">le lui retirer</td><td class="ven">to take away from</td><td class="ves">retirar a</td><td class="vcat">COD+COI</td><td class="vex">Il le lui a retiré.</td></tr>
+          <tr><td class="vfr">rappeler à</td><td class="vdp">le lui rappeler</td><td class="ven">to remind</td><td class="ves">recordar a</td><td class="vcat">COD+COI</td><td class="vex">Je le lui rappelle souvent.</td></tr>
+          <tr><td class="vfr">montrer à</td><td class="vdp">le leur montrer</td><td class="ven">to show to</td><td class="ves">mostrar a</td><td class="vcat">COD+COI</td><td class="vex">Montre-le-leur !</td></tr>
+          <tr><td class="vfr">laisser à</td><td class="vdp">le lui laisser</td><td class="ven">to leave for / let</td><td class="ves">dejar a</td><td class="vcat">COD+COI</td><td class="vex">Il le lui a laissé.</td></tr>
+          <tr><td class="vfr">soumettre à</td><td class="vdp">le leur soumettre</td><td class="ven">to submit to / present to</td><td class="ves">someter a</td><td class="vcat">COD+COI</td><td class="vex">Je le leur ai soumis.</td></tr>
+          <tr><td class="vfr">apporter à</td><td class="vdp">l'y apporter</td><td class="ven">to bring to (a place)</td><td class="ves">llevar a</td><td class="vcat">COD+Y</td><td class="vex">Je l'y ai apporté.</td></tr>
+          <tr><td class="vfr">présenter à</td><td class="vdp">le lui présenter</td><td class="ven">to present / introduce to</td><td class="ves">presentar a</td><td class="vcat">COD+COI</td><td class="vex">Elle le lui a présenté.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="ordre"      onclick="setFilter('ordre',this)">ORDRE MCQ</button>
+      <button class="filter-pill"        data-f="rewrite"    onclick="setFilter('rewrite',this)">RÉÉCRITURE</button>
+      <button class="filter-pill"        data-f="imperatif"  onclick="setFilter('imperatif',this)">IMPÉRATIF</button>
+      <button class="filter-pill"        data-f="negatif"    onclick="setFilter('negatif',this)">NÉGATIF</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill b1 active" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2"        onclick="setLevel('B2',this)">B2</button>
+      <button class="level-pill c1"        onclick="setLevel('C1',this)">C1</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title" id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// SENTENCE DATABASE
+// ================================================================
+// Each sentence: { orig, answer, p1, p2, verb, neg, imp_aff, imp_neg, en, type }
+// type: 'me_le' | 'le_lui' | 'le_y' | 'en' | 'le_leur'
+
+const SENTENCES = [
+  // ── ME/TE/NOUS/VOUS + LE/LA/LES ──
+  { orig:"Il donne le livre à moi.", answer:"Il me le donne.", p1:"me", p2:"le", verb:"donne",
+    neg:"Il ne me le donne pas.", imp_aff:null, imp_neg:null,
+    en:"He gives me the book. → He gives it to me.", type:'me_le',
+    hint:"me + le (pos.1 + pos.2)" },
+  { orig:"Elle m'a expliqué le problème.", answer:"Elle me l'a expliqué.", p1:"me", p2:"l'", verb:"a expliqué",
+    neg:"Elle ne me l'a pas expliqué.", imp_aff:null, imp_neg:null,
+    en:"She explained the problem to me. → She explained it to me.", type:'me_le',
+    hint:"me + le (pos.1 + pos.2) → l' devant voyelle" },
+  { orig:"Il nous a montré les photos.", answer:"Il nous les a montrées.", p1:"nous", p2:"les", verb:"a montrées",
+    neg:"Il ne nous les a pas montrées.", imp_aff:null, imp_neg:null,
+    en:"He showed us the photos. → He showed them to us.", type:'me_le',
+    hint:"nous + les (pos.1 + pos.2) · PP accordé avec COD" },
+  { orig:"Elle te prête sa voiture.", answer:"Elle te la prête.", p1:"te", p2:"la", verb:"prête",
+    neg:"Elle ne te la prête pas.", imp_aff:null, imp_neg:null,
+    en:"She lends you her car. → She lends it to you.", type:'me_le',
+    hint:"te + la (pos.1 + pos.2)" },
+  { orig:"Il vous a envoyé le rapport.", answer:"Il vous l'a envoyé.", p1:"vous", p2:"l'", verb:"a envoyé",
+    neg:"Il ne vous l'a pas envoyé.", imp_aff:null, imp_neg:null,
+    en:"He sent you the report. → He sent it to you.", type:'me_le',
+    hint:"vous + le → l' (élision devant a)" },
+
+  // ── LE/LA/LES + LUI/LEUR ──
+  { orig:"Je donne le livre à Marc.", answer:"Je le lui donne.", p1:"le", p2:"lui", verb:"donne",
+    neg:"Je ne le lui donne pas.", imp_aff:"Donne-le-lui.", imp_neg:"Ne le lui donne pas.",
+    en:"I give the book to Marc. → I give it to him.", type:'le_lui',
+    hint:"le + lui (pos.2 + pos.3)" },
+  { orig:"Elle explique la situation à ses collègues.", answer:"Elle la leur explique.", p1:"la", p2:"leur", verb:"explique",
+    neg:"Elle ne la leur explique pas.", imp_aff:"Explique-la-leur.", imp_neg:"Ne la leur explique pas.",
+    en:"She explains the situation to her colleagues. → She explains it to them.", type:'le_leur',
+    hint:"la + leur (pos.2 + pos.3)" },
+  { orig:"Tu as envoyé les documents à Sophie.", answer:"Tu les lui as envoyés.", p1:"les", p2:"lui", verb:"as envoyés",
+    neg:"Tu ne les lui as pas envoyés.", imp_aff:null, imp_neg:null,
+    en:"You sent the documents to Sophie. → You sent them to her.", type:'le_lui',
+    hint:"les + lui (pos.2 + pos.3) · PP accordé" },
+  { orig:"Il confie son secret à ses amis.", answer:"Il le leur confie.", p1:"le", p2:"leur", verb:"confie",
+    neg:"Il ne le leur confie pas.", imp_aff:"Confie-le-leur.", imp_neg:"Ne le leur confie pas.",
+    en:"He entrusts his secret to his friends. → He entrusts it to them.", type:'le_leur',
+    hint:"le + leur (pos.2 + pos.3)" },
+  { orig:"Elle remet le dossier au directeur.", answer:"Elle le lui remet.", p1:"le", p2:"lui", verb:"remet",
+    neg:"Elle ne le lui remet pas.", imp_aff:"Remets-le-lui.", imp_neg:"Ne le lui remets pas.",
+    en:"She hands the file to the director. → She hands it to him.", type:'le_lui',
+    hint:"le + lui (pos.2 + pos.3)" },
+  { orig:"Je présente mon plan à l'équipe.", answer:"Je le leur présente.", p1:"le", p2:"leur", verb:"présente",
+    neg:"Je ne le leur présente pas.", imp_aff:"Présente-le-leur.", imp_neg:"Ne le leur présente pas.",
+    en:"I present my plan to the team. → I present it to them.", type:'le_leur',
+    hint:"le + leur (pos.2 + pos.3)" },
+  { orig:"Tu rappelles les règles à Paul.", answer:"Tu les lui rappelles.", p1:"les", p2:"lui", verb:"rappelles",
+    neg:"Tu ne les lui rappelles pas.", imp_aff:"Rappelle-les-lui.", imp_neg:"Ne les lui rappelles pas.",
+    en:"You remind Paul of the rules. → You remind him of them.", type:'le_lui',
+    hint:"les + lui (pos.2 + pos.3)" },
+
+  // ── LE/LA/LES + Y ──
+  { orig:"Il met les clés dans le tiroir.", answer:"Il les y met.", p1:"les", p2:"y", verb:"met",
+    neg:"Il ne les y met pas.", imp_aff:"Mets-les-y.", imp_neg:"Ne les y mets pas.",
+    en:"He puts the keys in the drawer. → He puts them there.", type:'le_y',
+    hint:"les + y (pos.2 + pos.4)" },
+  { orig:"Elle a apporté le gâteau à la fête.", answer:"Elle l'y a apporté.", p1:"l'", p2:"y", verb:"a apporté",
+    neg:"Elle ne l'y a pas apporté.", imp_aff:null, imp_neg:null,
+    en:"She brought the cake to the party. → She brought it there.", type:'le_y',
+    hint:"le + y → l'y (pos.2 + pos.4)" },
+
+  // ── ME/LUI + EN ──
+  { orig:"Il m'a donné deux billets.", answer:"Il m'en a donné deux.", p1:"m'", p2:"en", verb:"a donné",
+    neg:"Il ne m'en a pas donné.", imp_aff:null, imp_neg:null,
+    en:"He gave me two tickets. → He gave me two (of them).", type:'me_en',
+    hint:"me + en (pos.1 + pos.5)" },
+  { orig:"Elle lui a parlé de ce projet.", answer:"Elle lui en a parlé.", p1:"lui", p2:"en", verb:"a parlé",
+    neg:"Elle ne lui en a pas parlé.", imp_aff:null, imp_neg:null,
+    en:"She talked to him about this project. → She talked to him about it.", type:'lui_en',
+    hint:"lui + en (pos.3 + pos.5)" },
+  { orig:"Je leur ai donné trois chances.", answer:"Je leur en ai donné trois.", p1:"leur", p2:"en", verb:"ai donné",
+    neg:"Je ne leur en ai pas donné trois.", imp_aff:null, imp_neg:null,
+    en:"I gave them three chances. → I gave them three (of them).", type:'lui_en',
+    hint:"leur + en (pos.3 + pos.5)" },
+];
+
+// Imperatives dataset
+const IMPERATIVES = [
+  { inf:'donner', verb_imp:'Donne', p_cod:'le', p_coi:'lui', full_aff:"Donne-le-lui.",
+    full_neg:"Ne le lui donne pas.", en:"Give it to him/her!" },
+  { inf:'envoyer', verb_imp:'Envoie', p_cod:'la', p_coi:'leur', full_aff:"Envoie-la-leur.",
+    full_neg:"Ne la leur envoie pas.", en:"Send it to them!" },
+  { inf:'montrer', verb_imp:'Montre', p_cod:'les', p_coi:'lui', full_aff:"Montre-les-lui.",
+    full_neg:"Ne les lui montre pas.", en:"Show them to him/her!" },
+  { inf:'dire', verb_imp:'Dis', p_cod:'le', p_coi:'moi', full_aff:"Dis-le-moi.",
+    full_neg:"Ne me le dis pas.", en:"Tell it to me!", note:"me → moi (affirmatif)" },
+  { inf:'expliquer', verb_imp:'Explique', p_cod:'le', p_coi:'nous', full_aff:"Explique-le-nous.",
+    full_neg:"Ne nous le explique pas.", en:"Explain it to us!" },
+  { inf:'remettre', verb_imp:'Remets', p_cod:'le', p_coi:'lui', full_aff:"Remets-le-lui.",
+    full_neg:"Ne le lui remets pas.", en:"Hand it back to him/her!" },
+  { inf:'rappeler', verb_imp:'Rappelle', p_cod:'les', p_coi:'leur', full_aff:"Rappelle-les-leur.",
+    full_neg:"Ne les leur rappelle pas.", en:"Remind them of them!" },
+  { inf:'présenter', verb_imp:'Présente', p_cod:'le', p_coi:'leur', full_aff:"Présente-le-leur.",
+    full_neg:"Ne le leur présente pas.", en:"Present it to them!" },
+];
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ return [...a].sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/\u2019/g,"\\'").replace(/'/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/'/g,"'").replace(/'/g,"'").replace(/\s+/g,' ');
+}
+function stripPeriod(s){ return (s||'').replace(/[.!?]+$/, '').trim(); }
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel='B1', exFilter='tous';
+let exercises=[], answered=0, correct=0;
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx=currentLevel==='B1'?8:currentLevel==='B2'?10:12;
+
+  let typePool;
+  if     (exFilter==='ordre')     typePool=['ordre_mcq'];
+  else if(exFilter==='rewrite')   typePool=['rewrite'];
+  else if(exFilter==='imperatif') typePool=['imp_aff','imp_neg'];
+  else if(exFilter==='negatif')   typePool=['negatif'];
+  else if(exFilter==='traduction')typePool=['traduction'];
+  else typePool=['ordre_mcq','rewrite','imp_aff','negatif','ordre_mcq','rewrite','imp_neg','traduction'];
+
+  const types=[]; for(let i=0;i<numEx;i++) types.push(typePool[i%typePool.length]);
+  shuffle(types);
+
+  const usedS=new Set(), usedI=new Set();
+  let ti=0;
+  for(const type of types){
+    if(type==='imp_aff'||type==='imp_neg'){
+      const pool=IMPERATIVES.filter(im=>!usedI.has(im.full_aff));
+      if(!pool.length) continue;
+      const item=rand(pool); usedI.add(item.full_aff);
+      if(type==='imp_aff') renderImpAff(container,ti,item);
+      else                 renderImpNeg(container,ti,item);
+    } else {
+      const pool=SENTENCES.filter(s=>!usedS.has(s.orig));
+      if(!pool.length) continue;
+      const item=rand(pool); usedS.add(item.orig);
+      if     (type==='ordre_mcq')  renderOrdreMCQ(container,ti,item);
+      else if(type==='rewrite')    renderRewrite(container,ti,item);
+      else if(type==='negatif')    renderNegatif(container,ti,item);
+      else                         renderTrad(container,ti,item);
+    }
+    ti++;
+  }
+  updateProgress();
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function dpBadge(p1, p2){
+  const c1=p1.startsWith('m')||p1.startsWith('t')||p1.startsWith('n')||p1.startsWith('v')||p1.startsWith('s')?'tl':p1==='y'?'yl':'vl';
+  const c2=p2==='en'||p2==='y'?'ro':'vl';
+  return `<div class="dp-badge cod-coi"><span class="dp-p1 ${c1}">${p1.toUpperCase()}</span><span class="dp-arr">+</span><span class="dp-p2 ${c2}">${p2.toUpperCase()}</span></div>`;
+}
+
+// 1) Ordre MCQ — choose correct double-pronoun form
+function renderOrdreMCQ(container, idx, item){
+  const answer=stripPeriod(item.answer);
+  // Build 3 wrong options by swapping pronouns or mixing wrong combos
+  const wrong1=`${item.orig.split(' ')[0]} ${item.p2} ${item.p1} ${item.verb}`.replace(/\s+/g,' ');
+  const wrong2=`${item.orig.split(' ')[0]} ${item.p2} ${item.verb}`.replace(/\s+/g,' ');
+  const wrong3=`${item.orig.split(' ')[0]} ${item.p1} ${item.verb}`.replace(/\s+/g,' ');
+  const pool=shuffle([...new Set([wrong1,wrong2,wrong3])].filter(w=>normalise(w)!==normalise(answer))).slice(0,3);
+  const choices=shuffle([answer,...pool]).map(c=>
+    `<button class="choice-btn" style="font-size:14px;padding:9px 14px;text-align:left" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card ord-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ord">ORDRE DES PRONOMS</span></div>
+    ${dpBadge(item.p1,item.p2)}
+    <div class="hint-text">QUELLE FORME EST CORRECTE ? (${item.hint||''})</div>
+    <div class="sentence-display" style="color:var(--tl2)">${item.orig}</div>
+    <div class="choices" id="choices-${idx}" style="flex-direction:column;gap:8px">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) Rewrite input — type the rewritten sentence
+function renderRewrite(container, idx, item){
+  const answer=stripPeriod(item.answer);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type dp">RÉÉCRITURE — DOUBLES PRONOMS</span></div>
+    ${dpBadge(item.p1,item.p2)}
+    <div class="hint-text">RÉÉCRIVEZ AVEC LES DEUX PRONOMS (${item.hint||''})</div>
+    <div class="sentence-display" style="color:var(--tl2)">${item.orig}</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${item.orig.split(' ')[0].toLowerCase()}..."
+        style="width:340px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) Impératif affirmatif
+function renderImpAff(container, idx, item){
+  const answer=stripPeriod(item.full_aff);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  // MCQ: correct vs swapped vs neg form
+  const wrong1=`${item.verb_imp}-${item.p_coi}-${item.p_cod}.`;
+  const wrong2=item.full_neg;
+  const wrong3=`${item.verb_imp} ${item.p_cod} ${item.p_coi}.`;
+  const pool=shuffle([...new Set([wrong1,wrong2,wrong3])].filter(w=>normalise(w)!==normalise(answer))).slice(0,3);
+  const choices=shuffle([answer,...pool]).map(c=>
+    `<button class="choice-btn" style="font-size:14px;padding:9px 14px;text-align:left" onclick="checkMCQ(${idx},'${esc(stripPeriod(c))}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+
+  const card=document.createElement('div');
+  card.className='exercise-card imp-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type imp">IMPÉRATIF AFFIRMATIF</span></div>
+    <div class="hint-text">CHOISISSEZ LA FORME IMPÉRATIVE CORRECTE — COD AVANT COI, TRAITS D'UNION</div>
+    <div class="sentence-display" style="color:var(--gold)">${item.en}</div>
+    ${item.note?`<div style="font-size:11px;color:var(--gold);margin-bottom:8px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px">⚠ ${item.note}</div>`:''}
+    <div class="choices" id="choices-${idx}" style="flex-direction:column;gap:8px">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 4) Impératif négatif — type it
+function renderImpNeg(container, idx, item){
+  const answer=stripPeriod(item.full_neg);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card neg-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type neg">IMPÉRATIF NÉGATIF</span></div>
+    <div class="hint-text">METTEZ À L'IMPÉRATIF NÉGATIF — NE + PRONOMS (ORDRE NORMAL) + VERBE + PAS</div>
+    <div class="sentence-display">Affirmatif : <span style="color:var(--gold)">${item.full_aff}</span></div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="Ne..."
+        style="width:340px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <div class="hint-text" style="margin-top:2px">Ordre : NE + ${item.p_cod.toUpperCase()} + ${item.p_coi.toUpperCase()} + VERBE + PAS</div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 5) Négatif
+function renderNegatif(container, idx, item){
+  if(!item.neg) return;
+  const answer=stripPeriod(item.neg);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card neg-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type neg">NÉGATIF — DOUBLES PRONOMS</span></div>
+    ${dpBadge(item.p1,item.p2)}
+    <div class="hint-text">METTEZ À LA FORME NÉGATIVE</div>
+    <div class="sentence-display" style="color:var(--tl2)">${item.answer}</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="Ne..."
+        style="width:360px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 6) Traduction — EN phrase, student types French
+function renderTrad(container, idx, item){
+  const answer=stripPeriod(item.answer);
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    ${dpBadge(item.p1,item.p2)}
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS AVEC LES DOUBLES PRONOMS</div>
+    <div class="sentence-display" style="color:var(--tl3)">${item.en}</div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:10px">Phrase d'origine : <em style="color:var(--text2)">${item.orig}</em></div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${item.orig.split(' ')[0].toLowerCase()}..."
+        style="width:360px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK / PROGRESS
+// ================================================================
+function checkInput(idx,answer){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx,chosen,answer,btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=["Parfait !","Excellent !","Très bien !","Bravo !","Super !","C'est ça !"];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t>0?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='PARFAIT !';sub='Maîtrise parfaite — ordre, impératif, négatif : les doubles pronoms n\'ont plus de secrets !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';sub='Très bien — me/te + le/la/les, puis le/la/les + lui/leur, puis y et en !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';sub='Bon effort — mémorisez l\'ordre : pos.1 → pos.2 → pos.3 → y → en.';}
+  else{emoji='📚';title='CONTINUEZ !';sub='Rappel : impératif affirmatif = verbe-COD-COI (inversé !), me→moi.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

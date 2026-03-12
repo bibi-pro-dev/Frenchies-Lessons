@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 5 — Ce, Cet, Cette, Ces</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #0b0d11;
+    --bg2:     #12151c;
+    --card:    #161a24;
+    --border:  #252c3e;
+    --border2: #2e3650;
+    --text:    #e2e6f0;
+    --muted:   #6b7590;
+    --tag-bg:  #1c2030;
+
+    /* Four demonstrative colors — mapped to lecon2 palette logic */
+    --ce:     #5b8dee;   /* blue   — ce  (masc. consonne) */
+    --cet:    #4cba7a;   /* green  — cet (masc. voyelle/h) */
+    --cette:  #d05fa0;   /* pink   — cette (féminin) */
+    --ces:    #e8a040;   /* amber  — ces (pluriel) */
+    --cila:   #9b7ae8;   /* purple — -ci/-là */
+
+    --success: #4cba7a;
+    --error:   #e05555;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background — identical to lecon2 */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.25;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* Glows */
+  body::after {
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(ellipse 60% 40% at 10% 15%, #5b8dee18 0%, transparent 60%),
+      radial-gradient(ellipse 50% 35% at 90% 85%, #d05fa018 0%, transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrapper {
+    position:relative;
+    z-index:1;
+    max-width:820px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem 5rem;
+  }
+
+  /* ── Header ── */
+  header {
+    margin-bottom:2.5rem;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .header-top {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+    margin-bottom:1.5rem;
+  }
+
+  .lesson-badge {
+    font-family:'DM Sans', sans-serif;
+    font-size:0.68rem;
+    font-weight:600;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color: var(--ce);
+    background: #5b8dee12;
+    border:1px solid #5b8dee2a;
+    border-radius:5px;
+    padding:0.28rem 0.75rem;
+    margin-bottom:0.8rem;
+    display:inline-block;
+  }
+
+  h1 {
+    font-family:'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    letter-spacing:0.04em;
+    line-height:0.95;
+    color: var(--text);
+    margin-bottom:0.4rem;
+  }
+
+  h1 .acc-ce    { color: var(--ce); }
+  h1 .acc-cet   { color: var(--cet); }
+  h1 .acc-cette { color: var(--cette); }
+  h1 .acc-ces   { color: var(--ces); }
+
+  .subtitle {
+    color:var(--muted);
+    font-size:0.9rem;
+    font-weight:300;
+    max-width:460px;
+    line-height:1.6;
+  }
+
+  /* ── Reference panels — 4 columns like lecon2's ref-grid ── */
+  .ref-grid {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:0.75rem;
+    margin-bottom:0.85rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  @media(max-width:600px){ .ref-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:360px){ .ref-grid{ grid-template-columns:1fr; } }
+
+  .ref-panel {
+    background: var(--card);
+    border:1.5px solid var(--border);
+    border-radius:14px;
+    padding:1.1rem 1.15rem;
+    transition: border-color 0.2s;
+  }
+  .ref-panel:hover { border-color: var(--border2); }
+
+  .ref-panel.ce-panel    { border-top:3px solid var(--ce); }
+  .ref-panel.cet-panel   { border-top:3px solid var(--cet); }
+  .ref-panel.cette-panel { border-top:3px solid var(--cette); }
+  .ref-panel.ces-panel   { border-top:3px solid var(--ces); }
+
+  .ref-panel-title {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:1.05rem;
+    letter-spacing:0.1em;
+    margin-bottom:0.55rem;
+  }
+  .ce-panel    .ref-panel-title { color: var(--ce); }
+  .cet-panel   .ref-panel-title { color: var(--cet); }
+  .cette-panel .ref-panel-title { color: var(--cette); }
+  .ces-panel   .ref-panel-title { color: var(--ces); }
+
+  .ref-rule {
+    font-size:0.72rem;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  .ref-rule .ex {
+    display:block;
+    font-family:'DM Serif Display', serif;
+    font-size:0.78rem;
+    color:var(--text);
+    opacity:0.75;
+    margin-top:0.1rem;
+  }
+
+  /* ── -ci / -là row ── */
+  .ci-la-row {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.75rem;
+    margin-bottom:1.75rem;
+    animation: fadeUp 0.6s 0.18s ease both;
+  }
+  @media(max-width:480px){ .ci-la-row{ grid-template-columns:1fr; } }
+
+  .ci-panel, .la-panel {
+    background: var(--card);
+    border:1.5px solid var(--border);
+    border-radius:14px;
+    padding:1rem 1.15rem;
+    font-size:0.78rem;
+    color:var(--muted);
+    line-height:1.6;
+    transition: border-color 0.2s;
+  }
+  .ci-panel:hover, .la-panel:hover { border-color:var(--border2); }
+  .ci-panel { border-top:3px solid var(--cila); }
+  .la-panel { border-top:3px solid var(--ces); }
+
+  .ci-panel-title, .la-panel-title {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:0.95rem;
+    letter-spacing:0.1em;
+    margin-bottom:0.45rem;
+  }
+  .ci-panel-title { color:var(--cila); }
+  .la-panel-title { color:var(--ces); }
+
+  .ci-panel code, .la-panel code {
+    font-family:'DM Serif Display', serif;
+    font-size:0.8rem;
+    font-style:italic;
+    background:#ffffff08;
+    border-radius:3px;
+    padding:0.05rem 0.3rem;
+    display:inline-block;
+    margin:0.05rem 0;
+  }
+  .ci-panel code { color:var(--cila); }
+  .la-panel code { color:var(--ces); }
+
+  /* ── Vocab strip ── */
+  .vocab-strip {
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.4rem;
+    margin-bottom:1.75rem;
+    animation: fadeUp 0.6s 0.25s ease both;
+  }
+  .vc-pill {
+    font-family:'DM Serif Display', serif;
+    font-size:0.8rem;
+    padding:0.18rem 0.65rem;
+    border-radius:99px;
+    border:1px solid;
+    cursor:default;
+    transition:all 0.18s;
+  }
+  .vc-pill:hover { transform:translateY(-1px); }
+  .vc-ce    { background:#5b8dee0d; border-color:#5b8dee28; color:var(--ce); }
+  .vc-cet   { background:#4cba7a0d; border-color:#4cba7a28; color:var(--cet); }
+  .vc-cette { background:#d05fa00d; border-color:#d05fa028; color:var(--cette); }
+  .vc-ces   { background:#e8a0400d; border-color:#e8a04028; color:var(--ces); }
+
+  /* ── Progress bar ── */
+  .score-bar {
+    display:flex;
+    align-items:center;
+    gap:0.8rem;
+    margin-bottom:1.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .score-label {
+    font-size:0.73rem;
+    font-weight:600;
+    color:var(--muted);
+    white-space:nowrap;
+    letter-spacing:0.05em;
+  }
+  .score-label span { color:var(--ce); }
+  .progress-track {
+    flex:1;
+    height:4px;
+    background:var(--border);
+    border-radius:99px;
+    overflow:hidden;
+  }
+  .progress-fill {
+    height:100%;
+    background:linear-gradient(90deg, var(--ce), var(--cette), var(--ces));
+    border-radius:99px;
+    transition:width 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  /* ── Exercise card — identical structure to lecon2 ── */
+  .exercise-card {
+    background:var(--card);
+    border:1.5px solid var(--border);
+    border-radius:18px;
+    padding:1.5rem 1.6rem;
+    margin-bottom:1rem;
+    animation: fadeUp 0.45s ease both;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    position:relative;
+  }
+
+  /* Top accent line — neutral before answer */
+  .exercise-card::after {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:2px;
+    border-radius:18px 18px 0 0;
+    background: var(--border);
+    transition: background 0.4s;
+  }
+
+  /* Colors applied ONLY after answer via .revealed + data-form */
+  .exercise-card.revealed[data-form="ce"]    { --card-accent: var(--ce); }
+  .exercise-card.revealed[data-form="cet"]   { --card-accent: var(--cet); }
+  .exercise-card.revealed[data-form="cette"] { --card-accent: var(--cette); }
+  .exercise-card.revealed[data-form="ces"]   { --card-accent: var(--ces); }
+  .exercise-card.revealed[data-form="cila"]  { --card-accent: var(--cila); }
+  .exercise-card.revealed::after { background: var(--card-accent, var(--border)); }
+
+  .exercise-card.correct { border-color:#4cba7a55; box-shadow:0 0 20px #4cba7a0a; }
+  .exercise-card.wrong   { border-color:#e0555555; box-shadow:0 0 20px #e055550a; }
+
+  .ex-meta {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:0.9rem;
+  }
+  .ex-tags { display:flex; gap:0.35rem; flex-wrap:wrap; }
+
+  /* Tags — neutral before answer, colored after */
+  .ex-tag {
+    font-size:0.62rem;
+    font-weight:600;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:0.18rem 0.5rem;
+    border-radius:4px;
+    background:var(--tag-bg);
+    color:var(--muted);
+    border:1px solid var(--border);
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .revealed .ex-tag.ce-tag    { background:#5b8dee14; color:var(--ce);   border-color:#5b8dee28; }
+  .revealed .ex-tag.cet-tag   { background:#4cba7a14; color:var(--cet);  border-color:#4cba7a28; }
+  .revealed .ex-tag.cette-tag { background:#d05fa014; color:var(--cette);border-color:#d05fa028; }
+  .revealed .ex-tag.ces-tag   { background:#e8a04014; color:var(--ces);  border-color:#e8a04028; }
+  .revealed .ex-tag.cila-tag  { background:#9b7ae814; color:var(--cila); border-color:#9b7ae828; }
+
+  .ex-num { font-size:0.7rem; font-weight:600; color:var(--border2); }
+
+  .ex-sentence {
+    font-family:'DM Serif Display', serif;
+    font-size:1.15rem;
+    line-height:1.65;
+    margin-bottom:1.1rem;
+    color:var(--text);
+  }
+
+  /* Hint — hidden before answer */
+  .ex-hint {
+    font-size:0.78rem;
+    color:var(--muted);
+    font-style:italic;
+    margin-bottom:0.75rem;
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+  }
+  .revealed .ex-hint { max-height:4rem; opacity:1; }
+
+  /* ── Large article chips ── */
+  .chip-row {
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.55rem;
+    margin-bottom:0.75rem;
+  }
+
+  .art-chip {
+    font-family:'DM Serif Display', serif;
+    font-size:1.2rem;
+    background:var(--bg2);
+    border:1.5px solid var(--border);
+    border-radius:10px;
+    padding:0.42rem 1.1rem;
+    cursor:pointer;
+    color:var(--text);
+    transition:all 0.2s;
+    user-select:none;
+    min-width:70px;
+    text-align:center;
+  }
+  .art-chip:hover     { border-color:var(--border2); background:#1e2336; }
+  .art-chip.chosen    { border-color:var(--ce); background:#5b8dee18; color:var(--ce); }
+  .art-chip.chip-ok   { border-color:var(--success); background:#4cba7a18; color:var(--success); cursor:default; }
+  .art-chip.chip-bad  { border-color:var(--error);   background:#e055551a; color:var(--error);   cursor:default; }
+  .art-chip:disabled  { pointer-events:none; }
+
+  /* ── MCQ options ── */
+  .mcq-options {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.5rem;
+    margin-bottom:0.75rem;
+  }
+  @media(max-width:420px){ .mcq-options{ grid-template-columns:1fr; } }
+
+  .mcq-btn {
+    font-family:'DM Serif Display', serif;
+    font-size:0.95rem;
+    background:var(--bg2);
+    border:1.5px solid var(--border);
+    border-radius:10px;
+    padding:0.65rem 0.9rem;
+    text-align:left;
+    cursor:pointer;
+    color:var(--text);
+    transition:all 0.2s;
+    line-height:1.4;
+  }
+  .mcq-btn:hover     { border-color:var(--border2); background:#1e2336; }
+  .mcq-btn.chosen    { border-color:var(--cette); background:#d05fa018; color:var(--cette); }
+  .mcq-btn.chip-ok   { border-color:var(--success); background:#4cba7a18; color:var(--success); cursor:default; }
+  .mcq-btn.chip-bad  { border-color:var(--error);   background:#e055551a; color:var(--error);   cursor:default; }
+
+  /* ── Confirm button — identical to lecon2 check-btn ── */
+  .check-btn {
+    background:var(--ce);
+    color:#0b0d11;
+    border:none;
+    border-radius:10px;
+    padding:0.7rem 1.2rem;
+    font-size:0.8rem;
+    font-weight:700;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    cursor:pointer;
+    font-family:'DM Sans', sans-serif;
+    transition:all 0.2s;
+    width:100%;
+  }
+  .check-btn:hover:not(:disabled) { filter:brightness(1.15); transform:translateY(-1px); }
+  .check-btn:disabled { opacity:0.3; cursor:not-allowed; transform:none; }
+
+  /* ── Feedback ── */
+  .feedback {
+    margin-top:0.75rem;
+    font-size:0.83rem;
+    font-weight:600;
+    min-height:1.3em;
+    opacity:0;
+    transition:opacity 0.3s;
+    letter-spacing:0.01em;
+  }
+  .feedback.show { opacity:1; }
+  .feedback.correct-fb { color:var(--success); }
+  .feedback.wrong-fb   { color:var(--error); }
+
+  .translation {
+    margin-top:0.3rem;
+    font-size:0.78rem;
+    color:var(--muted);
+    font-style:italic;
+    opacity:0;
+    transition:opacity 0.4s 0.2s;
+  }
+  .translation.show { opacity:1; }
+
+  .es-note {
+    margin-top:0.25rem;
+    font-size:0.74rem;
+    color:#8a70b0;
+    font-style:italic;
+    opacity:0;
+    transition:opacity 0.4s 0.3s;
+  }
+  .es-note.show { opacity:1; }
+
+  /* ── Bottom actions — identical to lecon2 ── */
+  .actions {
+    display:flex;
+    gap:0.9rem;
+    margin-top:2.2rem;
+    animation: fadeUp 0.6s 0.45s ease both;
+  }
+  .btn-ghost {
+    flex:1;
+    background:transparent;
+    border:1.5px solid var(--border);
+    color:var(--muted);
+    border-radius:11px;
+    padding:0.85rem;
+    font-family:'DM Sans', sans-serif;
+    font-size:0.82rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.2s;
+  }
+  .btn-ghost:hover { border-color:var(--ce); color:var(--ce); }
+  .btn-solid {
+    flex:2;
+    background:var(--text);
+    border:none;
+    color:#0b0d11;
+    border-radius:11px;
+    padding:0.85rem;
+    font-family:'DM Sans', sans-serif;
+    font-size:0.85rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:all 0.2s;
+  }
+  .btn-solid:hover { background:var(--ce); transform:translateY(-2px); box-shadow:0 6px 20px #5b8dee28; }
+
+  /* ── Result screen — identical to lecon2 ── */
+  .result-screen { display:none; text-align:center; padding:3.5rem 1rem; animation:fadeUp 0.6s ease both; }
+  .result-screen.show { display:block; }
+  .result-emoji { font-size:4rem; margin-bottom:1rem; }
+  .result-title {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:3rem;
+    letter-spacing:0.06em;
+    margin-bottom:0.4rem;
+  }
+  .result-score { color:var(--muted); font-size:1rem; margin-bottom:0.6rem; }
+  .result-score strong { color:var(--ce); font-size:1.6rem; }
+  .result-cats {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:0.5rem;
+    margin-bottom:2.5rem;
+  }
+  .res-cat {
+    font-size:0.68rem;
+    font-weight:600;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:0.22rem 0.7rem;
+    border-radius:4px;
+    border:1px solid;
+  }
+  .cat-ce    { background:#5b8dee14; color:var(--ce);   border-color:#5b8dee28; }
+  .cat-cet   { background:#4cba7a14; color:var(--cet);  border-color:#4cba7a28; }
+  .cat-cette { background:#d05fa014; color:var(--cette);border-color:#d05fa028; }
+  .cat-ces   { background:#e8a04014; color:var(--ces);  border-color:#e8a04028; }
+  .cat-cila  { background:#9b7ae814; color:var(--cila); border-color:#9b7ae828; }
+
+  /* ── Animations — identical to lecon2 ── */
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(16px)}  to{opacity:1;transform:translateY(0)} }
+  @keyframes pop      { 0%{transform:scale(1)} 45%{transform:scale(1.05)} 100%{transform:scale(1)} }
+  .pop { animation:pop 0.3s ease; }
+
+  @media(max-width:500px){
+    h1{font-size:2.8rem;}
+    .chip-row{gap:0.4rem;}
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="lesson-badge">📘 Leçon 5 · A1–A2 · Démonstratifs</div>
+    <div class="header-top">
+      <div>
+        <h1>
+          <span class="acc-ce">CE</span> ·
+          <span class="acc-cet">CET</span><br>
+          <span class="acc-cette">CETTE</span> ·
+          <span class="acc-ces">CES</span>
+        </h1>
+        <p class="subtitle">Choisissez le bon adjectif démonstratif selon le genre et le nombre du nom.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ REFERENCE PANELS ══ -->
+  <div class="ref-grid">
+    <div class="ref-panel ce-panel">
+      <div class="ref-panel-title">CE</div>
+      <div class="ref-rule">
+        Masc. consonne<br>
+        <span class="ex">ce livre · ce film</span>
+        <span class="ex">ce café · ce bureau</span>
+      </div>
+    </div>
+    <div class="ref-panel cet-panel">
+      <div class="ref-panel-title">CET</div>
+      <div class="ref-rule">
+        Masc. voyelle / h<br>
+        <span class="ex">cet homme · cet arbre</span>
+        <span class="ex">cet hôtel · cet avion</span>
+      </div>
+    </div>
+    <div class="ref-panel cette-panel">
+      <div class="ref-panel-title">CETTE</div>
+      <div class="ref-rule">
+        Féminin<br>
+        <span class="ex">cette fille · cette idée</span>
+        <span class="ex">cette école · cette robe</span>
+      </div>
+    </div>
+    <div class="ref-panel ces-panel">
+      <div class="ref-panel-title">CES</div>
+      <div class="ref-rule">
+        Pluriel m + f<br>
+        <span class="ex">ces livres · ces filles</span>
+        <span class="ex">ces idées · ces hommes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── -ci / -là ── -->
+  <div class="ci-la-row">
+    <div class="ci-panel">
+      <div class="ci-panel-title">📍 -CI = PROCHE (THIS HERE)</div>
+      <code>ce livre-ci</code> &nbsp; <code>cette robe-ci</code> &nbsp; <code>ces photos-ci</code>
+    </div>
+    <div class="la-panel">
+      <div class="la-panel-title">🔭 -LÀ = LOIN (THAT THERE)</div>
+      <code>ce film-là</code> &nbsp; <code>cette voiture-là</code> &nbsp; <code>ces gens-là</code>
+    </div>
+  </div>
+
+  <!-- ══ VOCAB STRIP ══ -->
+  <div class="vocab-strip" id="vocab-strip"></div>
+
+  <!-- ══ PROGRESS ══ -->
+  <div class="score-bar">
+    <div class="score-label">Q <span id="q-current">1</span>/<span id="q-total">10</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+    <div class="score-label">Score : <span id="score">0</span></div>
+  </div>
+
+  <div id="exercises-container"></div>
+
+  <div class="actions" id="bottom-actions">
+    <button class="btn-ghost" onclick="newSet()">🔀 Nouvelles phrases</button>
+    <button class="btn-solid" onclick="checkAll()">Vérifier toutes les réponses ✓</button>
+  </div>
+
+  <!-- ══ RESULT ══ -->
+  <div class="result-screen" id="result-screen">
+    <div class="result-emoji" id="result-emoji">🎉</div>
+    <div class="result-title" id="result-title">BRAVO !</div>
+    <div class="result-score">Score : <strong id="result-score-val">0/10</strong></div>
+    <div class="result-cats" id="result-cats"></div>
+    <div class="actions" style="max-width:380px;margin:0 auto;">
+      <button class="btn-ghost" onclick="newSet()">🔀 Recommencer</button>
+      <button class="btn-solid" onclick="newSet()">Nouvelles phrases →</button>
+    </div>
+  </div>
+
+</div>
+<script>
+// ════════════════════════════════════════════════
+//  VOCABULARY BANK — 130+ nouns
+// ════════════════════════════════════════════════
+const NOUNS = [
+  // ── CE — masc. consonne ──
+  {fr:'livre',        en:'book',           form:'ce',    pl:'livres'},
+  {fr:'stylo',        en:'pen',            form:'ce',    pl:'stylos'},
+  {fr:'café',         en:'coffee',         form:'ce',    pl:'cafés'},
+  {fr:'bureau',       en:'desk/office',    form:'ce',    pl:'bureaux'},
+  {fr:'tableau',      en:'board/painting', form:'ce',    pl:'tableaux'},
+  {fr:'marché',       en:'market',         form:'ce',    pl:'marchés'},
+  {fr:'restaurant',   en:'restaurant',     form:'ce',    pl:'restaurants'},
+  {fr:'chat',         en:'cat',            form:'ce',    pl:'chats'},
+  {fr:'chien',        en:'dog',            form:'ce',    pl:'chiens'},
+  {fr:'film',         en:'film/movie',     form:'ce',    pl:'films'},
+  {fr:'problème',     en:'problem',        form:'ce',    pl:'problèmes'},
+  {fr:'magazine',     en:'magazine',       form:'ce',    pl:'magazines'},
+  {fr:'jardin',       en:'garden',         form:'ce',    pl:'jardins'},
+  {fr:'musée',        en:'museum',         form:'ce',    pl:'musées'},
+  {fr:'téléphone',    en:'phone',          form:'ce',    pl:'téléphones'},
+  {fr:'sac',          en:'bag',            form:'ce',    pl:'sacs'},
+  {fr:'gâteau',       en:'cake',           form:'ce',    pl:'gâteaux'},
+  {fr:'chapeau',      en:'hat',            form:'ce',    pl:'chapeaux'},
+  {fr:'concert',      en:'concert',        form:'ce',    pl:'concerts'},
+  {fr:'document',     en:'document',       form:'ce',    pl:'documents'},
+  {fr:'voyage',       en:'trip/journey',   form:'ce',    pl:'voyages'},
+  {fr:'village',      en:'village',        form:'ce',    pl:'villages'},
+  {fr:'lac',          en:'lake',           form:'ce',    pl:'lacs'},
+  {fr:'quartier',     en:'neighbourhood',  form:'ce',    pl:'quartiers'},
+  {fr:'cours',        en:'class/lesson',   form:'ce',    pl:'cours'},
+  {fr:'match',        en:'match/game',     form:'ce',    pl:'matchs'},
+  {fr:'pull',         en:'sweater',        form:'ce',    pl:'pulls'},
+  {fr:'dessert',      en:'dessert',        form:'ce',    pl:'desserts'},
+  {fr:'billet',       en:'ticket',         form:'ce',    pl:'billets'},
+  {fr:'roman',        en:'novel',          form:'ce',    pl:'romans'},
+  {fr:'siège',        en:'seat',           form:'ce',    pl:'sièges'},
+  {fr:'repas',        en:'meal',           form:'ce',    pl:'repas'},
+  {fr:'projet',       en:'project',        form:'ce',    pl:'projets'},
+  {fr:'reportage',    en:'documentary',    form:'ce',    pl:'reportages'},
+  {fr:'pain',         en:'bread',          form:'ce',    pl:'pains'},
+  {fr:'fromage',      en:'cheese',         form:'ce',    pl:'fromages'},
+  {fr:'couloir',      en:'corridor',       form:'ce',    pl:'couloirs'},
+  // ── CET — masc. voyelle / h muet ──
+  {fr:'homme',        en:'man',            form:'cet',   pl:'hommes'},
+  {fr:'arbre',        en:'tree',           form:'cet',   pl:'arbres'},
+  {fr:'avion',        en:'aeroplane',      form:'cet',   pl:'avions'},
+  {fr:'hôtel',        en:'hotel',          form:'cet',   pl:'hôtels'},
+  {fr:'hôpital',      en:'hospital',       form:'cet',   pl:'hôpitaux'},
+  {fr:'enfant',       en:'child',          form:'cet',   pl:'enfants'},
+  {fr:'ami',          en:'friend (m)',     form:'cet',   pl:'amis'},
+  {fr:'objet',        en:'object',         form:'cet',   pl:'objets'},
+  {fr:'appartement',  en:'apartment',      form:'cet',   pl:'appartements'},
+  {fr:'exercice',     en:'exercise',       form:'cet',   pl:'exercices'},
+  {fr:'été',          en:'summer',         form:'cet',   pl:'étés'},
+  {fr:'acteur',       en:'actor',          form:'cet',   pl:'acteurs'},
+  {fr:'oiseau',       en:'bird',           form:'cet',   pl:'oiseaux'},
+  {fr:'animal',       en:'animal',         form:'cet',   pl:'animaux'},
+  {fr:'horaire',      en:'timetable',      form:'cet',   pl:'horaires'},
+  {fr:'uniforme',     en:'uniform',        form:'cet',   pl:'uniformes'},
+  {fr:'escalier',     en:'staircase',      form:'cet',   pl:'escaliers'},
+  {fr:'instant',      en:'moment',         form:'cet',   pl:'instants'},
+  {fr:'étudiant',     en:'student (m)',    form:'cet',   pl:'étudiants'},
+  {fr:'orage',        en:'storm',          form:'cet',   pl:'orages'},
+  {fr:'insecte',      en:'insect',         form:'cet',   pl:'insectes'},
+  {fr:'écran',        en:'screen',         form:'cet',   pl:'écrans'},
+  {fr:'autobus',      en:'bus',            form:'cet',   pl:'autobus'},
+  {fr:'itinéraire',   en:'itinerary',      form:'cet',   pl:'itinéraires'},
+  // ── CETTE — féminin consonne ──
+  {fr:'fille',        en:'girl',           form:'cette', pl:'filles'},
+  {fr:'maison',       en:'house',          form:'cette', pl:'maisons'},
+  {fr:'robe',         en:'dress',          form:'cette', pl:'robes'},
+  {fr:'voiture',      en:'car',            form:'cette', pl:'voitures'},
+  {fr:'ville',        en:'city',           form:'cette', pl:'villes'},
+  {fr:'table',        en:'table',          form:'cette', pl:'tables'},
+  {fr:'fleur',        en:'flower',         form:'cette', pl:'fleurs'},
+  {fr:'chanson',      en:'song',           form:'cette', pl:'chansons'},
+  {fr:'plage',        en:'beach',          form:'cette', pl:'plages'},
+  {fr:'saison',       en:'season',         form:'cette', pl:'saisons'},
+  {fr:'fenêtre',      en:'window',         form:'cette', pl:'fenêtres'},
+  {fr:'nuit',         en:'night',          form:'cette', pl:'nuits'},
+  {fr:'montagne',     en:'mountain',       form:'cette', pl:'montagnes'},
+  {fr:'recette',      en:'recipe',         form:'cette', pl:'recettes'},
+  {fr:'réunion',      en:'meeting',        form:'cette', pl:'réunions'},
+  {fr:'valise',       en:'suitcase',       form:'cette', pl:'valises'},
+  {fr:'semaine',      en:'week',           form:'cette', pl:'semaines'},
+  {fr:'décision',     en:'decision',       form:'cette', pl:'décisions'},
+  {fr:'tarte',        en:'tart/pie',       form:'cette', pl:'tartes'},
+  {fr:'couleur',      en:'colour',         form:'cette', pl:'couleurs'},
+  {fr:'forêt',        en:'forest',         form:'cette', pl:'forêts'},
+  {fr:'langue',       en:'language',       form:'cette', pl:'langues'},
+  {fr:'question',     en:'question',       form:'cette', pl:'questions'},
+  {fr:'leçon',        en:'lesson',         form:'cette', pl:'leçons'},
+  {fr:'région',       en:'region',         form:'cette', pl:'régions'},
+  {fr:'erreur',       en:'mistake',        form:'cette', pl:'erreurs'},
+  {fr:'photo',        en:'photo',          form:'cette', pl:'photos'},
+  {fr:'solution',     en:'solution',       form:'cette', pl:'solutions'},
+  {fr:'lampe',        en:'lamp',           form:'cette', pl:'lampes'},
+  {fr:'pluie',        en:'rain',           form:'cette', pl:'pluies'},
+  {fr:'route',        en:'road',           form:'cette', pl:'routes'},
+  {fr:'rivière',      en:'river',          form:'cette', pl:'rivières'},
+  {fr:'surprise',     en:'surprise',       form:'cette', pl:'surprises'},
+  {fr:'remarque',     en:'remark/comment', form:'cette', pl:'remarques'},
+  {fr:'soirée',       en:'evening',        form:'cette', pl:'soirées'},
+  {fr:'mélodie',      en:'melody',         form:'cette', pl:'mélodies'},
+  {fr:'promesse',     en:'promise',        form:'cette', pl:'promesses'},
+  {fr:'frontière',    en:'border',         form:'cette', pl:'frontières'},
+  {fr:'culture',      en:'culture',        form:'cette', pl:'cultures'},
+  {fr:'aventure',     en:'adventure',      form:'cette', pl:'aventures'},
+  // ── CETTE — féminin voyelle (jamais cet) ──
+  {fr:'école',        en:'school',         form:'cette', pl:'écoles'},
+  {fr:'idée',         en:'idea',           form:'cette', pl:'idées'},
+  {fr:'histoire',     en:'story/history',  form:'cette', pl:'histoires'},
+  {fr:'odeur',        en:'smell',          form:'cette', pl:'odeurs'},
+  {fr:'offre',        en:'offer',          form:'cette', pl:'offres'},
+  {fr:'équipe',       en:'team',           form:'cette', pl:'équipes'},
+  {fr:'image',        en:'image/picture',  form:'cette', pl:'images'},
+  {fr:'émission',     en:'TV show',        form:'cette', pl:'émissions'},
+  {fr:'ambiance',     en:'atmosphere',     form:'cette', pl:'ambiances'},
+  {fr:'adresse',      en:'address',        form:'cette', pl:'adresses'},
+  {fr:'affaire',      en:'matter/affair',  form:'cette', pl:'affaires'},
+  {fr:'île',          en:'island',         form:'cette', pl:'îles'},
+];
+
+const FILL_TEMPLATES = [
+  (n,d)=>({ fr:`J'adore _____ ${n.fr}.`,  en:`I love this ${n.en}.`,   es:`Me encanta este/esta ${n.fr}.` }),
+  (n,d)=>({ fr:`_____ ${n.fr} est parfait${d==='cette'?'e':''}.`, en:`This ${n.en} is perfect.`, es:`Este/esta ${n.fr} es perfecto/a.` }),
+  (n,d)=>({ fr:`Tu veux _____ ${n.fr} ?`, en:`Do you want this ${n.en}?`, es:`¿Quieres este/esta ${n.fr}?` }),
+  (n,d)=>({ fr:`Je prends _____ ${n.fr}.`, en:`I'll take this ${n.en}.`, es:`Me llevo este/esta ${n.fr}.` }),
+  (n,d)=>({ fr:`Regarde _____ ${n.fr} !`, en:`Look at this ${n.en}!`, es:`¡Mira este/esta ${n.fr}!` }),
+  (n,d)=>({ fr:`_____ ${n.fr} est intéressant${d==='cette'?'e':''}.`, en:`This ${n.en} is interesting.`, es:`Este/esta ${n.fr} es interesante.` }),
+  (n,d)=>({ fr:`Connais-tu _____ ${n.fr} ?`, en:`Do you know this ${n.en}?`, es:`¿Conoces este/esta ${n.fr}?` }),
+  (n,d)=>({ fr:`Il aime _____ ${n.fr}.`, en:`He likes this ${n.en}.`, es:`Le gusta este/esta ${n.fr}.` }),
+  (n,d)=>({ fr:`Nous visitons _____ ${n.fr}.`, en:`We're visiting this ${n.en}.`, es:`Visitamos este/esta ${n.fr}.` }),
+  (n,d)=>({ fr:`Je n'oublie jamais _____ ${n.fr}.`, en:`I never forget this ${n.en}.`, es:`Nunca olvido este/esta ${n.fr}.` }),
+];
+
+const FILL_TEMPLATES_PL = [
+  (n)=>({ fr:`J'adore _____ ${n.pl}.`,  en:`I love these ${n.en}s.`,   es:`Me encantan estos/estas ${n.pl}.` }),
+  (n)=>({ fr:`_____ ${n.pl} sont beaux.`, en:`These ${n.en}s are beautiful.`, es:`Estos/estas ${n.pl} son bonitos/as.` }),
+  (n)=>({ fr:`Tu veux _____ ${n.pl} ?`, en:`Do you want these ${n.en}s?`, es:`¿Quieres estos/estas ${n.pl}?` }),
+  (n)=>({ fr:`Je prends _____ ${n.pl}.`, en:`I'll take these ${n.en}s.`, es:`Me llevo estos/estas ${n.pl}.` }),
+  (n)=>({ fr:`Regarde _____ ${n.pl} !`, en:`Look at these ${n.en}s!`, es:`¡Mira estos/estas ${n.pl}!` }),
+  (n)=>({ fr:`_____ ${n.pl} sont intéressants.`, en:`These ${n.en}s are interesting.`, es:`Estos/estas ${n.pl} son interesantes.` }),
+  (n)=>({ fr:`Nous aimons _____ ${n.pl}.`, en:`We like these ${n.en}s.`, es:`Nos gustan estos/estas ${n.pl}.` }),
+];
+
+const CI_LA_TEMPLATES = [
+  (n,d,s)=>({ fr:`Je préfère ${d} ${n.fr}-${s}.`, en:`I prefer ${s==='ci'?'this':'that'} ${n.en} ${s==='ci'?'here':'over there'}.`, es:`Prefiero ${s==='ci'?'este/esta':'ese/esa'} ${n.fr}.` }),
+  (n,d,s)=>({ fr:`Regardez ${d} ${n.fr}-${s} !`, en:`Look at ${s==='ci'?'this':'that'} ${n.en}!`, es:`¡Miren ${s==='ci'?'este/esta':'ese/esa'} ${n.fr}!` }),
+  (n,d,s)=>({ fr:`${d.charAt(0).toUpperCase()+d.slice(1)} ${n.fr}-${s} est magnifique.`, en:`${s==='ci'?'This':'That'} ${n.en} is magnificent.`, es:`${s==='ci'?'Este/Esta':'Ese/Esa'} ${n.fr} es magnífico/a.` }),
+];
+
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+function normalize(s){ return s.trim().toLowerCase().replace(/['']/g,"'").replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u').replace(/ç/g,'c').replace(/\s+/g,' '); }
+
+// ── Vocab strip ──
+function buildVocabStrip(){
+  const strip = document.getElementById('vocab-strip');
+  strip.innerHTML = shuffle([...NOUNS]).slice(0,30).map(n=>
+    `<span class="vc-pill vc-${n.form}" title="${n.form} ${n.fr} = this ${n.en}">${n.form} ${n.fr}</span>`
+  ).join('');
+}
+
+// ════════════════════════════════════════════════
+//  EXERCISE BUILDERS — zero spoilers
+// ════════════════════════════════════════════════
+
+function chipOptions(correct){
+  return shuffle([correct, ...shuffle(['ce','cet','cette','ces'].filter(f=>f!==correct)).slice(0,3)]);
+}
+
+// 1. Fill-in: choose the demonstrative from 4 chips
+function buildPickExercise(){
+  const n = rand(NOUNS);
+  const d = n.form;
+  const tpl = rand(FILL_TEMPLATES)(n, d);
+  return {
+    type: d,
+    sentence: tpl.fr.replace('_____','______'),
+    answer: d,
+    options: chipOptions(d),
+    hintAfter: `💡 <em>${n.fr}</em> → ${d==='ce'?'masc. (consonne)':d==='cet'?'masc. (voyelle / h muet)':d==='cette'?'féminin':'pluriel'} → <strong>${d}</strong>`,
+    translation: tpl.en,
+    es: tpl.es,
+    isChips: true,
+  };
+}
+
+// 2. Pluriel: choose "ces" among distractors
+function buildPlurielExercise(){
+  const n = rand(NOUNS);
+  const tpl = rand(FILL_TEMPLATES_PL)(n);
+  return {
+    type: 'ces',
+    sentence: tpl.fr.replace('_____','______'),
+    answer: 'ces',
+    options: shuffle(['ces', ...shuffle(['le','la','les','un','une','des']).slice(0,3)]),
+    hintAfter: `💡 Pluriel → toujours <strong>ces</strong> (masc. et fém.)`,
+    translation: tpl.en,
+    es: tpl.es,
+    isChips: true,
+  };
+}
+
+// 3. Given noun + English, pick the right "dem + noun"
+function buildNounChoiceExercise(){
+  const n = rand(NOUNS);
+  const d = n.form;
+  const correct = `${d} ${n.fr}`;
+  const wrongs = shuffle(['ce','cet','cette','ces'].filter(f=>f!==d)).slice(0,3).map(f=>`${f} ${n.fr}`);
+  return {
+    type: d,
+    sentence: `Quel démonstratif va avec « ${n.fr} » (${n.en}) ?`,
+    answer: correct,
+    options: shuffle([correct, ...wrongs]),
+    hintAfter: `💡 <em>${n.fr}</em> → ${d==='ce'?'masc. (consonne)':d==='cet'?'masc. (voyelle / h muet)':d==='cette'?'féminin':'pluriel'} → <strong>${d}</strong>`,
+    translation: `"${correct}" = this/that ${n.en}`,
+    es: `${d==='cette'?'esta':'este'} ${n.fr}`,
+    isMCQ: true,
+  };
+}
+
+// 4. -ci / -là: complete with the right suffix form
+function buildCiLaExercise(){
+  const n = rand(NOUNS.filter(n=>n.form!=='ces'));
+  const d = n.form;
+  const s = rand(['ci','là']);
+  const opp = s==='ci'?'là':'ci';
+  const tpl = rand(CI_LA_TEMPLATES)(n, d, s);
+  const correct = `${d} ${n.fr}-${s}`;
+  return {
+    type: 'cila',
+    sentence: tpl.fr.replace(correct, '______'),
+    answer: correct,
+    options: shuffle([correct, `${d} ${n.fr}-${opp}`, `${d}-${s} ${n.fr}`, `${n.fr}-${s}`]),
+    hintAfter: `💡 <strong>-ci</strong> = proche (this here) · <strong>-là</strong> = loin (that there)`,
+    translation: tpl.en,
+    es: tpl.es,
+    isMCQ: true,
+  };
+}
+
+// 5. Translate from English: pick the right demonstrative
+function buildTranslateExercise(){
+  const n = rand(NOUNS);
+  const d = n.form;
+  const tpl = rand(FILL_TEMPLATES)(n, d);
+  return {
+    type: d,
+    sentence: `Traduisez en français : "${tpl.en}"`,
+    answer: d,
+    options: chipOptions(d),
+    hintAfter: `💡 <em>${n.fr}</em> → ${d==='ce'?'masc. (consonne)':d==='cet'?'masc. (voyelle / h muet)':d==='cette'?'féminin':'pluriel'} → <strong>${d}</strong>`,
+    translation: `"${d} ${n.fr}" — ${tpl.fr.replace('_____', d)}`,
+    es: tpl.es,
+    isChips: true,
+  };
+}
+
+// ════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════
+let exercises=[], answered=0, score=0;
+let stats={ce:{c:0,t:0},cet:{c:0,t:0},cette:{c:0,t:0},ces:{c:0,t:0},cila:{c:0,t:0}};
+const chosen={};
+
+function buildPool(n=10){
+  const builders=[buildPickExercise, buildPlurielExercise, buildNounChoiceExercise, buildCiLaExercise, buildTranslateExercise];
+  return Array.from({length:n}, ()=>rand(builders)());
+}
+
+// Labels/tags revealed AFTER answer only
+const LABEL_AFTER={ce:'🔵 ce', cet:'🟢 cet', cette:'🩷 cette', ces:'🟡 ces', cila:'🟣 -ci/-là'};
+const TAG_AFTER  ={ce:'ce-tag', cet:'cet-tag', cette:'cette-tag', ces:'ces-tag', cila:'cila-tag'};
+
+// ════════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════════
+function newSet(){
+  answered=score=0;
+  stats={ce:{c:0,t:0},cet:{c:0,t:0},cette:{c:0,t:0},ces:{c:0,t:0},cila:{c:0,t:0}};
+  Object.keys(chosen).forEach(k=>delete chosen[k]);
+  document.getElementById('score').textContent='0';
+  document.getElementById('q-current').textContent='1';
+  document.getElementById('progress').style.width='0%';
+  document.getElementById('result-screen').classList.remove('show');
+  document.getElementById('exercises-container').style.display='';
+  document.getElementById('bottom-actions').style.display='';
+  exercises=buildPool();
+  document.getElementById('q-total').textContent=exercises.length;
+  buildVocabStrip();
+  renderExercises();
+}
+
+function renderExercises(){
+  const container=document.getElementById('exercises-container');
+  container.innerHTML='';
+  exercises.forEach((ex,i)=>{
+    const card=document.createElement('div');
+    card.className='exercise-card';
+    card.id=`card-${i}`;
+    card.style.animationDelay=`${i*0.05}s`;
+    // data-form NOT set — applied only after answer
+
+    let interactionHTML='';
+    if(ex.isChips){
+      interactionHTML=`
+        <div class="chip-row" id="chips-${i}">
+          ${ex.options.map((o,j)=>`
+            <button class="art-chip" id="chip-${i}-${j}" onclick="pickChip(${i},${j},'${o.replace(/'/g,"\\'")}')">
+              ${o}
+            </button>`).join('')}
+        </div>
+        <button class="check-btn" id="btn-${i}" onclick="checkChip(${i})">Confirmer ✓</button>`;
+    } else {
+      interactionHTML=`
+        <div class="mcq-options" id="mcq-${i}">
+          ${ex.options.map((o,j)=>`
+            <button class="mcq-btn" id="mcq-${i}-${j}" onclick="pickMCQ(${i},${j},'${o.replace(/'/g,"\\'")}')">
+              ${o}
+            </button>`).join('')}
+        </div>
+        <button class="check-btn" id="btn-${i}" onclick="checkMCQ(${i})">Confirmer ✓</button>`;
+    }
+
+    card.innerHTML=`
+      <div class="ex-meta">
+        <div class="ex-tags">
+          <span class="ex-tag" id="formtag-${i}">Démonstratif</span>
+          <span class="ex-tag">${ex.isChips?'Choisissez l\'article':'Choisissez la forme'}</span>
+        </div>
+        <span class="ex-num">${i+1}/${exercises.length}</span>
+      </div>
+      <div class="ex-sentence">${ex.sentence}</div>
+      <div class="ex-hint" id="hint-${i}"></div>
+      ${interactionHTML}
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="translation" id="tr-${i}">🇬🇧 ${ex.translation||''}</div>
+      <div class="es-note" id="es-${i}">🇪🇸 ${ex.es||''}</div>`;
+
+    container.appendChild(card);
+  });
+}
+
+// ── Interaction ──
+function pickChip(ei,oi,val){
+  if(exercises[ei]._answered) return;
+  exercises[ei].options.forEach((_,j)=>document.getElementById(`chip-${ei}-${j}`)?.classList.remove('chosen'));
+  document.getElementById(`chip-${ei}-${oi}`).classList.add('chosen');
+  chosen[ei]=val;
+}
+
+function checkChip(i){
+  const ex=exercises[i];
+  if(ex._answered||!chosen[i]) return;
+  ex._answered=true;
+  const val=chosen[i], ok=normalize(val)===normalize(ex.answer);
+  ex.options.forEach((o,j)=>{
+    const b=document.getElementById(`chip-${i}-${j}`);
+    if(!b) return;
+    b.disabled=true;
+    if(normalize(o)===normalize(ex.answer)) b.classList.add('chip-ok');
+    else if(normalize(o)===normalize(val)&&!ok) b.classList.add('chip-bad');
+  });
+  revealResult(i,ok,ex.answer,ex.type);
+}
+
+function pickMCQ(ei,oi,val){
+  if(exercises[ei]._answered) return;
+  exercises[ei].options.forEach((_,j)=>document.getElementById(`mcq-${ei}-${j}`)?.classList.remove('chosen'));
+  document.getElementById(`mcq-${ei}-${oi}`).classList.add('chosen');
+  chosen[ei]=val;
+}
+
+function checkMCQ(i){
+  const ex=exercises[i];
+  if(ex._answered||!chosen[i]) return;
+  ex._answered=true;
+  const val=chosen[i], ok=normalize(val)===normalize(ex.answer);
+  ex.options.forEach((o,j)=>{
+    const b=document.getElementById(`mcq-${i}-${j}`);
+    if(!b) return;
+    b.disabled=true;
+    if(normalize(o)===normalize(ex.answer)) b.classList.add('chip-ok');
+    else if(normalize(o)===normalize(val)&&!ok) b.classList.add('chip-bad');
+  });
+  revealResult(i,ok,ex.answer,ex.type);
+}
+
+// ── Reveal: colors + hint + translations appear ONLY now ──
+function revealResult(i,ok,answer,type){
+  const card=document.getElementById(`card-${i}`);
+  const fb=document.getElementById(`fb-${i}`);
+  const btn=document.getElementById(`btn-${i}`);
+  const hintEl=document.getElementById(`hint-${i}`);
+  const tagEl=document.getElementById(`formtag-${i}`);
+  if(btn) btn.disabled=true;
+
+  // Apply form identity NOW — after answer submitted
+  card.dataset.form=type;
+  card.classList.add('revealed');
+  if(tagEl){
+    tagEl.textContent=LABEL_AFTER[type]||answer;
+    tagEl.classList.add(TAG_AFTER[type]||'');
+  }
+  if(hintEl&&exercises[i].hintAfter) hintEl.innerHTML=exercises[i].hintAfter;
+
+  const sk=type==='cila'?'cila':type;
+  if(ok){
+    card.classList.add('correct','pop');
+    fb.innerHTML=`✓ Correct ! <strong>${answer}</strong>`;
+    fb.className='feedback show correct-fb';
+    score++;
+    if(stats[sk]) stats[sk].c++;
+    document.getElementById('score').textContent=score;
+  } else {
+    card.classList.add('wrong');
+    fb.innerHTML=`✗ Réponse correcte : <strong>${answer}</strong>`;
+    fb.className='feedback show wrong-fb';
+  }
+  if(stats[sk]) stats[sk].t++;
+
+  document.getElementById(`tr-${i}`).classList.add('show');
+  document.getElementById(`es-${i}`).classList.add('show');
+  answered++;
+  document.getElementById('progress').style.width=(answered/exercises.length*100)+'%';
+  document.getElementById('q-current').textContent=Math.min(answered+1,exercises.length);
+  if(answered===exercises.length) setTimeout(showResult,900);
+  else {
+    const next=document.getElementById(`chip-${i+1}-0`)||document.getElementById(`mcq-${i+1}-0`);
+    if(next) setTimeout(()=>next.scrollIntoView({behavior:'smooth',block:'center'}),350);
+  }
+}
+
+function checkAll(){
+  exercises.forEach((_,i)=>{
+    const ex=exercises[i];
+    if(ex._answered) return;
+    if(ex.isChips&&chosen[i]) checkChip(i);
+    else if(ex.isMCQ&&chosen[i]) checkMCQ(i);
+  });
+}
+
+function showResult(){
+  document.getElementById('exercises-container').style.display='none';
+  document.getElementById('bottom-actions').style.display='none';
+  const pct=score/exercises.length;
+  const [emoji,title]=pct===1?['🏆','PARFAIT !']:pct>=0.8?['🎉','EXCELLENT !']:pct>=0.6?['👍','BIEN JOUÉ !']:pct>=0.4?['💪','CONTINUEZ !']:['📚','RÉVISEZ !'];
+  document.getElementById('result-emoji').textContent=emoji;
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-score-val').textContent=`${score}/${exercises.length}`;
+  const cats=document.getElementById('result-cats');
+  cats.innerHTML='';
+  [{k:'ce',l:'🔵 CE'},{k:'cet',l:'🟢 CET'},{k:'cette',l:'🩷 CETTE'},{k:'ces',l:'🟡 CES'},{k:'cila',l:'🟣 -ci/-là'}].forEach(({k,l})=>{
+    if(!stats[k].t) return;
+    const d=document.createElement('div');
+    d.className=`res-cat cat-${k}`;
+    d.textContent=`${l} ${stats[k].c}/${stats[k].t}`;
+    cats.appendChild(d);
+  });
+  document.getElementById('result-screen').classList.add('show');
+  buildVocabStrip();
+}
+
+// ── Init ──
+buildVocabStrip();
+newSet();
+</script>
+</body>
+</html>

@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 21 — Les Adverbes</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --violet:#b44fff; --gold:#ffd166; --green:#06d6a0; --red:#ff4757;
+    --sky:#38bdf8; --sky2:#7dd3fc; --sky3:#e0f2fe;
+    --accent:#38bdf8;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(56,189,248,0.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(56,189,248,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-230px; right:-170px; background:rgba(56,189,248,0.09); }
+  .h2{ width:560px; height:560px; bottom:-190px; left:-140px; background:rgba(180,79,255,0.06); }
+  .h3{ width:270px; height:270px; top:50%; left:22%; background:rgba(255,209,102,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:76vh; top:10vh; left:13%; background:linear-gradient(to bottom,transparent,var(--sky),transparent); transform:rotate(-9deg); }
+  .al2{ width:1px; height:56vh; top:24vh; right:12%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(10deg); }
+
+  .bg-mark{ position:fixed; right:-48px; bottom:8%; opacity:0.022; font-family:'Bebas Neue',sans-serif;
+    font-size:200px; color:var(--sky); transform:rotate(8deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  .wrapper{ position:relative; z-index:1; max-width:980px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--sky2);
+    border:1px solid rgba(56,189,248,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(56,189,248,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--sky2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(50px,8vw,90px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--sky2) 44%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── FORMATION CARD ── */
+  .formation-card{ background:linear-gradient(135deg,rgba(56,189,248,0.07),rgba(180,79,255,0.05));
+    border:1px solid rgba(56,189,248,0.22); border-radius:14px; padding:22px 26px; margin-bottom:22px; }
+
+  .form-cols{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media(max-width:560px){ .form-cols{ grid-template-columns:1fr; } }
+
+  .fc-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; margin-bottom:8px; }
+  .fc-title.reg  { color:var(--sky2); }
+  .fc-title.spec { color:var(--gold); }
+
+  .rule-box{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:11px 15px; margin-bottom:8px; }
+  .rule-step{ font-family:'DM Serif Display',serif; font-size:15px; line-height:1.8; }
+  .rs-adj { color:var(--sky2); }
+  .rs-fem { color:var(--gold); }
+  .rs-end { color:var(--green); }
+  .rs-result{ color:var(--text); }
+  .rule-note{ font-size:11px; color:var(--text3); font-style:italic; margin-top:5px; }
+
+  /* formation rows */
+  .form-rows{ display:flex; flex-direction:column; gap:6px; margin-top:4px; }
+  .fr-row{ display:grid; grid-template-columns:1fr 0.7fr 1fr; align-items:center; gap:8px;
+    background:var(--card); border:1px solid var(--border); border-radius:7px; padding:7px 12px; }
+  .fr-adj { font-family:'DM Serif Display',serif; font-size:15px; color:var(--sky2); }
+  .fr-arr { color:var(--text3); font-size:12px; text-align:center; }
+  .fr-adv { font-family:'DM Serif Display',serif; font-size:15px; color:var(--green); }
+
+  /* ── CATEGORIES SECTION ── */
+  .cat-section{ margin-bottom:22px; }
+  .cat-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+  @media(max-width:640px){ .cat-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:400px){ .cat-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .cat-cell{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:11px 10px; text-align:center; transition:border-color 0.2s,transform 0.2s; }
+  .cat-cell:hover{ transform:translateY(-2px); }
+  .cat-icon { font-size:22px; margin-bottom:4px; }
+  .cat-name { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:2px; margin-bottom:5px; }
+  .cat-name.manner{ color:var(--sky2); }
+  .cat-name.freq  { color:var(--gold); }
+  .cat-name.degree{ color:#f472b6; }
+  .cat-name.time  { color:var(--green); }
+  .cat-name.place { color:var(--violet); }
+  .cat-cell:hover.manner-c{ border-color:rgba(56,189,248,0.3); }
+  .cat-cell:hover.freq-c  { border-color:rgba(255,209,102,0.3); }
+  .cat-cell:hover.degree-c{ border-color:rgba(244,114,182,0.3); }
+  .cat-cell:hover.time-c  { border-color:rgba(6,214,160,0.3); }
+  .cat-cell:hover.place-c { border-color:rgba(180,79,255,0.3); }
+  .cat-examples{ font-size:10.5px; color:var(--text3); line-height:1.6; }
+
+  /* ── PLACEMENT CARD ── */
+  .placement-card{ background:var(--card); border:1px solid rgba(56,189,248,0.18); border-radius:12px; padding:16px 20px; margin-bottom:22px; }
+  .plc-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:8px; }
+  @media(max-width:560px){ .plc-grid{ grid-template-columns:1fr; } }
+  .plc-cell{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 13px; }
+  .plc-rule{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--sky2); margin-bottom:5px; }
+  .plc-ex  { font-family:'DM Serif Display',serif; font-size:14px; color:var(--text); line-height:1.6; }
+  .plc-ex .hl{ color:var(--sky2); }
+  .plc-en  { font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── IRR SECTION ── */
+  .irr-section{ margin-bottom:22px; }
+  .irr-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  @media(max-width:560px){ .irr-grid{ grid-template-columns:repeat(2,1fr); } }
+  .irr-cell{ background:var(--card); border:1px solid var(--border); border-radius:9px; padding:10px 13px; transition:border-color 0.2s; }
+  .irr-cell:hover{ border-color:rgba(255,209,102,0.25); }
+  .ic-adj { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; color:var(--text3); }
+  .ic-adv { font-family:'DM Serif Display',serif; font-size:17px; color:var(--gold); margin:2px 0; }
+  .ic-note{ font-size:10px; color:var(--text3); font-style:italic; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--sky2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:860px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(56,189,248,0.02); }
+  .vfr { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vadj{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--gold); }
+  .ven { color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--sky2); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex { color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(56,189,248,0.4); background:rgba(56,189,248,0.07); color:var(--sky2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(6,214,160,0.12),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(56,189,248,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a2.active{ border-color:var(--green);  color:var(--green); }
+  .level-pill.b1.active{ border-color:var(--sky);    color:var(--sky2); }
+  .level-pill.b2.active{ border-color:var(--violet); color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--sky2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--sky),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(56,189,248,0.14),rgba(180,79,255,0.09));
+    border:1px solid rgba(56,189,248,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(56,189,248,0.26),rgba(180,79,255,0.18));
+    border-color:var(--sky2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(56,189,248,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--sky2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.irr-card::before  { background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card.plc-card::before  { background:linear-gradient(90deg,transparent,var(--violet),transparent); }
+  .exercise-card.cat-card::before  { background:linear-gradient(90deg,transparent,#f472b6,transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card      { border-color:rgba(56,189,248,0.22); transform:translateY(-1px); }
+  .exercise-card.irr-card.active-card{ border-color:rgba(255,209,102,0.22); }
+  .exercise-card.plc-card.active-card{ border-color:rgba(180,79,255,0.22); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* formation mini-badge */
+  .form-badge{ display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap;
+    background:rgba(56,189,248,0.05); border:1px solid rgba(56,189,248,0.18);
+    border-radius:5px; padding:4px 11px; margin-bottom:10px; }
+  .fb-adj{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--sky2); }
+  .fb-fem{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--gold); }
+  .fb-res{ font-family:'DM Serif Display',serif; font-size:13px; color:var(--green); }
+  .fb-sep{ color:var(--text3); font-size:11px; }
+
+  /* cat badge */
+  .cat-badge{ display:inline-flex; align-items:center; gap:6px;
+    border-radius:4px; padding:3px 11px; margin-bottom:8px; }
+  .cat-badge.manner{ background:rgba(56,189,248,0.06);  border:1px solid rgba(56,189,248,0.22); }
+  .cat-badge.freq  { background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.22); }
+  .cat-badge.degree{ background:rgba(244,114,182,0.06); border:1px solid rgba(244,114,182,0.22); }
+  .cat-badge.time  { background:rgba(6,214,160,0.06);   border:1px solid rgba(6,214,160,0.22); }
+  .cat-badge.place { background:rgba(180,79,255,0.06);  border:1px solid rgba(180,79,255,0.22); }
+  .cb-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .cb-val  { font-family:'DM Serif Display',serif; font-size:13px; }
+  .cb-val.manner{ color:var(--sky2); } .cb-val.freq{ color:var(--gold); }
+  .cb-val.degree{ color:#f472b6; }    .cb-val.time{ color:var(--green); }
+  .cb-val.place { color:#d8a8ff; }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.form  { color:var(--sky2); border:1px solid rgba(56,189,248,0.28);  background:rgba(56,189,248,0.05); }
+  .card-type.irr   { color:var(--gold); border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.plc   { color:#d8a8ff;     border:1px solid rgba(180,79,255,0.28);  background:rgba(180,79,255,0.05); }
+  .card-type.cat   { color:#f472b6;     border:1px solid rgba(244,114,182,0.28); background:rgba(244,114,182,0.05); }
+  .card-type.choix { color:var(--sky3); border:1px solid rgba(224,242,254,0.22); background:rgba(224,242,254,0.04); }
+  .card-type.trad  { color:var(--green);border:1px solid rgba(6,214,160,0.28);   background:rgba(6,214,160,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(16px,2.6vw,21px); line-height:1.8; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--sky2); box-shadow:0 0 0 2px rgba(56,189,248,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--sky2); color:var(--text); background:rgba(56,189,248,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(56,189,248,0.4);
+    background:rgba(56,189,248,0.06); color:var(--sky2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(56,189,248,0.16); border-color:var(--sky2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(56,189,248,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(56,189,248,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--sky2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); }
+  .score-stat-num.bad { color:var(--red); }
+  .score-stat-num.neu { color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(56,189,248,0.4);
+    background:rgba(56,189,248,0.08); color:var(--sky2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(56,189,248,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .cat-grid{ grid-template-columns:repeat(3,1fr); }
+    .irr-grid{ grid-template-columns:repeat(2,1fr); }
+    .plc-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">RAPI<br>DEMENT<br>VRAI<br>MENT</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 21 · FRANÇAIS</div>
+    <h1>Les Adverbes</h1>
+    <p class="subtitle">il parle <span style="color:var(--sky2)">rapidement</span> · elle est <span style="color:var(--sky2)">vraiment</span> brillante · il travaille <span style="color:var(--sky2)">bien</span>...</p>
+    <p class="subtitle2">FORMATION EN -MENT · IRRÉGULIERS · PLACEMENT · CATÉGORIES · A2 → B2</p>
+  </header>
+
+  <!-- FORMATION CARD -->
+  <div class="formation-card">
+    <div class="section-title" style="margin-bottom:14px">✦ FORMATION DES ADVERBES EN -MENT</div>
+    <div class="form-cols">
+      <!-- Rules -->
+      <div>
+        <div class="fc-title reg">RÈGLE GÉNÉRALE</div>
+        <div class="rule-box">
+          <div class="rule-step">
+            <span class="rs-adj">Adj. masc.</span> →
+            <span class="rs-fem">forme fém.</span> +
+            <span class="rs-end">-ment</span>
+          </div>
+          <div class="rule-note">lent → lente → <strong>lentement</strong><br>
+          doux → douce → <strong>doucement</strong><br>
+          actif → active → <strong>activement</strong></div>
+        </div>
+        <div class="rule-box" style="border-color:rgba(255,209,102,0.2)">
+          <div class="rule-step" style="font-size:14px">
+            <span style="color:var(--gold)">Adj. masc. terminé en -e</span><br>
+            → ajouter -ment directement
+          </div>
+          <div class="rule-note">facile → <strong>facilement</strong><br>
+          rapide → <strong>rapidement</strong><br>
+          sincère → <strong>sincèrement</strong></div>
+        </div>
+        <div class="rule-box" style="border-color:rgba(180,79,255,0.2)">
+          <div class="rule-step" style="font-size:14px">
+            <span style="color:#d8a8ff">Adj. terminé en -ant / -ent</span><br>
+            → -amment / -emment
+          </div>
+          <div class="rule-note">courant → <strong>couramment</strong><br>
+          fréquent → <strong>fréquemment</strong><br>
+          évident → <strong>évidemment</strong></div>
+        </div>
+      </div>
+      <!-- Examples table -->
+      <div>
+        <div class="fc-title spec">EXEMPLES — ADJ → ADV</div>
+        <div class="form-rows">
+          <div class="fr-row"><span class="fr-adj">heureux / heureuse</span><span class="fr-arr">→</span><span class="fr-adv">heureusement</span></div>
+          <div class="fr-row"><span class="fr-adj">lent / lente</span><span class="fr-arr">→</span><span class="fr-adv">lentement</span></div>
+          <div class="fr-row"><span class="fr-adj">doux / douce</span><span class="fr-arr">→</span><span class="fr-adv">doucement</span></div>
+          <div class="fr-row"><span class="fr-adj">vrai / vraie</span><span class="fr-arr">→</span><span class="fr-adv">vraiment</span></div>
+          <div class="fr-row"><span class="fr-adj">final / finale</span><span class="fr-arr">→</span><span class="fr-adv">finalement</span></div>
+          <div class="fr-row"><span class="fr-adj">récent / récente</span><span class="fr-arr">→</span><span class="fr-adv">récemment</span></div>
+          <div class="fr-row"><span class="fr-adj">courant / courante</span><span class="fr-arr">→</span><span class="fr-adv">couramment</span></div>
+          <div class="fr-row"><span class="fr-adj">évident / évidente</span><span class="fr-arr">→</span><span class="fr-adv">évidemment</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IRREGULAR ADVERBS -->
+  <div class="irr-section">
+    <div class="section-title">✦ ADVERBES IRRÉGULIERS — À MÉMORISER</div>
+    <div class="irr-grid">
+      <div class="irr-cell"><div class="ic-adj">BON</div><div class="ic-adv">bien</div><div class="ic-note">not bonement</div></div>
+      <div class="irr-cell"><div class="ic-adj">MAUVAIS</div><div class="ic-adv">mal</div><div class="ic-note">not mauvaisement</div></div>
+      <div class="irr-cell"><div class="ic-adj">MEILLEUR</div><div class="ic-adv">mieux</div><div class="ic-note">comparatif de bien</div></div>
+      <div class="irr-cell"><div class="ic-adj">RAPIDE</div><div class="ic-adv">vite</div><div class="ic-note">or rapidement</div></div>
+      <div class="irr-cell"><div class="ic-adj">BREF</div><div class="ic-adv">brièvement</div><div class="ic-note">brève → brièvement</div></div>
+      <div class="irr-cell"><div class="ic-adj">GENTIL</div><div class="ic-adv">gentiment</div><div class="ic-note">gentille → gentiment</div></div>
+      <div class="irr-cell"><div class="ic-adj">PRÉCIS</div><div class="ic-adv">précisément</div><div class="ic-note">précise → précisément</div></div>
+      <div class="irr-cell"><div class="ic-adj">PROFOND</div><div class="ic-adv">profondément</div><div class="ic-note">profonde → profondément</div></div>
+      <div class="irr-cell"><div class="ic-adj">INTENSE</div><div class="ic-adv">intensément</div><div class="ic-note">intense → intensément</div></div>
+    </div>
+  </div>
+
+  <!-- PLACEMENT CARD -->
+  <div class="placement-card">
+    <div class="section-title">✦ PLACEMENT DES ADVERBES</div>
+    <div class="plc-grid">
+      <div class="plc-cell">
+        <div class="plc-rule">APRÈS LE VERBE (temps simples)</div>
+        <div class="plc-ex">Il parle <span class="hl">vite</span>.<br>Elle travaille <span class="hl">sérieusement</span>.<br>Je mange <span class="hl">lentement</span>.</div>
+        <div class="plc-en">He speaks quickly.</div>
+      </div>
+      <div class="plc-cell">
+        <div class="plc-rule">ENTRE AUXILIAIRE ET PP (temps composés)</div>
+        <div class="plc-ex">Il a <span class="hl">bien</span> travaillé.<br>Elle a <span class="hl">vite</span> compris.<br>Ils ont <span class="hl">souvent</span> mangé ici.</div>
+        <div class="plc-en">He worked well. / She quickly understood.</div>
+      </div>
+      <div class="plc-cell">
+        <div class="plc-rule">AVANT L'ADJ / AUTRE ADVERBE</div>
+        <div class="plc-ex">C'est <span class="hl">vraiment</span> beau.<br>Elle est <span class="hl">très</span> intelligente.<br>Il parle <span class="hl">assez</span> vite.</div>
+        <div class="plc-en">It's truly beautiful. / quite fast.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="cat-section" style="margin-top:22px">
+    <div class="section-title">✦ CATÉGORIES D'ADVERBES</div>
+    <div class="cat-grid">
+      <div class="cat-cell manner-c">
+        <div class="cat-icon">🎯</div>
+        <div class="cat-name manner">MANIÈRE</div>
+        <div class="cat-examples">bien · mal · vite · lentement · doucement · sérieusement · rapidement</div>
+      </div>
+      <div class="cat-cell freq-c">
+        <div class="cat-icon">🔄</div>
+        <div class="cat-name freq">FRÉQUENCE</div>
+        <div class="cat-examples">toujours · souvent · parfois · rarement · jamais · quelquefois</div>
+      </div>
+      <div class="cat-cell degree-c">
+        <div class="cat-icon">⚡</div>
+        <div class="cat-name degree">DEGRÉ</div>
+        <div class="cat-examples">très · assez · trop · peu · vraiment · tellement · plutôt · si</div>
+      </div>
+      <div class="cat-cell time-c">
+        <div class="cat-icon">⏱</div>
+        <div class="cat-name time">TEMPS</div>
+        <div class="cat-examples">maintenant · hier · demain · déjà · encore · bientôt · enfin · tôt · tard</div>
+      </div>
+      <div class="cat-cell place-c">
+        <div class="cat-icon">📍</div>
+        <div class="cat-name place">LIEU</div>
+        <div class="cat-examples">ici · là · partout · ailleurs · dedans · dehors · loin · près</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section" style="margin-top:22px">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — MANIÈRE &amp; INTENSITÉ</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>ADVERBE</th><th>ADJ. DE BASE</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CATÉGORIE</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">précisément</td><td class="vadj">précis(e)</td><td class="ven">precisely / exactly</td><td class="ves">precisamente</td><td class="vcat">manière</td><td class="vex">C'est précisément ça.</td></tr>
+          <tr><td class="vfr">profondément</td><td class="vadj">profond(e)</td><td class="ven">deeply / profoundly</td><td class="ves">profundamente</td><td class="vcat">degré</td><td class="vex">Il est profondément convaincu.</td></tr>
+          <tr><td class="vfr">fermement</td><td class="vadj">ferme</td><td class="ven">firmly / resolutely</td><td class="ves">firmemente</td><td class="vcat">manière</td><td class="vex">Elle a fermement refusé.</td></tr>
+          <tr><td class="vfr">spontanément</td><td class="vadj">spontané(e)</td><td class="ven">spontaneously</td><td class="ves">espontáneamente</td><td class="vcat">manière</td><td class="vex">Il a réagi spontanément.</td></tr>
+          <tr><td class="vfr">délibérément</td><td class="vadj">délibéré(e)</td><td class="ven">deliberately / on purpose</td><td class="ves">deliberadamente</td><td class="vcat">manière</td><td class="vex">Elle l'a fait délibérément.</td></tr>
+          <tr><td class="vfr">intensément</td><td class="vadj">intense</td><td class="ven">intensely</td><td class="ves">intensamente</td><td class="vcat">degré</td><td class="vex">Il la regardait intensément.</td></tr>
+          <tr><td class="vfr">clairement</td><td class="vadj">clair(e)</td><td class="ven">clearly</td><td class="ves">claramente</td><td class="vcat">manière</td><td class="vex">Expliquez-vous clairement.</td></tr>
+          <tr><td class="vfr">abruptement</td><td class="vadj">abrupt(e)</td><td class="ven">abruptly / suddenly</td><td class="ves">abruptamente</td><td class="vcat">manière</td><td class="vex">Il a quitté abruptement.</td></tr>
+          <tr><td class="vfr">étrangement</td><td class="vadj">étrange</td><td class="ven">strangely / oddly</td><td class="ves">extrañamente</td><td class="vcat">manière</td><td class="vex">Il se comportait étrangement.</td></tr>
+          <tr><td class="vfr">indéniablement</td><td class="vadj">indéniable</td><td class="ven">undeniably</td><td class="ves">innegablemente</td><td class="vcat">degré</td><td class="vex">C'est indéniablement brillant.</td></tr>
+          <tr><td class="vfr">simultanément</td><td class="vadj">simultané(e)</td><td class="ven">simultaneously</td><td class="ves">simultáneamente</td><td class="vcat">temps</td><td class="vex">Les deux choses ont eu lieu simultanément.</td></tr>
+          <tr><td class="vfr">inévitablement</td><td class="vadj">inévitable</td><td class="ven">inevitably</td><td class="ves">inevitablemente</td><td class="vcat">manière</td><td class="vex">Cela mène inévitablement à l'échec.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"        onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="formation"   onclick="setFilter('formation',this)">FORMATION -MENT</button>
+      <button class="filter-pill"        data-f="irregulier"  onclick="setFilter('irregulier',this)">IRRÉGULIERS</button>
+      <button class="filter-pill"        data-f="placement"   onclick="setFilter('placement',this)">PLACEMENT</button>
+      <button class="filter-pill"        data-f="categorie"   onclick="setFilter('categorie',this)">CATÉGORIE</button>
+      <button class="filter-pill"        data-f="traduction"  onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a2"        onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1 active" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2"        onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji"    id="scoreEmoji">🎉</div>
+    <div class="score-title"    id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// ADVERB DATABASE
+// ================================================================
+const ADVS = {
+  // ── NEW VOCAB ──
+  précisément:    { adj_m:'précis',     adj_f:'précise',    cat:'manière', irr:false, en:'precisely',       rule:'regular' },
+  profondément:   { adj_m:'profond',    adj_f:'profonde',   cat:'degré',   irr:false, en:'deeply',          rule:'special_e' },
+  fermement:      { adj_m:'ferme',      adj_f:'ferme',      cat:'manière', irr:false, en:'firmly',          rule:'base_e' },
+  spontanément:   { adj_m:'spontané',   adj_f:'spontanée',  cat:'manière', irr:false, en:'spontaneously',   rule:'regular' },
+  délibérément:   { adj_m:'délibéré',   adj_f:'délibérée',  cat:'manière', irr:false, en:'deliberately',    rule:'regular' },
+  intensément:    { adj_m:'intense',    adj_f:'intense',    cat:'degré',   irr:false, en:'intensely',       rule:'base_e' },
+  clairement:     { adj_m:'clair',      adj_f:'claire',     cat:'manière', irr:false, en:'clearly',         rule:'regular' },
+  abruptement:    { adj_m:'abrupt',     adj_f:'abrupte',    cat:'manière', irr:false, en:'abruptly',        rule:'regular' },
+  étrangement:    { adj_m:'étrange',    adj_f:'étrange',    cat:'manière', irr:false, en:'strangely',       rule:'base_e' },
+  indéniablement: { adj_m:'indéniable', adj_f:'indéniable', cat:'degré',   irr:false, en:'undeniably',      rule:'base_e' },
+  simultanément:  { adj_m:'simultané',  adj_f:'simultanée', cat:'temps',   irr:false, en:'simultaneously',  rule:'regular' },
+  inévitablement: { adj_m:'inévitable', adj_f:'inévitable', cat:'manière', irr:false, en:'inevitably',      rule:'base_e' },
+  // ── REGULAR -MENT ──
+  lentement:      { adj_m:'lent',      adj_f:'lente',      cat:'manière', irr:false, en:'slowly',          rule:'regular' },
+  doucement:      { adj_m:'doux',      adj_f:'douce',      cat:'manière', irr:false, en:'gently/softly',   rule:'regular' },
+  heureusement:   { adj_m:'heureux',   adj_f:'heureuse',   cat:'manière', irr:false, en:'fortunately',     rule:'regular' },
+  sérieusement:   { adj_m:'sérieux',   adj_f:'sérieuse',   cat:'manière', irr:false, en:'seriously',       rule:'regular' },
+  activement:     { adj_m:'actif',     adj_f:'active',     cat:'manière', irr:false, en:'actively',        rule:'regular' },
+  facilement:     { adj_m:'facile',    adj_f:'facile',     cat:'manière', irr:false, en:'easily',          rule:'base_e' },
+  rapidement:     { adj_m:'rapide',    adj_f:'rapide',     cat:'manière', irr:false, en:'quickly',         rule:'base_e' },
+  sincèrement:    { adj_m:'sincère',   adj_f:'sincère',    cat:'manière', irr:false, en:'sincerely',       rule:'base_e' },
+  franchement:    { adj_m:'franc',     adj_f:'franche',    cat:'manière', irr:false, en:'frankly',         rule:'regular' },
+  finalement:     { adj_m:'final',     adj_f:'finale',     cat:'temps',   irr:false, en:'finally',         rule:'regular' },
+  naturellement:  { adj_m:'naturel',   adj_f:'naturelle',  cat:'manière', irr:false, en:'naturally',       rule:'regular' },
+  certainement:   { adj_m:'certain',   adj_f:'certaine',   cat:'degré',   irr:false, en:'certainly',       rule:'regular' },
+  // ── -AMMENT / -EMMENT ──
+  couramment:     { adj_m:'courant',   adj_f:'courante',   cat:'manière', irr:false, en:'fluently',        rule:'amment' },
+  fréquemment:    { adj_m:'fréquent',  adj_f:'fréquente',  cat:'fréquence',irr:false,en:'frequently',      rule:'emment' },
+  récemment:      { adj_m:'récent',    adj_f:'récente',    cat:'temps',   irr:false, en:'recently',        rule:'emment' },
+  évidemment:     { adj_m:'évident',   adj_f:'évidente',   cat:'degré',   irr:false, en:'obviously',       rule:'emment' },
+  // ── IRREGULAR ──
+  bien:           { adj_m:'bon',       adj_f:'bonne',      cat:'manière', irr:true,  en:'well' },
+  mal:            { adj_m:'mauvais',   adj_f:'mauvaise',   cat:'manière', irr:true,  en:'badly' },
+  mieux:          { adj_m:'meilleur',  adj_f:'meilleure',  cat:'degré',   irr:true,  en:'better' },
+  vite:           { adj_m:'rapide',    adj_f:'rapide',     cat:'manière', irr:true,  en:'fast/quickly' },
+  brièvement:     { adj_m:'bref',      adj_f:'brève',      cat:'manière', irr:false, en:'briefly',         rule:'special' },
+  gentiment:      { adj_m:'gentil',    adj_f:'gentille',   cat:'manière', irr:false, en:'kindly',          rule:'special' },
+  profondément:   { adj_m:'profond',   adj_f:'profonde',   cat:'degré',   irr:false, en:'deeply',          rule:'special_e' },
+};
+
+const ALL_ADV  = Object.keys(ADVS);
+const IRR_ADVS = ALL_ADV.filter(k => ADVS[k].irr);
+const REG_ADVS = ALL_ADV.filter(k => !ADVS[k].irr);
+const AMMENT_ADVS = ALL_ADV.filter(k => ADVS[k].rule==='amment'||ADVS[k].rule==='emment');
+
+// Category data
+const CATEGORIES = {
+  manière:   { cls:'manner', label:'Manière', examples:['lentement','doucement','rapidement','sérieusement','bien','mal'] },
+  fréquence: { cls:'freq',   label:'Fréquence', examples:['toujours','souvent','parfois','rarement','jamais'] },
+  degré:     { cls:'degree', label:'Degré', examples:['très','assez','trop','vraiment','évidemment','tellement'] },
+  temps:     { cls:'time',   label:'Temps', examples:['maintenant','hier','demain','déjà','bientôt','récemment'] },
+  lieu:      { cls:'place',  label:'Lieu',  examples:['ici','là','partout','ailleurs','loin','près'] },
+};
+
+// Contexts per adverb
+const CTX = {
+  lentement:     { A2:'parle', B1:'avance dans la vie', B2:'mais sûrement' },
+  doucement:     { A2:'parle', B1:'frappe à la porte',  B2:'mais avec conviction' },
+  rapidement:    { A2:'court', B1:'comprend les choses',B2:'adapte sa stratégie' },
+  sérieusement:  { A2:'travaille', B1:'prend les choses au sérieux', B2:'envisage chaque option' },
+  heureusement:  { A2:'tout va bien', B1:'elle a réussi à temps', B2:'la situation n\'a pas empiré' },
+  facilement:    { A2:'apprend', B1:'se fait des amis',  B2:'navigue dans des environnements complexes' },
+  sincèrement:   { A2:'parle',  B1:'exprime ses doutes', B2:'remercie pour ce retour' },
+  franchement:   { A2:'répond', B1:'donne son avis',     B2:'exprime ce qu\'il ressent' },
+  couramment:    { A2:'parle français', B1:'s\'exprime en trois langues', B2:'maîtrise cette terminologie spécialisée' },
+  fréquemment:   { A2:'voyage', B1:'change d\'avis',     B2:'remet en question ses certitudes' },
+  récemment:     { A2:'est arrivé', B1:'a changé d\'avis', B2:'s\'est penché sur cette question' },
+  évidemment:    { A2:'oui',   B1:'c\'est le cas',       B2:'il faut nuancer cette affirmation' },
+  bien:          { A2:'chante', B1:'gère la situation',  B2:'maîtrise les subtilités de ce sujet' },
+  mal:           { A2:'dort',  B1:'supporte les critiques', B2:'tolère l\'ambiguïté inhérente à ce contexte' },
+  vite:          { A2:'court', B1:'comprend l\'essentiel', B2:'perçoit les enjeux sous-jacents' },
+  précisément:   { A2:'c\'est ça', B1:'soulève ce point',  B2:'interroge la notion de légitimité' },
+  profondément:  { A2:'dort',  B1:'est convaincu',        B2:'remet en question ses valeurs' },
+  fermement:     { A2:'dit non', B1:'maintient sa position', B2:'défend cette lecture des faits' },
+  spontanément:  { A2:'répond', B1:'offre son aide',      B2:'prend position sans hésitation' },
+  délibérément:  { A2:'parle lentement', B1:'évite le sujet', B2:'complexifie l\'analyse pour déstabiliser' },
+  intensément:   { A2:'regarde', B1:'réfléchit',          B2:'s\'investit dans chaque projet' },
+  clairement:    { A2:'explique', B1:'formule sa pensée',  B2:'articule les contradictions du modèle' },
+  étrangement:   { A2:'se comporte', B1:'répond aux questions', B2:'réagit face à cette révélation' },
+  indéniablement:{ A2:'c\'est beau', B1:'il a du talent',  B2:'il s\'impose comme référence dans ce domaine' },
+  inévitablement:{ A2:'ça arrive', B1:'mène à l\'échec', B2:'conduit à une remise en question fondamentale' },
+};
+
+const EN_CTX = {
+  lentement:    { A2:'speaks slowly',   B1:'makes progress slowly',  B2:'slowly but surely' },
+  rapidement:   { A2:'runs fast',       B1:'understands quickly',    B2:'quickly adapts his/her strategy' },
+  bien:         { A2:'sings well',      B1:'handles the situation well', B2:'masters the nuances of this topic' },
+  mal:          { A2:'sleeps badly',    B1:'handles criticism badly', B2:'tolerates ambiguity poorly' },
+  vite:         { A2:'runs fast',       B1:'grasps the key points',  B2:'quickly perceives underlying issues' },
+  précisément:  { A2:'exactly that',    B1:'raises this point precisely', B2:'precisely questions the notion of legitimacy' },
+  profondément: { A2:'sleeps deeply',   B1:'is deeply convinced',    B2:'deeply questions his/her values' },
+  clairement:   { A2:'explains clearly',B1:'formulates his/her thought clearly', B2:'clearly articulates the contradictions' },
+};
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/\u2019/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/'/g,"'").replace(/\s+/g,' ');
+}
+
+function getCtx(adv, lv){ const c=CTX[adv]; return (c&&c[lv])||(c&&c['B1'])||''; }
+function getEnCtx(adv, lv){ const c=EN_CTX[adv]; return (c&&c[lv])||(c&&c['B1'])||ADVS[adv]?.en||adv; }
+
+// Derive expected adverb from adjective (for formation exercises)
+function deriveAdverb(adj_m, adj_f, rule) {
+  if (!rule) { return adj_f + 'ment'; }
+  if (rule === 'base_e')   return adj_m + 'ment'; // adj already ends in -e
+  if (rule === 'amment')   return adj_m.replace(/ant$/, '') + 'amment';
+  if (rule === 'emment')   return adj_m.replace(/ent$/, '') + 'emment';
+  if (rule === 'special')  return '(irregular)'; // shown in irr section
+  if (rule === 'special_e')return adj_f + 'ment';
+  return adj_f + 'ment'; // default regular
+}
+
+// Build wrong adverb options
+function wrongAdvs(correct, n=3){
+  const pool = shuffle(ALL_ADV.filter(k=>k!==correct && normalise(k)!==normalise(correct)));
+  return pool.slice(0,n);
+}
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel = 'B1';
+let exFilter     = 'tous';
+let exercises    = [];
+let answered     = 0;
+let correct      = 0;
+
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx = currentLevel==='A2'?7:currentLevel==='B1'?9:11;
+
+  let typePool, advPool;
+  if     (exFilter==='formation')  { typePool=['form_input']; advPool=REG_ADVS; }
+  else if(exFilter==='irregulier') { typePool=['irr_mcq','form_input']; advPool=IRR_ADVS.concat(AMMENT_ADVS); }
+  else if(exFilter==='placement')  { typePool=['placement']; advPool=ALL_ADV; }
+  else if(exFilter==='categorie')  { typePool=['cat_mcq']; advPool=ALL_ADV; }
+  else if(exFilter==='traduction') { typePool=['traduction']; advPool=ALL_ADV; }
+  else { typePool=['form_input','irr_mcq','placement','cat_mcq','traduction','form_input','placement']; advPool=ALL_ADV; }
+
+  const types=[]; for(let i=0;i<numEx;i++) types.push(typePool[i%typePool.length]);
+  shuffle(types);
+
+  const used=new Set();
+  let ti=0;
+  for(const type of types){
+    let tries=0, key;
+    do{ key=advPool[Math.floor(Math.random()*advPool.length)]; tries++; }
+    while(used.has(key)&&tries<60);
+    used.add(key);
+
+    if     (type==='form_input') renderFormInput(container,ti,key);
+    else if(type==='irr_mcq')    renderIrrMCQ(container,ti,key);
+    else if(type==='placement')  renderPlacement(container,ti,key);
+    else if(type==='cat_mcq')    renderCatMCQ(container,ti,key);
+    else                         renderTraduction(container,ti,key);
+    ti++;
+  }
+  updateProgress();
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+
+function formBadge(key){
+  const d=ADVS[key]; if(!d) return '';
+  return `<div class="form-badge">
+    <span class="fb-adj">${d.adj_m}</span>
+    <span class="fb-sep">→ fém. →</span>
+    <span class="fb-fem">${d.adj_f}</span>
+    <span class="fb-sep">+ -ment =</span>
+    <span class="fb-res">${key}</span>
+  </div>`;
+}
+
+function catBadge(cat){
+  const c=CATEGORIES[cat]; if(!c) return '';
+  return `<div class="cat-badge ${c.cls}"><span class="cb-label">CAT.</span><span class="cb-val ${c.cls}">${c.label}</span></div>`;
+}
+
+// 1) Formation input — type the adverb from the adjective
+function renderFormInput(container, idx, key){
+  const data=ADVS[key]; if(!data||data.irr) return;
+  const ctx=getCtx(key,currentLevel)||'parle';
+  exercises.push({id:idx, answer:normalise(key), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type form">FORMATION -MENT</span></div>
+    <div class="hint-text">FORMEZ L'ADVERBE À PARTIR DE L'ADJECTIF</div>
+    <div class="sentence-display">
+      Adjectif : <span style="color:var(--sky2)">${data.adj_m}</span>
+      <span style="color:var(--text3)"> (fém. : ${data.adj_f})</span> → Adverbe : 
+      <input class="answer-input" id="input-${idx}" placeholder="${key.slice(0,4)}..."
+        style="width:220px" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(key)}')">
+    </div>
+    <div class="sentence-display" style="font-size:16px;color:var(--text2);margin-top:-4px">
+      Il ${ctx} <span id="inline-${idx}" style="color:var(--text3);font-style:italic">___</span>.
+    </div>
+    ${data.rule?`<div class="hint-text" style="margin-top:2px">Règle : ${data.rule==='base_e'?'adj. terminé en -e → + ment directement':data.rule==='amment'?'-ant → -amment':data.rule==='emment'?'-ent → -emment':'adj. fém. + -ment'}</div>`:''}
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(key)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) Irregular MCQ — choose correct adverb from adj
+function renderIrrMCQ(container, idx, key){
+  const data=ADVS[key]; if(!data) return;
+  const ctx=getCtx(key,currentLevel)||'parle';
+  const wrongs=wrongAdvs(key).slice(0,3);
+  const choices=shuffle([key,...wrongs]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(key)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx, answer:normalise(key), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card${data.irr?' irr-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type ${data.irr?'irr':'form'}">${data.irr?'IRRÉGULIER':'FORMATION'}</span></div>
+    ${!data.irr?formBadge(key):''}
+    <div class="hint-text">QUEL ADVERBE CORRESPOND À « ${data.adj_m.toUpperCase()} » ?</div>
+    <div class="sentence-display">Il ${ctx} <span style="color:var(--text3)">___</span>.</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) Placement — reorder sentence with adverb in correct position
+function renderPlacement(container, idx, key){
+  const data=ADVS[key]; if(!data) return;
+  const ctx=getCtx(key,currentLevel)||'parle';
+
+  // Build correct and wrong sentence versions
+  // Simple present: Sujet + verbe + adverbe ✓ vs adverbe + verbe (wrong)
+  const subjects=['Il','Elle','On','Mon ami','Ma collègue'];
+  const sub=rand(subjects);
+  const verb=ctx.split(' ')[0]||'parle';
+  const rest=ctx.split(' ').slice(1).join(' ');
+
+  const correct_sent = rest ? `${sub} ${verb} ${key} ${rest}.` : `${sub} ${verb} ${key}.`;
+  const wrong_sent   = rest ? `${sub} ${key} ${verb} ${rest}.` : `${key} ${sub} ${verb}.`;
+
+  const choices = shuffle([correct_sent, wrong_sent]).map(c=>
+    `<button class="choice-btn" style="font-family:'DM Serif Display',serif;font-size:14px;padding:9px 14px;text-align:left;max-width:100%;white-space:normal"
+      onclick="checkMCQFull(${idx},'${esc(c)}','${esc(correct_sent)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx, answer:normalise(correct_sent), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card plc-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type plc">PLACEMENT</span></div>
+    ${catBadge(data.cat||'manière')}
+    <div class="hint-text">QUELLE PHRASE EST CORRECTE AVEC « ${key.toUpperCase()} » ?</div>
+    <div class="choices" id="choices-${idx}" style="flex-direction:column">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 4) Category MCQ — identify category of adverb
+function renderCatMCQ(container, idx, key){
+  const data=ADVS[key]; if(!data) return;
+  const correctCat = data.cat||'manière';
+  const wrongCats  = shuffle(Object.keys(CATEGORIES).filter(c=>c!==correctCat)).slice(0,3);
+  const choices = shuffle([correctCat,...wrongCats]).map(c=>{
+    const info=CATEGORIES[c]||{label:c,cls:'manner'};
+    return `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(correctCat)}',this)">${info.label}</button>`;
+  }).join('');
+  exercises.push({id:idx, answer:normalise(correctCat), answered:false, correct:false});
+
+  const ctx=getCtx(key,currentLevel)||'agit';
+  const card=document.createElement('div');
+  card.className='exercise-card cat-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type cat">CATÉGORIE</span></div>
+    <div class="hint-text">DE QUELLE CATÉGORIE EST L'ADVERBE « ${key.toUpperCase()} » ?</div>
+    <div class="sentence-display">Il ${ctx} <span style="color:var(--sky2)">${key}</span>.</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 5) Translation
+function renderTraduction(container, idx, key){
+  const data=ADVS[key]; if(!data) return;
+  const en=getEnCtx(key,currentLevel)||data.en;
+  exercises.push({id:idx, answer:normalise(key), answered:false, correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    ${catBadge(data.cat||'manière')}
+    ${currentLevel!=='A2'?formBadge(key):''}
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS — QUEL ADVERBE ?</div>
+    <div class="sentence-display" style="color:var(--sky3)">${en}</div>
+    <div style="margin-top:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${key.slice(0,4)}..."
+        style="width:240px" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(key)}')">
+    </div>
+    <div class="hint-text" style="margin-top:6px">Adjectif de base : <em>${data.adj_m}</em></div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(key)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK / PROGRESS
+// ================================================================
+function checkInput(idx, answer){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx, chosen, answer, btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQFull(idx, chosen, answer, btn){ checkMCQ(idx,chosen,answer,btn); }
+
+function showFeedback(idx, isOk, answer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=['Parfait !','Excellent !','Très bien !','Bravo !','Super !','C\'est ça !'];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+function markAnswered(idx, isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t>0?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if     (pct>=90){emoji='🏆';title='PARFAIT !';   sub='Maîtrise parfaite des adverbes — formation, placement et catégories !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';     sub='Très bien — les adverbes en -ment n\'ont presque plus de secrets !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';      sub='Bon effort — révisez : fém. + ment, -ant→-amment, -ent→-emment.';}
+  else            {emoji='📚';title='CONTINUEZ !'; sub='Rappel : bon→bien, mauvais→mal, meilleur→mieux (irréguliers !).';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

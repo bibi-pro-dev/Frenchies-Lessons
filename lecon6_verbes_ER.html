@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 6 — Les Verbes en -ER</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c14;
+    --bg2: #0d1220;
+    --bg3: #111827;
+    --card: #141c2e;
+    --card2: #1a2440;
+    --border: #1e2d4a;
+    --cyan: #00f5ff;
+    --violet: #b44fff;
+    --gold: #ffd166;
+    --green: #06d6a0;
+    --red: #ff4757;
+    --text: #e8eef8;
+    --text2: #8a9bb5;
+    --text3: #4a5e80;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* === GEOMETRIC GRID BACKGROUND === */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .grid-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(180,79,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(180,79,255,0.015) 1px, transparent 1px);
+    background-size: 300px 300px;
+  }
+
+  /* === HALOS === */
+  .halo {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .halo-cyan  { width: 600px; height: 600px; top: -200px; right: -150px; background: rgba(0,245,255,0.07); }
+  .halo-violet{ width: 700px; height: 700px; bottom: -250px; left: -200px; background: rgba(180,79,255,0.07); }
+  .halo-gold  { width: 400px; height: 400px; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(255,209,102,0.04); }
+
+  /* === DIAGONAL ACCENT LINES === */
+  .accent-line {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.06;
+  }
+  .accent-line-1 { width: 1px; height: 80vh; top: 10vh; left: 18%; background: linear-gradient(to bottom, transparent, var(--cyan), transparent); transform: rotate(-12deg); }
+  .accent-line-2 { width: 1px; height: 60vh; top: 20vh; right: 15%; background: linear-gradient(to bottom, transparent, var(--violet), transparent); transform: rotate(8deg); }
+
+  /* === CONTAINER === */
+  .wrapper { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* === HEADER === */
+  header { text-align: center; margin-bottom: 48px; }
+
+  .lesson-tag {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    border: 1px solid rgba(0,245,255,0.3);
+    padding: 4px 16px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    background: rgba(0,245,255,0.05);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8vw, 88px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #ffffff 0%, var(--cyan) 50%, var(--violet) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text2);
+    margin-bottom: 12px;
+  }
+
+  /* === VOCAB BANNER === */
+  .vocab-banner {
+    background: linear-gradient(135deg, rgba(0,245,255,0.06), rgba(180,79,255,0.06));
+    border: 1px solid rgba(0,245,255,0.15);
+    border-radius: 12px;
+    padding: 20px 28px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .vocab-banner-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    flex-basis: 100%;
+    margin-bottom: 4px;
+  }
+
+  .vocab-chip {
+    background: rgba(180,79,255,0.12);
+    border: 1px solid rgba(180,79,255,0.25);
+    color: #d8a8ff;
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: default;
+    transition: background 0.2s;
+  }
+  .vocab-chip:hover { background: rgba(180,79,255,0.22); }
+  .vocab-chip span { color: var(--text2); font-size: 11px; }
+
+  /* === NIVEAU SELECTOR === */
+  .level-section { margin-bottom: 40px; }
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--text3);
+    margin-bottom: 12px;
+  }
+
+  .level-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .level-pill {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    padding: 8px 22px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .level-pill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .level-pill.a1::before { background: linear-gradient(135deg, rgba(6,214,160,0.15), transparent); }
+  .level-pill.a2::before { background: linear-gradient(135deg, rgba(0,245,255,0.15), transparent); }
+  .level-pill.b1::before { background: linear-gradient(135deg, rgba(255,209,102,0.15), transparent); }
+  .level-pill.b2::before { background: linear-gradient(135deg, rgba(180,79,255,0.15), transparent); }
+
+  .level-pill:hover, .level-pill.active { color: var(--text); }
+  .level-pill:hover::before, .level-pill.active::before { opacity: 1; }
+  .level-pill.a1.active { border-color: var(--green); color: var(--green); }
+  .level-pill.a2.active { border-color: var(--cyan); color: var(--cyan); }
+  .level-pill.b1.active { border-color: var(--gold); color: var(--gold); }
+  .level-pill.b2.active { border-color: var(--violet); color: #d8a8ff; }
+
+  /* === EXERCISE CARD === */
+  .exercise-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .exercise-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .exercise-card:hover::before, .exercise-card.active-card::before { opacity: 1; }
+  .exercise-card.active-card { border-color: rgba(0,245,255,0.2); transform: translateY(-1px); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--border);
+    position: absolute;
+    right: 24px;
+    top: 20px;
+    user-select: none;
+  }
+
+  .card-type {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 3px 12px;
+    border-radius: 2px;
+  }
+  .card-type.conjugaison { color: var(--cyan); border: 1px solid rgba(0,245,255,0.25); background: rgba(0,245,255,0.05); }
+  .card-type.traduction   { color: var(--gold); border: 1px solid rgba(255,209,102,0.25); background: rgba(255,209,102,0.05); }
+  .card-type.choix        { color: var(--violet); border: 1px solid rgba(180,79,255,0.25); background: rgba(180,79,255,0.05); }
+  .card-type.construction { color: var(--green); border: 1px solid rgba(6,214,160,0.25); background: rgba(6,214,160,0.05); }
+
+  .sentence-display {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+
+  .hint-text {
+    font-size: 12px;
+    color: var(--text3);
+    margin-bottom: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+  }
+
+  /* === INPUT STYLES === */
+  .answer-input {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 200px;
+    min-width: 120px;
+  }
+  .answer-input::placeholder { color: var(--text3); font-style: italic; }
+  .answer-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px rgba(0,245,255,0.08); }
+  .answer-input.correct { border-color: var(--green); color: var(--green); box-shadow: 0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect { border-color: var(--red); color: var(--red); box-shadow: 0 0 0 2px rgba(255,71,87,0.1); animation: shake 0.3s ease; }
+  .answer-input:disabled { opacity: 0.8; cursor: default; }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  /* Inline blank */
+  .blank-wrapper { display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; }
+  .answer-input.inline { width: 160px; font-size: 18px; padding: 6px 12px; }
+
+  /* === MULTIPLE CHOICE === */
+  .choices { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .choice-btn {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    padding: 9px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .choice-btn:hover { border-color: var(--cyan); color: var(--text); background: rgba(0,245,255,0.04); }
+  .choice-btn.selected-correct { border-color: var(--green); color: var(--green); background: rgba(6,214,160,0.08); cursor: default; }
+  .choice-btn.selected-wrong   { border-color: var(--red); color: var(--red); background: rgba(255,71,87,0.08); cursor: default; }
+  .choice-btn.disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+  .choice-btn.reveal-correct { border-color: var(--green); color: var(--green); opacity: 0.6; }
+
+  /* === FEEDBACK === */
+  .feedback {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: none;
+    align-items: flex-start;
+    gap: 10px;
+    animation: fadeIn 0.25s ease;
+  }
+  .feedback.show { display: flex; }
+  .feedback.success { background: rgba(6,214,160,0.08); border: 1px solid rgba(6,214,160,0.2); color: var(--green); }
+  .feedback.error   { background: rgba(255,71,87,0.08); border: 1px solid rgba(255,71,87,0.2); color: var(--red); }
+  .feedback-icon { font-size: 18px; flex-shrink: 0; margin-top: -1px; }
+  .feedback strong { font-weight: 600; }
+
+  @keyframes fadeIn { from { opacity:0; transform: translateY(4px); } to { opacity:1; transform: none; } }
+
+  /* === CHECK BUTTON === */
+  .check-btn {
+    margin-top: 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 10px 28px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,245,255,0.4);
+    background: rgba(0,245,255,0.06);
+    color: var(--cyan);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .check-btn:hover { background: rgba(0,245,255,0.12); border-color: var(--cyan); }
+  .check-btn:disabled { opacity: 0.3; cursor: default; }
+
+  /* === PROGRESS BAR === */
+  .progress-section { margin-bottom: 36px; }
+  .progress-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .progress-label { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--text3); }
+  .progress-score { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); }
+
+  .progress-track {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+
+  /* === GENERATE BTN === */
+  .generate-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+  .generate-btn {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 3px;
+    padding: 14px 36px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .generate-btn.primary {
+    background: linear-gradient(135deg, rgba(0,245,255,0.15), rgba(180,79,255,0.15));
+    border: 1px solid rgba(0,245,255,0.4);
+    color: var(--text);
+  }
+  .generate-btn.primary:hover {
+    background: linear-gradient(135deg, rgba(0,245,255,0.25), rgba(180,79,255,0.25));
+    border-color: var(--cyan);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px rgba(0,245,255,0.1);
+  }
+  .generate-btn.secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+  .generate-btn.secondary:hover { border-color: rgba(255,209,102,0.4); color: var(--gold); }
+
+  /* === SCORE POPUP === */
+  .score-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(8,12,20,0.85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .score-popup.show { opacity: 1; pointer-events: all; }
+  .score-box {
+    background: var(--card2);
+    border: 1px solid rgba(0,245,255,0.2);
+    border-radius: 20px;
+    padding: 48px 60px;
+    text-align: center;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 60px rgba(0,245,255,0.06);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes popIn { from { transform: scale(0.85); opacity:0; } to { transform: scale(1); opacity:1; } }
+
+  .score-emoji { font-size: 52px; margin-bottom: 16px; }
+  .score-title { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--gold); letter-spacing: 2px; line-height: 1; margin-bottom: 8px; }
+  .score-subtitle { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 18px; color: var(--text2); margin-bottom: 32px; }
+  .score-detail { display: flex; justify-content: center; gap: 40px; margin-bottom: 32px; }
+  .score-stat { text-align: center; }
+  .score-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--text); }
+  .score-stat-lbl { font-size: 11px; letter-spacing: 2px; color: var(--text3); font-family: 'Bebas Neue', sans-serif; }
+  .score-stat-num.good { color: var(--green); }
+  .score-stat-num.bad  { color: var(--red); }
+
+  .score-close-btn {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 3px;
+    padding: 12px 40px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,245,255,0.4);
+    background: rgba(0,245,255,0.08);
+    color: var(--cyan);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .score-close-btn:hover { background: rgba(0,245,255,0.18); }
+
+  /* === VOCAB TABLE === */
+  .vocab-section {
+    margin-bottom: 40px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .vocab-section-header {
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .vocab-section-header:hover { border-bottom-color: var(--border); }
+  .vocab-section-header .title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--violet);
+  }
+  .vocab-section-header .toggle { font-size: 12px; color: var(--text3); transition: transform 0.3s; }
+  .vocab-section-header.open .toggle { transform: rotate(180deg); }
+
+  .vocab-table-wrap { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .vocab-table-wrap.open { max-height: 600px; }
+  .vocab-table { width: 100%; border-collapse: collapse; }
+  .vocab-table th {
+    padding: 10px 20px;
+    text-align: left;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text3);
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+  .vocab-table td { padding: 11px 20px; border-bottom: 1px solid rgba(30,45,74,0.5); font-size: 14px; }
+  .vocab-table tr:last-child td { border-bottom: none; }
+  .vocab-table tr:hover td { background: rgba(0,245,255,0.02); }
+  .vocab-table td.fr { color: var(--text); font-family: 'DM Serif Display', serif; font-size: 15px; }
+  .vocab-table td.en { color: var(--text2); }
+  .vocab-table td.es { color: var(--text3); }
+  .vocab-table td.cat { color: var(--violet); font-size: 11px; letter-spacing: 1px; font-family: 'Bebas Neue', sans-serif; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 600px) {
+    .exercise-card { padding: 20px 16px; }
+    .card-num { font-size: 36px; }
+    .score-box { padding: 36px 24px; }
+    .score-detail { gap: 24px; }
+  }
+
+  /* === SECTION TITLE === */
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--text2);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+</style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="grid-bg"></div>
+<div class="halo halo-cyan"></div>
+<div class="halo halo-violet"></div>
+<div class="halo halo-gold"></div>
+<div class="accent-line accent-line-1"></div>
+<div class="accent-line accent-line-2"></div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag">LEÇON 6 · FRANÇAIS</div>
+    <h1>Les Verbes<br>en -ER</h1>
+    <p class="subtitle">parler · aimer · travailler · et plus encore...</p>
+  </header>
+
+  <!-- VOCABULAIRE NOUVEAU -->
+  <div class="vocab-section">
+    <div class="vocab-section-header" id="vocabToggle">
+      <span class="title">✦ VOCABULAIRE NOUVEAU — ACTIONS DU QUOTIDIEN</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-table-wrap" id="vocabTable">
+      <table class="vocab-table">
+        <thead>
+          <tr><th>FRANÇAIS</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CATÉGORIE</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="fr">cuisiner</td><td class="en">to cook</td><td class="es">cocinar</td><td class="cat">action</td></tr>
+          <tr><td class="fr">dessiner</td><td class="en">to draw</td><td class="es">dibujar</td><td class="cat">action</td></tr>
+          <tr><td class="fr">voyager</td><td class="en">to travel</td><td class="es">viajar</td><td class="cat">action</td></tr>
+          <tr><td class="fr">rêver</td><td class="en">to dream</td><td class="es">soñar</td><td class="cat">action</td></tr>
+          <tr><td class="fr">chercher</td><td class="en">to look for</td><td class="es">buscar</td><td class="cat">action</td></tr>
+          <tr><td class="fr">trouver</td><td class="en">to find</td><td class="es">encontrar</td><td class="cat">action</td></tr>
+          <tr><td class="fr">porter</td><td class="en">to carry / to wear</td><td class="es">llevar</td><td class="cat">action</td></tr>
+          <tr><td class="fr">oublier</td><td class="en">to forget</td><td class="es">olvidar</td><td class="cat">action</td></tr>
+          <tr><td class="fr">inviter</td><td class="en">to invite</td><td class="es">invitar</td><td class="cat">action</td></tr>
+          <tr><td class="fr">entrer</td><td class="en">to enter</td><td class="es">entrar</td><td class="cat">mouvement</td></tr>
+          <tr><td class="fr">téléphoner</td><td class="en">to call / phone</td><td class="es">llamar por teléfono</td><td class="cat">communication</td></tr>
+          <tr><td class="fr">expliquer</td><td class="en">to explain</td><td class="es">explicar</td><td class="cat">communication</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- NIVEAU -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a1" data-level="A1" onclick="setLevel('A1',this)">A1</button>
+      <button class="level-pill a2 active" data-level="A2" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1" data-level="B1" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2" data-level="B2" onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- GENERATE -->
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <!-- EXERCISES CONTAINER -->
+  <div id="exercisesContainer"></div>
+
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title" id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle">Excellent travail !</div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad" id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num" id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// =====================================================================
+// DATA
+// =====================================================================
+const VERBES_ER = {
+  parler:     { en: 'speak', es: 'hablar' },
+  aimer:      { en: 'love / like', es: 'gustar / amar' },
+  travailler: { en: 'work', es: 'trabajar' },
+  étudier:    { en: 'study', es: 'estudiar' },
+  écouter:    { en: 'listen', es: 'escuchar' },
+  regarder:   { en: 'watch', es: 'mirar' },
+  chanter:    { en: 'sing', es: 'cantar' },
+  danser:     { en: 'dance', es: 'bailar' },
+  manger:     { en: 'eat', es: 'comer' },
+  marcher:    { en: 'walk', es: 'caminar' },
+  cuisiner:   { en: 'cook', es: 'cocinar' },
+  dessiner:   { en: 'draw', es: 'dibujar' },
+  voyager:    { en: 'travel', es: 'viajar' },
+  rêver:      { en: 'dream', es: 'soñar' },
+  chercher:   { en: 'look for', es: 'buscar' },
+  trouver:    { en: 'find', es: 'encontrar' },
+  porter:     { en: 'wear / carry', es: 'llevar' },
+  oublier:    { en: 'forget', es: 'olvidar' },
+  inviter:    { en: 'invite', es: 'invitar' },
+  téléphoner: { en: 'call', es: 'llamar' },
+  expliquer:  { en: 'explain', es: 'explicar' },
+  entrer:     { en: 'enter', es: 'entrar' }
+};
+
+const CONJUGATION = {
+  je: (v) => {
+    const stem = v.replace(/er$/,'');
+    if (v === 'manger') return "mange";
+    if (v === 'voyager') return "voyage";
+    if (v.endsWith('ier')) return stem + 'e';
+    return stem + 'e';
+  },
+  tu: (v) => {
+    const stem = v.replace(/er$/,'');
+    return stem + 'es';
+  },
+  il: (v) => {
+    const stem = v.replace(/er$/,'');
+    if (v === 'manger') return "mange";
+    if (v === 'voyager') return "voyage";
+    return stem + 'e';
+  },
+  nous: (v) => {
+    const stem = v.replace(/er$/,'');
+    if (v === 'manger') return "mangeons";
+    if (v === 'voyager') return "voyageons";
+    if (v.endsWith('ier')) return stem.slice(0,-1) + 'ions';
+    return stem + 'ons';
+  },
+  vous: (v) => {
+    const stem = v.replace(/er$/,'');
+    if (v.endsWith('ier')) return stem.slice(0,-1) + 'iez';
+    return stem + 'ez';
+  },
+  ils: (v) => {
+    const stem = v.replace(/er$/,'');
+    return stem + 'ent';
+  }
+};
+
+function conjugate(verb, pronoun) {
+  if (!CONJUGATION[pronoun]) return verb;
+  return CONJUGATION[pronoun](verb);
+}
+
+const SUBJECTS = {
+  A1: [
+    { fr: 'Je', key: 'je', neg: false },
+    { fr: 'Tu', key: 'tu', neg: false },
+    { fr: 'Il', key: 'il', neg: false },
+  ],
+  A2: [
+    { fr: 'Je', key: 'je', neg: false },
+    { fr: 'Tu', key: 'tu', neg: false },
+    { fr: 'Il', key: 'il', neg: false },
+    { fr: 'Nous', key: 'nous', neg: false },
+    { fr: 'Vous', key: 'vous', neg: false },
+    { fr: 'Ils', key: 'ils', neg: false },
+  ],
+  B1: [
+    { fr: 'Je', key: 'je', neg: false },
+    { fr: 'Tu', key: 'tu', neg: false },
+    { fr: 'Il', key: 'il', neg: false },
+    { fr: 'Nous', key: 'nous', neg: false },
+    { fr: 'Vous', key: 'vous', neg: false },
+    { fr: 'Ils', key: 'ils', neg: false },
+    { fr: 'Je ne', key: 'je', neg: true },
+    { fr: 'Elle ne', key: 'il', neg: true },
+  ],
+  B2: [
+    { fr: 'Je', key: 'je', neg: false },
+    { fr: 'Tu', key: 'tu', neg: false },
+    { fr: 'Il', key: 'il', neg: false },
+    { fr: 'Nous', key: 'nous', neg: false },
+    { fr: 'Vous', key: 'vous', neg: false },
+    { fr: 'Ils', key: 'ils', neg: false },
+    { fr: 'Je ne', key: 'je', neg: true },
+    { fr: 'Elles ne', key: 'ils', neg: true },
+  ]
+};
+
+// Sentence templates per level
+const SENTENCE_TEMPLATES = {
+  A1: [
+    (sub, verb, conj, neg) => ({
+      sentence: `${sub} ___ français.`,
+      verb: verb,
+      conjugated: conj,
+      type: 'conjugaison',
+      hint: `(${verb})`,
+      full: `${sub} ${neg ? 'ne ' : ''}${conj}${neg ? ' pas' : ''} français.`
+    }),
+    (sub, verb, conj, neg) => {
+      const objs = ['ici', 'souvent', 'bien', 'vite'];
+      const obj = objs[Math.floor(Math.random()*objs.length)];
+      return {
+        sentence: `${sub} ___ ${obj}.`,
+        verb, conjugated: conj, type: 'conjugaison',
+        hint: `(${verb})`,
+        full: `${sub} ${neg ? 'ne ' : ''}${conj}${neg ? ' pas' : ''} ${obj}.`
+      };
+    }
+  ],
+  A2: [
+    (sub, verb, conj, neg) => {
+      const ctxMap = {
+        parler: 'avec ses amis', aimer: 'la musique', travailler: 'à Paris',
+        étudier: 'le français', écouter: 'la radio', regarder: 'un film',
+        chanter: 'une chanson', danser: 'avec joie', manger: 'une pomme',
+        cuisiner: 'un gâteau', voyager: 'en été', rêver: 'la nuit',
+        chercher: 'ses clés', trouver: 'un appartement', porter: 'un manteau',
+        oublier: 'ses devoirs', inviter: 'ses amis', téléphoner: 'à Marie',
+        expliquer: 'la leçon', marcher: 'dans le parc', dessiner: 'un portrait',
+        entrer: 'dans la salle'
+      };
+      const ctx = ctxMap[verb] || 'souvent';
+      return {
+        sentence: `${sub} ___ ${ctx}.`,
+        verb, conjugated: conj, type: 'conjugaison',
+        hint: `(${verb})`,
+        full: `${sub} ${neg ? 'ne ' : ''}${conj}${neg ? ' pas' : ''} ${ctx}.`
+      };
+    }
+  ],
+  B1: [
+    (sub, verb, conj, neg) => {
+      const ctxMap = {
+        parler: 'espagnol et anglais', aimer: 'lire le soir',
+        travailler: 'depuis 8 heures', étudier: 'tous les jours',
+        cuisiner: 'des plats italiens', voyager: 'chaque été',
+        chercher: 'un bon restaurant', trouver: 'la solution',
+        oublier: 'souvent ses affaires', inviter: 'ses collègues',
+        téléphoner: 'à sa famille', expliquer: 'clairement',
+        dessiner: 'des personnages', entrer: 'sans frapper'
+      };
+      const ctx = ctxMap[verb] || 'régulièrement';
+      return {
+        sentence: `${sub} ___ ${ctx}.`,
+        verb, conjugated: conj, type: 'conjugaison',
+        hint: `(${verb})${neg ? ' — forme négative' : ''}`,
+        full: `${sub} ${neg ? 'ne ' : ''}${conj}${neg ? ' pas' : ''} ${ctx}.`
+      };
+    }
+  ],
+  B2: [
+    (sub, verb, conj, neg) => {
+      const ctxMap = {
+        parler: 'couramment le français depuis un an',
+        aimer: 'se détendre après une longue journée',
+        travailler: 'sur ce projet depuis plusieurs semaines',
+        étudier: 'l\'architecture à l\'université',
+        voyager: 'sans réserver à l\'avance',
+        chercher: 'constamment à s\'améliorer',
+        oublier: 'rarement ses rendez-vous importants',
+        expliquer: 'les règles de grammaire',
+        cuisiner: 'des recettes du monde entier',
+        inviter: 'des clients à dîner ce soir'
+      };
+      const ctx = ctxMap[verb] || 'de manière régulière';
+      return {
+        sentence: `${sub} ___ ${ctx}.`,
+        verb, conjugated: conj, type: 'conjugaison',
+        hint: `(${verb})${neg ? ' — forme négative' : ''}`,
+        full: `${sub} ${neg ? 'ne ' : ''}${conj}${neg ? ' pas' : ''} ${ctx}.`
+      };
+    }
+  ]
+};
+
+// MCQ exercises with wrong answers
+function makeChoices(verb, pronoun, correctConj) {
+  const wrongVerbs = Object.keys(VERBES_ER).filter(v => v !== verb);
+  const shuffled = wrongVerbs.sort(() => Math.random()-0.5).slice(0,3);
+  const wrongs = shuffled.map(v => conjugate(v, pronoun));
+  const unique = [...new Set(wrongs)].filter(w => w !== correctConj).slice(0,3);
+  // ensure 3 wrong
+  while (unique.length < 3) {
+    const fake = correctConj.slice(0,-1) + ['s','z','nt','e'][unique.length % 4];
+    if (!unique.includes(fake) && fake !== correctConj) unique.push(fake);
+  }
+  const all = [correctConj, ...unique].sort(() => Math.random()-0.5);
+  return all;
+}
+
+// =====================================================================
+// STATE
+// =====================================================================
+let currentLevel = 'A2';
+let exercises = [];
+let answered = 0;
+let correct = 0;
+
+function setLevel(level, btn) {
+  currentLevel = level;
+  document.querySelectorAll('.level-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+
+function pick(arr, n) {
+  const s = shuffle([...arr]);
+  return s.slice(0, n);
+}
+
+// =====================================================================
+// GENERATE
+// =====================================================================
+function generateExercises() {
+  resetAll(false);
+  const container = document.getElementById('exercisesContainer');
+  container.innerHTML = '';
+  exercises = [];
+
+  const verbList = Object.keys(VERBES_ER);
+  const subjectPool = SUBJECTS[currentLevel];
+  const numExercises = currentLevel === 'A1' ? 8 : currentLevel === 'A2' ? 10 : 12;
+
+  // Balance exercise types
+  const types = [];
+  for (let i = 0; i < numExercises; i++) {
+    if (i < Math.ceil(numExercises * 0.5)) types.push('conjugaison_input');
+    else if (i < Math.ceil(numExercises * 0.8)) types.push('conjugaison_mcq');
+    else types.push('traduction');
+  }
+  shuffle(types);
+
+  const usedCombos = new Set();
+
+  for (let i = 0; i < numExercises; i++) {
+    let combo, verb, subject, conj;
+    let tries = 0;
+    do {
+      verb = verbList[Math.floor(Math.random() * verbList.length)];
+      subject = subjectPool[Math.floor(Math.random() * subjectPool.length)];
+      combo = verb + subject.fr;
+      tries++;
+    } while (usedCombos.has(combo) && tries < 40);
+    usedCombos.add(combo);
+
+    conj = conjugate(verb, subject.key);
+    const type = types[i];
+
+    if (type === 'conjugaison_input') {
+      renderInputExercise(container, i, verb, subject, conj);
+    } else if (type === 'conjugaison_mcq') {
+      renderMCQExercise(container, i, verb, subject, conj);
+    } else {
+      renderTranslationExercise(container, i, verb, subject, conj);
+    }
+  }
+
+  updateProgress();
+}
+
+// =====================================================================
+// RENDER EXERCISES
+// =====================================================================
+function renderInputExercise(container, idx, verb, subject, conj) {
+  const neg = subject.neg;
+  const templates = SENTENCE_TEMPLATES[currentLevel];
+  const tpl = templates[Math.floor(Math.random() * templates.length)];
+  const data = tpl(subject.fr, verb, conj, neg);
+
+  const answer = neg ? `ne ${conj} pas` : conj;
+  exercises.push({ id: idx, answer: answer.toLowerCase().trim(), answered: false, correct: false });
+
+  const card = document.createElement('div');
+  card.className = 'exercise-card';
+  card.id = `card-${idx}`;
+
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:14px">
+      <span class="card-type conjugaison">CONJUGAISON</span>
+    </div>
+    <div class="hint-text">COMPLÉTEZ AVEC LA BONNE FORME ${verb.toUpperCase()}</div>
+    <div class="sentence-display">
+      ${data.sentence.replace('___', `<span class="blank-wrapper"><input class="answer-input inline" id="input-${idx}" placeholder="..." autocomplete="off" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkInput(${idx},'${answer.replace(/'/g,"\\'")}')"></span>`)}
+    </div>
+    <div class="hint-text">${data.hint}</div>
+    <button class="check-btn" onclick="checkInput(${idx},'${answer.replace(/'/g,"\\'")}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}">
+      <span class="feedback-icon"></span>
+      <span class="feedback-msg"></span>
+    </div>
+  `;
+  container.appendChild(card);
+}
+
+function renderMCQExercise(container, idx, verb, subject, conj) {
+  const neg = subject.neg;
+  const ctxList = { parler:'anglais', aimer:'le sport', travailler:'ici', étudier:'le soir',
+    cuisiner:'bien', voyager:'souvent', chanter:'faux', danser:'tous les jours',
+    chercher:'la clé', trouver:'un taxi', porter:'un chapeau', oublier:'tout',
+    inviter:'des amis', téléphoner:'à Paul', expliquer:'la règle',
+    marcher:'vite', dessiner:'des fleurs', entrer:'dans la pièce',
+    écouter:'la radio', regarder:'la télé', manger:'beaucoup', rêver:'d\'aventures' };
+  const ctx = ctxList[verb] || '';
+  const neg_label = neg ? 'ne ___  pas' : '___';
+  const sentence = `${subject.fr} ${neg_label} ${ctx}.`;
+  const choices = makeChoices(verb, subject.key, conj);
+  const answer = neg ? `ne ${conj} pas` : conj;
+
+  exercises.push({ id: idx, answer: answer.toLowerCase().trim(), answered: false, correct: false });
+
+  const card = document.createElement('div');
+  card.className = 'exercise-card';
+  card.id = `card-${idx}`;
+
+  const choiceHTML = choices.map(c => {
+    const val = neg ? `ne ${c} pas` : c;
+    return `<button class="choice-btn" onclick="checkMCQ(${idx},'${val}','${answer.replace(/'/g,"\\'")}',this)">${val}</button>`;
+  }).join('');
+
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:14px">
+      <span class="card-type choix">CHOIX MULTIPLE</span>
+    </div>
+    <div class="hint-text">CHOISISSEZ LA BONNE FORME — ${verb.toUpperCase()}</div>
+    <div class="sentence-display">${sentence}</div>
+    <div class="choices" id="choices-${idx}">${choiceHTML}</div>
+    <div class="feedback" id="feedback-${idx}">
+      <span class="feedback-icon"></span>
+      <span class="feedback-msg"></span>
+    </div>
+  `;
+  container.appendChild(card);
+}
+
+function renderTranslationExercise(container, idx, verb, subject, conj) {
+  const trans = VERBES_ER[verb];
+  const engPronouns = { je: 'I', tu: 'You', il: 'He', nous: 'We', vous: 'You', ils: 'They' };
+  const engPron = engPronouns[subject.key] || 'I';
+  const neg = subject.neg;
+
+  const enSentences = {
+    parler: 'speak French', aimer: 'love music', travailler: 'work every day',
+    étudier: 'study French', écouter: 'listen to music', regarder: 'watch TV',
+    chanter: 'sing well', danser: 'dance a lot', manger: 'eat lunch',
+    cuisiner: 'cook dinner', voyager: 'travel often', rêver: 'dream often',
+    chercher: 'look for the key', trouver: 'find the answer', porter: 'wear a coat',
+    oublier: 'forget my homework', inviter: 'invite friends', téléphoner: 'call Maria',
+    expliquer: 'explain the lesson', marcher: 'walk in the park',
+    dessiner: 'draw pictures', entrer: 'enter the room'
+  };
+  const enCtx = enSentences[verb] || trans.en;
+  const negPart = neg ? "don't " : '';
+  const enSentence = `${engPron} ${negPart}${trans.en} — <em>${enCtx}</em>`;
+  const answer = neg ? `ne ${conj} pas` : conj;
+
+  exercises.push({ id: idx, answer: answer.toLowerCase().trim(), answered: false, correct: false });
+
+  const card = document.createElement('div');
+  card.className = 'exercise-card';
+  card.id = `card-${idx}`;
+
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:14px">
+      <span class="card-type traduction">TRADUCTION</span>
+    </div>
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS — UTILISEZ ${verb.toUpperCase()}</div>
+    <div class="sentence-display" style="color:var(--gold)">${enSentence}</div>
+    <div style="margin-top:14px; font-size:14px; color:var(--text3);">
+      ${subject.fr} <input class="answer-input" id="input-${idx}" placeholder="___" autocomplete="off" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkInput(${idx},'${answer.replace(/'/g,"\\'")}')" style="width:220px"> ...
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${answer.replace(/'/g,"\\'")}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}">
+      <span class="feedback-icon"></span>
+      <span class="feedback-msg"></span>
+    </div>
+  `;
+  container.appendChild(card);
+}
+
+// =====================================================================
+// CHECK LOGIC
+// =====================================================================
+function normalise(str) {
+  return str.toLowerCase().trim()
+    .normalize('NFC')
+    .replace(/[éèê]/g,'e').replace(/[àâ]/g,'a')
+    .replace(/[ùû]/g,'u').replace(/[îï]/g,'i')
+    .replace(/[ôœ]/g,'o').replace(/ç/g,'c')
+    .replace(/\s+/g,' ');
+}
+
+function checkInput(idx, answer) {
+  const ex = exercises.find(e => e.id === idx);
+  if (!ex || ex.answered) return;
+
+  const input = document.getElementById(`input-${idx}`);
+  const userVal = input.value;
+  const isCorrect = normalise(userVal) === normalise(answer);
+
+  input.disabled = true;
+  input.classList.add(isCorrect ? 'correct' : 'incorrect');
+  showFeedback(idx, isCorrect, answer);
+  markAnswered(idx, isCorrect);
+
+  document.getElementById(`card-${idx}`).querySelectorAll('.check-btn').forEach(b => b.disabled = true);
+}
+
+function checkMCQ(idx, chosen, answer, btn) {
+  const ex = exercises.find(e => e.id === idx);
+  if (!ex || ex.answered) return;
+
+  const isCorrect = normalise(chosen) === normalise(answer);
+
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b => {
+    b.classList.add('disabled');
+    const bVal = b.textContent.trim();
+    if (normalise(bVal) === normalise(answer)) b.classList.add('reveal-correct');
+  });
+
+  btn.classList.remove('disabled');
+  btn.classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
+
+  showFeedback(idx, isCorrect, answer);
+  markAnswered(idx, isCorrect);
+}
+
+function showFeedback(idx, isCorrect, answer) {
+  const fb = document.getElementById(`feedback-${idx}`);
+  const icon = fb.querySelector('.feedback-icon');
+  const msg = fb.querySelector('.feedback-msg');
+
+  if (isCorrect) {
+    fb.className = 'feedback success show';
+    icon.textContent = '✓';
+    const bravo = ['Parfait !', 'Excellent !', 'Très bien !', 'Bravo !', 'Super !'];
+    msg.innerHTML = `<strong>${bravo[Math.floor(Math.random()*bravo.length)]}</strong> La réponse correcte est <strong>${answer}</strong>.`;
+  } else {
+    fb.className = 'feedback error show';
+    icon.textContent = '✗';
+    msg.innerHTML = `Pas tout à fait. La réponse correcte est <strong>${answer}</strong>.`;
+  }
+}
+
+function markAnswered(idx, isCorrect) {
+  const ex = exercises.find(e => e.id === idx);
+  if (!ex) return;
+  ex.answered = true;
+  ex.correct = isCorrect;
+
+  answered++;
+  if (isCorrect) correct++;
+
+  const card = document.getElementById(`card-${idx}`);
+  card.classList.add('active-card');
+
+  updateProgress();
+
+  if (answered === exercises.length && exercises.length > 0) {
+    setTimeout(showScore, 700);
+  }
+}
+
+function updateProgress() {
+  const total = exercises.length;
+  const score = `${correct} / ${total}`;
+  document.getElementById('scoreDisplay').textContent = score;
+  const pct = total > 0 ? (answered / total) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function showScore() {
+  const total = exercises.length;
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = total - correct;
+  document.getElementById('totalCount').textContent = total;
+
+  let emoji, title, sub;
+  if (pct >= 90)      { emoji = '🏆'; title = 'PARFAIT !';   sub = 'Score exceptionnel — maîtrise excellente !'; }
+  else if (pct >= 70) { emoji = '🎉'; title = 'BRAVO !';     sub = 'Très bon résultat — continuez ainsi !'; }
+  else if (pct >= 50) { emoji = '💪'; title = 'BIEN !';      sub = 'Bon effort — encore un peu de pratique !'; }
+  else                { emoji = '📚'; title = 'CONTINUEZ !'; sub = 'Revoyez le vocabulaire et réessayez.'; }
+
+  document.getElementById('scoreEmoji').textContent = emoji;
+  document.getElementById('scoreTitle').textContent = title;
+  document.getElementById('scoreSubtitle').textContent = sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+
+function closePopup() {
+  document.getElementById('scorePopup').classList.remove('show');
+}
+
+function resetAll(clear = true) {
+  exercises = [];
+  answered = 0;
+  correct = 0;
+  if (clear) {
+    document.getElementById('exercisesContainer').innerHTML = '';
+    updateProgress();
+  }
+}
+
+// =====================================================================
+// VOCAB TOGGLE
+// =====================================================================
+document.getElementById('vocabToggle').addEventListener('click', function() {
+  const table = document.getElementById('vocabTable');
+  const isOpen = table.classList.contains('open');
+  table.classList.toggle('open', !isOpen);
+  this.classList.toggle('open', !isOpen);
+});
+
+// Auto-generate on load
+window.addEventListener('load', () => {
+  setTimeout(generateExercises, 400);
+});
+</script>
+</body>
+</html>

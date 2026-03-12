@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 8 — Verbes Irréguliers</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c14; --bg2: #0d1220; --card: #141c2e; --card2: #1a2440;
+    --border: #1e2d4a;
+    --cyan: #00f5ff; --violet: #b44fff; --gold: #ffd166;
+    --green: #06d6a0; --lime: #a8ff78; --red: #ff4757;
+    --accent: #06d6a0;   /* lesson accent = green */
+    --accent2: #00b894;
+    --text: #e8eef8; --text2: #8a9bb5; --text3: #4a5e80;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  /* ── GRID BG ── */
+  .grid-bg { position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image: linear-gradient(rgba(6,214,160,0.025) 1px,transparent 1px), linear-gradient(90deg,rgba(6,214,160,0.025) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before { content:''; position:absolute; inset:0;
+    background-image: linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px), linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:240px 240px; }
+
+  /* ── HALOS ── */
+  .halo { position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .halo-green  { width:700px; height:700px; top:-250px; left:-180px;  background:rgba(6,214,160,0.07); }
+  .halo-violet { width:600px; height:600px; bottom:-200px; right:-150px; background:rgba(180,79,255,0.07); }
+  .halo-gold   { width:320px; height:320px; top:60%; left:60%; transform:translate(-50%,-50%); background:rgba(255,209,102,0.04); }
+
+  .accent-line { position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1 { width:1px; height:75vh; top:12vh; right:18%; background:linear-gradient(to bottom,transparent,var(--accent),transparent); transform:rotate(10deg); }
+  .al2 { width:1px; height:55vh; top:25vh; left:14%;  background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(-8deg); }
+
+  /* ── BG WATERMARK ── */
+  .bg-mark { position:fixed; right:-80px; top:20%; opacity:0.025; font-family:'Bebas Neue',sans-serif;
+    font-size:280px; color:var(--accent); transform:rotate(12deg); pointer-events:none; z-index:0; line-height:1; }
+
+  /* ── LAYOUT ── */
+  .wrapper { position:relative; z-index:1; max-width:960px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header { text-align:center; margin-bottom:44px; }
+  .lesson-tag {
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--accent);
+    border:1px solid rgba(6,214,160,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(6,214,160,0.05);
+  }
+  .lesson-tag .dot { width:5px; height:5px; border-radius:50%; background:var(--accent); animation:blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(1.5)} }
+
+  h1 {
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(50px,8vw,86px);
+    line-height:0.92; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--accent) 40%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    margin-bottom:10px;
+  }
+  .subtitle  { font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2 { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  /* ── VERB SELECTOR TABS ── */
+  .verb-tabs { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px; }
+  .verb-tab {
+    font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:2px;
+    padding:10px 28px; border-radius:6px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s;
+    position:relative; overflow:hidden; flex:1; min-width:100px; text-align:center;
+  }
+  .verb-tab::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; opacity:0; transition:opacity 0.2s; }
+  .verb-tab[data-verb="être"]::after    { background:var(--accent); }
+  .verb-tab[data-verb="avoir"]::after   { background:var(--gold); }
+  .verb-tab[data-verb="aller"]::after   { background:var(--cyan); }
+  .verb-tab[data-verb="faire"]::after   { background:var(--violet); }
+  .verb-tab[data-verb="tous"]::after    { background:linear-gradient(90deg,var(--accent),var(--gold),var(--cyan),var(--violet)); }
+  .verb-tab:hover, .verb-tab.active { color:var(--text); }
+  .verb-tab:hover::after, .verb-tab.active::after { opacity:1; }
+  .verb-tab[data-verb="être"].active    { border-color:rgba(6,214,160,0.4);  background:rgba(6,214,160,0.06);  color:var(--accent); }
+  .verb-tab[data-verb="avoir"].active   { border-color:rgba(255,209,102,0.4); background:rgba(255,209,102,0.06); color:var(--gold); }
+  .verb-tab[data-verb="aller"].active   { border-color:rgba(0,245,255,0.4);  background:rgba(0,245,255,0.06);  color:var(--cyan); }
+  .verb-tab[data-verb="faire"].active   { border-color:rgba(180,79,255,0.4); background:rgba(180,79,255,0.06); color:#d8a8ff; }
+  .verb-tab[data-verb="tous"].active    { border-color:rgba(6,214,160,0.3);  background:rgba(6,214,160,0.04);  color:var(--text); }
+
+  /* ── CONJUGATION GRIDS ── */
+  .conj-grids { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:32px; }
+  @media(max-width:600px){ .conj-grids { grid-template-columns:1fr; } }
+
+  .conj-card {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    overflow:hidden; transition:border-color 0.3s;
+  }
+  .conj-card:hover { border-color:rgba(6,214,160,0.15); }
+  .conj-card-header {
+    padding:12px 18px; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid var(--border);
+  }
+  .conj-verb { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:2px; }
+  .conj-verb.etre  { color:var(--accent); }
+  .conj-verb.avoir { color:var(--gold); }
+  .conj-verb.aller { color:var(--cyan); }
+  .conj-verb.faire { color:#d8a8ff; }
+  .conj-meaning { font-family:'DM Serif Display',serif; font-style:italic; font-size:12px; color:var(--text3); }
+  .conj-rows { padding:6px 0; }
+  .conj-row {
+    display:grid; grid-template-columns:80px 1fr 1fr;
+    padding:5px 18px; gap:8px; font-size:13.5px;
+    transition:background 0.15s;
+  }
+  .conj-row:hover { background:rgba(255,255,255,0.02); }
+  .conj-pron  { color:var(--text3); font-family:'Bebas Neue',sans-serif; letter-spacing:1px; font-size:12px; align-self:center; }
+  .conj-form  { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .conj-en    { color:var(--text3); font-size:12px; align-self:center; font-style:italic; }
+  .conj-toggle-btn {
+    width:100%; padding:8px; font-family:'Bebas Neue',sans-serif; font-size:10px;
+    letter-spacing:3px; color:var(--text3); background:transparent;
+    border:none; border-top:1px solid var(--border); cursor:pointer;
+    transition:color 0.2s; text-align:center;
+  }
+  .conj-toggle-btn:hover { color:var(--accent); }
+
+  /* ── VOCAB ── */
+  .vocab-section { margin-bottom:32px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header {
+    padding:15px 24px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s;
+  }
+  .vocab-header:hover { border-bottom-color:var(--border); }
+  .vocab-header .title { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--accent); }
+  .vocab-header .toggle { font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle { transform:rotate(180deg); }
+  .vocab-wrap { max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
+  .vocab-wrap.open { max-height:650px; overflow-y:auto; }
+  .vocab-table { width:100%; border-collapse:collapse; }
+  .vocab-table th { padding:9px 18px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td { padding:10px 18px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13.5px; }
+  .vocab-table tr:last-child td { border-bottom:none; }
+  .vocab-table tr:hover td { background:rgba(6,214,160,0.02); }
+  .vfr { color:var(--text); font-family:'DM Serif Display',serif; font-size:15px; }
+  .ven { color:var(--text2); }
+  .ves { color:var(--text3); }
+  .vcat { color:var(--accent); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex { color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── LEVEL PILLS ── */
+  .level-section { margin-bottom:30px; }
+  .section-label { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .level-pills { display:flex; gap:10px; flex-wrap:wrap; }
+  .level-pill {
+    font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden;
+  }
+  .level-pill::before { content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a1::before { background:linear-gradient(135deg,rgba(6,214,160,0.15),transparent); }
+  .level-pill.a2::before { background:linear-gradient(135deg,rgba(0,245,255,0.15),transparent); }
+  .level-pill.b1::before { background:linear-gradient(135deg,rgba(255,209,102,0.15),transparent); }
+  .level-pill.b2::before { background:linear-gradient(135deg,rgba(180,79,255,0.15),transparent); }
+  .level-pill:hover::before,.level-pill.active::before { opacity:1; }
+  .level-pill.a1.active { border-color:var(--green); color:var(--green); }
+  .level-pill.a2.active { border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b1.active { border-color:var(--gold);  color:var(--gold); }
+  .level-pill.b2.active { border-color:var(--violet); color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section { margin-bottom:28px; }
+  .progress-meta { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--accent); }
+  .progress-track { height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill  { height:100%; border-radius:2px; width:0%; background:linear-gradient(90deg,var(--accent),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── GENERATE BUTTONS ── */
+  .generate-row { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn {
+    font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s;
+  }
+  .generate-btn.primary {
+    background:linear-gradient(135deg,rgba(6,214,160,0.14),rgba(180,79,255,0.14));
+    border:1px solid rgba(6,214,160,0.4); color:var(--text);
+  }
+  .generate-btn.primary:hover { background:linear-gradient(135deg,rgba(6,214,160,0.24),rgba(180,79,255,0.24)); border-color:var(--accent); transform:translateY(-1px); box-shadow:0 8px 28px rgba(6,214,160,0.12); }
+  .generate-btn.secondary { background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover { border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card {
+    background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:32px; margin-bottom:22px; position:relative; overflow:hidden;
+    transition:border-color 0.3s, transform 0.3s;
+  }
+  .exercise-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    opacity:0; transition:opacity 0.3s;
+  }
+  .exercise-card.etre-card::before  { background:linear-gradient(90deg,transparent,var(--accent),transparent); }
+  .exercise-card.avoir-card::before { background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card.aller-card::before { background:linear-gradient(90deg,transparent,var(--cyan),transparent); }
+  .exercise-card.faire-card::before { background:linear-gradient(90deg,transparent,var(--violet),transparent); }
+  .exercise-card.multi-card::before { background:linear-gradient(90deg,var(--accent),var(--gold),var(--cyan),var(--violet)); }
+  .exercise-card:hover::before, .exercise-card.active-card::before { opacity:1; }
+  .exercise-card.active-card { transform:translateY(-1px); }
+  .exercise-card.etre-card.active-card  { border-color:rgba(6,214,160,0.2); }
+  .exercise-card.avoir-card.active-card { border-color:rgba(255,209,102,0.2); }
+  .exercise-card.aller-card.active-card { border-color:rgba(0,245,255,0.2); }
+  .exercise-card.faire-card.active-card { border-color:rgba(180,79,255,0.2); }
+  .exercise-card.multi-card.active-card { border-color:rgba(6,214,160,0.15); }
+
+  .card-num { font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1; color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* verb badge on card */
+  .verb-badge {
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:2px;
+    padding:3px 12px; border-radius:3px; margin-bottom:10px;
+  }
+  .verb-badge.etre  { color:var(--accent);  border:1px solid rgba(6,214,160,0.3);  background:rgba(6,214,160,0.05); }
+  .verb-badge.avoir { color:var(--gold);    border:1px solid rgba(255,209,102,0.3); background:rgba(255,209,102,0.05); }
+  .verb-badge.aller { color:var(--cyan);    border:1px solid rgba(0,245,255,0.3);   background:rgba(0,245,255,0.05); }
+  .verb-badge.faire { color:#d8a8ff;        border:1px solid rgba(180,79,255,0.3);  background:rgba(180,79,255,0.05); }
+
+  .card-type { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.conjugaison { color:var(--accent); border:1px solid rgba(6,214,160,0.25); background:rgba(6,214,160,0.05); }
+  .card-type.traduction  { color:var(--gold);   border:1px solid rgba(255,209,102,0.25); background:rgba(255,209,102,0.05); }
+  .card-type.choix       { color:#d8a8ff;       border:1px solid rgba(180,79,255,0.25);  background:rgba(180,79,255,0.05); }
+  .card-type.expression  { color:var(--cyan);   border:1px solid rgba(0,245,255,0.25);   background:rgba(0,245,255,0.05); }
+
+  .hint-text { font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display { font-family:'DM Serif Display',serif; font-size:clamp(18px,3vw,23px); line-height:1.65; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input {
+    background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px;
+    border-radius:6px; outline:none; transition:border-color 0.2s, box-shadow 0.2s;
+    width:180px; min-width:100px;
+  }
+  .answer-input::placeholder { color:var(--text3); font-style:italic; }
+  .answer-input:focus { border-color:var(--accent); box-shadow:0 0 0 2px rgba(6,214,160,0.08); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s ease; }
+  .answer-input:disabled { opacity:0.85; cursor:default; }
+  .answer-input.inline   { width:160px; font-size:17px; padding:6px 12px; }
+  .blank-wrapper { display:inline-flex; align-items:center; vertical-align:middle; }
+
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn {
+    background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px;
+    border-radius:6px; cursor:pointer; transition:all 0.15s;
+  }
+  .choice-btn:hover { border-color:var(--accent); color:var(--text); background:rgba(6,214,160,0.04); }
+  .choice-btn.selected-correct { border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong   { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled         { opacity:0.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct   { border-color:var(--green); color:var(--green); opacity:0.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback { margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s ease; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon   { font-size:17px; flex-shrink:0; margin-top:-1px; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  /* ── CHECK BTN ── */
+  .check-btn {
+    margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(6,214,160,0.4);
+    background:rgba(6,214,160,0.06); color:var(--accent); cursor:pointer; transition:all 0.2s;
+  }
+  .check-btn:hover { background:rgba(6,214,160,0.14); border-color:var(--accent); }
+  .check-btn:disabled { opacity:0.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup { position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px); display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show { opacity:1; pointer-events:all; }
+  .score-box { background:var(--card2); border:1px solid rgba(6,214,160,0.2); border-radius:20px; padding:48px 56px; text-align:center; max-width:480px; width:90%; box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(6,214,160,0.06); animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn { from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji    { font-size:52px; margin-bottom:14px; }
+  .score-title    { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--accent); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle { font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail   { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat     { text-align:center; }
+  .score-stat-num { font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--text); }
+  .score-stat-lbl { font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good { color:var(--green); }
+  .score-stat-num.bad  { color:var(--red); }
+  .score-close-btn { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px; padding:12px 40px; border-radius:6px; border:1px solid rgba(6,214,160,0.4); background:rgba(6,214,160,0.08); color:var(--accent); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover { background:rgba(6,214,160,0.18); }
+
+  @media(max-width:600px){
+    .exercise-card { padding:20px 16px; }
+    .card-num { font-size:34px; }
+    .score-box { padding:34px 22px; }
+    .score-detail { gap:22px; }
+    .verb-tabs { gap:6px; }
+    .verb-tab { font-size:15px; padding:9px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo halo-green"></div>
+<div class="halo halo-violet"></div>
+<div class="halo halo-gold"></div>
+<div class="accent-line al1"></div>
+<div class="accent-line al2"></div>
+<div class="bg-mark">ÊTRE<br>AVOIR<br>ALLER<br>FAIRE</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 8 · FRANÇAIS</div>
+    <h1>Verbes<br>Irréguliers</h1>
+    <p class="subtitle">être · avoir · aller · faire</p>
+    <p class="subtitle2">LES 4 VERBES FONDAMENTAUX DU FRANÇAIS</p>
+  </header>
+
+  <!-- CONJUGATION REFERENCE GRIDS -->
+  <div class="conj-grids" id="conjGrids">
+
+    <!-- ÊTRE -->
+    <div class="conj-card">
+      <div class="conj-card-header">
+        <span class="conj-verb etre">ÊTRE</span>
+        <span class="conj-meaning">to be / ser, estar</span>
+      </div>
+      <div class="conj-rows">
+        <div class="conj-row"><span class="conj-pron">JE</span><span class="conj-form">suis</span><span class="conj-en">I am</span></div>
+        <div class="conj-row"><span class="conj-pron">TU</span><span class="conj-form">es</span><span class="conj-en">you are</span></div>
+        <div class="conj-row"><span class="conj-pron">IL/ELLE</span><span class="conj-form">est</span><span class="conj-en">he/she is</span></div>
+        <div class="conj-row"><span class="conj-pron">NOUS</span><span class="conj-form">sommes</span><span class="conj-en">we are</span></div>
+        <div class="conj-row"><span class="conj-pron">VOUS</span><span class="conj-form">êtes</span><span class="conj-en">you are</span></div>
+        <div class="conj-row"><span class="conj-pron">ILS/ELLES</span><span class="conj-form">sont</span><span class="conj-en">they are</span></div>
+      </div>
+    </div>
+
+    <!-- AVOIR -->
+    <div class="conj-card">
+      <div class="conj-card-header">
+        <span class="conj-verb avoir">AVOIR</span>
+        <span class="conj-meaning">to have / tener</span>
+      </div>
+      <div class="conj-rows">
+        <div class="conj-row"><span class="conj-pron">J'</span><span class="conj-form">ai</span><span class="conj-en">I have</span></div>
+        <div class="conj-row"><span class="conj-pron">TU</span><span class="conj-form">as</span><span class="conj-en">you have</span></div>
+        <div class="conj-row"><span class="conj-pron">IL/ELLE</span><span class="conj-form">a</span><span class="conj-en">he/she has</span></div>
+        <div class="conj-row"><span class="conj-pron">NOUS</span><span class="conj-form">avons</span><span class="conj-en">we have</span></div>
+        <div class="conj-row"><span class="conj-pron">VOUS</span><span class="conj-form">avez</span><span class="conj-en">you have</span></div>
+        <div class="conj-row"><span class="conj-pron">ILS/ELLES</span><span class="conj-form">ont</span><span class="conj-en">they have</span></div>
+      </div>
+    </div>
+
+    <!-- ALLER -->
+    <div class="conj-card">
+      <div class="conj-card-header">
+        <span class="conj-verb aller">ALLER</span>
+        <span class="conj-meaning">to go / ir</span>
+      </div>
+      <div class="conj-rows">
+        <div class="conj-row"><span class="conj-pron">JE</span><span class="conj-form">vais</span><span class="conj-en">I go</span></div>
+        <div class="conj-row"><span class="conj-pron">TU</span><span class="conj-form">vas</span><span class="conj-en">you go</span></div>
+        <div class="conj-row"><span class="conj-pron">IL/ELLE</span><span class="conj-form">va</span><span class="conj-en">he/she goes</span></div>
+        <div class="conj-row"><span class="conj-pron">NOUS</span><span class="conj-form">allons</span><span class="conj-en">we go</span></div>
+        <div class="conj-row"><span class="conj-pron">VOUS</span><span class="conj-form">allez</span><span class="conj-en">you go</span></div>
+        <div class="conj-row"><span class="conj-pron">ILS/ELLES</span><span class="conj-form">vont</span><span class="conj-en">they go</span></div>
+      </div>
+    </div>
+
+    <!-- FAIRE -->
+    <div class="conj-card">
+      <div class="conj-card-header">
+        <span class="conj-verb faire">FAIRE</span>
+        <span class="conj-meaning">to do / make · hacer</span>
+      </div>
+      <div class="conj-rows">
+        <div class="conj-row"><span class="conj-pron">JE</span><span class="conj-form">fais</span><span class="conj-en">I do/make</span></div>
+        <div class="conj-row"><span class="conj-pron">TU</span><span class="conj-form">fais</span><span class="conj-en">you do</span></div>
+        <div class="conj-row"><span class="conj-pron">IL/ELLE</span><span class="conj-form">fait</span><span class="conj-en">he/she does</span></div>
+        <div class="conj-row"><span class="conj-pron">NOUS</span><span class="conj-form">faisons</span><span class="conj-en">we do</span></div>
+        <div class="conj-row"><span class="conj-pron">VOUS</span><span class="conj-form">faites</span><span class="conj-en">you do</span></div>
+        <div class="conj-row"><span class="conj-pron">ILS/ELLES</span><span class="conj-form">font</span><span class="conj-en">they do</span></div>
+      </div>
+    </div>
+
+  </div><!-- /conj-grids -->
+
+  <!-- VOCAB NOUVEAU — Corps & Santé -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="title">✦ VOCABULAIRE NOUVEAU — CORPS &amp; SANTÉ</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>FRANÇAIS</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CATÉGORIE</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">avoir faim</td><td class="ven">to be hungry</td><td class="ves">tener hambre</td><td class="vcat">expression avoir</td><td class="vex">J'ai faim.</td></tr>
+          <tr><td class="vfr">avoir soif</td><td class="ven">to be thirsty</td><td class="ves">tener sed</td><td class="vcat">expression avoir</td><td class="vex">Tu as soif ?</td></tr>
+          <tr><td class="vfr">avoir mal (à)</td><td class="ven">to have pain (in)</td><td class="ves">tener dolor (de)</td><td class="vcat">expression avoir</td><td class="vex">J'ai mal à la tête.</td></tr>
+          <tr><td class="vfr">avoir chaud</td><td class="ven">to be hot</td><td class="ves">tener calor</td><td class="vcat">expression avoir</td><td class="vex">Elle a chaud.</td></tr>
+          <tr><td class="vfr">avoir froid</td><td class="ven">to be cold</td><td class="ves">tener frío</td><td class="vcat">expression avoir</td><td class="vex">Nous avons froid.</td></tr>
+          <tr><td class="vfr">être en bonne santé</td><td class="ven">to be in good health</td><td class="ves">estar sano/a</td><td class="vcat">expression être</td><td class="vex">Il est en bonne santé.</td></tr>
+          <tr><td class="vfr">être fatigué(e)</td><td class="ven">to be tired</td><td class="ves">estar cansado/a</td><td class="vcat">expression être</td><td class="vex">Je suis fatigué.</td></tr>
+          <tr><td class="vfr">faire du sport</td><td class="ven">to do sports</td><td class="ves">hacer deporte</td><td class="vcat">expression faire</td><td class="vex">Ils font du sport.</td></tr>
+          <tr><td class="vfr">faire une promenade</td><td class="ven">to go for a walk</td><td class="ves">dar un paseo</td><td class="vcat">expression faire</td><td class="vex">Nous faisons une promenade.</td></tr>
+          <tr><td class="vfr">aller chez le médecin</td><td class="ven">to go to the doctor</td><td class="ves">ir al médico</td><td class="vcat">expression aller</td><td class="vex">Elle va chez le médecin.</td></tr>
+          <tr><td class="vfr">aller mieux</td><td class="ven">to feel better</td><td class="ves">estar mejor</td><td class="vcat">expression aller</td><td class="vex">Tu vas mieux aujourd'hui ?</td></tr>
+          <tr><td class="vfr">faire attention</td><td class="ven">to pay attention / be careful</td><td class="ves">tener cuidado</td><td class="vcat">expression faire</td><td class="vex">Fais attention !</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- VERB FOCUS FILTER -->
+  <div class="level-section">
+    <div class="section-label">VERBE À PRATIQUER</div>
+    <div class="verb-tabs">
+      <button class="verb-tab active" data-verb="tous"  onclick="setVerbFocus('tous',this)">TOUS</button>
+      <button class="verb-tab" data-verb="être"  onclick="setVerbFocus('être',this)">ÊTRE</button>
+      <button class="verb-tab" data-verb="avoir" onclick="setVerbFocus('avoir',this)">AVOIR</button>
+      <button class="verb-tab" data-verb="aller" onclick="setVerbFocus('aller',this)">ALLER</button>
+      <button class="verb-tab" data-verb="faire" onclick="setVerbFocus('faire',this)">FAIRE</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a1" onclick="setLevel('A1',this)">A1</button>
+      <button class="level-pill a2 active" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2" onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- GENERATE -->
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+
+</div><!-- /wrapper -->
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title"  id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle">Excellent travail !</div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num"      id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<!-- ================================================================
+     JAVASCRIPT
+================================================================ -->
+<script>
+// ── CONJUGATIONS ─────────────────────────────────────────────────
+const VERBS = {
+  être: {
+    je:'suis', tu:'es', il:'est', elle:'est', on:'est',
+    nous:'sommes', vous:'êtes', ils:'sont', elles:'sont',
+    en:'to be', es:'ser/estar', color:'etre'
+  },
+  avoir: {
+    je:"j'ai", tu:'as', il:'a', elle:'a', on:'a',
+    nous:'avons', vous:'avez', ils:'ont', elles:'ont',
+    en:'to have', es:'tener', color:'avoir'
+  },
+  aller: {
+    je:'vais', tu:'vas', il:'va', elle:'va', on:'va',
+    nous:'allons', vous:'allez', ils:'vont', elles:'vont',
+    en:'to go', es:'ir', color:'aller'
+  },
+  faire: {
+    je:'fais', tu:'fais', il:'fait', elle:'fait', on:'fait',
+    nous:'faisons', vous:'faites', ils:'font', elles:'font',
+    en:'to do/make', es:'hacer', color:'faire'
+  }
+};
+
+// canonical pronoun key for display subjects
+const PRON_KEY = {
+  'Je':'je','Tu':'tu','Il':'il','Elle':'elle','On':'on',
+  'Nous':'nous','Vous':'vous','Ils':'ils','Elles':'elles',
+  'Je ne':'je','Tu ne':'tu','Il ne':'il','Elle ne':'elle',
+  'Nous ne':'nous','Vous ne':'vous','Ils ne':'ils','Elles ne':'elles'
+};
+
+// ── SENTENCE TEMPLATES ──────────────────────────────────────────
+// Each entry: { sub, key=pron, neg, verb, ctx_fr, ctx_en, type }
+const TEMPLATES = {
+  être: {
+    A1:[
+      { sub:'Je',   key:'je',   ctx_fr:'étudiant(e)',      ctx_en:'a student',      neg:false },
+      { sub:'Tu',   key:'tu',   ctx_fr:'français(e) ?',    ctx_en:'French?',        neg:false },
+      { sub:'Il',   key:'il',   ctx_fr:'content',          ctx_en:'happy',          neg:false },
+      { sub:'Elle', key:'elle', ctx_fr:'fatiguée',         ctx_en:'tired',          neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'à Paris',          ctx_en:'in Paris',       neg:false },
+      { sub:'Ils',  key:'ils',  ctx_fr:'amis',             ctx_en:'friends',        neg:false },
+    ],
+    A2:[
+      { sub:'Je',   key:'je',   ctx_fr:'en bonne santé',   ctx_en:'in good health', neg:false },
+      { sub:'Tu',   key:'tu',   ctx_fr:'fatigué(e) ?',     ctx_en:'tired?',         neg:false },
+      { sub:'Il',   key:'il',   ctx_fr:'médecin',          ctx_en:'a doctor',       neg:false },
+      { sub:'Elle', key:'elle', ctx_fr:'très intelligente',ctx_en:'very smart',     neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'en retard',        ctx_en:'late',           neg:false },
+      { sub:'Vous', key:'vous', ctx_fr:'prêt(s) ?',        ctx_en:'ready?',         neg:false },
+      { sub:'Ils',  key:'ils',  ctx_fr:'en vacances',      ctx_en:'on holiday',     neg:false },
+      { sub:'Je ne',key:'je',   ctx_fr:'pas disponible',   ctx_en:'not available',  neg:true  },
+    ],
+    B1:[
+      { sub:'Je ne',  key:'je',   ctx_fr:'pas convaincu(e) par cet argument',   ctx_en:'not convinced by that argument', neg:true },
+      { sub:'Elle',   key:'elle', ctx_fr:'responsable de ce projet',            ctx_en:'responsible for this project',   neg:false },
+      { sub:'Nous',   key:'nous', ctx_fr:'conscients des enjeux',               ctx_en:'aware of the issues',            neg:false },
+      { sub:'Vous',   key:'vous', ctx_fr:'sûr(s) de votre décision ?',          ctx_en:'sure about your decision?',      neg:false },
+      { sub:'Ils ne', key:'ils',  ctx_fr:'pas satisfaits des résultats',        ctx_en:'not satisfied with the results', neg:true },
+    ],
+    B2:[
+      { sub:'Je',     key:'je',   ctx_fr:'persuadé(e) que cette approche est la meilleure', ctx_en:'convinced this approach is best', neg:false },
+      { sub:'Elle ne',key:'elle', ctx_fr:'pas certaine de vouloir partir',      ctx_en:'not sure she wants to leave',    neg:true },
+      { sub:'Nous',   key:'nous', ctx_fr:'témoins d\'une transformation profonde', ctx_en:'witnessing a deep transformation', neg:false },
+    ]
+  },
+  avoir: {
+    A1:[
+      { sub:'J\'',  key:'je',   ctx_fr:'faim',           ctx_en:'hungry',        neg:false, elide:true },
+      { sub:'Tu',   key:'tu',   ctx_fr:'soif ?',         ctx_en:'thirsty?',      neg:false },
+      { sub:'Il',   key:'il',   ctx_fr:'un chat',        ctx_en:'a cat',         neg:false },
+      { sub:'Elle', key:'elle', ctx_fr:'vingt ans',      ctx_en:'twenty years old', neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'chaud',          ctx_en:'hot',           neg:false },
+      { sub:'Ils',  key:'ils',  ctx_fr:'froid',          ctx_en:'cold',          neg:false },
+    ],
+    A2:[
+      { sub:'J\'',  key:'je',   ctx_fr:'mal à la tête', ctx_en:'a headache',    neg:false, elide:true },
+      { sub:'Tu',   key:'tu',   ctx_fr:'de la chance',  ctx_en:'luck',          neg:false },
+      { sub:'Il',   key:'il',   ctx_fr:'besoin d\'aide',ctx_en:'need help',     neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'un rendez-vous',ctx_en:'an appointment',neg:false },
+      { sub:'Vous', key:'vous', ctx_fr:'des questions ?',ctx_en:'questions?',   neg:false },
+      { sub:'Elles',key:'elles',ctx_fr:'peur du bruit', ctx_en:'fear of noise', neg:false },
+      { sub:'Je n\'',key:'je',  ctx_fr:'pas faim',      ctx_en:'not hungry',    neg:true, elide:true  },
+    ],
+    B1:[
+      { sub:'J\'',   key:'je',   ctx_fr:'du mal à comprendre ce texte',       ctx_en:'difficulty understanding this text', neg:false, elide:true },
+      { sub:'Tu',    key:'tu',   ctx_fr:'tort de t\'inquiéter',               ctx_en:'wrong to worry',                 neg:false },
+      { sub:'Nous',  key:'nous', ctx_fr:'honte de notre comportement',        ctx_en:'ashamed of our behaviour',        neg:false },
+      { sub:'Ils n\'',key:'ils', ctx_fr:'aucune raison de partir',            ctx_en:'no reason to leave',              neg:true, elide:true },
+    ],
+    B2:[
+      { sub:'J\'',   key:'je',   ctx_fr:'conscience de mes propres limites',  ctx_en:'awareness of my own limits',     neg:false, elide:true },
+      { sub:'Elle',  key:'elle', ctx_fr:'beau essayer, rien ne change',       ctx_en:'tries hard but nothing changes', neg:false },
+      { sub:'Nous',  key:'nous', ctx_fr:'tendance à minimiser les problèmes', ctx_en:'a tendency to downplay problems',neg:false },
+    ]
+  },
+  aller: {
+    A1:[
+      { sub:'Je',   key:'je',   ctx_fr:'bien',            ctx_en:'well',         neg:false },
+      { sub:'Tu',   key:'tu',   ctx_fr:'à l\'école',      ctx_en:'to school',    neg:false },
+      { sub:'Il',   key:'il',   ctx_fr:'au cinéma',       ctx_en:'to the cinema',neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'au parc',         ctx_en:'to the park',  neg:false },
+      { sub:'Vous', key:'vous', ctx_fr:'au marché ?',     ctx_en:'to the market?',neg:false },
+      { sub:'Ils',  key:'ils',  ctx_fr:'chez le médecin', ctx_en:'to the doctor\'s',neg:false },
+    ],
+    A2:[
+      { sub:'Je',   key:'je',   ctx_fr:'mieux aujourd\'hui',  ctx_en:'better today',       neg:false },
+      { sub:'Tu',   key:'tu',   ctx_fr:'souvent au sport ?',   ctx_en:'to sports often?',   neg:false },
+      { sub:'Elle', key:'elle', ctx_fr:'en France cet été',    ctx_en:'to France this summer',neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'au restaurant ce soir',ctx_en:'to the restaurant tonight',neg:false },
+      { sub:'Vous', key:'vous', ctx_fr:'à quelle heure ?',     ctx_en:'at what time?',      neg:false },
+      { sub:'Ils',  key:'ils',  ctx_fr:'en vacances demain',   ctx_en:'on holiday tomorrow',neg:false },
+      { sub:'Je ne',key:'je',   ctx_fr:'pas bien du tout',     ctx_en:'not well at all',    neg:true },
+    ],
+    B1:[
+      { sub:'Elle', key:'elle', ctx_fr:'de mieux en mieux depuis l\'opération', ctx_en:'better and better since the operation', neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'dans la bonne direction',               ctx_en:'in the right direction',                neg:false },
+      { sub:'Ils ne',key:'ils', ctx_fr:'pas au bout de leurs peines',           ctx_en:'not at the end of their troubles',      neg:true },
+    ],
+    B2:[
+      { sub:'Je',   key:'je',   ctx_fr:'chercher des réponses là où elles n\'existent pas', ctx_en:'look for answers where they don\'t exist', neg:false },
+      { sub:'Les choses',key:'ils',ctx_fr:'dans le bon sens',                   ctx_en:'in the right direction (things)',        neg:false },
+    ]
+  },
+  faire: {
+    A1:[
+      { sub:'Je',   key:'je',   ctx_fr:'du sport',        ctx_en:'sports',        neg:false },
+      { sub:'Tu',   key:'tu',   ctx_fr:'tes devoirs ?',   ctx_en:'your homework?',neg:false },
+      { sub:'Il',   key:'il',   ctx_fr:'beau aujourd\'hui',ctx_en:'nice weather today',neg:false },
+      { sub:'Elle', key:'elle', ctx_fr:'la cuisine',      ctx_en:'cooking',       neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'une promenade',   ctx_en:'a walk',        neg:false },
+      { sub:'Ils',  key:'ils',  ctx_fr:'attention',       ctx_en:'pay attention', neg:false },
+    ],
+    A2:[
+      { sub:'Je',   key:'je',   ctx_fr:'du vélo le week-end',     ctx_en:'cycling at the weekend', neg:false },
+      { sub:'Tu',   key:'tu',   ctx_fr:'la vaisselle ce soir ?',  ctx_en:'the washing-up tonight?',neg:false },
+      { sub:'Il',   key:'il',   ctx_fr:'froid en hiver',          ctx_en:'cold in winter',         neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'les courses ensemble',    ctx_en:'shopping together',      neg:false },
+      { sub:'Vous', key:'vous', ctx_fr:'de votre mieux',          ctx_en:'your best',              neg:false },
+      { sub:'Elles',key:'elles',ctx_fr:'beaucoup de bruit',       ctx_en:'a lot of noise',         neg:false },
+      { sub:'Je ne',key:'je',   ctx_fr:'pas de sport en semaine', ctx_en:'no sport during the week',neg:true },
+    ],
+    B1:[
+      { sub:'Il',   key:'il',   ctx_fr:'une chaleur étouffante depuis une semaine', ctx_en:'stifling heat for a week',              neg:false },
+      { sub:'Nous', key:'nous', ctx_fr:'de notre mieux dans des circonstances difficiles', ctx_en:'our best in difficult circumstances', neg:false },
+      { sub:'Vous', key:'vous', ctx_fr:'preuve d\'une grande patience',              ctx_en:'show great patience',                    neg:false },
+    ],
+    B2:[
+      { sub:'Il',   key:'il',   ctx_fr:'figure d\'exception dans le monde artistique', ctx_en:'a figure of exception in the art world', neg:false },
+      { sub:'Elle', key:'elle', ctx_fr:'tout pour maintenir l\'équilibre familial',    ctx_en:'everything to maintain family balance',  neg:false },
+    ]
+  }
+};
+
+// ── STATE ────────────────────────────────────────────────────────
+let currentLevel = 'A2';
+let verbFocus    = 'tous';
+let exercises    = [];
+let answered     = 0;
+let correct      = 0;
+
+function setLevel(lv, btn) {
+  currentLevel = lv;
+  document.querySelectorAll('.level-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function setVerbFocus(vf, btn) {
+  verbFocus = vf;
+  document.querySelectorAll('.verb-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+
+// ── MCQ WRONG ANSWERS ──────────────────────────────────────────
+function wrongFor(verb, pronoun, correct) {
+  const pool = [];
+  for (const [v, data] of Object.entries(VERBS)) {
+    if (v === verb) continue;
+    const f = data[pronoun];
+    if (f && f !== correct) pool.push(f);
+  }
+  // also add same-verb wrong forms
+  const vdata = VERBS[verb];
+  for (const [p, f] of Object.entries(vdata)) {
+    if (['en','es','color'].includes(p)) continue;
+    if (f !== correct && !pool.includes(f)) pool.push(f);
+  }
+  return shuffle([...new Set(pool)]).slice(0, 3);
+}
+
+// ── GENERATE ──────────────────────────────────────────────────
+function generateExercises() {
+  resetAll(false);
+  const container = document.getElementById('exercisesContainer');
+  container.innerHTML = '';
+  exercises = [];
+
+  const verbsToUse = verbFocus === 'tous'
+    ? ['être','avoir','aller','faire']
+    : [verbFocus];
+
+  const numEx = currentLevel === 'A1' ? 8 : currentLevel === 'A2' ? 12 : 14;
+
+  // collect candidate templates
+  let pool = [];
+  for (const v of verbsToUse) {
+    const tpls = (TEMPLATES[v][currentLevel] || TEMPLATES[v]['A2'] || []).map(t => ({ ...t, verb: v }));
+    pool.push(...tpls);
+  }
+  shuffle(pool);
+
+  // pick up to numEx, ensuring balance
+  const picked = [];
+  const usedKeys = new Set();
+  for (const t of pool) {
+    if (picked.length >= numEx) break;
+    const key = t.verb + t.sub;
+    if (usedKeys.has(key)) continue;
+    usedKeys.add(key);
+    picked.push(t);
+  }
+  // if not enough, repeat with relaxed uniqueness
+  if (picked.length < numEx) {
+    for (const t of pool) {
+      if (picked.length >= numEx) break;
+      if (!picked.includes(t)) picked.push(t);
+    }
+  }
+
+  // assign exercise types  (50% input, 33% mcq, 17% translation)
+  const types = [];
+  const n = picked.length;
+  for (let i = 0; i < n; i++) {
+    if      (i < Math.ceil(n * 0.45)) types.push('input');
+    else if (i < Math.ceil(n * 0.78)) types.push('mcq');
+    else                               types.push('traduction');
+  }
+  shuffle(types);
+
+  picked.forEach((tpl, i) => {
+    const type = types[i];
+    if      (type === 'input')     renderInput(container, i, tpl);
+    else if (type === 'mcq')       renderMCQ(container, i, tpl);
+    else                           renderTranslation(container, i, tpl);
+  });
+
+  updateProgress();
+}
+
+// ── RENDER INPUT ──────────────────────────────────────────────
+function renderInput(container, idx, tpl) {
+  const vdata   = VERBS[tpl.verb];
+  const rawForm = vdata[tpl.key];
+  const neg     = tpl.neg;
+  const answer  = neg ? buildNeg(tpl.key, rawForm) : rawForm;
+  exercises.push({ id:idx, answer:answer.toLowerCase().trim(), answered:false, correct:false });
+
+  // Build sentence display
+  const blank = `<span class="blank-wrapper"><input class="answer-input inline" id="input-${idx}" placeholder="..." autocomplete="off" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"></span>`;
+  const display = neg
+    ? `${tpl.sub} ${blank} ${tpl.ctx_fr}.`
+    : `${tpl.sub} ${blank} ${tpl.ctx_fr}.`;
+
+  const card = document.createElement('div');
+  card.className = `exercise-card ${vdata.color}-card`;
+  card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <span class="card-type conjugaison">CONJUGAISON</span>
+      <span class="verb-badge ${vdata.color}">${tpl.verb.toUpperCase()}</span>
+    </div>
+    <div class="hint-text">COMPLÉTEZ AVEC LA BONNE FORME${neg?' — FORME NÉGATIVE':''}</div>
+    <div class="sentence-display">${display}</div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>
+  `;
+  container.appendChild(card);
+}
+
+// ── RENDER MCQ ────────────────────────────────────────────────
+function renderMCQ(container, idx, tpl) {
+  const vdata   = VERBS[tpl.verb];
+  const rawForm = vdata[tpl.key];
+  const neg     = tpl.neg;
+  const answer  = neg ? buildNeg(tpl.key, rawForm) : rawForm;
+  exercises.push({ id:idx, answer:answer.toLowerCase().trim(), answered:false, correct:false });
+
+  const wrongForms = wrongFor(tpl.verb, tpl.key, rawForm);
+  const allChoices = shuffle([rawForm, ...wrongForms]).map(c => {
+    const val = neg ? buildNeg(tpl.key, c) : c;
+    return `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(val)}','${esc(answer)}',this)">${val}</button>`;
+  }).join('');
+
+  const negDisplay = neg ? 'ne ___ pas' : '___';
+  const sentence   = `${tpl.sub} ${negDisplay} ${tpl.ctx_fr}.`;
+
+  const card = document.createElement('div');
+  card.className = `exercise-card ${vdata.color}-card`;
+  card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <span class="card-type choix">CHOIX MULTIPLE</span>
+      <span class="verb-badge ${vdata.color}">${tpl.verb.toUpperCase()}</span>
+    </div>
+    <div class="hint-text">QUELLE FORME DE « ${tpl.verb.toUpperCase()} » CONVIENT ?</div>
+    <div class="sentence-display">${sentence}</div>
+    <div class="choices" id="choices-${idx}">${allChoices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>
+  `;
+  container.appendChild(card);
+}
+
+// ── RENDER TRANSLATION ────────────────────────────────────────
+function renderTranslation(container, idx, tpl) {
+  const vdata   = VERBS[tpl.verb];
+  const rawForm = vdata[tpl.key];
+  const neg     = tpl.neg;
+  const answer  = neg ? buildNeg(tpl.key, rawForm) : rawForm;
+  exercises.push({ id:idx, answer:answer.toLowerCase().trim(), answered:false, correct:false });
+
+  const engProns = { je:'I', tu:'You', il:'He', elle:'She', on:'One', nous:'We', vous:'You', ils:'They', elles:'They' };
+  const ep   = engProns[tpl.key] || 'I';
+  const negE = neg ? "don't/doesn't " : '';
+  const enSentence = `${ep} ${negE}${vdata.en} — <em>${tpl.ctx_en}</em>`;
+
+  const card = document.createElement('div');
+  card.className = `exercise-card ${vdata.color}-card`;
+  card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <span class="card-type traduction">TRADUCTION</span>
+      <span class="verb-badge ${vdata.color}">${tpl.verb.toUpperCase()}</span>
+    </div>
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS — UTILISEZ « ${tpl.verb.toUpperCase()} »</div>
+    <div class="sentence-display" style="color:var(--gold)">${enSentence}</div>
+    <div style="margin-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--text2)">${tpl.sub}</span>
+      <input class="answer-input" id="input-${idx}" placeholder="___" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')" style="width:220px">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>
+  `;
+  container.appendChild(card);
+}
+
+// ── HELPERS ───────────────────────────────────────────────────
+function buildNeg(key, form) {
+  // handle elision: j'ai → je n'ai pas, je suis → je ne suis pas
+  const startsVowel = /^[aeiouéèêëàâîïôùûü]/i.test(form);
+  if (key === 'je') {
+    const ne = startsVowel ? "n'" : 'ne ';
+    return `${ne}${form} pas`;
+  }
+  const ne = startsVowel ? "n'" : 'ne ';
+  return `${ne}${form} pas`;
+}
+
+function esc(str) { return str.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+
+function normalise(str) {
+  return str.toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a')
+    .replace(/[ùûü]/g,'u').replace(/[îï]/g,'i')
+    .replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/\s+/g,' ');
+}
+
+// ── CHECK ─────────────────────────────────────────────────────
+function checkInput(idx, answer) {
+  const ex = exercises.find(e => e.id === idx);
+  if (!ex || ex.answered) return;
+  const input = document.getElementById(`input-${idx}`);
+  const isOk  = normalise(input.value) === normalise(answer);
+  input.disabled = true;
+  input.classList.add(isOk ? 'correct' : 'incorrect');
+  showFeedback(idx, isOk, answer);
+  markAnswered(idx, isOk);
+  document.getElementById(`card-${idx}`).querySelectorAll('.check-btn').forEach(b => b.disabled = true);
+}
+
+function checkMCQ(idx, chosen, answer, btn) {
+  const ex = exercises.find(e => e.id === idx);
+  if (!ex || ex.answered) return;
+  const isOk = normalise(chosen) === normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b => {
+    b.classList.add('disabled');
+    if (normalise(b.textContent.trim()) === normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled');
+  btn.classList.add(isOk ? 'selected-correct' : 'selected-wrong');
+  showFeedback(idx, isOk, answer);
+  markAnswered(idx, isOk);
+}
+
+function showFeedback(idx, isOk, answer) {
+  const fb   = document.getElementById(`feedback-${idx}`);
+  const icon = fb.querySelector('.feedback-icon');
+  const msg  = fb.querySelector('.feedback-msg');
+  const bravos = ['Parfait !','Excellent !','Très bien !','Bravo !','Super !','C\'est ça !'];
+  if (isOk) {
+    fb.className = 'feedback success show';
+    icon.textContent = '✓';
+    msg.innerHTML = `<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse est <strong>${answer}</strong>.`;
+  } else {
+    fb.className = 'feedback error show';
+    icon.textContent = '✗';
+    msg.innerHTML = `Pas tout à fait. La bonne réponse est <strong>${answer}</strong>.`;
+  }
+}
+
+function markAnswered(idx, isOk) {
+  const ex = exercises.find(e => e.id === idx);
+  if (!ex) return;
+  ex.answered = true; ex.correct = isOk;
+  answered++; if (isOk) correct++;
+  document.getElementById(`card-${idx}`).classList.add('active-card');
+  updateProgress();
+  if (answered === exercises.length && exercises.length > 0) setTimeout(showScore, 700);
+}
+
+function updateProgress() {
+  const total = exercises.length;
+  document.getElementById('scoreDisplay').textContent = `${correct} / ${total}`;
+  const pct = total > 0 ? (answered / total) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function showScore() {
+  const total = exercises.length;
+  const pct   = total > 0 ? Math.round((correct / total) * 100) : 0;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent   = total - correct;
+  document.getElementById('totalCount').textContent   = total;
+  let emoji, title, sub;
+  if      (pct >= 90) { emoji='🏆'; title='PARFAIT !';   sub='Maîtrise exceptionnelle des 4 verbes fondamentaux !'; }
+  else if (pct >= 70) { emoji='🎉'; title='BRAVO !';     sub='Très bon résultat — continuez à pratiquer !'; }
+  else if (pct >= 50) { emoji='💪'; title='BIEN !';      sub='Bon effort — révisez les formes irrégulières.'; }
+  else                { emoji='📚'; title='CONTINUEZ !'; sub='Mémorisez être, avoir, aller, faire — ils sont partout !'; }
+  document.getElementById('scoreEmoji').textContent    = emoji;
+  document.getElementById('scoreTitle').textContent    = title;
+  document.getElementById('scoreSubtitle').textContent = sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+
+function closePopup() { document.getElementById('scorePopup').classList.remove('show'); }
+
+function resetAll(clear = true) {
+  exercises = []; answered = 0; correct = 0;
+  if (clear) { document.getElementById('exercisesContainer').innerHTML = ''; updateProgress(); }
+}
+
+// ── VOCAB TOGGLE ──────────────────────────────────────────────
+document.getElementById('vocabToggle').addEventListener('click', function() {
+  const w = document.getElementById('vocabWrap');
+  const open = w.classList.toggle('open');
+  this.classList.toggle('open', open);
+});
+
+// ── INIT ──────────────────────────────────────────────────────
+window.addEventListener('load', () => { setTimeout(generateExercises, 400); });
+</script>
+</body>
+</html>

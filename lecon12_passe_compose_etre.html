@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 12 — Le Passé Composé (être)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --cyan:#00f5ff; --violet:#b44fff; --gold:#ffd166; --green:#06d6a0; --red:#ff4757;
+    --teal:#00c9a7; --teal2:#26dfc0; --teal3:#7efce1;
+    --accent:#00c9a7;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  /* ── GRID ── */
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(0,201,167,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,201,167,0.025) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:260px 260px; }
+
+  /* ── HALOS ── */
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-230px; left:-170px;  background:rgba(0,201,167,0.08); }
+  .h2{ width:580px; height:580px; bottom:-200px; right:-140px; background:rgba(180,79,255,0.07); }
+  .h3{ width:280px; height:280px; top:55%; right:25%; background:rgba(0,245,255,0.04); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.05; }
+  .al1{ width:1px; height:78vh; top:10vh; right:15%; background:linear-gradient(to bottom,transparent,var(--teal),transparent); transform:rotate(8deg); }
+  .al2{ width:1px; height:55vh; top:24vh; left:12%;  background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(-11deg); }
+
+  .bg-mark{ position:fixed; right:-60px; bottom:5%; opacity:0.02; font-family:'Bebas Neue',sans-serif;
+    font-size:240px; color:var(--teal); transform:rotate(8deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  /* ── LAYOUT ── */
+  .wrapper{ position:relative; z-index:1; max-width:960px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--teal);
+    border:1px solid rgba(0,201,167,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(0,201,167,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--teal); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,7.5vw,82px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--teal) 42%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle { font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  /* ── FORMULA ── */
+  .formula-card{
+    background:linear-gradient(135deg,rgba(0,201,167,0.06),rgba(180,79,255,0.06));
+    border:1px solid rgba(0,201,167,0.18); border-radius:14px; padding:22px 26px; margin-bottom:28px;
+  }
+  .fc-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:14px; }
+  .formula-row{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .f-part{ text-align:center; min-width:70px; }
+  .f-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); margin-bottom:3px; }
+  .f-val  { font-family:'Bebas Neue',sans-serif; font-size:clamp(14px,2.2vw,20px); letter-spacing:1px; }
+  .f-sub{ color:var(--cyan); }
+  .f-aux{ color:var(--teal); }
+  .f-pp { color:var(--violet); }
+  .f-agree{ color:var(--gold); }
+  .f-plus{ font-size:18px; color:var(--border); font-family:'Bebas Neue',sans-serif; }
+
+  /* agreement rule box */
+  .agree-box{
+    background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.2);
+    border-radius:8px; padding:12px 16px; margin-bottom:14px;
+  }
+  .ab-title{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:3px; color:var(--gold); margin-bottom:8px; }
+  .agree-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:6px; }
+  @media(max-width:480px){ .agree-grid{ grid-template-columns:1fr; } }
+  .agree-row{ display:flex; align-items:center; gap:8px; font-size:13px; }
+  .ag-pron{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; color:var(--text3); min-width:80px; }
+  .ag-form{ font-family:'DM Serif Display',serif; color:var(--gold); font-size:15px; }
+  .ag-ex  { font-size:12px; color:var(--text3); font-style:italic; }
+
+  .fe-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media(max-width:560px){ .fe-row{ grid-template-columns:1fr; } }
+  .fe{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:9px 12px; }
+  .fe-fr{ font-family:'DM Serif Display',serif; font-size:13.5px; color:var(--text); }
+  .fe-fr .aux{ color:var(--teal); }
+  .fe-fr .pp { color:var(--violet); }
+  .fe-en{ font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── DR MRS VANDERTRAMP GRID ── */
+  .van-section{ margin-bottom:28px; }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+  .van-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  @media(max-width:560px){ .van-grid{ grid-template-columns:repeat(2,1fr); } }
+  .van-card{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px 13px; transition:border-color 0.2s; }
+  .van-card:hover{ border-color:rgba(0,201,167,0.25); }
+  .van-inf{ font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:1px; color:var(--text3); }
+  .van-pp { font-family:'DM Serif Display',serif; font-size:17px; color:var(--teal2); margin:2px 0; }
+  .van-en { font-size:11px; color:var(--text3); font-style:italic; }
+  .van-opp{ font-size:10px; color:rgba(180,79,255,0.7); font-style:italic; margin-top:2px; }
+
+  /* ── ÊTRE GRID ── */
+  .etre-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:28px; }
+  @media(max-width:480px){ .etre-grid{ grid-template-columns:repeat(2,1fr); } }
+  .ec{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:9px 12px;
+    display:flex; align-items:center; justify-content:space-between; gap:6px; transition:border-color 0.2s; }
+  .ec:hover{ border-color:rgba(0,201,167,0.2); }
+  .ec-pron{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; color:var(--text3); }
+  .ec-form{ font-family:'DM Serif Display',serif; font-size:17px; color:var(--teal); }
+  .ec-en  { font-size:11px; color:var(--text3); font-style:italic; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--teal); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.4s; }
+  .vocab-wrap.open{ max-height:680px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 18px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:10px 18px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13.5px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(0,201,167,0.02); }
+  .vfr{ color:var(--text); font-family:'DM Serif Display',serif; font-size:15px; }
+  .vpp{ color:var(--teal2); font-family:'DM Serif Display',serif; font-size:14px; }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--teal); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── SUBJECT PICKER ── */
+  .subject-section{ margin-bottom:24px; }
+  .sb-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .subject-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .subject-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 16px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .subject-pill:hover,.subject-pill.active{ border-color:rgba(0,201,167,0.4); background:rgba(0,201,167,0.06); color:var(--teal2); }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(0,201,167,0.4); background:rgba(0,201,167,0.06); color:var(--teal2); }
+
+  .level-section{ margin-bottom:24px; }
+  .section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a1::before{ background:linear-gradient(135deg,rgba(6,214,160,0.15),transparent); }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(0,245,255,0.15),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(0,201,167,0.15),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.15),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a1.active{ border-color:var(--green); color:var(--green); }
+  .level-pill.a2.active{ border-color:var(--cyan);  color:var(--cyan); }
+  .level-pill.b1.active{ border-color:var(--teal);  color:var(--teal); }
+  .level-pill.b2.active{ border-color:var(--violet); color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--teal); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--teal),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(0,201,167,0.14),rgba(180,79,255,0.14));
+    border:1px solid rgba(0,201,167,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(0,201,167,0.26),rgba(180,79,255,0.26));
+    border-color:var(--teal); transform:translateY(-1px); box-shadow:0 8px 28px rgba(0,201,167,0.12); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--teal),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(0,201,167,0.2); transform:translateY(-1px); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* gender badge */
+  .gender-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    border-radius:4px; padding:3px 10px; margin-bottom:10px; font-size:11px;
+  }
+  .gender-badge.masc { background:rgba(0,245,255,0.06); border:1px solid rgba(0,245,255,0.2); color:var(--cyan); }
+  .gender-badge.fem  { background:rgba(255,107,157,0.06); border:1px solid rgba(255,107,157,0.2); color:#ff8fab; }
+  .gender-badge.plur { background:rgba(180,79,255,0.06); border:1px solid rgba(180,79,255,0.2); color:#d8a8ff; }
+  .gb-label{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; }
+  .gb-agree{ font-family:'DM Serif Display',serif; font-size:14px; color:var(--gold); }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.pc     { color:var(--teal);   border:1px solid rgba(0,201,167,0.28);  background:rgba(0,201,167,0.05); }
+  .card-type.accord { color:var(--gold);   border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.choix  { color:#d8a8ff;       border:1px solid rgba(180,79,255,0.28); background:rgba(180,79,255,0.05); }
+  .card-type.negatif{ color:var(--green);  border:1px solid rgba(6,214,160,0.28);  background:rgba(6,214,160,0.05); }
+  .card-type.trad   { color:var(--cyan);   border:1px solid rgba(0,245,255,0.28);  background:rgba(0,245,255,0.05); }
+  .card-type.aux    { color:var(--teal2);  border:1px solid rgba(0,201,167,0.28);  background:rgba(0,201,167,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(17px,2.8vw,23px); line-height:1.65; margin-bottom:14px; color:var(--text); }
+  .sentence-display .aux{ color:var(--teal); }
+  .sentence-display .pp { color:var(--violet); }
+  .sentence-display .agree{ color:var(--gold); font-style:italic; }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; width:200px; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--teal); box-shadow:0 0 0 2px rgba(0,201,167,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  .answer-input.inline  { width:170px; font-size:17px; padding:6px 12px; }
+  .blank-wrapper{ display:inline-flex; align-items:center; vertical-align:middle; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--teal); color:var(--text); background:rgba(0,201,167,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show  { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(0,201,167,0.4);
+    background:rgba(0,201,167,0.06); color:var(--teal); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(0,201,167,0.16); border-color:var(--teal); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(0,201,167,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(0,201,167,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--teal); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--text); }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); }
+  .score-stat-num.bad { color:var(--red); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(0,201,167,0.4);
+    background:rgba(0,201,167,0.08); color:var(--teal); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(0,201,167,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .van-grid{ grid-template-columns:repeat(2,1fr); }
+    .etre-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">ÊTRE<br>AU PC</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 12 · FRANÇAIS</div>
+    <h1>Passé Composé<br>avec Être</h1>
+    <p class="subtitle">je suis allé(e) · elle est venue · ils sont partis...</p>
+    <p class="subtitle2">DR &amp; MRS VANDERTRAMP + ACCORD EN GENRE ET NOMBRE</p>
+  </header>
+
+  <!-- FORMULA -->
+  <div class="formula-card">
+    <div class="fc-title">✦ STRUCTURE — PASSÉ COMPOSÉ AVEC ÊTRE</div>
+    <div class="formula-row">
+      <div class="f-part"><div class="f-label">SUJET</div><div class="f-val f-sub">SUJET</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-part"><div class="f-label">ÊTRE (présent)</div><div class="f-val f-aux">SUIS / ES / EST...</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-part"><div class="f-label">PARTICIPE PASSÉ</div><div class="f-val f-pp">PP</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-part"><div class="f-label">ACCORD</div><div class="f-val f-agree">-E / -S / -ES</div></div>
+    </div>
+    <div class="agree-box">
+      <div class="ab-title">⚡ RÈGLE D'ACCORD — LE PP S'ACCORDE AVEC LE SUJET</div>
+      <div class="agree-grid">
+        <div class="agree-row"><span class="ag-pron">MASC. SING.</span><span class="ag-form">parti</span><span class="ag-ex">il est parti</span></div>
+        <div class="agree-row"><span class="ag-pron">FÉM. SING.</span><span class="ag-form">partie</span><span class="ag-ex">elle est partie</span></div>
+        <div class="agree-row"><span class="ag-pron">MASC. PLUR.</span><span class="ag-form">partis</span><span class="ag-ex">ils sont partis</span></div>
+        <div class="agree-row"><span class="ag-pron">FÉM. PLUR.</span><span class="ag-form">parties</span><span class="ag-ex">elles sont parties</span></div>
+      </div>
+    </div>
+    <div class="fe-row">
+      <div class="fe"><div class="fe-fr">Je <span class="aux">suis</span> <span class="pp">allé</span>.</div><div class="fe-en">I went (masc.)</div></div>
+      <div class="fe"><div class="fe-fr">Elle <span class="aux">est</span> <span class="pp">arrivée</span>.</div><div class="fe-en">She arrived.</div></div>
+      <div class="fe"><div class="fe-fr">Ils <span class="aux">sont</span> <span class="pp">venus</span>.</div><div class="fe-en">They came.</div></div>
+    </div>
+  </div>
+
+  <!-- ÊTRE AU PRÉSENT -->
+  <div class="section-title">✦ ÊTRE AU PRÉSENT — rappel</div>
+  <div class="etre-grid">
+    <div class="ec"><span class="ec-pron">JE</span><span class="ec-form">suis</span><span class="ec-en">I am</span></div>
+    <div class="ec"><span class="ec-pron">TU</span><span class="ec-form">es</span><span class="ec-en">you are</span></div>
+    <div class="ec"><span class="ec-pron">IL/ELLE</span><span class="ec-form">est</span><span class="ec-en">he/she is</span></div>
+    <div class="ec"><span class="ec-pron">NOUS</span><span class="ec-form">sommes</span><span class="ec-en">we are</span></div>
+    <div class="ec"><span class="ec-pron">VOUS</span><span class="ec-form">êtes</span><span class="ec-en">you are</span></div>
+    <div class="ec"><span class="ec-pron">ILS/ELLES</span><span class="ec-form">sont</span><span class="ec-en">they are</span></div>
+  </div>
+
+  <!-- DR MRS VANDERTRAMP -->
+  <div class="van-section">
+    <div class="section-title">✦ LES VERBES AVEC ÊTRE — DR &amp; MRS VANDERTRAMP</div>
+    <div class="van-grid" id="vanGrid"></div>
+  </div>
+
+  <!-- VOCAB NOUVEAU -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — LA VILLE &amp; LES DÉPLACEMENTS</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>INFINITIF</th><th>PP (masc.)</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CATÉGORIE</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">se promener</td><td class="vpp">promené(e)</td><td class="ven">to go for a walk</td><td class="ves">pasearse</td><td class="vcat">déplacement</td><td class="vex">Je me suis promené(e).</td></tr>
+          <tr><td class="vfr">se rendre (à)</td><td class="vpp">rendu(e)</td><td class="ven">to go to / make one's way</td><td class="ves">dirigirse</td><td class="vcat">déplacement</td><td class="vex">Il s'est rendu au bureau.</td></tr>
+          <tr><td class="vfr">traverser</td><td class="vpp">traversé</td><td class="ven">to cross</td><td class="ves">cruzar</td><td class="vcat">ville</td><td class="vex">Nous avons traversé le pont.*</td></tr>
+          <tr><td class="vfr">se perdre</td><td class="vpp">perdu(e)</td><td class="ven">to get lost</td><td class="ves">perderse</td><td class="vcat">déplacement</td><td class="vex">Elle s'est perdue en ville.</td></tr>
+          <tr><td class="vfr">descendre (de)</td><td class="vpp">descendu(e)</td><td class="ven">to get off / go down</td><td class="ves">bajar (de)</td><td class="vcat">transport</td><td class="vex">Je suis descendu(e) du bus.</td></tr>
+          <tr><td class="vfr">monter (dans)</td><td class="vpp">monté(e)</td><td class="ven">to get on / go up</td><td class="ves">subir (a)</td><td class="vcat">transport</td><td class="vex">Tu es monté(e) dans le métro.</td></tr>
+          <tr><td class="vfr">passer (par)</td><td class="vpp">passé(e)</td><td class="ven">to pass through</td><td class="ves">pasar (por)</td><td class="vcat">déplacement</td><td class="vex">Ils sont passés par Lyon.</td></tr>
+          <tr><td class="vfr">s'arrêter</td><td class="vpp">arrêté(e)</td><td class="ven">to stop</td><td class="ves">pararse</td><td class="vcat">déplacement</td><td class="vex">Elle s'est arrêtée devant la vitrine.</td></tr>
+          <tr><td class="vfr">rentrer</td><td class="vpp">rentré(e)</td><td class="ven">to return home</td><td class="ves">volver a casa</td><td class="vcat">déplacement</td><td class="vex">Nous sommes rentrés tard.</td></tr>
+          <tr><td class="vfr">rester</td><td class="vpp">resté(e)</td><td class="ven">to stay</td><td class="ves">quedarse</td><td class="vcat">séjour</td><td class="vex">Vous êtes resté(e)(s) longtemps ?</td></tr>
+          <tr><td class="vfr">se dépêcher</td><td class="vpp">dépêché(e)</td><td class="ven">to hurry</td><td class="ves">apurarse</td><td class="vcat">déplacement</td><td class="vex">Il s'est dépêché pour ne pas rater le train.</td></tr>
+          <tr><td class="vfr">déménager</td><td class="vpp">déménagé</td><td class="ven">to move house</td><td class="ves">mudarse</td><td class="vcat">ville</td><td class="vex">Nous avons déménagé l'an dernier.*</td></tr>
+        </tbody>
+      </table>
+      <div style="padding:8px 18px;font-size:11px;color:var(--text3);border-top:1px solid var(--border)">
+        * traverser &amp; déménager utilisent <strong>avoir</strong> — inclus ici pour contraste
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBJECT FILTER -->
+  <div class="subject-section">
+    <div class="sb-label">GENRE DU SUJET</div>
+    <div class="subject-pills">
+      <button class="subject-pill active" data-g="tous"    onclick="setGender('tous',this)">TOUS</button>
+      <button class="subject-pill"        data-g="masc"    onclick="setGender('masc',this)">MASCULIN</button>
+      <button class="subject-pill"        data-g="fem"     onclick="setGender('fem',this)">FÉMININ</button>
+      <button class="subject-pill"        data-g="plur"    onclick="setGender('plur',this)">PLURIEL</button>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">TYPE D'EXERCICE</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"      onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="auxiliaire"onclick="setFilter('auxiliaire',this)">AUXILIAIRE ÊTRE</button>
+      <button class="filter-pill"        data-f="accord"    onclick="setFilter('accord',this)">ACCORD PP</button>
+      <button class="filter-pill"        data-f="complet"   onclick="setFilter('complet',this)">PC COMPLET</button>
+      <button class="filter-pill"        data-f="negatif"   onclick="setFilter('negatif',this)">NÉGATIF</button>
+      <button class="filter-pill"        data-f="traduction"onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a1" onclick="setLevel('A1',this)">A1</button>
+      <button class="level-pill a2 active" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2" onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji"    id="scoreEmoji">🎉</div>
+    <div class="score-title"    id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle">Excellent !</div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num"      id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+
+// Être au présent
+const ETRE = {
+  je:'suis', tu:'es', il:'est', elle:'est', on:'est',
+  nous:'sommes', vous:'êtes', ils:'sont', elles:'sont'
+};
+
+// DR MRS VANDERTRAMP + extras (all verbs that use être)
+const ETRE_VERBS = {
+  aller:    { pp:'allé',     en:'go',        opp:'venir'   },
+  venir:    { pp:'venu',     en:'come',       opp:'aller'   },
+  arriver:  { pp:'arrivé',   en:'arrive',     opp:'partir'  },
+  partir:   { pp:'parti',    en:'leave',      opp:'arriver' },
+  entrer:   { pp:'entré',    en:'enter',      opp:'sortir'  },
+  sortir:   { pp:'sorti',    en:'go out',     opp:'entrer'  },
+  monter:   { pp:'monté',    en:'go up/get on',opp:'descendre'},
+  descendre:{ pp:'descendu', en:'go down/get off',opp:'monter'},
+  naître:   { pp:'né',       en:'be born',    opp:'mourir'  },
+  mourir:   { pp:'mort',     en:'die',        opp:'naître'  },
+  rester:   { pp:'resté',    en:'stay',       opp:null      },
+  rentrer:  { pp:'rentré',   en:'return home',opp:'partir'  },
+  retourner:{ pp:'retourné', en:'return',     opp:null      },
+  passer:   { pp:'passé',    en:'pass through',opp:null     },
+  tomber:   { pp:'tombé',    en:'fall',       opp:null      },
+  devenir:  { pp:'devenu',   en:'become',     opp:null      },
+  revenir:  { pp:'revenu',   en:'come back',  opp:null      },
+  // new vocab reflexives (être-like)
+  'se promener':{ pp:'promené', en:'go for a walk', opp:null, refl:true },
+  'se rendre':  { pp:'rendu',   en:'make one\'s way',opp:null, refl:true },
+  'se perdre':  { pp:'perdu',   en:'get lost',       opp:null, refl:true },
+  'se dépêcher':{ pp:'dépêché', en:'hurry',          opp:null, refl:true },
+  "s'arrêter":  { pp:'arrêté',  en:'stop',           opp:null, refl:true },
+};
+
+// Agreement endings
+function agree(ppBase, pron){
+  // determine gender/number from pronoun
+  if(pron === 'elle' || pron === 'tu_f')    return ppBase + 'e';
+  if(pron === 'nous' || pron === 'ils')     return ppBase + 's';
+  if(pron === 'elles')                       return ppBase + 'es';
+  if(pron === 'vous'){
+    // ambiguous — we'll use masculine plural by default
+    return ppBase + 's';
+  }
+  return ppBase; // je / tu / il / on — no change (masculine sing)
+}
+
+// Special agreement: some PPs already end in -s or -e
+function agreeSpecial(ppBase, pron){
+  // mort → morte, morts, mortes
+  // né → née, nés, nées
+  // devenu, revenu etc
+  if(ppBase.endsWith('s') || ppBase.endsWith('x')) {
+    // already has s form
+    if(pron === 'elle') return ppBase.slice(0,-1) + 'e'; // this won't apply often
+    return ppBase;
+  }
+  return agree(ppBase, pron);
+}
+
+function ppAgreed(verb, pron){
+  const base = ETRE_VERBS[verb]?.pp || '';
+  return agreeSpecial(base, pron);
+}
+
+// Être auxiliary
+function etreForm(pron){ return ETRE[pron] || 'est'; }
+
+// Full passé composé with être
+function buildPC(verb, pron, genderOverride){
+  const pronKey = genderOverride || pron;
+  const aux  = etreForm(pron);
+  const pp   = ppAgreed(verb, pronKey);
+  const data = ETRE_VERBS[verb];
+  if(data?.refl){
+    // reflexive: se/s' + être
+    const refl = pron === 'je' ? "me" : pron === 'tu' ? 'te' : pron === 'il' || pron === 'elle' || pron === 'on' ? 'se' : pron === 'nous' ? 'nous' : pron === 'vous' ? 'vous' : 'se';
+    const elide = /^[aeiouéèàâê]/i.test(aux);
+    const reflFinal = (pron === 'je' && /^[aeiouéèàâê]/i.test('me')) ? "m'" : (elide && refl === 'se') ? "s'" : (refl === 'me' || refl === 'te') ? refl + ' ' : refl + ' ';
+    return `${reflFinal.trim()} ${aux} ${pp}`;
+  }
+  return `${aux} ${pp}`;
+}
+
+// Display subject including gender info
+const SUBJECTS = {
+  tous:[
+    { pron:'je',   label:'Je',    gender:'masc', display:'Je' },
+    { pron:'je',   label:'Je (f)',gender:'fem',  display:'Je' },
+    { pron:'tu',   label:'Tu',    gender:'masc', display:'Tu' },
+    { pron:'tu',   label:'Tu (f)',gender:'fem',  display:'Tu' },
+    { pron:'il',   label:'Il',    gender:'masc', display:'Il' },
+    { pron:'elle', label:'Elle',  gender:'fem',  display:'Elle' },
+    { pron:'nous', label:'Nous',  gender:'plur', display:'Nous' },
+    { pron:'vous', label:'Vous',  gender:'plur', display:'Vous' },
+    { pron:'ils',  label:'Ils',   gender:'plur', display:'Ils' },
+    { pron:'elles',label:'Elles', gender:'plur', display:'Elles' },
+  ]
+};
+
+// Contexts per verb and level
+const CTX = {
+  aller:    { A1:'au marché',         A2:'au cinéma hier soir',              B1:'voir une exposition d\'art moderne',         B2:'assister à la première de ce spectacle' },
+  venir:    { A1:'chez moi',          A2:'me voir ce matin',                 B1:'exprès pour cette occasion importante',     B2:'de loin pour participer à cette conférence' },
+  arriver:  { A1:'en retard',         A2:'à l\'heure ce matin',              B1:'juste à temps pour la réunion',             B2:'à destination après un long voyage épuisant' },
+  partir:   { A1:'tôt',               A2:'en vacances la semaine dernière',  B1:'sans prévenir personne',                    B2:'vers l\'inconnu avec une valise et de l\'espoir' },
+  entrer:   { A1:'dans la salle',     A2:'sans frapper à la porte',          B1:'discrètement pour ne pas déranger',         B2:'en scène sous une ovation du public' },
+  sortir:   { A1:'hier soir',         A2:'avec mes amis vendredi',           B1:'tard malgré le mauvais temps',              B2:'indemne d\'une situation très délicate' },
+  monter:   { A1:'dans le bus',       A2:'à pied jusqu\'en haut',            B1:'dans le dernier TGV avant la grève',        B2:'jusqu\'au sommet après quatre heures d\'effort' },
+  descendre:{ A1:'du train',          A2:'à la mauvaise station',            B1:'du taxi devant l\'hôtel',                   B2:'les marches avec une grâce remarquable' },
+  naître:   { A1:'en France',         A2:'un mardi matin',                   B1:'dans une petite ville de province',         B2:'au cœur d\'une période historique cruciale' },
+  mourir:   { A1:'très vieux',        A2:'à l\'âge de quatre-vingt-dix ans', B1:'en laissant une œuvre considérable',        B2:'en défendant ses convictions les plus profondes' },
+  rester:   { A1:'à la maison',       A2:'toute la journée ici',             B1:'bien plus longtemps que prévu',             B2:'fidèle à ses principes malgré les pressions' },
+  rentrer:  { A1:'tard ce soir',      A2:'à pied sous la pluie',             B1:'directement après la réunion',              B2:'bredouille après des heures de recherches' },
+  retourner:{ A1:'chez mes parents',  A2:'sur les lieux de l\'événement',    B1:'dans ce pays qu\'il aimait tant',           B2:'sur ses pas pour retrouver ce qu\'il avait perdu' },
+  passer:   { A1:'par la gare',       A2:'devant la boulangerie',            B1:'par une période difficile mais formative',  B2:'entre les mains d\'un nouveau directeur artistique' },
+  tomber:   { A1:'par terre',         A2:'dans l\'escalier ce matin',        B1:'amoureux dès le premier regard',            B2:'dans le piège tendu par ses adversaires' },
+  devenir:  { A1:'grand',             A2:'un bon médecin',                   B1:'de plus en plus passionné par ce métier',   B2:'une référence incontournable dans son domaine' },
+  revenir:  { A1:'vite',              A2:'de voyage hier',                   B1:'les mains vides malheureusement',           B2:'transformé par cette expérience extraordinaire' },
+  'se promener':{ A1:'en ville',      A2:'le long de la rivière',            B1:'pendant des heures dans les ruelles',       B2:'sans destination précise en observant les passants' },
+  'se rendre':  { A1:'au bureau',     A2:'à pied au marché',                 B1:'directement à la préfecture',               B2:'sur les lieux pour constater les dégâts' },
+  'se perdre':  { A1:'en ville',      A2:'dans ce quartier inconnu',         B1:'dans les ruelles du vieux Paris',           B2:'dans les méandres de cette mégalopole étrangère' },
+  'se dépêcher':{ A1:'beaucoup',      A2:'pour attraper le bus',             B1:'inutilement car le train était en retard', B2:'sans pouvoir éviter d\'arriver hors délai' },
+  "s'arrêter":  { A1:'ici',           A2:'devant la vitrine',                B1:'brusquement au beau milieu de la rue',      B2:'pile devant la librairie qu\'elle cherchait' },
+};
+
+const EN_CTX = {
+  aller:    { A1:'to the market',    A2:'to the cinema last night',         B1:'to see a modern art exhibition',           B2:'to attend the première of this show' },
+  venir:    { A1:'to my place',      A2:'to see me this morning',           B1:'especially for this important occasion',   B2:'from far away to attend the conference' },
+  arriver:  { A1:'late',             A2:'on time this morning',             B1:'just in time for the meeting',             B2:'at the destination after a long exhausting journey' },
+  partir:   { A1:'early',            A2:'on holiday last week',             B1:'without warning anyone',                   B2:'into the unknown with a suitcase and hope' },
+  entrer:   { A1:'into the room',    A2:'without knocking',                 B1:'quietly so as not to disturb',             B2:'on stage to a standing ovation' },
+  sortir:   { A1:'last night',       A2:'with friends on Friday',           B1:'late despite the bad weather',             B2:'unscathed from a very delicate situation' },
+  monter:   { A1:'on the bus',       A2:'on foot to the top',               B1:'on the last TGV before the strike',        B2:'to the summit after four hours of effort' },
+  descendre:{ A1:'from the train',   A2:'at the wrong stop',                B1:'from the taxi in front of the hotel',      B2:'the steps with remarkable grace' },
+  naître:   { A1:'in France',        A2:'on a Tuesday morning',             B1:'in a small provincial town',               B2:'at the heart of a crucial historical period' },
+  mourir:   { A1:'very old',         A2:'at the age of ninety',             B1:'leaving behind a considerable body of work',B2:'defending one\'s deepest convictions' },
+  rester:   { A1:'at home',          A2:'here all day',                     B1:'much longer than expected',                B2:'faithful to one\'s principles despite pressure' },
+  rentrer:  { A1:'late tonight',     A2:'on foot in the rain',              B1:'directly after the meeting',               B2:'empty-handed after hours of searching' },
+  retourner:{ A1:'to my parents',    A2:'to the scene',                     B1:'to the country he loved so much',          B2:'back to find what had been lost' },
+  passer:   { A1:'by the station',   A2:'in front of the bakery',           B1:'through a difficult but formative period', B2:'into the hands of a new artistic director' },
+  tomber:   { A1:'to the ground',    A2:'down the stairs this morning',     B1:'in love at first sight',                   B2:'into the trap set by adversaries' },
+  devenir:  { A1:'big',              A2:'a good doctor',                    B1:'increasingly passionate about this job',   B2:'an unmissable reference in the field' },
+  revenir:  { A1:'quickly',          A2:'from a trip yesterday',            B1:'empty-handed unfortunately',               B2:'transformed by this extraordinary experience' },
+  'se promener':{ A1:'in the city',  A2:'along the river',                  B1:'for hours through the backstreets',        B2:'without a specific destination' },
+  'se rendre':  { A1:'to the office',A2:'on foot to the market',            B1:'directly to the prefecture',               B2:'to the scene to assess the damage' },
+  'se perdre':  { A1:'in the city',  A2:'in this unknown neighbourhood',    B1:'in the old streets of Paris',              B2:'in the maze of this foreign megacity' },
+  'se dépêcher':{ A1:'a lot',        A2:'to catch the bus',                 B1:'pointlessly as the train was late',        B2:'without avoiding arriving past the deadline' },
+  "s'arrêter":  { A1:'here',         A2:'in front of the window',           B1:'abruptly in the middle of the street',     B2:'right in front of the bookshop she was looking for' },
+};
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel  = 'A2';
+let exFilter      = 'tous';
+let genderFilter  = 'tous';
+let exercises     = [];
+let answered      = 0;
+let correct       = 0;
+
+function setLevel(lv, btn){ currentLevel = lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f, btn){ exFilter = f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setGender(g, btn){ genderFilter = g; document.querySelectorAll('.subject-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+
+// Build DR MRS grid
+function buildVanGrid(){
+  const g = document.getElementById('vanGrid');
+  g.innerHTML = Object.entries(ETRE_VERBS)
+    .filter(([v]) => !ETRE_VERBS[v].refl)
+    .map(([v, d]) => `
+      <div class="van-card">
+        <div class="van-inf">${v}</div>
+        <div class="van-pp">${d.pp}(e)(s)</div>
+        <div class="van-en">${d.en}</div>
+        ${d.opp ? `<div class="van-opp">↔ ${d.opp}</div>` : ''}
+      </div>`).join('');
+}
+
+// ================================================================
+// SUBJECT POOL
+// ================================================================
+function getSubjects(){
+  const all = SUBJECTS.tous;
+  if(genderFilter === 'masc') return all.filter(s => s.gender === 'masc');
+  if(genderFilter === 'fem')  return all.filter(s => s.gender === 'fem');
+  if(genderFilter === 'plur') return all.filter(s => s.gender === 'plur');
+  return all;
+}
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container = document.getElementById('exercisesContainer');
+  container.innerHTML = ''; exercises = [];
+
+  const numEx = currentLevel === 'A1' ? 8 : currentLevel === 'A2' ? 10 : 12;
+  const verbPool = Object.keys(ETRE_VERBS).filter(v => CTX[v]);
+  const subjPool = getSubjects();
+
+  let typePool;
+  if      (exFilter === 'auxiliaire') typePool = ['aux_input'];
+  else if (exFilter === 'accord')     typePool = ['accord_mcq'];
+  else if (exFilter === 'complet')    typePool = ['full_input'];
+  else if (exFilter === 'negatif')    typePool = ['negatif'];
+  else if (exFilter === 'traduction') typePool = ['traduction'];
+  else typePool = ['full_input','accord_mcq','aux_input','negatif','traduction','full_input'];
+
+  const usedCombos = new Set();
+  const picked = [];
+  let tries = 0;
+  while(picked.length < numEx && tries < 200){
+    tries++;
+    const verb = verbPool[Math.floor(Math.random()*verbPool.length)];
+    const subj = subjPool[Math.floor(Math.random()*subjPool.length)];
+    const ctx  = CTX[verb] && (CTX[verb][currentLevel] || CTX[verb]['A2']);
+    if(!ctx) continue;
+    const key = verb + subj.label;
+    if(usedCombos.has(key)) continue;
+    usedCombos.add(key);
+    picked.push({ verb, subj });
+  }
+
+  const types = [];
+  for(let i = 0; i < picked.length; i++) types.push(typePool[i % typePool.length]);
+  shuffle(types);
+
+  picked.forEach(({ verb, subj }, i) => {
+    const type = types[i];
+    if      (type === 'aux_input')  renderAuxInput(container, i, verb, subj);
+    else if (type === 'accord_mcq') renderAccordMCQ(container, i, verb, subj);
+    else if (type === 'negatif')    renderNegatif(container, i, verb, subj);
+    else if (type === 'traduction') renderTraduction(container, i, verb, subj);
+    else                            renderFullInput(container, i, verb, subj);
+  });
+
+  updateProgress();
+}
+
+// ================================================================
+// HELPERS
+// ================================================================
+function getCtx(v,lv){ const c=CTX[v]; return (c&&c[lv])||(c&&c['A2'])||''; }
+function getEnCtx(v,lv){ const c=EN_CTX[v]; return (c&&c[lv])||(c&&c['A2'])||v; }
+function esc(s){ return s.replace(/'/g,"\\'"); }
+function normalise(s){
+  return s.toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c').replace(/\s+/g,' ');
+}
+
+function getAgreeForm(verb, subj){
+  const pron   = subj.pron;
+  const gender = subj.gender;
+  const base   = ETRE_VERBS[verb]?.pp || '';
+  // determine pronoun key for agreement
+  if(gender === 'fem' && (pron === 'je' || pron === 'tu' || pron === 'il')) return base + 'e'; // elle/femme
+  if(gender === 'fem'  && pron === 'elles') return base + 'es';
+  if(gender === 'plur' && pron === 'ils')   return base + 's';
+  if(gender === 'plur' && pron === 'elles') return base + 'es';
+  if(gender === 'plur' && pron === 'nous')  return base + 's';
+  if(gender === 'plur' && pron === 'vous')  return base + 's';
+  if(gender === 'fem'  && pron === 'elle')  return base + 'e';
+  return base; // masculine singular
+}
+
+function getAuxForm(subj){ return ETRE[subj.pron] || 'est'; }
+
+function getFullAnswer(verb, subj){
+  const aux  = getAuxForm(subj);
+  const pp   = getAgreeForm(verb, subj);
+  const data = ETRE_VERBS[verb];
+  if(data?.refl){
+    const refl = reflexPron(subj.pron);
+    return `${refl} ${aux} ${pp}`.trim();
+  }
+  return `${aux} ${pp}`;
+}
+
+function reflexPron(pron){
+  const map = { je:"me", tu:"te", il:"se", elle:"se", on:"s'", nous:"nous", vous:"vous", ils:"se", elles:"se" };
+  return map[pron] || 'se';
+}
+
+function getNegAnswer(verb, subj){
+  const aux  = getAuxForm(subj);
+  const pp   = getAgreeForm(verb, subj);
+  const data = ETRE_VERBS[verb];
+  const ne   = /^[aeiouéèàâê]/i.test(aux) ? "n'" : 'ne ';
+  if(data?.refl){
+    const refl = reflexPron(subj.pron);
+    const rNe  = /^[aeiouéèàâê]/i.test(refl[0]) ? "ne s'" : `ne ${refl} `;
+    return `${rNe}${aux} pas ${pp}`.trim();
+  }
+  return `${ne}${aux} pas ${pp}`;
+}
+
+function genderBadge(subj){
+  const cls  = subj.gender;
+  const lbls = { masc:'MASC. SING.', fem:'FÉM. SING.', plur:'PLURIEL' };
+  const agree = subj.gender === 'fem' ? '-e' : subj.gender === 'plur' ? '-s/-es' : 'base';
+  return `<div class="gender-badge ${cls}"><span class="gb-label">${lbls[cls] || cls}</span><span class="gb-agree">${agree}</span></div>`;
+}
+
+// wrong agreements for MCQ
+function wrongAgreeForms(correct, base){
+  const variants = [base, base+'e', base+'s', base+'es'].filter(f => f !== correct);
+  return shuffle(variants).slice(0,3);
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+
+// 1) Fill être auxiliary
+function renderAuxInput(container, idx, verb, subj){
+  const aux  = getAuxForm(subj);
+  const pp   = getAgreeForm(verb, subj);
+  const ctx  = getCtx(verb, currentLevel);
+  const data = ETRE_VERBS[verb];
+  const refStr = data?.refl ? `${reflexPron(subj.pron)} ` : '';
+  exercises.push({ id:idx, answer:normalise(aux), answered:false, correct:false });
+
+  const card = document.createElement('div');
+  card.className = 'exercise-card'; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type aux">AUXILIAIRE ÊTRE</span></div>
+    ${genderBadge(subj)}
+    <div class="hint-text">CONJUGUEZ « ÊTRE » AU PRÉSENT</div>
+    <div class="sentence-display">
+      ${subj.display} ${refStr}<span class="blank-wrapper"><input class="answer-input inline" id="input-${idx}"
+        placeholder="suis / es..." autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(aux)}')"></span>
+      <span class="pp">${pp}</span> ${ctx}.
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(aux)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) MCQ — choose correct agreed PP
+function renderAccordMCQ(container, idx, verb, subj){
+  const aux     = getAuxForm(subj);
+  const correct = getAgreeForm(verb, subj);
+  const base    = ETRE_VERBS[verb]?.pp || '';
+  const ctx     = getCtx(verb, currentLevel);
+  const data    = ETRE_VERBS[verb];
+  const refStr  = data?.refl ? `${reflexPron(subj.pron)} ` : '';
+  const wrongs  = wrongAgreeForms(correct, base);
+  const choices = shuffle([correct, ...wrongs]).map(c =>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(correct)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({ id:idx, answer:normalise(correct), answered:false, correct:false });
+
+  const card = document.createElement('div');
+  card.className = 'exercise-card'; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type accord">ACCORD DU PP</span></div>
+    ${genderBadge(subj)}
+    <div class="hint-text">QUELLE FORME DU PP S'ACCORDE AVEC « ${subj.display.toUpperCase()} » ?</div>
+    <div class="sentence-display">${subj.display} ${refStr}<span class="aux">${aux}</span> ___ ${ctx}.</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) Full PC input
+function renderFullInput(container, idx, verb, subj){
+  const answer = getFullAnswer(verb, subj);
+  const ctx    = getCtx(verb, currentLevel);
+  const data   = ETRE_VERBS[verb];
+  exercises.push({ id:idx, answer:normalise(answer), answered:false, correct:false });
+
+  const card = document.createElement('div');
+  card.className = 'exercise-card'; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type pc">PASSÉ COMPOSÉ</span></div>
+    ${genderBadge(subj)}
+    <div class="hint-text">CONJUGUEZ « ${verb.toUpperCase()} » AU PASSÉ COMPOSÉ AVEC ÊTRE</div>
+    <div class="sentence-display">
+      ${subj.display} <input class="answer-input" id="input-${idx}"
+        placeholder="${data?.refl?'me/te/se... suis...':'suis / es... + pp'}" style="width:260px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"> ${ctx}.
+    </div>
+    <div class="hint-text" style="margin-top:4px">Tapez : être (+ accord) — ex : « est allée »${data?.refl?' ou « se sont perdus »':''}</div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 4) Negative
+function renderNegatif(container, idx, verb, subj){
+  const neg  = getNegAnswer(verb, subj);
+  const ctx  = getCtx(verb, currentLevel);
+  const data = ETRE_VERBS[verb];
+  exercises.push({ id:idx, answer:normalise(neg), answered:false, correct:false });
+
+  const card = document.createElement('div');
+  card.className = 'exercise-card'; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type negatif">FORME NÉGATIVE</span></div>
+    ${genderBadge(subj)}
+    <div class="hint-text">NE/N' + ÊTRE + PAS + PP (AVEC ACCORD)</div>
+    <div class="sentence-display">
+      ${subj.display} <input class="answer-input" id="input-${idx}"
+        placeholder="n'est pas allé(e)..." style="width:280px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(neg)}')"> ${ctx}.
+    </div>
+    <div class="hint-text" style="margin-top:4px">Structure : ne/n' + être + pas + pp accordé</div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(neg)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 5) Translation
+function renderTraduction(container, idx, verb, subj){
+  const answer = getFullAnswer(verb, subj);
+  const ctx    = getEnCtx(verb, currentLevel);
+  const data   = ETRE_VERBS[verb];
+  const enPron = { je:'I', tu:'You', il:'He', elle:'She', on:'One', nous:'We', vous:'You', ils:'They', elles:'They' };
+  const ep     = enPron[subj.pron] || 'I';
+  exercises.push({ id:idx, answer:normalise(answer), answered:false, correct:false });
+
+  const card = document.createElement('div');
+  card.className = 'exercise-card'; card.id = `card-${idx}`;
+  card.innerHTML = `
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type trad">TRADUCTION</span></div>
+    ${genderBadge(subj)}
+    <div class="hint-text">TRADUISEZ — PASSÉ COMPOSÉ AVEC ÊTRE DE « ${verb.toUpperCase()} »</div>
+    <div class="sentence-display" style="color:var(--teal2)">${ep} ${data?.en} — <em>${ctx}</em></div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--text2)">${subj.display}</span>
+      <input class="answer-input" id="input-${idx}" placeholder="être + pp accordé..." style="width:250px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK
+// ================================================================
+function checkInput(idx, answer){
+  const ex = exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const input = document.getElementById(`input-${idx}`);
+  const isOk  = normalise(input.value) === normalise(answer);
+  input.disabled = true;
+  input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`).querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx, isOk, answer);
+  markAnswered(idx, isOk);
+}
+
+function checkMCQ(idx, chosen, answer, btn){
+  const ex = exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const isOk = normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled');
+  btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx, isOk, answer);
+  markAnswered(idx, isOk);
+}
+
+function showFeedback(idx, isOk, answer){
+  const fb=document.getElementById(`feedback-${idx}`);
+  const icon=fb.querySelector('.feedback-icon');
+  const msg=fb.querySelector('.feedback-msg');
+  const bravos=['Parfait !','Excellent !','Très bien !','Bravo !','Super !','C\'est ça !'];
+  if(isOk){
+    fb.className='feedback success show'; icon.textContent='✓';
+    msg.innerHTML=`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`;
+  } else {
+    fb.className='feedback error show'; icon.textContent='✗';
+    msg.innerHTML=`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+  }
+}
+
+function markAnswered(idx, isOk){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex) return;
+  ex.answered=true; ex.correct=isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`).classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+
+function updateProgress(){
+  const total=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${total}`;
+  document.getElementById('progressFill').style.width=total>0?(answered/total*100)+'%':'0%';
+}
+
+function showScore(){
+  const total=exercises.length;
+  const pct=total>0?Math.round(correct/total*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=total-correct;
+  document.getElementById('totalCount').textContent=total;
+  let emoji,title,sub;
+  if     (pct>=90){emoji='🏆';title='PARFAIT !';   sub='Maîtrise parfaite du PC avec être et l\'accord !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';     sub='Très bien — encore quelques accords à consolider.';}
+  else if(pct>=50){emoji='💪';title='BIEN !';      sub='Bon effort — révisez l\'accord en genre et en nombre.';}
+  else            {emoji='📚';title='CONTINUEZ !'; sub='Rappel : être + PP accordé avec le sujet.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+
+document.getElementById('vocabToggle').addEventListener('click', function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+
+buildVanGrid();
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

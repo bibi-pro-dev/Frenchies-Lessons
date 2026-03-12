@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 13 — L'Imparfait</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --cyan:#00f5ff; --violet:#b44fff; --gold:#ffd166; --green:#06d6a0; --red:#ff4757;
+    --lav:#a78bfa; --lav2:#c4b5fd; --lav3:#e0d9ff;
+    --accent:#a78bfa;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  /* ── GRID ── */
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(167,139,250,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,0.025) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(0,245,255,0.01) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.01) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  /* ── HALOS ── */
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-220px; right:-160px; background:rgba(167,139,250,0.09); }
+  .h2{ width:600px; height:600px; bottom:-200px; left:-150px; background:rgba(0,245,255,0.05); }
+  .h3{ width:320px; height:320px; top:50%; left:45%; transform:translate(-50%,-50%); background:rgba(255,209,102,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.05; }
+  .al1{ width:1px; height:80vh; top:8vh; left:16%; background:linear-gradient(to bottom,transparent,var(--lav),transparent); transform:rotate(-9deg); }
+  .al2{ width:1px; height:58vh; top:22vh; right:14%; background:linear-gradient(to bottom,transparent,var(--cyan),transparent); transform:rotate(10deg); }
+
+  .bg-mark{ position:fixed; left:-40px; top:20%; opacity:0.02; font-family:'Bebas Neue',sans-serif;
+    font-size:280px; color:var(--lav); transform:rotate(-8deg); pointer-events:none; z-index:0; line-height:0.85; }
+
+  /* ── LAYOUT ── */
+  .wrapper{ position:relative; z-index:1; max-width:960px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--lav);
+    border:1px solid rgba(167,139,250,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(167,139,250,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--lav); animation:blink 2.2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,8vw,88px); line-height:0.9; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--lav) 44%,var(--cyan) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle { font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  /* ── FORMATION CARD ── */
+  .formation-card{
+    background:linear-gradient(135deg,rgba(167,139,250,0.07),rgba(0,245,255,0.04));
+    border:1px solid rgba(167,139,250,0.2); border-radius:14px; padding:24px 28px; margin-bottom:28px;
+  }
+  .fc-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:16px; }
+
+  /* formation layout: 2-col */
+  .formation-cols{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:580px){ .formation-cols{ grid-template-columns:1fr; } }
+
+  .form-col-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:2px; margin-bottom:10px; }
+  .form-col-title.step1{ color:var(--lav); }
+  .form-col-title.step2{ color:var(--gold); }
+
+  .step-box{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-bottom:10px; font-size:13px; }
+  .step-box .formula{ font-family:'DM Serif Display',serif; font-size:16px; color:var(--text); margin-bottom:4px; }
+  .step-box .formula .nous-part{ color:var(--lav); }
+  .step-box .formula .stem-part{ color:var(--gold); }
+  .step-box .formula .end-part { color:var(--cyan); }
+  .step-box .note{ font-size:11px; color:var(--text3); font-style:italic; }
+
+  /* endings mini-grid */
+  .endings-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:7px; }
+  @media(max-width:400px){ .endings-grid{ grid-template-columns:repeat(2,1fr); } }
+  .end-cell{ background:var(--card); border:1px solid var(--border); border-radius:7px; padding:8px 10px; }
+  .end-pron{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:1px; color:var(--text3); }
+  .end-val { font-family:'DM Serif Display',serif; font-size:16px; color:var(--lav2); }
+  .end-ex  { font-size:11px; color:var(--text3); font-style:italic; margin-top:2px; }
+
+  /* irregular stems reference */
+  .irr-section{ margin-bottom:28px; }
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+  .irr-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  @media(max-width:500px){ .irr-grid{ grid-template-columns:repeat(2,1fr); } }
+  .irr-cell{ background:var(--card); border:1px solid var(--border); border-radius:9px; padding:10px 13px; transition:border-color 0.2s; }
+  .irr-cell:hover{ border-color:rgba(167,139,250,0.25); }
+  .ic-inf { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1px; color:var(--text3); }
+  .ic-stem{ font-family:'DM Serif Display',serif; font-size:18px; color:var(--gold); margin:2px 0; }
+  .ic-ex  { font-size:11px; color:var(--text3); font-style:italic; }
+  .ic-note{ font-size:10px; color:rgba(167,139,250,0.6); margin-top:2px; font-style:italic; }
+
+  /* ── USAGE CARD ── */
+  .usage-card{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:28px; }
+  .usage-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--lav); margin-bottom:12px; }
+  .usage-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  @media(max-width:500px){ .usage-grid{ grid-template-columns:1fr; } }
+  .usage-item{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:11px 14px; }
+  .ui-type{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--lav); margin-bottom:4px; }
+  .ui-desc{ font-size:12px; color:var(--text2); margin-bottom:5px; }
+  .ui-ex  { font-family:'DM Serif Display',serif; font-size:13px; color:var(--lav2); font-style:italic; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--lav); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.4s; }
+  .vocab-wrap.open{ max-height:700px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 18px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:10px 18px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13.5px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(167,139,250,0.02); }
+  .vfr{ color:var(--text); font-family:'DM Serif Display',serif; font-size:15px; }
+  .vstem{ color:var(--gold); font-family:'DM Serif Display',serif; font-size:14px; }
+  .ven{ color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ color:var(--lav); font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vex{ color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(167,139,250,0.4); background:rgba(167,139,250,0.06); color:var(--lav2); }
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a1::before{ background:linear-gradient(135deg,rgba(6,214,160,0.15),transparent); }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(0,245,255,0.15),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(167,139,250,0.15),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(255,209,102,0.15),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a1.active{ border-color:var(--green);  color:var(--green); }
+  .level-pill.a2.active{ border-color:var(--cyan);   color:var(--cyan); }
+  .level-pill.b1.active{ border-color:var(--lav);    color:var(--lav); }
+  .level-pill.b2.active{ border-color:var(--gold);   color:var(--gold); }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--lav); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--lav),var(--cyan)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(167,139,250,0.14),rgba(0,245,255,0.08));
+    border:1px solid rgba(167,139,250,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(167,139,250,0.26),rgba(0,245,255,0.14));
+    border-color:var(--lav); transform:translateY(-1px); box-shadow:0 8px 28px rgba(167,139,250,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(255,209,102,0.4); color:var(--gold); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--lav),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.irr-card::before{ background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(167,139,250,0.2); transform:translateY(-1px); }
+  .exercise-card.irr-card.active-card{ border-color:rgba(255,209,102,0.2); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* stem badge on card */
+  .stem-badge-card{ display:inline-flex; align-items:center; gap:8px;
+    background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.18);
+    border-radius:4px; padding:3px 12px; margin-bottom:10px; }
+  .sbc-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .sbc-stem { font-family:'DM Serif Display',serif; font-size:15px; color:var(--gold); }
+  .sbc-end  { font-family:'DM Serif Display',serif; font-size:15px; color:var(--lav2); }
+
+  /* usage tag */
+  .usage-tag{ display:inline-flex; align-items:center; gap:6px; font-size:11px; font-style:italic;
+    color:var(--text3); padding:2px 10px; border-radius:3px;
+    border:1px solid rgba(167,139,250,0.15); background:rgba(167,139,250,0.04); margin-bottom:10px; }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.imparfait{ color:var(--lav);  border:1px solid rgba(167,139,250,0.28); background:rgba(167,139,250,0.05); }
+  .card-type.choix    { color:var(--cyan); border:1px solid rgba(0,245,255,0.28);   background:rgba(0,245,255,0.05); }
+  .card-type.traduction{color:var(--gold); border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+  .card-type.negatif  { color:var(--green);border:1px solid rgba(6,214,160,0.28);   background:rgba(6,214,160,0.05); }
+  .card-type.irregulier{color:var(--gold); border:1px solid rgba(255,209,102,0.28); background:rgba(255,209,102,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(17px,2.8vw,23px); line-height:1.65; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; width:200px; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--lav); box-shadow:0 0 0 2px rgba(167,139,250,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  .answer-input.inline  { width:170px; font-size:17px; padding:6px 12px; }
+  .blank-wrapper{ display:inline-flex; align-items:center; vertical-align:middle; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--lav); color:var(--text); background:rgba(167,139,250,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(167,139,250,0.4);
+    background:rgba(167,139,250,0.06); color:var(--lav); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(167,139,250,0.16); border-color:var(--lav); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(167,139,250,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(167,139,250,0.08);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--lav); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--text); }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); }
+  .score-stat-num.bad { color:var(--red); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(167,139,250,0.4);
+    background:rgba(167,139,250,0.08); color:var(--lav); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(167,139,250,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .irr-grid{ grid-template-columns:repeat(2,1fr); }
+    .usage-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">IMPAR<br>FAIT</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 13 · FRANÇAIS</div>
+    <h1>L'Imparfait</h1>
+    <p class="subtitle">je parlais · tu finissais · il était · nous allions...</p>
+    <p class="subtitle2">PASSÉ HABITUEL &amp; CONTINU · A2 → B2</p>
+  </header>
+
+  <!-- FORMATION CARD -->
+  <div class="formation-card">
+    <div class="fc-title">✦ FORMATION DE L'IMPARFAIT</div>
+    <div class="formation-cols">
+      <!-- Step 1 -->
+      <div>
+        <div class="form-col-title step1">ÉTAPE 1 — TROUVER LE STEM</div>
+        <div class="step-box">
+          <div class="formula">Prendre le <span class="nous-part">nous</span> du présent<br>→ retirer <span class="nous-part">-ons</span></div>
+          <div class="note">parl<strong>ons</strong> → parl- / finiss<strong>ons</strong> → finiss-</div>
+        </div>
+        <div class="step-box" style="border-color:rgba(255,209,102,0.2)">
+          <div class="formula"><span class="stem-part">stem</span> + <span class="end-part">terminaison</span></div>
+          <div class="note">Stem = base imparfait pour tous les verbes sauf être</div>
+        </div>
+      </div>
+      <!-- Step 2 — endings -->
+      <div>
+        <div class="form-col-title step2">ÉTAPE 2 — AJOUTER LA TERMINAISON</div>
+        <div class="endings-grid">
+          <div class="end-cell"><div class="end-pron">JE</div><div class="end-val">-ais</div><div class="end-ex">parlais</div></div>
+          <div class="end-cell"><div class="end-pron">TU</div><div class="end-val">-ais</div><div class="end-ex">parlais</div></div>
+          <div class="end-cell"><div class="end-pron">IL/ELLE</div><div class="end-val">-ait</div><div class="end-ex">parlait</div></div>
+          <div class="end-cell"><div class="end-pron">NOUS</div><div class="end-val">-ions</div><div class="end-ex">parlions</div></div>
+          <div class="end-cell"><div class="end-pron">VOUS</div><div class="end-val">-iez</div><div class="end-ex">parliez</div></div>
+          <div class="end-cell"><div class="end-pron">ILS/ELLES</div><div class="end-val">-aient</div><div class="end-ex">parlaient</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IRREGULAR STEMS -->
+  <div class="irr-section">
+    <div class="section-title">✦ STEMS IRRÉGULIERS À L'IMPARFAIT</div>
+    <div class="irr-grid">
+      <div class="irr-cell">
+        <div class="ic-inf">ÊTRE</div>
+        <div class="ic-stem">ét-</div>
+        <div class="ic-ex">j'étais, tu étais...</div>
+        <div class="ic-note">⚠ seul verbe avec stem irrégulier</div>
+      </div>
+      <div class="irr-cell">
+        <div class="ic-inf">AVOIR</div>
+        <div class="ic-stem">av-</div>
+        <div class="ic-ex">j'avais, il avait...</div>
+      </div>
+      <div class="irr-cell">
+        <div class="ic-inf">FAIRE</div>
+        <div class="ic-stem">fais-</div>
+        <div class="ic-ex">je faisais, nous faisions</div>
+      </div>
+      <div class="irr-cell">
+        <div class="ic-inf">ALLER</div>
+        <div class="ic-stem">all-</div>
+        <div class="ic-ex">j'allais, ils allaient</div>
+      </div>
+      <div class="irr-cell">
+        <div class="ic-inf">VENIR</div>
+        <div class="ic-stem">ven-</div>
+        <div class="ic-ex">je venais, elle venait</div>
+        <div class="ic-note">venions → venions ✓</div>
+      </div>
+      <div class="irr-cell">
+        <div class="ic-inf">VOIR</div>
+        <div class="ic-stem">voy-</div>
+        <div class="ic-ex">je voyais, vous voyiez</div>
+      </div>
+      <div class="irr-cell">
+        <div class="ic-inf">PRENDRE</div>
+        <div class="ic-stem">pren-</div>
+        <div class="ic-ex">je prenais, ils prenaient</div>
+      </div>
+      <div class="irr-cell">
+        <div class="ic-inf">SAVOIR</div>
+        <div class="ic-stem">sav-</div>
+        <div class="ic-ex">je savais, nous savions</div>
+      </div>
+      <div class="irr-cell">
+        <div class="ic-inf">VOULOIR</div>
+        <div class="ic-stem">voul-</div>
+        <div class="ic-ex">je voulais, tu voulais</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USAGES -->
+  <div class="usage-card">
+    <div class="usage-title">✦ QUAND UTILISER L'IMPARFAIT ?</div>
+    <div class="usage-grid">
+      <div class="usage-item">
+        <div class="ui-type">HABITUDE PASSÉE</div>
+        <div class="ui-desc">Action régulière ou répétée dans le passé</div>
+        <div class="ui-ex">Quand j'étais enfant, je jouais souvent dehors.</div>
+      </div>
+      <div class="usage-item">
+        <div class="ui-type">ACTION EN COURS</div>
+        <div class="ui-desc">Action qui était en train de se dérouler</div>
+        <div class="ui-ex">Il pleuvait quand je suis sorti.</div>
+      </div>
+      <div class="usage-item">
+        <div class="ui-type">DESCRIPTION DU PASSÉ</div>
+        <div class="ui-desc">État, émotion, contexte passé</div>
+        <div class="ui-ex">La maison était grande et calme.</div>
+      </div>
+      <div class="usage-item">
+        <div class="ui-type">SOUHAIT / POLITESSE</div>
+        <div class="ui-desc">Avec vouloir, pouvoir pour atténuer</div>
+        <div class="ui-ex">Je voulais vous demander un service.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — ENFANCE &amp; SOUVENIRS</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>FRANÇAIS</th><th>STEM IMP.</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>CATÉGORIE</th><th>EXEMPLE IMPARFAIT</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">se souvenir (de)</td><td class="vstem">souvien-*</td><td class="ven">to remember</td><td class="ves">recordar</td><td class="vcat">mémoire</td><td class="vex">Je me souvenais de tout.</td></tr>
+          <tr><td class="vfr">rêver (de)</td><td class="vstem">rêv-</td><td class="ven">to dream (of)</td><td class="ves">soñar</td><td class="vcat">imagination</td><td class="vex">Elle rêvait d'aventures.</td></tr>
+          <tr><td class="vfr">croire</td><td class="vstem">croy-</td><td class="ven">to believe</td><td class="ves">creer</td><td class="vcat">pensée</td><td class="vex">Il croyait au Père Noël.</td></tr>
+          <tr><td class="vfr">s'ennuyer</td><td class="vstem">s'ennuy-</td><td class="ven">to be bored</td><td class="ves">aburrirse</td><td class="vcat">émotion</td><td class="vex">On s'ennuyait le dimanche.</td></tr>
+          <tr><td class="vfr">se disputer</td><td class="vstem">se disput-</td><td class="ven">to argue</td><td class="ves">pelearse</td><td class="vcat">relation</td><td class="vex">Nous nous disputions parfois.</td></tr>
+          <tr><td class="vfr">grandir</td><td class="vstem">grandiss-</td><td class="ven">to grow up</td><td class="ves">crecer</td><td class="vcat">développement</td><td class="vex">Je grandissais dans un village.</td></tr>
+          <tr><td class="vfr">ressembler (à)</td><td class="vstem">ressembl-</td><td class="ven">to look like</td><td class="ves">parecerse</td><td class="vcat">apparence</td><td class="vex">Elle ressemblait à sa mère.</td></tr>
+          <tr><td class="vfr">s'amuser</td><td class="vstem">s'amus-</td><td class="ven">to have fun</td><td class="ves">divertirse</td><td class="vcat">loisirs</td><td class="vex">On s'amusait beaucoup.</td></tr>
+          <tr><td class="vfr">ignorer</td><td class="vstem">ignor-</td><td class="ven">to not know / ignore</td><td class="ves">ignorar</td><td class="vcat">connaissance</td><td class="vex">J'ignorais la vérité.</td></tr>
+          <tr><td class="vfr">espérer</td><td class="vstem">espér-</td><td class="ven">to hope</td><td class="ves">esperar</td><td class="vcat">émotion</td><td class="vex">Nous espérions du soleil.</td></tr>
+          <tr><td class="vfr">habiter</td><td class="vstem">habit-</td><td class="ven">to live (somewhere)</td><td class="ves">vivir</td><td class="vcat">vie quotidienne</td><td class="vex">Ils habitaient à Lyon.</td></tr>
+          <tr><td class="vfr">sembler</td><td class="vstem">sembl-</td><td class="ven">to seem</td><td class="ves">parecer</td><td class="vcat">description</td><td class="vex">Tout semblait possible alors.</td></tr>
+        </tbody>
+      </table>
+      <div style="padding:8px 18px;font-size:11px;color:var(--text3);border-top:1px solid var(--border)">
+        * se souvenir → stem irrég. basé sur le présent nous : nous nous souvenons → souvien- (irregular like venir)
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="stem"       onclick="setFilter('stem',this)">TROUVER LE STEM</button>
+      <button class="filter-pill"        data-f="regulier"   onclick="setFilter('regulier',this)">RÉGULIERS</button>
+      <button class="filter-pill"        data-f="irregulier" onclick="setFilter('irregulier',this)">IRRÉGULIERS</button>
+      <button class="filter-pill"        data-f="negatif"    onclick="setFilter('negatif',this)">NÉGATIF</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a1" onclick="setLevel('A1',this)">A1</button>
+      <button class="level-pill a2 active" onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2" onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji"    id="scoreEmoji">🎉</div>
+    <div class="score-title"    id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle">Excellent !</div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num"      id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA — IMPARFAIT
+// ================================================================
+
+// Imparfait endings
+const ENDS = { je:'ais', tu:'ais', il:'ait', elle:'ait', on:'ait', nous:'ions', vous:'iez', ils:'aient', elles:'aient' };
+
+// Irregular nous-stems (imparfait stem = nous present - ons)
+const IRR_STEMS = {
+  être:    'ét',     // special: j'étais
+  avoir:   'av',     // j'avais
+  faire:   'fais',   // je faisais
+  aller:   'all',    // j'allais
+  venir:   'ven',    // je venais
+  voir:    'voy',    // je voyais
+  prendre: 'pren',   // je prenais
+  savoir:  'sav',    // je savais
+  vouloir: 'voul',   // je voulais
+  pouvoir: 'pouv',   // je pouvais
+  devoir:  'dev',    // je devais
+  croire:  'croy',   // je croyais
+  boire:   'buv',    // je buvais
+  lire:    'lis',    // je lisais
+  mettre:  'mett',   // je mettais
+  dire:    'dis',    // je disais
+  écrire:  'écriv',  // j'écrivais
+  connaître:'connaiss',// je connaissais
+  vivre:   'viv',    // je vivais
+  suivre:  'suiv',   // je suivais
+  'se souvenir':'se souven', // je me souvenais
+  'se souvenir_plain':'souven',
+};
+
+// Regular verbs: stem = infinitive - r (for -er), or infinitive - r (for -ir via nous)
+// We'll use nous-present approach for all
+
+// Verb database — stem + whether irregular
+const VERBS = {
+  // Regular -ER (new vocab + previous)
+  parler:    { stem:'parl',     irr:false, en:'talk/speak' },
+  manger:    { stem:'mange',    irr:false, en:'eat' },
+  habiter:   { stem:'habit',    irr:false, en:'live' },
+  rêver:     { stem:'rêv',      irr:false, en:'dream' },
+  espérer:   { stem:'espér',    irr:false, en:'hope' },
+  ignorer:   { stem:'ignor',    irr:false, en:'not know/ignore' },
+  sembler:   { stem:'sembl',    irr:false, en:'seem' },
+  ressembler:{ stem:'ressembl', irr:false, en:'look like' },
+  's\'amuser':{ stem:'s\'amus', irr:false, en:'have fun' },
+  's\'ennuyer':{ stem:'s\'ennuy',irr:false, en:'be bored' },
+  'se disputer':{ stem:'se disput',irr:false, en:'argue' },
+  travailler:{ stem:'travaill', irr:false, en:'work' },
+  étudier:   { stem:'étudi',    irr:false, en:'study' },
+  voyager:   { stem:'voyage',   irr:false, en:'travel' },
+  chanter:   { stem:'chant',    irr:false, en:'sing' },
+  jouer:     { stem:'jou',      irr:false, en:'play' },
+  regarder:  { stem:'regard',   irr:false, en:'watch' },
+  écouter:   { stem:'écout',    irr:false, en:'listen' },
+  aimer:     { stem:'aim',      irr:false, en:'love/like' },
+  chercher:  { stem:'cherch',   irr:false, en:'look for' },
+  // Regular -IR
+  finir:     { stem:'finiss',   irr:false, en:'finish' },
+  choisir:   { stem:'choisiss', irr:false, en:'choose' },
+  grandir:   { stem:'grandiss', irr:false, en:'grow up' },
+  réussir:   { stem:'réussiss', irr:false, en:'succeed' },
+  réfléchir: { stem:'réfléchiss',irr:false, en:'think/reflect' },
+  // Irregular
+  être:      { stem:'ét',       irr:true,  en:'be' },
+  avoir:     { stem:'av',       irr:true,  en:'have' },
+  faire:     { stem:'fais',     irr:true,  en:'do/make' },
+  aller:     { stem:'all',      irr:true,  en:'go' },
+  venir:     { stem:'ven',      irr:true,  en:'come' },
+  voir:      { stem:'voy',      irr:true,  en:'see' },
+  prendre:   { stem:'pren',     irr:true,  en:'take' },
+  savoir:    { stem:'sav',      irr:true,  en:'know' },
+  vouloir:   { stem:'voul',     irr:true,  en:'want' },
+  pouvoir:   { stem:'pouv',     irr:true,  en:'be able' },
+  croire:    { stem:'croy',     irr:true,  en:'believe' },
+  'se souvenir':{ stem:'se souven', irr:true, en:'remember' },
+};
+
+function conjugateIMP(verb, pron) {
+  const data = VERBS[verb];
+  if (!data) return '???';
+  const stem = data.stem;
+  const end  = ENDS[pron] || 'ait';
+  // handle reflexive/pronominal
+  if (verb.startsWith("s'") || verb.startsWith("se ")) {
+    const refPron = getReflPron(pron);
+    const verbStem = stem.replace(/^s[e']?\s?/,'').replace(/^se /,'');
+    return `${refPron} ${verbStem}${end}`;
+  }
+  // elision for je + vowel
+  return `${stem}${end}`;
+}
+
+function getReflPron(pron) {
+  const m = { je:"me", tu:"te", il:"se", elle:"se", on:"s'", nous:"nous", vous:"vous", ils:"se", elles:"se" };
+  return m[pron] || 'se';
+}
+
+// Full sentence form (with subject)
+function fullForm(verb, pron) {
+  const form  = conjugateIMP(verb, pron);
+  const sub   = PRON_DISPLAY[pron];
+  // handle elision for je+vowel
+  if (pron === 'je' && /^[aeiouéèàâê]/i.test(form)) return `j'${form}`;
+  return `${sub} ${form}`;
+}
+
+const PRON_DISPLAY = { je:'Je', tu:'Tu', il:'Il', elle:'Elle', on:'On', nous:'Nous', vous:'Vous', ils:'Ils', elles:'Elles' };
+const EN_PRONS     = { je:'I', tu:'You', il:'He', elle:'She', on:'One', nous:'We', vous:'You', ils:'They', elles:'They' };
+
+// ── CONTEXTS ──────────────────────────────────────────────────────
+const CTX = {
+  parler:     { A1:'français',           A2:'souvent avec mes voisins',            B1:'pendant des heures avec ma grand-mère',B2:'d\'un monde qui n\'existe plus' },
+  manger:     { A1:'des bonbons',        A2:'des crêpes le dimanche',              B1:'toujours ensemble en famille',         B2:'ce que ma mère préparait avec amour' },
+  habiter:    { A1:'à Paris',            A2:'dans une petite maison de campagne',  B1:'près de la mer quand j\'étais enfant', B2:'dans un quartier qui a bien changé depuis' },
+  rêver:      { A1:'beaucoup',           A2:'de devenir astronaute',               B1:'d\'un avenir meilleur pour tous',      B2:'d\'un monde sans frontières ni injustice' },
+  espérer:    { A1:'du soleil',          A2:'réussir mes examens',                 B1:'un jour quitter cette ville grise',    B2:'changer les choses par mon travail' },
+  ignorer:    { A1:'la réponse',         A2:'ce qui allait se passer',             B1:'tout ce qui se passait autour de moi', B2:'la complexité de ce qui m\'entourait' },
+  sembler:    { A1:'content',            A2:'tout à fait normal à l\'époque',      B1:'impossible de changer les choses',     B2:'que rien ne pourrait jamais changer' },
+  ressembler: { A1:'à ma mère',          A2:'beaucoup à mon grand frère',          B1:'à un autre monde cette ville',         B2:'à un village fantôme après les vacances' },
+  's\'amuser':{ A1:'bien',              A2:'beaucoup dans la cour',                B1:'avec très peu de choses en ce temps-là',B2:'à inventer des histoires sans fin' },
+  's\'ennuyer':{ A1:'souvent',          A2:'pendant les vacances',                 B1:'sans mes amis pendant l\'été',         B2:'à mourir dans ces longues soirées d\'hiver' },
+  'se disputer':{ A1:'parfois',         A2:'avec mon frère pour des bêtises',      B1:'régulièrement à propos des corvées',   B2:'pour des questions qui semblent dérisoires aujourd\'hui' },
+  travailler: { A1:'beaucoup',          A2:'dans les champs pendant les vacances', B1:'dur pour aider mes parents',           B2:'sans relâche pour un avenir meilleur' },
+  étudier:    { A1:'le soir',           A2:'dans ma chambre tous les soirs',       B1:'avec passion des matières qui m\'intéressaient',B2:'sans vraiment savoir pourquoi à l\'époque' },
+  voyager:    { A1:'en été',            A2:'chaque été avec ma famille',           B1:'à travers les rêves et les livres',    B2:'peu mais chaque trajet était une aventure' },
+  chanter:    { A1:'bien',              A2:'tout le temps dans ma chambre',        B1:'sous la douche chaque matin',          B2:'des chansons que personne ne connaissait plus' },
+  jouer:      { A1:'dehors',            A2:'au football avec les copains',         B1:'pendant des heures sans regarder l\'heure',B2:'à des jeux qui n\'existent plus aujourd\'hui' },
+  regarder:   { A1:'la télé',           A2:'des dessins animés le samedi matin',   B1:'les étoiles depuis ma fenêtre le soir','B2':'le monde avec des yeux d\'enfant curieux' },
+  écouter:    { A1:'la radio',          A2:'de la musique à fond dans ma chambre', B1:'les histoires que racontait mon père',  B2:'le silence des nuits à la campagne' },
+  aimer:      { A1:'le chocolat',       A2:'aller à la piscine le week-end',       B1:'me perdre dans les livres de la bibliothèque',B2:'ces petits riens qui rendaient la vie si douce' },
+  chercher:   { A1:'mes clés',          A2:'des aventures dans mon quartier',      B1:'à comprendre le monde des adultes',    B2:'des réponses à des questions que je ne formulais pas encore' },
+  finir:      { A1:'vite',              A2:'mes devoirs en vitesse pour jouer',    B1:'toujours en dernier à la cantine',     B2:'mes journées épuisé mais heureux' },
+  choisir:    { A1:'des bonbons',       A2:'mes vêtements moi-même',               B1:'mes amis avec beaucoup de soin',       B2:'entre ce qu\'on attendait de moi et mes envies' },
+  grandir:    { A1:'vite',              A2:'dans une ville animée',                B1:'entouré de gens qui m\'aimaient',      B2:'sans vraiment réaliser que l\'enfance filait' },
+  réussir:    { A1:'à l\'école',        A2:'rarement en mathématiques',            B1:'malgré les difficultés du quotidien',  B2:'à trouver du sens dans les choses simples' },
+  réfléchir:  { A1:'beaucoup',         A2:'longuement avant de répondre',          B1:'à ma place dans ce monde',             B2:'à des questions que je n\'osais pas formuler' },
+  être:       { A1:'petit',             A2:'très timide à l\'école',               B1:'passionné par tout ce qui m\'entourait',B2:'convaincu que le monde m\'appartenait' },
+  avoir:      { A1:'un chien',          A2:'peur du noir',                         B1:'beaucoup d\'imagination à cet âge-là', B2:'l\'impression que le temps n\'avait pas de fin' },
+  faire:      { A1:'du vélo',           A2:'des bêtises avec mes amis',            B1:'de longs trajets à pied pour l\'école',B2:'confiance en ce que l\'avenir me réservait' },
+  aller:      { A1:'à l\'école à pied', A2:'souvent chez mes grands-parents',      B1:'chercher des champignons en automne', B2:'me promener sans raison ni destination' },
+  venir:      { A1:'souvent ici',       A2:'jouer chez mon ami le week-end',       B1:'retrouver mes cousins chaque été',     B2:'chercher dans les livres ce que la vie ne donnait pas' },
+  voir:       { A1:'mes amis',          A2:'mes grands-parents le dimanche',       B1:'le monde comme un terrain de jeu infini',B2:'la beauté là où les adultes ne regardaient plus' },
+  prendre:    { A1:'le bus',            A2:'le même chemin chaque matin',          B1:'le temps de savourer chaque moment',   B2:'les choses comme elles venaient sans s\'inquiéter' },
+  savoir:     { A1:'nager',             A2:'déjà faire du vélo à cinq ans',        B1:'exactement ce que je voulais faire',   B2:'que ces années ne reviendraient pas' },
+  vouloir:    { A1:'être astronaute',   A2:'tout comprendre d\'un coup',           B1:'changer le monde à ma façon',          B2:'saisir chaque instant avant qu\'il ne s\'envole' },
+  pouvoir:    { A1:'courir longtemps',  A2:'rester debout jusqu\'à minuit',        B1:'passer des heures à lire sans fatigue', B2:'voir la magie dans les choses les plus ordinaires' },
+  croire:     { A1:'au Père Noël',      A2:'que tout était possible',              B1:'que les adultes savaient toujours tout',B2:'que le bonheur était une promesse tenue d\'avance' },
+  'se souvenir':{ A1:'de tout',         A2:'de chaque détail de ces vacances',     B1:'de l\'odeur de la maison de ma grand-mère',B2:'de chaque instant avec une précision troublante' },
+};
+
+const EN_CTX = {
+  parler:    { A1:'French',          A2:'often with my neighbours',       B1:'for hours with my grandmother',        B2:'of a world that no longer exists' },
+  manger:    { A1:'sweets',          A2:'crêpes on Sundays',              B1:'together as a family always',          B2:'what my mother prepared with love' },
+  habiter:   { A1:'in Paris',        A2:'in a small country house',       B1:'near the sea as a child',              B2:'in a neighbourhood that has changed a lot' },
+  rêver:     { A1:'a lot',           A2:'of becoming an astronaut',       B1:'of a better future for everyone',      B2:'of a world without borders or injustice' },
+  espérer:   { A1:'for sunshine',    A2:'to pass my exams',               B1:'one day to leave this grey city',      B2:'to change things through my work' },
+  ignorer:   { A1:'the answer',      A2:'what was going to happen',       B1:'everything happening around me',       B2:'the complexity of what surrounded me' },
+  sembler:   { A1:'happy',           A2:'quite normal at the time',       B1:'impossible to change things',          B2:'as if nothing would ever change' },
+  ressembler:{ A1:'my mother',       A2:'my big brother a lot',           B1:'another world this city',              B2:'a ghost town after the holidays' },
+  's\'amuser':{ A1:'a lot',         A2:'a lot in the playground',         B1:'with very little back then',           B2:'inventing stories that never ended' },
+  's\'ennuyer':{ A1:'often',        A2:'during the holidays',             B1:'without my friends in summer',         B2:'to death in those long winter evenings' },
+  'se disputer':{ A1:'sometimes',   A2:'with my brother over silly things',B1:'regularly about chores',              B2:'about things that seem trivial today' },
+  travailler:{ A1:'a lot',          A2:'in the fields during the holidays',B1:'hard to help my parents',             B2:'tirelessly for a better future' },
+  étudier:   { A1:'in the evening', A2:'in my room every evening',        B1:'passionately subjects I loved',        B2:'without really knowing why at the time' },
+  voyager:   { A1:'in summer',      A2:'every summer with my family',     B1:'through dreams and books',             B2:'rarely but every trip was an adventure' },
+  chanter:   { A1:'well',           A2:'all the time in my room',         B1:'in the shower every morning',          B2:'songs no one knew anymore' },
+  jouer:     { A1:'outside',        A2:'football with friends',           B1:'for hours without watching the time',  B2:'games that no longer exist today' },
+  regarder:  { A1:'TV',             A2:'cartoons on Saturday mornings',   B1:'the stars from my window at night',    B2:'the world with curious childlike eyes' },
+  écouter:   { A1:'the radio',      A2:'music loud in my room',           B1:'the stories my father would tell',     B2:'the silence of country nights' },
+  aimer:     { A1:'chocolate',      A2:'going to the pool at weekends',   B1:'getting lost in library books',        B2:'the little nothings that made life so sweet' },
+  finir:     { A1:'quickly',        A2:'homework fast to go play',        B1:'always last at the school canteen',    B2:'my days exhausted but happy' },
+  jouer:     { A1:'outside',        A2:'football with friends',           B1:'for hours without watching the time',  B2:'games that no longer exist today' },
+  être:      { A1:'small',          A2:'very shy at school',              B1:'passionate about everything around me',B2:'convinced the world was mine' },
+  avoir:     { A1:'a dog',          A2:'a fear of the dark',              B1:'so much imagination at that age',      B2:'the feeling that time had no end' },
+  faire:     { A1:'cycling',        A2:'silly things with friends',       B1:'long walks to school',                 B2:'trust in what the future held' },
+  aller:     { A1:'to school on foot',A2:'often to my grandparents\'',   B1:'mushroom picking in autumn',            B2:'for walks with no reason or destination' },
+  venir:     { A1:'here often',     A2:'to play at my friend\'s at weekends',B1:'to see my cousins every summer',   B2:'to seek in books what life didn\'t give' },
+  voir:      { A1:'my friends',     A2:'my grandparents on Sundays',      B1:'the world as an endless playground',   B2:'beauty where adults no longer looked' },
+  prendre:   { A1:'the bus',        A2:'the same path every morning',     B1:'time to savour every moment',          B2:'things as they came without worrying' },
+  savoir:    { A1:'how to swim',    A2:'how to ride a bike at five',      B1:'exactly what I wanted to do',          B2:'those years wouldn\'t come back' },
+  vouloir:   { A1:'to be an astronaut',A2:'to understand everything at once',B1:'to change the world my way',       B2:'to seize every moment before it flew away' },
+  pouvoir:   { A1:'run for a long time',A2:'stay up until midnight',      B1:'read for hours without tiredness',     B2:'see magic in the most ordinary things' },
+  croire:    { A1:'in Santa Claus', A2:'that everything was possible',    B1:'that adults always knew everything',   B2:'that happiness was a promise kept in advance' },
+  'se souvenir':{ A1:'everything',  A2:'every detail of those holidays',  B1:'the smell of my grandmother\'s house', B2:'every moment with troubling precision' },
+  grandir:   { A1:'fast',          A2:'in a lively city',                 B1:'surrounded by people who loved me',    B2:'without realising childhood was slipping away' },
+  réussir:   { A1:'at school',     A2:'rarely at maths',                  B1:'despite the daily challenges',         B2:'in finding meaning in simple things' },
+  réfléchir: { A1:'a lot',        A2:'for a long time before answering',  B1:'about my place in this world',         B2:'about questions I dared not yet ask' },
+  chercher:  { A1:'my keys',      A2:'adventures in my neighbourhood',   B1:'to understand the world of adults',    B2:'answers to questions I hadn\'t yet put into words' },
+};
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel = 'A2';
+let exFilter     = 'tous';
+let exercises    = [];
+let answered     = 0;
+let correct      = 0;
+
+function setLevel(lv, btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f, btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container = document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const pronouns = ['je','tu','il','elle','nous','vous','ils','elles'];
+  const numEx = currentLevel==='A1'?8:currentLevel==='A2'?10:12;
+
+  let verbPool;
+  if     (exFilter==='irregulier') verbPool = Object.keys(VERBS).filter(v=>VERBS[v].irr && CTX[v]);
+  else if(exFilter==='regulier')   verbPool = Object.keys(VERBS).filter(v=>!VERBS[v].irr && CTX[v]);
+  else                             verbPool = Object.keys(VERBS).filter(v=>CTX[v]);
+
+  let typePool;
+  if     (exFilter==='stem')       typePool = ['stem_mcq'];
+  else if(exFilter==='negatif')    typePool = ['negatif'];
+  else if(exFilter==='traduction') typePool = ['traduction'];
+  else if(exFilter==='irregulier') typePool = ['input','mcq','traduction'];
+  else typePool = ['input','mcq','stem_mcq','negatif','traduction','input'];
+
+  const usedCombos = new Set();
+  const picked = [];
+  let tries = 0;
+  while(picked.length < numEx && tries < 200){
+    tries++;
+    const verb = verbPool[Math.floor(Math.random()*verbPool.length)];
+    const pron = pronouns[Math.floor(Math.random()*pronouns.length)];
+    const ctx  = CTX[verb] && (CTX[verb][currentLevel]||CTX[verb]['A2']);
+    if(!ctx) continue;
+    const key = verb+pron;
+    if(usedCombos.has(key)) continue;
+    usedCombos.add(key);
+    picked.push({verb,pron});
+  }
+
+  const types=[];
+  for(let i=0;i<picked.length;i++) types.push(typePool[i%typePool.length]);
+  shuffle(types);
+
+  picked.forEach(({verb,pron},i)=>{
+    const type=types[i];
+    const isIrr=VERBS[verb]?.irr||false;
+    if     (type==='stem_mcq')   renderStemMCQ(container,i,verb,pron,isIrr);
+    else if(type==='mcq')        renderMCQ(container,i,verb,pron,isIrr);
+    else if(type==='negatif')    renderNegatif(container,i,verb,pron,isIrr);
+    else if(type==='traduction') renderTraduction(container,i,verb,pron,isIrr);
+    else                         renderInput(container,i,verb,pron,isIrr);
+  });
+
+  updateProgress();
+}
+
+// ================================================================
+// HELPERS
+// ================================================================
+function getCtx(v,lv){ const c=CTX[v]; return (c&&c[lv])||(c&&c['A2'])||''; }
+function getEnCtx(v,lv){ const c=EN_CTX[v]; return (c&&c[lv])||(c&&c['A2'])||v; }
+function esc(s){ return s.replace(/'/g,"\\'"); }
+function normalise(s){
+  return s.toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c').replace(/\s+/g,' ');
+}
+
+function getForm(verb, pron){
+  const data = VERBS[verb];
+  if(!data) return '???';
+  const stem = data.stem;
+  const end  = ENDS[pron]||'ait';
+  if(verb.startsWith("s'")||verb.startsWith('se ')){
+    const rp = getReflPron(pron);
+    const plain = stem.replace(/^s[e']?\s*/,'');
+    if(pron==='je'&&/^[aeiouéèàâê]/i.test(rp)) return `${rp}${plain}${end}`;
+    return `${rp} ${plain}${end}`;
+  }
+  return `${stem}${end}`;
+}
+
+function getDisplayForm(verb, pron){
+  const f = getForm(verb, pron);
+  if(pron==='je'&&!/^(me|te|se|s'|nous|vous)/i.test(f)&&/^[aeiouéèàâê]/i.test(f)) return `j'${f}`;
+  return f;
+}
+
+function stemBadgeCard(verb, pron, isIrr){
+  if(!isIrr && currentLevel==='A1') return '';
+  const stem = VERBS[verb]?.stem||'';
+  const end  = ENDS[pron]||'ait';
+  const cls  = isIrr ? '' : '';
+  return `<div class="stem-badge-card"><span class="sbc-label">STEM</span><span class="sbc-stem">${stem}</span><span style="color:var(--text3);padding:0 4px">+</span><span class="sbc-end">-${end}</span></div>`;
+}
+
+function usageTag(verb){
+  const usages = {
+    être:'description passée', avoir:'état passé', faire:'habitude passée',
+    vouloir:'souhait passé', pouvoir:'capacité passée',
+  };
+  const u = usages[verb];
+  return u ? `<div class="usage-tag">usage : ${u}</div>` : '';
+}
+
+// wrong imparfait forms
+function wrongForms(verb, pron, correct){
+  const pool=new Set();
+  for(const p of ['je','tu','il','nous','vous','ils']){
+    const f=getForm(verb,p);
+    if(f!==correct) pool.add(f);
+  }
+  const otherVerbs=shuffle(Object.keys(VERBS).filter(v=>v!==verb)).slice(0,4);
+  for(const v of otherVerbs) pool.add(getForm(v,pron));
+  return shuffle([...pool].filter(f=>f!==correct)).slice(0,3);
+}
+
+// wrong stem MCQ
+function wrongStems(verb, correct){
+  const pool=[];
+  for(const v of Object.keys(VERBS)){
+    if(v!==verb && VERBS[v].stem!==correct) pool.push(VERBS[v].stem);
+  }
+  return shuffle([...new Set(pool)]).slice(0,3);
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+
+// 1) Input — conjugate full imparfait form
+function renderInput(container, idx, verb, pron, isIrr){
+  const answer = getDisplayForm(verb, pron);
+  const ctx    = getCtx(verb, currentLevel);
+  const sub    = pron==='je' ? '' : PRON_DISPLAY[pron]+' '; // elision handled in answer
+  exercises.push({id:idx, answer:normalise(answer), answered:false, correct:false});
+
+  const sub2 = pron==='je'&&/^[aeiouéèàâê]/i.test(getForm(verb,pron)) ? "J'" : PRON_DISPLAY[pron];
+
+  const card = document.createElement('div');
+  card.className=`exercise-card${isIrr?' irr-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type ${isIrr?'irregulier':'imparfait'}">${isIrr?'IRRÉGULIER':'IMPARFAIT'}</span></div>
+    ${stemBadgeCard(verb,pron,isIrr)}
+    ${usageTag(verb)}
+    <div class="hint-text">CONJUGUEZ « ${verb.toUpperCase()} » À L'IMPARFAIT</div>
+    <div class="sentence-display">
+      ${sub2} <span class="blank-wrapper"><input class="answer-input inline" id="input-${idx}"
+        placeholder="..." autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"></span> ${ctx}.
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) MCQ — choose correct imparfait form
+function renderMCQ(container, idx, verb, pron, isIrr){
+  const answer  = getForm(verb, pron);
+  const ctx     = getCtx(verb, currentLevel);
+  const wrongs  = wrongForms(verb, pron, answer);
+  const choices = shuffle([answer,...wrongs]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx, answer:normalise(answer), answered:false, correct:false});
+
+  const sub = PRON_DISPLAY[pron];
+  const card = document.createElement('div');
+  card.className=`exercise-card${isIrr?' irr-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type choix">CHOIX MULTIPLE</span></div>
+    ${stemBadgeCard(verb,pron,isIrr)}
+    <div class="hint-text">QUELLE FORME DE L'IMPARFAIT DE « ${verb.toUpperCase()} » ?</div>
+    <div class="sentence-display">${sub} ___ ${ctx}.</div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) Stem MCQ — identify correct nous-stem
+function renderStemMCQ(container, idx, verb, pron, isIrr){
+  const stem   = VERBS[verb]?.stem||'';
+  const wrongs = wrongStems(verb, stem);
+  const choices = shuffle([stem,...wrongs]).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(stem)}',this)">${c}...</button>`
+  ).join('');
+  exercises.push({id:idx, answer:normalise(stem), answered:false, correct:false});
+
+  const card = document.createElement('div');
+  card.className=`exercise-card${isIrr?' irr-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type imparfait">STEM</span></div>
+    <div class="hint-text">QUEL EST LE STEM DE L'IMPARFAIT DE « ${verb.toUpperCase()} » ?</div>
+    <div class="sentence-display" style="font-size:18px">
+      <span style="color:var(--text2)">Nous → </span> ___<span style="color:var(--lav2)">-ais / -ait / -ions...</span>
+    </div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 4) Negative imparfait
+function renderNegatif(container, idx, verb, pron, isIrr){
+  const form  = getDisplayForm(verb, pron);
+  const ctx   = getCtx(verb, currentLevel);
+  // ne...pas wrapping full form
+  const formRaw = getForm(verb, pron);
+  const ne    = /^(me|te|se|s'|nous|vous)/i.test(formRaw) ? 'ne ' : (/^[aeiouéèàâê]/i.test(formRaw) ? "n'" : 'ne ');
+  const answer= `${ne}${formRaw} pas`;
+  exercises.push({id:idx, answer:normalise(answer), answered:false, correct:false});
+
+  const sub = PRON_DISPLAY[pron];
+  const card = document.createElement('div');
+  card.className=`exercise-card${isIrr?' irr-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type negatif">FORME NÉGATIVE</span></div>
+    <div class="hint-text">IMPARFAIT NÉGATIF — NE/N' + FORME + PAS</div>
+    <div class="sentence-display">
+      ${sub} <input class="answer-input" id="input-${idx}"
+        placeholder="ne parlais pas..." style="width:240px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')"> ${ctx}.
+    </div>
+    <div class="hint-text" style="margin-top:4px">Structure : ne/n' + [imparfait] + pas (ex : « ne parlais pas »)</div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 5) Translation
+function renderTraduction(container, idx, verb, pron, isIrr){
+  const answer = getDisplayForm(verb, pron);
+  const ctx    = getEnCtx(verb, currentLevel);
+  const ep     = EN_PRONS[pron]||'I';
+  const sub    = PRON_DISPLAY[pron];
+  const vdata  = VERBS[verb];
+  exercises.push({id:idx, answer:normalise(answer), answered:false, correct:false});
+
+  const card = document.createElement('div');
+  card.className=`exercise-card${isIrr?' irr-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:10px"><span class="card-type traduction">TRADUCTION</span></div>
+    ${stemBadgeCard(verb,pron,isIrr)}
+    <div class="hint-text">TRADUISEZ — IMPARFAIT DE « ${verb.toUpperCase()} »</div>
+    <div class="sentence-display" style="color:var(--lav2)">${ep} used to / was ${vdata?.en||verb}ing — <em>${ctx}</em></div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--text2)">${sub}</span>
+      <input class="answer-input" id="input-${idx}" placeholder="forme imparfait..." style="width:220px"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK
+// ================================================================
+function checkInput(idx, answer){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true;
+  input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`).querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer);
+  markAnswered(idx,isOk);
+}
+
+function checkMCQ(idx, chosen, answer, btn){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.replace('...','').trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled');
+  btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer);
+  markAnswered(idx,isOk);
+}
+
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`);
+  const icon=fb.querySelector('.feedback-icon');
+  const msg=fb.querySelector('.feedback-msg');
+  const bravos=['Parfait !','Excellent !','Très bien !','Bravo !','Super !','C\'est ça !'];
+  if(isOk){
+    fb.className='feedback success show'; icon.textContent='✓';
+    msg.innerHTML=`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`;
+  } else {
+    fb.className='feedback error show'; icon.textContent='✗';
+    msg.innerHTML=`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+  }
+}
+
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx);
+  if(!ex) return;
+  ex.answered=true; ex.correct=isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`).classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+
+function updateProgress(){
+  const total=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${total}`;
+  document.getElementById('progressFill').style.width=total>0?(answered/total*100)+'%':'0%';
+}
+
+function showScore(){
+  const total=exercises.length;
+  const pct=total>0?Math.round(correct/total*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=total-correct;
+  document.getElementById('totalCount').textContent=total;
+  let emoji,title,sub;
+  if     (pct>=90){emoji='🏆';title='PARFAIT !';   sub='Maîtrise parfaite de l\'imparfait !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';     sub='Très bien — vous maîtrisez les habitudes du passé !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';      sub='Bon effort — révisez le stem : nous (présent) - ons.';}
+  else            {emoji='📚';title='CONTINUEZ !'; sub='Rappel : stem (nous présent) + -ais,-ais,-ait,-ions,-iez,-aient';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>

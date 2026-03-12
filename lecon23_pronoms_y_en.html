@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 23 — Les Pronoms Y et EN</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440;
+    --border:#1e2d4a;
+    --violet:#b44fff; --rose:#fb7185; --green:#06d6a0; --red:#ff4757; --cyan:#00f5ff;
+    --yl:#eab308; --yl2:#fbbf24; --yl3:#fef3c7;
+    --accent:#eab308;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(234,179,8,0.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(234,179,8,0.022) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; bottom:-240px; right:-180px; background:rgba(234,179,8,0.09); }
+  .h2{ width:560px; height:560px; top:-200px; left:-150px; background:rgba(180,79,255,0.06); }
+  .h3{ width:260px; height:260px; top:44%; left:24%; background:rgba(6,214,160,0.03); }
+
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.055; }
+  .al1{ width:1px; height:80vh; top:8vh; left:14%; background:linear-gradient(to bottom,transparent,var(--yl),transparent); transform:rotate(-8deg); }
+  .al2{ width:1px; height:58vh; top:22vh; right:11%; background:linear-gradient(to bottom,transparent,var(--violet),transparent); transform:rotate(10deg); }
+
+  .bg-mark{ position:fixed; left:-50px; top:12%; opacity:0.023; font-family:'Bebas Neue',sans-serif;
+    font-size:200px; color:var(--yl); transform:rotate(-7deg); pointer-events:none; z-index:0; line-height:0.82; }
+
+  .wrapper{ position:relative; z-index:1; max-width:980px; margin:0 auto; padding:40px 24px 90px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:44px; }
+  .lesson-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--yl2);
+    border:1px solid rgba(234,179,8,0.3); padding:4px 16px; border-radius:2px;
+    margin-bottom:16px; background:rgba(234,179,8,0.05); }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--yl2); animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.6)} }
+
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(54px,9vw,100px); line-height:0.88; letter-spacing:3px;
+    background:linear-gradient(135deg,#fff 0%,var(--yl2) 44%,var(--violet) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:10px; }
+  .subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:4px; }
+  .subtitle2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+
+  .section-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); margin-bottom:12px; }
+
+  /* ── BIG TWO-PANEL REFERENCE ── */
+  .ref-panels{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:22px; }
+  @media(max-width:600px){ .ref-panels{ grid-template-columns:1fr; } }
+
+  .ref-panel{ border-radius:13px; overflow:hidden; }
+  .ref-panel.y  { background:linear-gradient(160deg,rgba(234,179,8,0.07),rgba(234,179,8,0.03));
+                  border:1px solid rgba(234,179,8,0.25); }
+  .ref-panel.en { background:linear-gradient(160deg,rgba(180,79,255,0.07),rgba(180,79,255,0.03));
+                  border:1px solid rgba(180,79,255,0.25); }
+
+  .rp-head{ padding:13px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
+  .rp-letter{ font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1; }
+  .rp-letter.y { color:var(--yl2); }
+  .rp-letter.en{ color:#d8a8ff; }
+  .rp-headtext{ }
+  .rp-title{ font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:3px; color:var(--text3); }
+  .rp-sub  { font-family:'DM Serif Display',serif; font-style:italic; font-size:14px; color:var(--text2); }
+
+  .rp-body{ padding:14px 18px; }
+  .use-row{ margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid rgba(30,45,74,0.5); }
+  .use-row:last-child{ margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .ur-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; margin-bottom:4px; }
+  .ur-label.y { color:var(--yl2); }
+  .ur-label.en{ color:#d8a8ff; }
+  .ur-fr  { font-family:'DM Serif Display',serif; font-size:15px; line-height:1.65; }
+  .ur-fr .hy{ color:var(--yl2); }
+  .ur-fr .he{ color:#d8a8ff; }
+  .ur-fr .orig{ color:var(--text3); font-size:13px; }
+  .ur-en  { font-size:11px; color:var(--text3); font-style:italic; margin-top:3px; }
+
+  /* ── FORMULA CARD ── */
+  .formula-card{ background:var(--card); border:1px solid rgba(234,179,8,0.2); border-radius:12px; padding:16px 20px; margin-bottom:22px; }
+  .formula-row{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+  .formula-row:last-child{ margin-bottom:0; }
+  .f-block{ text-align:center; padding:7px 10px; border-radius:7px; min-width:50px; }
+  .f-block.sub { background:rgba(255,255,255,0.04); border:1px solid var(--border); }
+  .f-block.py  { background:rgba(234,179,8,0.09);   border:1px solid rgba(234,179,8,0.28); }
+  .f-block.pe  { background:rgba(180,79,255,0.08);  border:1px solid rgba(180,79,255,0.25); }
+  .f-block.vb  { background:rgba(0,245,255,0.06);   border:1px solid rgba(0,245,255,0.2); }
+  .f-block.ne  { background:rgba(255,71,87,0.07);   border:1px solid rgba(255,71,87,0.2); }
+  .f-block.pas { background:rgba(255,71,87,0.07);   border:1px solid rgba(255,71,87,0.2); }
+  .f-block.nb  { background:rgba(6,214,160,0.07);   border:1px solid rgba(6,214,160,0.2); }
+  .f-label{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px; color:var(--text3); }
+  .f-val  { font-family:'DM Serif Display',serif; font-size:14px; margin-top:1px; }
+  .f-val.sub{ color:var(--text2); } .f-val.py{ color:var(--yl2); } .f-val.pe{ color:#d8a8ff; }
+  .f-val.vb { color:var(--cyan); }  .f-val.ne{ color:var(--red); } .f-val.pas{ color:var(--red); }
+  .f-val.nb { color:var(--green); }
+  .f-plus{ font-size:18px; color:var(--border); font-family:'Bebas Neue',sans-serif; }
+  .f-row-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); min-width:60px; }
+
+  /* ── COMPARE TABLE ── */
+  .cmp-section{ margin-bottom:22px; }
+  .cmp-table{ width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .cmp-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); }
+  .cmp-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.45); font-size:13px; vertical-align:top; }
+  .cmp-table tr:last-child td{ border-bottom:none; }
+  .cmp-table tr:hover td{ background:rgba(234,179,8,0.02); }
+  .ct-orig{ font-family:'DM Serif Display',serif; font-size:14px; color:var(--text2); }
+  .ct-y   { font-family:'DM Serif Display',serif; font-size:15px; color:var(--yl2); }
+  .ct-e   { font-family:'DM Serif Display',serif; font-size:15px; color:#d8a8ff; }
+  .ct-why { font-size:11px; color:var(--text3); font-style:italic; }
+
+  /* ── VOCAB ── */
+  .vocab-section{ margin-bottom:28px; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .vocab-header{ padding:15px 22px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s; }
+  .vocab-header:hover{ border-bottom-color:var(--border); }
+  .vh-title{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px; color:var(--yl2); }
+  .toggle{ font-size:12px; color:var(--text3); transition:transform 0.3s; }
+  .vocab-header.open .toggle{ transform:rotate(180deg); }
+  .vocab-wrap{ max-height:0; overflow:hidden; transition:max-height 0.45s; }
+  .vocab-wrap.open{ max-height:880px; overflow-y:auto; }
+  .vocab-table{ width:100%; border-collapse:collapse; }
+  .vocab-table th{ padding:9px 14px; text-align:left; font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; }
+  .vocab-table td{ padding:9px 14px; border-bottom:1px solid rgba(30,45,74,0.5); font-size:13px; }
+  .vocab-table tr:last-child td{ border-bottom:none; }
+  .vocab-table tr:hover td{ background:rgba(234,179,8,0.02); }
+  .vfr { font-family:'DM Serif Display',serif; font-size:15px; color:var(--text); }
+  .vpron{ font-family:'DM Serif Display',serif; font-size:13px; }
+  .vpron.y{ color:var(--yl2); } .vpron.en{ color:#d8a8ff; }
+  .ven { color:var(--text2); } .ves{ color:var(--text3); }
+  .vcat{ font-size:11px; letter-spacing:1px; font-family:'Bebas Neue',sans-serif; }
+  .vcat.y { color:var(--yl); } .vcat.en{ color:var(--violet); }
+  .vex { color:var(--text3); font-style:italic; font-size:12px; }
+
+  /* ── FILTER / LEVEL ── */
+  .filter-section{ margin-bottom:24px; }
+  .filter-label,.section-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:10px; }
+  .filter-pills,.level-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-pill{ font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px;
+    padding:7px 18px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .filter-pill:hover,.filter-pill.active{ border-color:rgba(234,179,8,0.4); background:rgba(234,179,8,0.07); color:var(--yl2); }
+
+  .level-section{ margin-bottom:24px; }
+  .level-pill{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px;
+    padding:8px 22px; border-radius:4px; border:1px solid var(--border);
+    background:var(--card); color:var(--text2); cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .level-pill::before{ content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
+  .level-pill.a2::before{ background:linear-gradient(135deg,rgba(6,214,160,0.12),transparent); }
+  .level-pill.b1::before{ background:linear-gradient(135deg,rgba(234,179,8,0.12),transparent); }
+  .level-pill.b2::before{ background:linear-gradient(135deg,rgba(180,79,255,0.12),transparent); }
+  .level-pill:hover::before,.level-pill.active::before{ opacity:1; }
+  .level-pill.a2.active{ border-color:var(--green);  color:var(--green); }
+  .level-pill.b1.active{ border-color:var(--yl);     color:var(--yl2); }
+  .level-pill.b2.active{ border-color:var(--violet); color:#d8a8ff; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:28px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--yl2); }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--yl),var(--violet)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── BUTTONS ── */
+  .generate-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+  .generate-btn{ font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px;
+    padding:14px 36px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .generate-btn.primary{ background:linear-gradient(135deg,rgba(234,179,8,0.14),rgba(180,79,255,0.09));
+    border:1px solid rgba(234,179,8,0.4); color:var(--text); }
+  .generate-btn.primary:hover{ background:linear-gradient(135deg,rgba(234,179,8,0.26),rgba(180,79,255,0.18));
+    border-color:var(--yl2); transform:translateY(-1px); box-shadow:0 8px 28px rgba(234,179,8,0.14); }
+  .generate-btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--text2); }
+  .generate-btn.secondary:hover{ border-color:rgba(6,214,160,0.4); color:var(--green); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:30px; margin-bottom:22px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--yl2),transparent); opacity:0; transition:opacity 0.3s; }
+  .exercise-card.en-card::before{ background:linear-gradient(90deg,transparent,#d8a8ff,transparent); }
+  .exercise-card.neg-card::before{ background:linear-gradient(90deg,transparent,var(--red),transparent); }
+  .exercise-card.nb-card::before { background:linear-gradient(90deg,transparent,var(--green),transparent); }
+  .exercise-card:hover::before,.exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card    { border-color:rgba(234,179,8,0.22); transform:translateY(-1px); }
+  .exercise-card.en-card.active-card { border-color:rgba(180,79,255,0.22); }
+  .exercise-card.neg-card.active-card{ border-color:rgba(255,71,87,0.22); }
+  .exercise-card.nb-card.active-card { border-color:rgba(6,214,160,0.22); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:18px; user-select:none; }
+
+  /* pronoun highlight badge */
+  .pron-badge{ display:inline-flex; align-items:center; gap:8px; border-radius:4px; padding:3px 14px; margin-bottom:8px; }
+  .pron-badge.y { background:rgba(234,179,8,0.08);  border:1px solid rgba(234,179,8,0.28); }
+  .pron-badge.en{ background:rgba(180,79,255,0.08); border:1px solid rgba(180,79,255,0.28); }
+  .pb-label{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text3); }
+  .pb-val  { font-family:'Bebas Neue',sans-serif; font-size:28px; line-height:1; }
+  .pb-val.y{ color:var(--yl2); } .pb-val.en{ color:#d8a8ff; }
+  .pb-use  { font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; color:var(--text3); }
+
+  .card-type{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; padding:3px 12px; border-radius:2px; }
+  .card-type.cy  { color:var(--yl2); border:1px solid rgba(234,179,8,0.28);  background:rgba(234,179,8,0.05); }
+  .card-type.cen { color:#d8a8ff;    border:1px solid rgba(180,79,255,0.28); background:rgba(180,79,255,0.05); }
+  .card-type.neg { color:var(--red); border:1px solid rgba(255,71,87,0.28);  background:rgba(255,71,87,0.05); }
+  .card-type.nb  { color:var(--green);border:1px solid rgba(6,214,160,0.28); background:rgba(6,214,160,0.05); }
+  .card-type.choix{ color:var(--yl3);border:1px solid rgba(254,243,199,0.2); background:rgba(254,243,199,0.04); }
+  .card-type.trad{ color:var(--rose); border:1px solid rgba(251,113,133,0.28);background:rgba(251,113,133,0.05); }
+
+  .hint-text{ font-size:12px; color:var(--text3); margin-bottom:8px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; }
+  .sentence-display{ font-family:'DM Serif Display',serif; font-size:clamp(15px,2.6vw,20px); line-height:1.9; margin-bottom:14px; color:var(--text); }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:18px; padding:9px 14px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:var(--yl2); box-shadow:0 0 0 2px rgba(234,179,8,0.1); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); box-shadow:0 0 0 2px rgba(6,214,160,0.1); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   box-shadow:0 0 0 2px rgba(255,71,87,0.1); animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:9px 20px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:var(--yl2); color:var(--text); background:rgba(234,179,8,0.04); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);   cursor:default; }
+  .choice-btn.disabled        { opacity:.38; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:13px; padding:11px 15px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 26px; border-radius:4px; border:1px solid rgba(234,179,8,0.4);
+    background:rgba(234,179,8,0.06); color:var(--yl2); cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(234,179,8,0.16); border-color:var(--yl2); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.88); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(234,179,8,0.22); border-radius:20px;
+    padding:46px 56px; text-align:center; max-width:480px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 60px rgba(234,179,8,0.07);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:52px; margin-bottom:14px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--yl2); letter-spacing:2px; line-height:1; margin-bottom:8px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:var(--text2); margin-bottom:28px; }
+  .score-detail  { display:flex; justify-content:center; gap:36px; margin-bottom:28px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:36px; }
+  .score-stat-lbl{ font-size:11px; letter-spacing:2px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); } .score-stat-num.bad{ color:var(--red); } .score-stat-num.neu{ color:var(--text); }
+  .score-close-btn{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 40px; border-radius:6px; border:1px solid rgba(234,179,8,0.4);
+    background:rgba(234,179,8,0.08); color:var(--yl2); cursor:pointer; transition:all 0.2s; }
+  .score-close-btn:hover{ background:rgba(234,179,8,0.2); }
+
+  @media(max-width:600px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:20px; }
+    .ref-panels{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div><div class="halo h3"></div>
+<div class="al al1"></div><div class="al al2"></div>
+<div class="bg-mark">Y<br>EN<br>Y<br>EN</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lesson-tag"><span class="dot"></span>LEÇON 23 · FRANÇAIS</div>
+    <h1>Y &amp; EN</h1>
+    <p class="subtitle">J'<span style="color:var(--yl2)">y</span> vais · Il <span style="color:var(--yl2)">y</span> habite · J'<span style="color:#d8a8ff">en</span> veux · Elle <span style="color:#d8a8ff">en</span> parle...</p>
+    <p class="subtitle2">Y = LIEU / À + CHOSE &nbsp;·&nbsp; EN = DE + CHOSE / QUANTITÉ &nbsp;·&nbsp; PLACEMENT · NÉGATIF · A2 → B2</p>
+  </header>
+
+  <!-- BIG REFERENCE PANELS -->
+  <div class="section-title">✦ LES DEUX PRONOMS — RÉFÉRENCE COMPLÈTE</div>
+  <div class="ref-panels">
+
+    <!-- Y panel -->
+    <div class="ref-panel y">
+      <div class="rp-head">
+        <div class="rp-letter y">Y</div>
+        <div class="rp-headtext">
+          <div class="rp-title">PRONOM Y</div>
+          <div class="rp-sub">remplace un lieu ou à + chose</div>
+        </div>
+      </div>
+      <div class="rp-body">
+        <div class="use-row">
+          <div class="ur-label y">① LIEU — remplace à / en / dans / sur / chez + lieu</div>
+          <div class="ur-fr">Je vais <span class="orig">à Paris</span> → J'<span class="hy">y</span> vais.<br>
+          Elle habite <span class="orig">en France</span> → Elle <span class="hy">y</span> habite.<br>
+          Il est <span class="orig">au bureau</span> → Il <span class="hy">y</span> est.</div>
+          <div class="ur-en">I'm going there · She lives there · He's there</div>
+        </div>
+        <div class="use-row">
+          <div class="ur-label y">② À + CHOSE / IDÉE — verbe + à + chose inanimée</div>
+          <div class="ur-fr">Je pense <span class="orig">à ce projet</span> → J'<span class="hy">y</span> pense.<br>
+          Tu réponds <span class="orig">à ce message</span> → Tu <span class="hy">y</span> réponds.<br>
+          Elle s'intéresse <span class="orig">à la musique</span> → Elle <span class="hy">y</span> s'intéresse.</div>
+          <div class="ur-en">I'm thinking about it · You're answering it</div>
+        </div>
+        <div class="use-row" style="margin-bottom:0;padding-bottom:0;border:none">
+          <div class="ur-label y">⚠ ATTENTION — pas de Y avec une personne</div>
+          <div class="ur-fr" style="color:var(--text3);font-size:13px">Je pense <span class="orig">à Marie</span> → Je pense <u>à elle</u>. (pas *j'y pense)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EN panel -->
+    <div class="ref-panel en">
+      <div class="rp-head">
+        <div class="rp-letter en">EN</div>
+        <div class="rp-headtext">
+          <div class="rp-title">PRONOM EN</div>
+          <div class="rp-sub">remplace de + chose ou une quantité</div>
+        </div>
+      </div>
+      <div class="rp-body">
+        <div class="use-row">
+          <div class="ur-label en">① DE + LIEU — remplace de + lieu</div>
+          <div class="ur-fr">Je viens <span class="orig">de Paris</span> → J'<span class="he">en</span> viens.<br>
+          Elle sort <span class="orig">du bureau</span> → Elle <span class="he">en</span> sort.</div>
+          <div class="ur-en">I come from there · She's coming out of there</div>
+        </div>
+        <div class="use-row">
+          <div class="ur-label en">② DE + CHOSE — verbe + de + chose inanimée</div>
+          <div class="ur-fr">Il parle <span class="orig">de ce film</span> → Il <span class="he">en</span> parle.<br>
+          J'ai besoin <span class="orig">de temps</span> → J'<span class="he">en</span> ai besoin.<br>
+          Elle se souvient <span class="orig">de cette journée</span> → Elle <span class="he">en</span> se souvient.</div>
+          <div class="ur-en">He talks about it · I need some · She remembers it</div>
+        </div>
+        <div class="use-row" style="margin-bottom:0;padding-bottom:0;border:none">
+          <div class="ur-label en">③ QUANTITÉ — remplace un/une/du/de la/des + nom</div>
+          <div class="ur-fr">Tu veux <span class="orig">du café</span> ? → Tu <span class="he">en</span> veux ?<br>
+          J'ai <span class="orig">trois livres</span> → J'<span class="he">en</span> ai trois.<br>
+          Elle n'a pas <span class="orig">d'argent</span> → Elle n'<span class="he">en</span> a pas.</div>
+          <div class="ur-en">Do you want some? · I have three (of them) · She has none</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLACEMENT FORMULA -->
+  <div class="formula-card">
+    <div class="section-title" style="margin-bottom:12px">✦ PLACEMENT — AVANT LE VERBE CONJUGUÉ (comme les autres pronoms)</div>
+    <!-- Affirmatif -->
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--yl2);margin-bottom:7px">AFFIRMATIF — TEMPS SIMPLE</div>
+    <div class="formula-row">
+      <div class="f-block sub"><div class="f-label">SUJET</div><div class="f-val sub">je</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block py"><div class="f-label">Y / EN</div><div class="f-val py">y/en</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block vb"><div class="f-label">VERBE</div><div class="f-val vb">vais</div></div>
+    </div>
+    <!-- Négatif -->
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--red);margin-bottom:7px;margin-top:4px">NÉGATIF</div>
+    <div class="formula-row">
+      <div class="f-block sub"><div class="f-label">SUJET</div><div class="f-val sub">je</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block ne"><div class="f-label">NE/N'</div><div class="f-val ne">n'</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block py"><div class="f-label">Y / EN</div><div class="f-val py">y/en</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block vb"><div class="f-label">VERBE</div><div class="f-val vb">vais</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block pas"><div class="f-label">PAS</div><div class="f-val pas">pas</div></div>
+    </div>
+    <!-- PC -->
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:7px;margin-top:4px">PASSÉ COMPOSÉ — PRONOM AVANT L'AUXILIAIRE</div>
+    <div class="formula-row" style="margin-bottom:0">
+      <div class="f-block sub"><div class="f-label">SUJET</div><div class="f-val sub">j'</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block py"><div class="f-label">Y / EN</div><div class="f-val py">y/en</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block vb"><div class="f-label">AUX</div><div class="f-val vb">suis/ai</div></div>
+      <div class="f-plus">+</div>
+      <div class="f-block nb"><div class="f-label">PP</div><div class="f-val nb">allé · pris</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-top:10px;font-style:italic">⚠ Pas d'accord du PP avec Y ou EN : J'y suis allé. · J'en ai pris. (invariable)</div>
+  </div>
+
+  <!-- COMPARE TABLE -->
+  <div class="cmp-section">
+    <div class="section-title">✦ Y vs EN — TABLEAU COMPARATIF</div>
+    <table class="cmp-table">
+      <thead><tr><th>PHRASE D'ORIGINE</th><th>AVEC Y</th><th>AVEC EN</th><th>POURQUOI</th></tr></thead>
+      <tbody>
+        <tr><td class="ct-orig">Je vais à Lyon.</td><td class="ct-y">J'<strong>y</strong> vais.</td><td class="ct-e">—</td><td class="ct-why">Y = lieu (à + lieu)</td></tr>
+        <tr><td class="ct-orig">Je viens de Lyon.</td><td class="ct-y">—</td><td class="ct-e">J'<strong>en</strong> viens.</td><td class="ct-why">EN = de + lieu</td></tr>
+        <tr><td class="ct-orig">Il pense à ce problème.</td><td class="ct-y">Il <strong>y</strong> pense.</td><td class="ct-e">—</td><td class="ct-why">Y = à + chose</td></tr>
+        <tr><td class="ct-orig">Elle parle de ce projet.</td><td class="ct-y">—</td><td class="ct-e">Elle <strong>en</strong> parle.</td><td class="ct-why">EN = de + chose</td></tr>
+        <tr><td class="ct-orig">Tu veux du pain ?</td><td class="ct-y">—</td><td class="ct-e">Tu <strong>en</strong> veux ?</td><td class="ct-why">EN = quantité (du)</td></tr>
+        <tr><td class="ct-orig">J'ai deux chats.</td><td class="ct-y">—</td><td class="ct-e">J'<strong>en</strong> ai deux.</td><td class="ct-why">EN = quantité + nombre</td></tr>
+        <tr><td class="ct-orig">Elle s'intéresse à l'art.</td><td class="ct-y">Elle <strong>y</strong> s'intéresse.</td><td class="ct-e">—</td><td class="ct-why">Y = s'intéresser à + chose</td></tr>
+        <tr><td class="ct-orig">Il a besoin d'aide.</td><td class="ct-y">—</td><td class="ct-e">Il <strong>en</strong> a besoin.</td><td class="ct-why">EN = avoir besoin de</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- VOCAB -->
+  <div class="vocab-section">
+    <div class="vocab-header" id="vocabToggle">
+      <span class="vh-title">✦ VOCABULAIRE NOUVEAU — LIEUX, QUANTITÉS &amp; MOUVEMENTS</span>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="vocab-wrap" id="vocabWrap">
+      <table class="vocab-table">
+        <thead><tr><th>EXPRESSION</th><th>PRONOM Y</th><th>PRONOM EN</th><th>ANGLAIS</th><th>ESPAÑOL</th><th>EXEMPLE</th></tr></thead>
+        <tbody>
+          <tr><td class="vfr">se rendre à</td><td class="vpron y">J'y vais</td><td class="vpron en">—</td><td class="ven">to go to / head to</td><td class="ves">dirigirse a</td><td class="vex">Je m'y rends demain.</td></tr>
+          <tr><td class="vfr">s'installer dans</td><td class="vpron y">J'y m'installe</td><td class="vpron en">—</td><td class="ven">to settle in</td><td class="ves">instalarse en</td><td class="vex">Elle s'y est installée.</td></tr>
+          <tr><td class="vfr">tenir à</td><td class="vpron y">J'y tiens</td><td class="vpron en">—</td><td class="ven">to care about</td><td class="ves">valorar</td><td class="vex">J'y tiens vraiment.</td></tr>
+          <tr><td class="vfr">s'habituer à</td><td class="vpron y">Je m'y habitue</td><td class="vpron en">—</td><td class="ven">to get used to</td><td class="ves">acostumbrarse a</td><td class="vex">On s'y habitue vite.</td></tr>
+          <tr><td class="vfr">participer à</td><td class="vpron y">J'y participe</td><td class="vpron en">—</td><td class="ven">to participate in</td><td class="ves">participar en</td><td class="vex">Tu y as participé ?</td></tr>
+          <tr><td class="vfr">se souvenir de</td><td class="vpron y">—</td><td class="vpron en">Je m'en souviens</td><td class="ven">to remember</td><td class="ves">recordar</td><td class="vex">Je m'en souviens bien.</td></tr>
+          <tr><td class="vfr">profiter de</td><td class="vpron y">—</td><td class="vpron en">J'en profite</td><td class="ven">to take advantage of / enjoy</td><td class="ves">aprovechar</td><td class="vex">On en profite au maximum.</td></tr>
+          <tr><td class="vfr">se passer de</td><td class="vpron y">—</td><td class="vpron en">Je m'en passe</td><td class="ven">to do without</td><td class="ves">prescindir de</td><td class="vex">Je ne peux pas m'en passer.</td></tr>
+          <tr><td class="vfr">avoir envie de</td><td class="vpron y">—</td><td class="vpron en">J'en ai envie</td><td class="ven">to feel like / want</td><td class="ves">tener ganas de</td><td class="vex">Tu en as envie ?</td></tr>
+          <tr><td class="vfr">manquer de</td><td class="vpron y">—</td><td class="vpron en">J'en manque</td><td class="ven">to lack</td><td class="ves">faltarle a uno</td><td class="vex">Il en manque cruellement.</td></tr>
+          <tr><td class="vfr">revenir de</td><td class="vpron y">—</td><td class="vpron en">J'en reviens</td><td class="ven">to come back from</td><td class="ves">volver de</td><td class="vex">Elle en revient transformée.</td></tr>
+          <tr><td class="vfr">dépendre de</td><td class="vpron y">—</td><td class="vpron en">Ça en dépend</td><td class="ven">to depend on</td><td class="ves">depender de</td><td class="vex">Tout en dépend.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <div class="filter-label">FOCUS</div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-f="tous"       onclick="setFilter('tous',this)">TOUS</button>
+      <button class="filter-pill"        data-f="y"          onclick="setFilter('y',this)">PRONOM Y</button>
+      <button class="filter-pill"        data-f="en"         onclick="setFilter('en',this)">PRONOM EN</button>
+      <button class="filter-pill"        data-f="nombre"     onclick="setFilter('nombre',this)">EN + NOMBRE</button>
+      <button class="filter-pill"        data-f="negatif"    onclick="setFilter('negatif',this)">NÉGATIF</button>
+      <button class="filter-pill"        data-f="traduction" onclick="setFilter('traduction',this)">TRADUCTION</button>
+    </div>
+  </div>
+
+  <!-- LEVEL -->
+  <div class="level-section">
+    <div class="section-label">NIVEAU</div>
+    <div class="level-pills">
+      <button class="level-pill a2"        onclick="setLevel('A2',this)">A2</button>
+      <button class="level-pill b1 active" onclick="setLevel('B1',this)">B1</button>
+      <button class="level-pill b2"        onclick="setLevel('B2',this)">B2</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="generate-row">
+    <button class="generate-btn primary" onclick="generateExercises()">⚡ GÉNÉRER LES EXERCICES</button>
+    <button class="generate-btn secondary" onclick="resetAll()">↺ RECOMMENCER</button>
+  </div>
+
+  <div id="exercisesContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎉</div>
+    <div class="score-title" id="scoreTitle">BRAVO !</div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <button class="score-close-btn" onclick="closePopup()">CONTINUER</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA ENGINE
+// ================================================================
+
+// Verb entries: pron = 'y' | 'en' | 'both'
+// prep = preposition it replaces, use = description
+const VERBS = {
+  // ── NEW VOCAB ──
+  'se rendre à':    { pron:'y',  use:'lieu / à + lieu',   en:'go to',             es:'dirigirse a' },
+  "s'installer dans":{ pron:'y', use:'lieu',               en:'settle in',         es:'instalarse en' },
+  'tenir à':        { pron:'y',  use:'à + chose',          en:'care about',        es:'valorar' },
+  "s'habituer à":   { pron:'y',  use:'à + chose',          en:'get used to',       es:'acostumbrarse a' },
+  'participer à':   { pron:'y',  use:'à + chose',          en:'participate in',    es:'participar en' },
+  'se souvenir de': { pron:'en', use:'de + chose',         en:'remember',          es:'recordar' },
+  'profiter de':    { pron:'en', use:'de + chose',         en:'enjoy / make use of',es:'aprovechar' },
+  'se passer de':   { pron:'en', use:'de + chose',         en:'do without',        es:'prescindir de' },
+  'avoir envie de': { pron:'en', use:'de + chose',         en:'feel like wanting', es:'tener ganas de' },
+  'manquer de':     { pron:'en', use:'de + chose',         en:'lack',              es:'faltarle' },
+  'revenir de':     { pron:'en', use:'de + lieu',          en:'come back from',    es:'volver de' },
+  'dépendre de':    { pron:'en', use:'de + chose',         en:'depend on',         es:'depender de' },
+  // ── KNOWN VERBS — Y ──
+  'aller à':        { pron:'y',  use:'lieu',               en:'go to',             es:'ir a' },
+  'habiter à':      { pron:'y',  use:'lieu',               en:'live in',           es:'vivir en' },
+  'travailler à':   { pron:'y',  use:'lieu',               en:'work at',           es:'trabajar en' },
+  'penser à':       { pron:'y',  use:'à + chose',          en:'think about',       es:'pensar en' },
+  'répondre à':     { pron:'y',  use:'à + chose',          en:'answer (sth)',      es:'responder a' },
+  "s'intéresser à": { pron:'y',  use:'à + chose',          en:'be interested in',  es:'interesarse por' },
+  'croire à':       { pron:'y',  use:'à + chose',          en:'believe in (sth)',  es:'creer en' },
+  'assister à':     { pron:'y',  use:'à + chose/lieu',     en:'attend',            es:'asistir a' },
+  // ── KNOWN VERBS — EN ──
+  'venir de':       { pron:'en', use:'de + lieu',          en:'come from',         es:'venir de' },
+  'parler de':      { pron:'en', use:'de + chose',         en:'talk about',        es:'hablar de' },
+  'avoir besoin de':{ pron:'en', use:'de + chose',         en:'need',              es:'necesitar' },
+  'se souvenir de': { pron:'en', use:'de + chose',         en:'remember',          es:'acordarse de' },
+  'sortir de':      { pron:'en', use:'de + lieu',          en:'come out of',       es:'salir de' },
+  'se moquer de':   { pron:'en', use:'de + chose',         en:'make fun of (sth)', es:'burlarse de' },
+  'avoir peur de':  { pron:'en', use:'de + chose',         en:'be afraid of (sth)',es:'tener miedo de' },
+  'rêver de':       { pron:'en', use:'de + chose',         en:'dream of',          es:'soñar con' },
+};
+
+// Sentences with replaceable nouns — {LIEU} or {CHOSE} or {QTE}
+const SENTENCES_Y = [
+  { base:'aller à',    full:['Je vais au marché','Il va à la réunion','Elle va au parc'],       y_sent:['J\'y vais','Il y va','Elle y va'],            subst:['au marché','à la réunion','au parc'] },
+  { base:'habiter à',  full:['Je habite à Lyon','Il habite à Paris','Elle habite ici'],          y_sent:['J\'y habite','Il y habite','Elle y habite'],   subst:['à Lyon','à Paris','ici'] },
+  { base:'penser à',   full:['Je pense à ce problème','Il pense à son travail','Tu penses à ça'],y_sent:['J\'y pense','Il y pense','Tu y penses'],       subst:['à ce problème','à son travail','à ça'] },
+  { base:'tenir à',    full:['Je tiens à ce projet','Elle tient à cette idée'],                  y_sent:['J\'y tiens','Elle y tient'],                   subst:['à ce projet','à cette idée'] },
+  { base:"s'habituer à",full:["Je m'habitue à ce rythme","Il s'habitue à cette ville"],          y_sent:["Je m'y habitue","Il s'y habitue"],             subst:['à ce rythme','à cette ville'] },
+  { base:'participer à',full:['Je participe à cet événement','Elle participe à la conférence'], y_sent:['J\'y participe','Elle y participe'],            subst:['à cet événement','à la conférence'] },
+  { base:'croire à',   full:['Je crois à ce projet','Il croit à cette théorie'],                y_sent:['J\'y crois','Il y croit'],                     subst:['à ce projet','à cette théorie'] },
+];
+
+const SENTENCES_EN = [
+  { base:'parler de',     full:['Je parle de ce film','Il parle de son projet'],          en_sent:['J\'en parle','Il en parle'],            subst:['de ce film','de son projet'],    qty:null },
+  { base:'avoir besoin de',full:['J\'ai besoin de temps','Elle a besoin d\'argent'],      en_sent:['J\'en ai besoin','Elle en a besoin'],   subst:['de temps','d\'argent'],          qty:null },
+  { base:'venir de',      full:['Je viens de Paris','Elle vient du marché'],              en_sent:['J\'en viens','Elle en vient'],          subst:['de Paris','du marché'],          qty:null },
+  { base:'profiter de',   full:['Je profite de cette occasion','Il profite du soleil'],   en_sent:['J\'en profite','Il en profite'],        subst:['de cette occasion','du soleil'], qty:null },
+  { base:'se souvenir de',full:['Je me souviens de ce jour','Elle se souvient de lui'],   en_sent:['Je m\'en souviens','Elle s\'en souvient'],subst:['de ce jour'],                 qty:null },
+  { base:'manquer de',    full:['Je manque de temps','Il manque d\'ambition'],            en_sent:['J\'en manque','Il en manque'],          subst:['de temps','d\'ambition'],        qty:null },
+  { base:'avoir peur de', full:['J\'ai peur de l\'échec','Il a peur du changement'],      en_sent:['J\'en ai peur','Il en a peur'],         subst:['de l\'échec','du changement'],   qty:null },
+];
+
+// EN + quantity sentences
+const SENTENCES_EN_QTY = [
+  { full:'Je veux du café.',         en_sent:'J\'en veux.',        num:null, en:'I want some coffee → I want some.' },
+  { full:'Elle boit de l\'eau.',      en_sent:'Elle en boit.',      num:null, en:'She drinks water → She drinks some.' },
+  { full:'Tu as des livres ?',        en_sent:'Tu en as ?',         num:null, en:'Do you have books? → Do you have some?' },
+  { full:'Il a trois chats.',         en_sent:'Il en a trois.',     num:'trois', en:'He has three cats → He has three (of them).' },
+  { full:'J\'achète deux billets.',   en_sent:'J\'en achète deux.', num:'deux', en:'I\'m buying two tickets → I\'m buying two (of them).' },
+  { full:'Elle prend cinq photos.',   en_sent:'Elle en prend cinq.',num:'cinq', en:'She takes five photos → She takes five (of them).' },
+  { full:'Je mange beaucoup de fruit.',en_sent:'J\'en mange beaucoup.',num:'beaucoup', en:'I eat a lot of fruit → I eat a lot (of it).' },
+  { full:'Il boit trop de café.',     en_sent:'Il en boit trop.',   num:'trop', en:'He drinks too much coffee → He drinks too much.' },
+];
+
+// Negative templates
+const NEG_Y  = [
+  { pos:'J\'y vais souvent.',       neg:'Je n\'y vais pas.' },
+  { pos:'Il y habite.',             neg:'Il n\'y habite pas.' },
+  { pos:'Elle y pense.',            neg:'Elle n\'y pense pas.' },
+  { pos:'Tu y participeras.',       neg:'Tu n\'y participeras pas.' },
+  { pos:'Nous y sommes allés.',     neg:'Nous n\'y sommes pas allés.' },
+];
+const NEG_EN = [
+  { pos:'J\'en veux.',              neg:'Je n\'en veux pas.' },
+  { pos:'Il en parle.',             neg:'Il n\'en parle pas.' },
+  { pos:'Elle en a besoin.',        neg:'Elle n\'en a pas besoin.' },
+  { pos:'Ils en ont peur.',         neg:'Ils n\'en ont pas peur.' },
+  { pos:'Tu en as deux.',           neg:'Tu n\'en as pas deux.' },
+];
+
+// Translations
+const TRAD = [
+  { fr:'J\'y vais demain.',          en:'I\'m going there tomorrow.', pron:'y' },
+  { fr:'Il y habite depuis dix ans.',en:'He\'s lived there for ten years.', pron:'y' },
+  { fr:'Elle y pense tout le temps.',en:'She thinks about it all the time.', pron:'y' },
+  { fr:'J\'en veux beaucoup.',       en:'I want a lot of it.', pron:'en' },
+  { fr:'Tu en as besoin ?',          en:'Do you need some?', pron:'en' },
+  { fr:'Elle en revient épuisée.',   en:'She comes back from there exhausted.', pron:'en' },
+  { fr:'Je n\'y crois pas.',         en:'I don\'t believe in it.', pron:'y' },
+  { fr:'Il n\'en a pas.',            en:'He doesn\'t have any.', pron:'en' },
+  { fr:'Nous y sommes allés hier.',  en:'We went there yesterday.', pron:'y' },
+  { fr:'J\'en profite au maximum.',  en:'I make the most of it.', pron:'en' },
+  { fr:'Elle s\'y est habituée.',    en:'She got used to it.', pron:'y' },
+  { fr:'Je m\'en souviens très bien.',en:'I remember it very well.', pron:'en' },
+];
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+function esc(s){ return (s||'').replace(/'/g,"\\'").replace(/\u2019/g,"\\'").replace(/'/g,"\\'"); }
+function normalise(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêë]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/'/g,"'").replace(/'/g,"'").replace(/\s+/g,' ');
+}
+
+// ================================================================
+// STATE
+// ================================================================
+let currentLevel='B1', exFilter='tous';
+let exercises=[], answered=0, correct=0;
+
+function setLevel(lv,btn){ currentLevel=lv; document.querySelectorAll('.level-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setFilter(f,btn){ exFilter=f; document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+// ================================================================
+// GENERATE
+// ================================================================
+function generateExercises(){
+  resetAll(false);
+  const container=document.getElementById('exercisesContainer');
+  container.innerHTML=''; exercises=[];
+
+  const numEx=currentLevel==='A2'?7:currentLevel==='B1'?9:11;
+
+  let typePool;
+  if     (exFilter==='y')         typePool=['y_mcq','y_input','y_mcq'];
+  else if(exFilter==='en')        typePool=['en_mcq','en_input','en_qty'];
+  else if(exFilter==='nombre')    typePool=['en_qty'];
+  else if(exFilter==='negatif')   typePool=['neg_y','neg_en'];
+  else if(exFilter==='traduction')typePool=['trad'];
+  else typePool=['y_mcq','en_mcq','y_input','en_input','en_qty','neg_y','neg_en','trad','y_input'];
+
+  const types=[]; for(let i=0;i<numEx;i++) types.push(typePool[i%typePool.length]);
+  shuffle(types);
+
+  let ti=0;
+  const usedTrad=new Set();
+  for(const type of types){
+    if     (type==='y_mcq')   renderYMCQ(container,ti);
+    else if(type==='en_mcq')  renderENMCQ(container,ti);
+    else if(type==='y_input') renderYInput(container,ti);
+    else if(type==='en_input')renderENInput(container,ti);
+    else if(type==='en_qty')  renderENQty(container,ti);
+    else if(type==='neg_y')   renderNeg(container,ti,'y');
+    else if(type==='neg_en')  renderNeg(container,ti,'en');
+    else                      renderTrad(container,ti,usedTrad);
+    ti++;
+  }
+  updateProgress();
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function pronBadge(p){
+  return `<div class="pron-badge ${p}"><span class="pb-label">PRONOM</span><span class="pb-val ${p}">${p.toUpperCase()}</span><span class="pb-use">${p==='y'?'lieu / à + chose':'de + chose/lieu · quantité'}</span></div>`;
+}
+
+// 1) Y MCQ — choose y vs en
+function renderYMCQ(container, idx){
+  const item=rand(SENTENCES_Y);
+  const i=Math.floor(Math.random()*item.full.length);
+  const full=item.full[i]||item.full[0];
+  const y_sent=item.y_sent[i]||item.y_sent[0];
+  const subst=item.subst[i]||item.subst[0];
+  const correct='y';
+  const choices=shuffle(['y','en']).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${c}','${correct}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(correct),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type cy">Y ou EN ?</span></div>
+    ${pronBadge('y')}
+    <div class="hint-text">QUEL PRONOM POUR REMPLACER « ${subst.toUpperCase()} » ?</div>
+    <div class="sentence-display"><span style="color:var(--yl2)">${full}</span></div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div style="margin-top:8px;font-size:12px;color:var(--text3)">→ Réponse correcte : <em>${y_sent}</em></div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 2) EN MCQ — choose y vs en
+function renderENMCQ(container, idx){
+  const item=rand(SENTENCES_EN.concat(SENTENCES_EN_QTY.filter(s=>!s.num)));
+  const isFull='full' in item;
+  const full=isFull? (Array.isArray(item.full)?rand(item.full):item.full) : item.full;
+  const correct='en';
+  const choices=shuffle(['y','en']).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${c}','${correct}',this)">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(correct),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card en-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type cen">Y ou EN ?</span></div>
+    ${pronBadge('en')}
+    <div class="hint-text">QUEL PRONOM POUR CETTE PHRASE ?</div>
+    <div class="sentence-display"><span style="color:#d8a8ff">${full}</span></div>
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 3) Y Input — rewrite sentence with Y
+function renderYInput(container, idx){
+  const item=rand(SENTENCES_Y);
+  const i=Math.floor(Math.random()*item.full.length);
+  const full=item.full[i]||item.full[0];
+  const answer=(item.y_sent[i]||item.y_sent[0]).replace(/\.$/, '');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type cy">PRONOM Y — RÉÉCRITURE</span></div>
+    ${pronBadge('y')}
+    <div class="hint-text">RÉÉCRIVEZ AVEC LE PRONOM Y</div>
+    <div class="sentence-display" style="color:var(--yl2)">${full}.</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="J'y..."
+        style="width:280px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 4) EN Input — rewrite with EN
+function renderENInput(container, idx){
+  const item=rand(SENTENCES_EN);
+  const fullArr=Array.isArray(item.full)?item.full:[item.full];
+  const enArr  =Array.isArray(item.en_sent)?item.en_sent:[item.en_sent];
+  const i=Math.floor(Math.random()*fullArr.length);
+  const full=fullArr[i]||fullArr[0];
+  const answer=(enArr[i]||enArr[0]).replace(/\.$/, '');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card en-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type cen">PRONOM EN — RÉÉCRITURE</span></div>
+    ${pronBadge('en')}
+    <div class="hint-text">RÉÉCRIVEZ AVEC LE PRONOM EN</div>
+    <div class="sentence-display" style="color:#d8a8ff">${full}.</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="J'en..."
+        style="width:280px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 5) EN + Quantity MCQ
+function renderENQty(container, idx){
+  const item=rand(SENTENCES_EN_QTY);
+  const answer=item.en_sent.replace(/\.$/, '');
+  // Wrong: substitute a different quantity adverb or drop it
+  const wrong1=item.en_sent.replace('en','y').replace(/\.$/, '');
+  const wrong2=item.full.replace(/\.$/, '');
+  const choices=shuffle([answer,wrong1,wrong2].filter((v,i,a)=>a.indexOf(v)===i)).slice(0,3).map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},'${esc(c)}','${esc(answer)}',this)" style="font-family:'DM Serif Display',serif;font-size:14px;padding:8px 14px">${c}</button>`
+  ).join('');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card nb-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type nb">EN + QUANTITÉ</span></div>
+    ${pronBadge('en')}
+    <div class="hint-text">REMPLACEZ LA QUANTITÉ PAR EN — CHOISISSEZ LA BONNE RÉPONSE</div>
+    <div class="sentence-display" style="color:#d8a8ff">${item.full}</div>
+    ${item.en?`<div style="font-size:12px;color:var(--text3);margin-bottom:10px;font-style:italic">${item.en}</div>`:''}
+    <div class="choices" id="choices-${idx}" style="flex-direction:column;gap:8px">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 6) Négative
+function renderNeg(container, idx, pronType){
+  const pool=pronType==='y'?NEG_Y:NEG_EN;
+  const item=rand(pool);
+  const answer=item.neg.replace(/\.$/, '');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className='exercise-card neg-card'; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type neg">NÉGATIF — PRONOM ${pronType.toUpperCase()}</span></div>
+    <div class="hint-text">METTEZ À LA FORME NÉGATIVE (NE … ${pronType.toUpperCase()} … PAS)</div>
+    <div class="sentence-display" style="color:${pronType==='y'?'var(--yl2)':'#d8a8ff'}">${item.pos}</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="Je ne..."
+        style="width:300px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// 7) Traduction — type the French sentence
+function renderTrad(container, idx, usedSet){
+  const pool=TRAD.filter(t=>!usedSet.has(t.fr));
+  if(!pool.length) return;
+  const item=rand(pool);
+  usedSet.add(item.fr);
+  const answer=item.fr.replace(/\.$/, '');
+  exercises.push({id:idx,answer:normalise(answer),answered:false,correct:false});
+
+  const card=document.createElement('div');
+  card.className=`exercise-card${item.pron==='en'?' en-card':''}`; card.id=`card-${idx}`;
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div style="margin-bottom:8px"><span class="card-type trad">TRADUCTION</span></div>
+    ${pronBadge(item.pron)}
+    <div class="hint-text">TRADUISEZ EN FRANÇAIS — UTILISEZ LE PRONOM ${item.pron.toUpperCase()}</div>
+    <div class="sentence-display" style="color:var(--yl3)">${item.en}</div>
+    <div style="margin-bottom:14px">
+      <input class="answer-input" id="input-${idx}" placeholder="${item.pron==='y'?'J\'y...':'J\'en...'}"
+        style="width:320px;max-width:100%" autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkInput(${idx},'${esc(answer)}')">
+    </div>
+    <button class="check-btn" onclick="checkInput(${idx},'${esc(answer)}')">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK / PROGRESS
+// ================================================================
+function checkInput(idx,answer){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=normalise(input.value)===normalise(answer);
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.getElementById(`card-${idx}`)?.querySelectorAll('.check-btn').forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function checkMCQ(idx,chosen,answer,btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const isOk=normalise(chosen)===normalise(answer);
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(normalise(b.textContent.trim())===normalise(answer)) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,answer); markAnswered(idx,isOk);
+}
+function showFeedback(idx,isOk,answer){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  const bravos=["Parfait !","Excellent !","Très bien !","Bravo !","Super !","C'est ça !"];
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>${bravos[Math.floor(Math.random()*bravos.length)]}</strong> La bonne réponse : <strong>${answer}</strong>`
+    :`Pas tout à fait. La bonne réponse : <strong>${answer}</strong>`;
+}
+function markAnswered(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk;
+  answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress();
+  if(answered===exercises.length&&exercises.length>0) setTimeout(showScore,700);
+}
+function updateProgress(){
+  const t=exercises.length;
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${t}`;
+  document.getElementById('progressFill').style.width=t>0?(answered/t*100)+'%':'0%';
+}
+function showScore(){
+  const t=exercises.length; const pct=t>0?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  let emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='PARFAIT !';sub='Maîtrise parfaite — Y et EN sont vos alliés !';}
+  else if(pct>=70){emoji='🎉';title='BRAVO !';sub='Très bien — Y pour les lieux et à + chose, EN pour de + chose/quantité !';}
+  else if(pct>=50){emoji='💪';title='BIEN !';sub='Bon effort — Y = lieu/à+chose ; EN = de+chose ou quantité. Continuez !';}
+  else{emoji='📚';title='CONTINUEZ !';sub='Rappel : Y remplace à + chose / un lieu ; EN remplace de + chose ou une quantité.';}
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function resetAll(clear=true){
+  exercises=[]; answered=0; correct=0;
+  if(clear){ document.getElementById('exercisesContainer').innerHTML=''; updateProgress(); }
+}
+document.getElementById('vocabToggle').addEventListener('click',function(){
+  const w=document.getElementById('vocabWrap');
+  const open=w.classList.toggle('open');
+  this.classList.toggle('open',open);
+});
+window.addEventListener('load',()=>{ setTimeout(generateExercises,400); });
+</script>
+</body>
+</html>
