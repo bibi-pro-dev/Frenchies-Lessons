@@ -122,6 +122,45 @@
   .no-match{ display:none;text-align:center;padding:40px;
     font-family:'DM Serif Display',serif;font-style:italic;font-size:18px;color:var(--text3); }
 
+  /* ── EXAM BANNER ── */
+  .exam-banner{ display:block; text-decoration:none; position:relative; overflow:hidden;
+    background:linear-gradient(135deg,rgba(180,79,255,0.10) 0%,rgba(0,245,255,0.06) 100%);
+    border:1px solid rgba(180,79,255,0.30); border-radius:16px;
+    padding:28px 36px; margin-bottom:40px;
+    transition:transform .22s cubic-bezier(.4,0,.2,1), border-color .22s, box-shadow .22s; }
+  .exam-banner::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--violet),var(--c1),transparent); opacity:.7; }
+  .exam-banner::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse at 90% 50%, rgba(180,79,255,0.07) 0%, transparent 65%); }
+  .exam-banner:hover{ transform:translateY(-3px);
+    border-color:rgba(180,79,255,0.55);
+    box-shadow:0 16px 48px rgba(0,0,0,.35), 0 0 0 1px rgba(180,79,255,.3); }
+  .eb-inner{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; position:relative; z-index:1; }
+  .eb-left{ display:flex; align-items:center; gap:20px; }
+  .eb-icon{ font-size:36px; flex-shrink:0; }
+  .eb-text{}
+  .eb-tag{ font-family:'Bebas Neue',sans-serif; font-size:10px; letter-spacing:4px;
+    color:var(--violet); margin-bottom:4px; }
+  .eb-title{ font-family:'Bebas Neue',sans-serif; font-size:clamp(22px,4vw,34px);
+    letter-spacing:1px; line-height:1;
+    background:linear-gradient(135deg,#fff,#d8a8ff 50%,var(--c1));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    margin-bottom:4px; }
+  .eb-sub{ font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; color:var(--text2); }
+  .eb-levels{ display:flex; gap:6px; flex-wrap:wrap; }
+  .eb-lv{ font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:2px;
+    padding:4px 12px; border-radius:3px; border:1px solid; }
+  .eb-lv.a1{ color:#4ade80;  border-color:rgba(74,222,128,.3);  background:rgba(74,222,128,.07); }
+  .eb-lv.a2{ color:var(--c1);border-color:rgba(0,245,255,.25);  background:rgba(0,245,255,.05); }
+  .eb-lv.b1{ color:#d8a8ff; border-color:rgba(180,79,255,.3);  background:rgba(180,79,255,.07); }
+  .eb-lv.b2{ color:var(--c23);border-color:rgba(234,179,8,.3); background:rgba(234,179,8,.06); }
+  .eb-lv.c1{ color:#fb7185; border-color:rgba(251,113,133,.3);  background:rgba(251,113,133,.06); }
+  .eb-cta{ font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:3px;
+    padding:12px 28px; border-radius:6px; white-space:nowrap; flex-shrink:0;
+    border:1px solid rgba(180,79,255,.45); background:rgba(180,79,255,.10);
+    color:#d8a8ff; transition:background .2s, border-color .2s; }
+  .exam-banner:hover .eb-cta{ background:rgba(180,79,255,.22); border-color:#d8a8ff; }
+
   /* ── FOOTER ── */
   .footer{ text-align:center;padding:40px 0 20px; }
   .footer-title{ font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;
@@ -150,6 +189,30 @@
       <div class="stat-item"><div class="stat-num">∞</div><div class="stat-lbl">GÉNÉRATIF</div></div>
     </div>
   </div>
+
+  <!-- EXAM BANNER -->
+  <a class="exam-banner" href="examen.html">
+    <div class="eb-inner">
+      <div class="eb-left">
+        <div class="eb-icon">🎓</div>
+        <div class="eb-text">
+          <div class="eb-tag">✦ ÉVALUATION · 150+ QUESTIONS · TOUTES LES LEÇONS</div>
+          <div class="eb-title">EXAMEN ALÉATOIRE</div>
+          <div class="eb-sub">Questions tirées au sort depuis les 27 leçons — sans indices</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;flex-shrink:0">
+        <div class="eb-levels">
+          <span class="eb-lv a1">A1</span>
+          <span class="eb-lv a2">A2</span>
+          <span class="eb-lv b1">B1</span>
+          <span class="eb-lv b2">B2</span>
+          <span class="eb-lv c1">C1</span>
+        </div>
+        <div class="eb-cta">COMMENCER →</div>
+      </div>
+    </div>
+  </a>
 
   <!-- SEARCH -->
   <div class="search-wrap">

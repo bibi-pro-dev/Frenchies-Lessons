@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen — Frenchies Lessons</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440; --border:#1e2d4a;
+    --violet:#b44fff; --gold:#ffd166; --cyan:#00f5ff; --green:#06d6a0; --red:#ff4757;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; }
+
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(180,79,255,0.018) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(180,79,255,0.018) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(0,245,255,0.01) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(0,245,255,0.01) 1px,transparent 1px);
+    background-size:280px 280px; }
+  .halo{ position:fixed; border-radius:50%; filter:blur(140px); pointer-events:none; z-index:0; }
+  .h1{ width:700px; height:700px; top:-260px; left:-200px; background:rgba(180,79,255,0.07); }
+  .h2{ width:560px; height:560px; bottom:-200px; right:-160px; background:rgba(0,245,255,0.05); }
+  .al{ position:fixed; pointer-events:none; z-index:0; opacity:0.05; }
+  .al1{ width:1px;height:88vh;top:6vh;right:8%;background:linear-gradient(to bottom,transparent,var(--violet),transparent);transform:rotate(9deg); }
+  .al2{ width:1px;height:66vh;top:18vh;left:8%;background:linear-gradient(to bottom,transparent,var(--cyan),transparent);transform:rotate(-9deg); }
+
+  .wrapper{ position:relative; z-index:1; max-width:900px; margin:0 auto; padding:40px 24px 100px; }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:48px; }
+  .exam-tag{ display:inline-flex; align-items:center; gap:8px;
+    font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:5px; color:var(--text3);
+    border:1px solid var(--border); padding:4px 18px; border-radius:2px;
+    margin-bottom:18px; background:rgba(255,255,255,0.02); }
+  .dot{ width:5px;height:5px;border-radius:50%;background:var(--violet);animation:blink 2.5s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.2;transform:scale(1.7)} }
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,8vw,96px); line-height:0.88; letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.85) 30%,var(--violet) 65%,var(--cyan) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:12px; }
+  .hero-sub{ font-family:'DM Serif Display',serif; font-style:italic; font-size:17px; color:var(--text2); margin-bottom:4px; }
+  .hero-sub2{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); }
+
+  /* ── LEVEL SELECTOR ── */
+  .setup-panel{ background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:32px; margin-bottom:36px; }
+  .sp-title{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:4px; color:var(--text3); margin-bottom:16px; }
+  .level-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:24px; }
+  @media(max-width:600px){ .level-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:380px){ .level-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .lv-btn{ font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:2px;
+    padding:16px 12px; border-radius:8px; border:1px solid var(--border);
+    background:var(--bg2); color:var(--text3); cursor:pointer;
+    transition:all 0.2s; position:relative; overflow:hidden; text-align:center; }
+  .lv-btn .lv-sub{ font-size:9px; letter-spacing:2px; display:block; margin-top:3px; color:var(--text3); }
+  .lv-btn:hover{ border-color:rgba(180,79,255,0.4); color:var(--text); }
+  .lv-btn.active{ color:var(--text); }
+  .lv-btn.a1.active { border-color:#4ade80;  background:rgba(74,222,128,0.08);  color:#4ade80; }
+  .lv-btn.a2.active { border-color:var(--cyan); background:rgba(0,245,255,0.07); color:var(--cyan); }
+  .lv-btn.b1.active { border-color:#d8a8ff; background:rgba(180,79,255,0.1);  color:#d8a8ff; }
+  .lv-btn.b2.active { border-color:var(--gold); background:rgba(255,209,102,0.08); color:var(--gold); }
+  .lv-btn.c1.active { border-color:#fb7185; background:rgba(251,113,133,0.08); color:#fb7185; }
+  .lv-btn.a1 .lv-sub{ color:#4ade80; } .lv-btn.a2 .lv-sub{ color:var(--cyan); }
+  .lv-btn.b1 .lv-sub{ color:#d8a8ff; } .lv-btn.b2 .lv-sub{ color:var(--gold); }
+  .lv-btn.c1 .lv-sub{ color:#fb7185; }
+
+  /* length selector */
+  .length-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:0; }
+  .len-btn{ font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:2px;
+    padding:10px 22px; border-radius:6px; border:1px solid var(--border);
+    background:var(--bg2); color:var(--text3); cursor:pointer; transition:all 0.2s; }
+  .len-btn:hover{ border-color:rgba(180,79,255,0.35); color:var(--text); }
+  .len-btn.active{ border-color:rgba(180,79,255,0.5); background:rgba(180,79,255,0.08); color:#d8a8ff; }
+
+  /* ── START BUTTON ── */
+  .start-btn{ display:block; width:100%; font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:4px;
+    padding:18px; border-radius:8px; cursor:pointer; margin-bottom:36px; transition:all 0.2s;
+    background:linear-gradient(135deg,rgba(180,79,255,0.14),rgba(0,245,255,0.08));
+    border:1px solid rgba(180,79,255,0.4); color:var(--text); }
+  .start-btn:hover{ background:linear-gradient(135deg,rgba(180,79,255,0.28),rgba(0,245,255,0.16));
+    border-color:#d8a8ff; transform:translateY(-1px); box-shadow:0 10px 30px rgba(180,79,255,0.15); }
+  .start-btn:disabled{ opacity:.35; cursor:default; transform:none; box-shadow:none; }
+
+  /* ── PROGRESS ── */
+  .progress-section{ margin-bottom:32px; }
+  .progress-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .progress-label{ font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--text3); }
+  .progress-score{ font-family:'Bebas Neue',sans-serif; font-size:22px; color:#d8a8ff; }
+  .progress-track{ height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:2px; width:0%;
+    background:linear-gradient(90deg,var(--violet),var(--cyan)); transition:width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-card{ background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:32px; margin-bottom:20px; position:relative; overflow:hidden;
+    transition:border-color 0.3s,transform 0.3s; }
+  .exercise-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,rgba(180,79,255,0.5),transparent);
+    opacity:0; transition:opacity 0.3s; }
+  .exercise-card:hover::before{ opacity:0.5; }
+  .exercise-card.active-card::before{ opacity:1; }
+  .exercise-card.active-card{ border-color:rgba(180,79,255,0.18); transform:translateY(-1px); }
+
+  .card-num{ font-family:'Bebas Neue',sans-serif; font-size:46px; line-height:1;
+    color:var(--border); position:absolute; right:22px; top:16px; user-select:none; }
+
+  /* no type badge, no hint label — clean exam style */
+  .q-text{ font-family:'DM Serif Display',serif; font-size:clamp(16px,2.5vw,21px);
+    line-height:1.85; margin-bottom:16px; color:var(--text); }
+  .q-text .blank{ color:rgba(255,255,255,0.18); font-style:italic; }
+  .q-en{ font-family:'DM Serif Display',serif; font-style:italic; font-size:14px;
+    color:var(--text3); margin-bottom:14px; }
+
+  /* ── INPUTS ── */
+  .answer-input{ background:var(--bg2); border:1px solid var(--border); color:var(--text);
+    font-family:'DM Serif Display',serif; font-size:17px; padding:10px 15px; border-radius:6px; outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s; }
+  .answer-input::placeholder{ color:var(--text3); font-style:italic; }
+  .answer-input:focus{ border-color:rgba(180,79,255,0.5); box-shadow:0 0 0 2px rgba(180,79,255,0.08); }
+  .answer-input.correct  { border-color:var(--green); color:var(--green); }
+  .answer-input.incorrect{ border-color:var(--red);   color:var(--red);   animation:shake 0.3s; }
+  .answer-input:disabled{ opacity:.85; cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ── MCQ ── */
+  .choices{ display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+  .choice-btn{ background:var(--bg2); border:1px solid var(--border); color:var(--text2);
+    font-family:'DM Serif Display',serif; font-size:16px; padding:10px 22px; border-radius:6px; cursor:pointer; transition:all 0.15s; }
+  .choice-btn:hover{ border-color:rgba(180,79,255,0.4); color:var(--text); }
+  .choice-btn.selected-correct{ border-color:var(--green); color:var(--green); background:rgba(6,214,160,0.08); cursor:default; }
+  .choice-btn.selected-wrong  { border-color:var(--red);   color:var(--red);   background:rgba(255,71,87,0.08);  cursor:default; }
+  .choice-btn.disabled        { opacity:.35; cursor:default; pointer-events:none; }
+  .choice-btn.reveal-correct  { border-color:var(--green); color:var(--green); opacity:.65; }
+
+  /* ── CHECK BTN ── */
+  .check-btn{ margin-top:14px; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:10px 28px; border-radius:4px; border:1px solid rgba(180,79,255,0.4);
+    background:rgba(180,79,255,0.06); color:#d8a8ff; cursor:pointer; transition:all 0.2s; }
+  .check-btn:hover{ background:rgba(180,79,255,0.16); }
+  .check-btn:disabled{ opacity:.3; cursor:default; }
+
+  /* ── FEEDBACK ── */
+  .feedback{ margin-top:14px; padding:12px 16px; border-radius:8px; font-size:14px; display:none; align-items:flex-start; gap:10px; animation:fadeIn 0.25s; }
+  .feedback.show   { display:flex; }
+  .feedback.success{ background:rgba(6,214,160,0.08);  border:1px solid rgba(6,214,160,0.2);  color:var(--green); }
+  .feedback.error  { background:rgba(255,71,87,0.08);  border:1px solid rgba(255,71,87,0.2);  color:var(--red); }
+  .feedback-icon{ font-size:17px; flex-shrink:0; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+
+  /* ── SCORE POPUP ── */
+  .score-popup{ position:fixed; inset:0; background:rgba(8,12,20,0.9); backdrop-filter:blur(14px);
+    display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+  .score-popup.show{ opacity:1; pointer-events:all; }
+  .score-box{ background:var(--card2); border:1px solid rgba(180,79,255,0.22); border-radius:20px;
+    padding:50px 60px; text-align:center; max-width:520px; width:90%;
+    box-shadow:0 40px 100px rgba(0,0,0,0.55),0 0 60px rgba(180,79,255,0.08);
+    animation:popIn 0.4s cubic-bezier(.175,.885,.32,1.275); }
+  @keyframes popIn{ from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .score-emoji   { font-size:56px; margin-bottom:14px; }
+  .score-pct     { font-family:'Bebas Neue',sans-serif; font-size:80px; line-height:1;
+    background:linear-gradient(135deg,var(--violet),var(--cyan));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    margin-bottom:4px; }
+  .score-title   { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:3px; color:var(--text2); margin-bottom:6px; }
+  .score-subtitle{ font-family:'DM Serif Display',serif; font-style:italic; font-size:17px; color:var(--text2); margin-bottom:28px; line-height:1.5; }
+  .score-detail  { display:flex; justify-content:center; gap:40px; margin-bottom:32px; }
+  .score-stat    { text-align:center; }
+  .score-stat-num{ font-family:'Bebas Neue',sans-serif; font-size:38px; }
+  .score-stat-lbl{ font-size:10px; letter-spacing:3px; color:var(--text3); font-family:'Bebas Neue',sans-serif; }
+  .score-stat-num.good{ color:var(--green); } .score-stat-num.bad{ color:var(--red); } .score-stat-num.neu{ color:var(--text); }
+  .score-level-badge{ display:inline-block; font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:3px;
+    padding:5px 18px; border-radius:3px; margin-bottom:24px; }
+  .score-actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .score-btn{ font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px;
+    padding:12px 28px; border-radius:6px; cursor:pointer; transition:all 0.2s; }
+  .score-btn.primary{ border:1px solid rgba(180,79,255,0.4); background:rgba(180,79,255,0.1); color:#d8a8ff; }
+  .score-btn.primary:hover{ background:rgba(180,79,255,0.22); }
+  .score-btn.secondary{ border:1px solid var(--border); background:transparent; color:var(--text2); }
+  .score-btn.secondary:hover{ border-color:rgba(0,245,255,0.3); color:var(--cyan); }
+
+  /* back link */
+  .back-link{ display:inline-flex; align-items:center; gap:8px; margin-bottom:32px;
+    font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:3px; color:var(--text3);
+    text-decoration:none; transition:color 0.2s; }
+  .back-link:hover{ color:var(--text); }
+
+  @media(max-width:560px){
+    .exercise-card{ padding:20px 16px; } .card-num{ font-size:34px; }
+    .score-box{ padding:32px 20px; } .score-detail{ gap:22px; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div>
+<div class="al al1"></div><div class="al al2"></div>
+
+<div class="wrapper">
+
+  <a class="back-link" href="index.html">← RETOUR AUX LEÇONS</a>
+
+  <!-- HEADER -->
+  <header>
+    <div class="exam-tag"><span class="dot"></span>FRENCHIES LESSONS · ÉVALUATION</div>
+    <h1>EXAMEN<br>ALÉATOIRE</h1>
+    <p class="hero-sub">Questions tirées au sort depuis les 27 leçons — sans indices.</p>
+    <p class="hero-sub2">A1 · A2 · B1 · B2 · C1 — CHOISISSEZ VOTRE NIVEAU</p>
+  </header>
+
+  <!-- SETUP PANEL -->
+  <div class="setup-panel">
+    <div class="sp-title">① CHOISISSEZ VOTRE NIVEAU</div>
+    <div class="level-grid">
+      <button class="lv-btn a1" onclick="selectLevel('A1',this)">A1<span class="lv-sub">DÉBUTANT</span></button>
+      <button class="lv-btn a2 active" onclick="selectLevel('A2',this)">A2<span class="lv-sub">ÉLÉMENTAIRE</span></button>
+      <button class="lv-btn b1" onclick="selectLevel('B1',this)">B1<span class="lv-sub">INTERMÉDIAIRE</span></button>
+      <button class="lv-btn b2" onclick="selectLevel('B2',this)">B2<span class="lv-sub">AVANCÉ</span></button>
+      <button class="lv-btn c1" onclick="selectLevel('C1',this)">C1<span class="lv-sub">COURANT</span></button>
+    </div>
+    <div class="sp-title">② NOMBRE DE QUESTIONS</div>
+    <div class="length-row">
+      <button class="len-btn" onclick="selectLen(10,this)">10</button>
+      <button class="len-btn active" onclick="selectLen(20,this)">20</button>
+      <button class="len-btn" onclick="selectLen(30,this)">30</button>
+      <button class="len-btn" onclick="selectLen(50,this)">50</button>
+    </div>
+  </div>
+
+  <button class="start-btn" id="startBtn" onclick="startExam()">⚡ COMMENCER L'EXAMEN</button>
+
+  <!-- PROGRESS -->
+  <div class="progress-section" id="progressSection" style="display:none">
+    <div class="progress-meta">
+      <span class="progress-label">PROGRESSION</span>
+      <span class="progress-score" id="scoreDisplay">0 / 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div id="examContainer"></div>
+</div>
+
+<!-- SCORE POPUP -->
+<div class="score-popup" id="scorePopup">
+  <div class="score-box">
+    <div class="score-emoji" id="scoreEmoji">🎓</div>
+    <div class="score-pct" id="scorePct">0%</div>
+    <div class="score-title" id="scoreTitle">RÉSULTAT</div>
+    <div class="score-level-badge" id="scoreLevelBadge"></div>
+    <div class="score-subtitle" id="scoreSubtitle"></div>
+    <div class="score-detail">
+      <div class="score-stat"><div class="score-stat-num good" id="correctCount">0</div><div class="score-stat-lbl">CORRECT</div></div>
+      <div class="score-stat"><div class="score-stat-num bad"  id="wrongCount">0</div><div class="score-stat-lbl">ERREURS</div></div>
+      <div class="score-stat"><div class="score-stat-num neu"  id="totalCount">0</div><div class="score-stat-lbl">TOTAL</div></div>
+    </div>
+    <div class="score-actions">
+      <button class="score-btn primary" onclick="restartExam()">↺ NOUVEL EXAMEN</button>
+      <button class="score-btn secondary" onclick="closePopup()">VOIR LES RÉPONSES</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// QUESTION BANK — all 27 lessons, no hints, no type badges
+// Format: { q, a, w(rong choices|null=input), lv }
+// lv: 1=A1  2=A2  3=B1  4=B2  5=C1
+// If w is null/undefined → text input
+// ================================================================
+const BANK = [
+
+  // ══════════════════════════════════════════════════
+  // L1 — SALUTATIONS & PRÉSENTATIONS
+  // ══════════════════════════════════════════════════
+  {q:"Le matin, en arrivant au bureau, vous dites :", a:"Bonjour", w:["Bonsoir","Au revoir","Bonne nuit"], lv:1},
+  {q:"Le soir vers 20h, vous rencontrez un voisin. Vous dites :", a:"Bonsoir", w:["Bonjour","Salut","À demain"], lv:1},
+  {q:"Comment dit-on 'My name is Sophie' en français ?", a:"Je m'appelle Sophie.", w:["Je suis Sophie appelle.","Mon appelle est Sophie.","J'appelle Sophie."], lv:1},
+  {q:"Pour dire son âge en français, on utilise :", a:"avoir", w:["être","aller","faire"], lv:1},
+  {q:"Complétez : 'Je ___ 24 ans.'", a:"ai", lv:1},
+  {q:"Complétez : 'Je suis ___.' (I am French — female)", a:"française", lv:1},
+  {q:"Quelle réponse convient à 'Ça va ?' ?", a:"Ça va, et toi ?", w:["Merci beaucoup.","Au revoir !","Je m'appelle Marc."], lv:1},
+  {q:"Complétez : 'Je viens ___ Paris.'", a:"de", lv:1},
+  {q:"Formellement, comment dit-on 'You're welcome' ?", a:"Je vous en prie.", w:["De rien.","Merci.","Enchanté."], lv:2},
+  {q:"Complétez : 'Pouvez-vous répéter plus ___, s'il vous plaît ?'", a:"lentement", lv:2},
+  {q:"Comment dit-on 'I don't understand' en français ?", a:"Je ne comprends pas.", w:["Je ne parle pas.","Je ne suis pas.","Je ne vais pas."], lv:1},
+  {q:"Complétez : 'Je parle ___ peu français.' (a little)", a:"un", lv:1},
+
+  // ══════════════════════════════════════════════════
+  // L2 — ÊTRE, AVOIR, GENRE
+  // ══════════════════════════════════════════════════
+  {q:"Conjuguez ÊTRE : 'Nous ___ français.'", a:"sommes", lv:1},
+  {q:"Conjuguez ÊTRE : 'Vous ___ d'où ?'", a:"êtes", lv:1},
+  {q:"Conjuguez AVOIR : 'Ils ___ faim.'", a:"ont", lv:1},
+  {q:"Conjuguez AVOIR : 'Tu ___ soif ?'", a:"as", lv:1},
+  {q:"Quel est le féminin de 'un étudiant' ?", a:"une étudiante", w:["une étudiant","un étudiante","une étudiants"], lv:1},
+  {q:"Quel article est correct : ___ problème ?", a:"un", w:["une","des","le"], lv:1},
+  {q:"Conjuguez ÊTRE : 'Elle ___ médecin.'", a:"est", lv:1},
+  {q:"Conjuguez AVOIR : 'J'___ un chien.'", a:"ai", lv:1},
+
+  // ══════════════════════════════════════════════════
+  // L3 — PLURIELS, NÉGATION, STRUCTURE, QUESTIONS
+  // ══════════════════════════════════════════════════
+  {q:"Quel est le pluriel de 'un animal' ?", a:"des animaux", w:["des animals","des animaus","des animeaux"], lv:1},
+  {q:"Quel est le pluriel de 'un gâteau' ?", a:"des gâteaux", w:["des gâteaus","des gâteau","des gâteaux"], lv:1},
+  {q:"Quel est le pluriel de 'un journal' ?", a:"des journaux", w:["des journals","des journaus","des journeaux"], lv:1},
+  {q:"Quel est le pluriel de 'un bras' ?", a:"des bras", w:["des brass","des brans","des brasses"], lv:1},
+  {q:"Mettez à la négative : 'Il parle français.' →", a:"Il ne parle pas français.", w:["Il parle pas français.","Il ne parle français pas.","Il pas parle français."], lv:1},
+  {q:"Complétez la négation : 'Je ___ mange ___ de viande.' (never)", a:"ne / jamais", lv:2},
+  {q:"Complétez : 'Il ne travaille ___ ici.' (no longer)", a:"plus", lv:2},
+  {q:"Comment forme-t-on une question avec 'est-ce que' ? 'Tu habites ici.' →", a:"Est-ce que tu habites ici ?", w:["Est-ce tu habites ici ?","Est-ce qu'habites ici ?","Tu habites est-ce que ici ?"], lv:2},
+  {q:"Forme correcte avec inversion : 'tu parles' →", a:"Parles-tu ?", w:["Tu parles-?","Parle-tu ?","Parles tu ?"], lv:3},
+  {q:"Pourquoi écrit-on 'Parle-t-il ?' avec un -t- ?", a:"euphonie — le verbe finit par une voyelle", w:["faute de grammaire","le sujet commence par t","règle du passé composé"], lv:3},
+
+  // ══════════════════════════════════════════════════
+  // L4 — ARTICLES
+  // ══════════════════════════════════════════════════
+  {q:"Complétez : 'Je mange ___ pomme.'", a:"une", w:["un","le","des"], lv:1},
+  {q:"Complétez : 'Il aime ___ chocolat.'", a:"le", w:["un","des","de"], lv:1},
+  {q:"À la négative, quel article utilise-t-on ? 'Je mange ___ viande.'", a:"de la", w:["la","une","des"], lv:2},
+  {q:"Complétez : 'Tu veux ___ café ?'", a:"du", w:["de","un","le"], lv:2},
+  {q:"Complétez : 'Elle achète ___ fleurs.'", a:"des", w:["les","une","de"], lv:1},
+  {q:"Après négation, l'article indéfini 'un/une/des' devient :", a:"de / d'", w:["le/la/les","du/de la","un/une"], lv:2},
+
+  // ══════════════════════════════════════════════════
+  // L5 — DÉMONSTRATIFS
+  // ══════════════════════════════════════════════════
+  {q:"Quel démonstratif avant un nom masculin commençant par voyelle ? '___ homme'", a:"cet", w:["ce","cette","ces"], lv:1},
+  {q:"Complétez : '___ femme est professeure.'", a:"Cette", w:["Ce","Cet","Ces"], lv:1},
+  {q:"Complétez : '___ livres sont intéressants.'", a:"Ces", w:["Ce","Cet","Cette"], lv:1},
+  {q:"Complétez : '___ restaurant est excellent.'", a:"Ce", w:["Cet","Cette","Ces"], lv:1},
+
+  // ══════════════════════════════════════════════════
+  // L6 — VERBES EN -ER
+  // ══════════════════════════════════════════════════
+  {q:"Conjuguez PARLER : 'Nous ___ français.'", a:"parlons", lv:1},
+  {q:"Conjuguez AIMER : 'Ils ___ la musique.'", a:"aiment", lv:1},
+  {q:"Conjuguez TRAVAILLER : 'Tu ___ beaucoup.'", a:"travailles", lv:1},
+  {q:"Conjuguez CHERCHER : 'Elle ___ ses clés.'", a:"cherche", lv:1},
+  {q:"Conjuguez VOYAGER : 'Je ___ souvent.'", a:"voyage", lv:2},
+  {q:"Conjuguez EXPLIQUER : 'Vous ___ bien.'", a:"expliquez", lv:2},
+
+  // ══════════════════════════════════════════════════
+  // L7 — VERBES EN -IR
+  // ══════════════════════════════════════════════════
+  {q:"Conjuguez FINIR : 'Nous ___ le travail.'", a:"finissons", lv:2},
+  {q:"Conjuguez CHOISIR : 'Tu ___ quoi ?'", a:"choisis", lv:2},
+  {q:"Conjuguez RÉUSSIR : 'Ils ___ l'examen.'", a:"réussissent", lv:2},
+  {q:"Conjuguez GRANDIR : 'Elle ___ vite.'", a:"grandit", lv:2},
+  {q:"Conjuguez APPLAUDIR : 'Vous ___ fort.'", a:"applaudissez", lv:2},
+
+  // ══════════════════════════════════════════════════
+  // L8 — VERBES IRRÉGULIERS (ÊTRE, AVOIR, ALLER, FAIRE)
+  // ══════════════════════════════════════════════════
+  {q:"Conjuguez ALLER : 'Nous ___ au marché.'", a:"allons", lv:1},
+  {q:"Conjuguez FAIRE : 'Qu'est-ce que tu ___ ?'", a:"fais", lv:1},
+  {q:"Conjuguez ALLER : 'Ils ___ à Paris.'", a:"vont", lv:1},
+  {q:"Conjuguez FAIRE : 'Elle ___ du sport.'", a:"fait", lv:1},
+  {q:"Conjuguez FAIRE : 'Vous ___ quoi ce soir ?'", a:"faites", lv:2},
+
+  // ══════════════════════════════════════════════════
+  // L9 — FUTUR PROCHE
+  // ══════════════════════════════════════════════════
+  {q:"Formez le futur proche : 'Il ___ partir demain.' (aller + inf.)", a:"va", lv:1},
+  {q:"Complétez : 'Nous ___ voyager cet été.'", a:"allons", lv:1},
+  {q:"Complétez : 'Elles ___ réserver une table.'", a:"vont", lv:1},
+  {q:"Mettez au négatif futur proche : 'Je vais partir.' →", a:"Je ne vais pas partir.", w:["Je vais ne pas partir.","Je ne vais partir pas.","Je vas pas partir."], lv:2},
+
+  // ══════════════════════════════════════════════════
+  // L10 — FUTUR SIMPLE
+  // ══════════════════════════════════════════════════
+  {q:"Futur simple de PARLER : 'Je ___.'", a:"parlerai", lv:2},
+  {q:"Futur simple de FINIR : 'Ils ___.'", a:"finiront", lv:2},
+  {q:"Futur simple irrégulier de ÊTRE : 'Tu ___.'", a:"seras", lv:3},
+  {q:"Futur simple irrégulier de AVOIR : 'Nous ___.'", a:"aurons", lv:3},
+  {q:"Futur simple irrégulier de ALLER : 'Elle ___.'", a:"ira", lv:3},
+  {q:"Futur simple irrégulier de FAIRE : 'Vous ___.'", a:"ferez", lv:3},
+
+  // ══════════════════════════════════════════════════
+  // L11 — PASSÉ COMPOSÉ (AVOIR)
+  // ══════════════════════════════════════════════════
+  {q:"Passé composé de MANGER : 'J'___ une pomme.'", a:"ai mangé", lv:2},
+  {q:"Passé composé de FINIR : 'Nous ___ le projet.'", a:"avons fini", lv:2},
+  {q:"Quel est le participe passé de PRENDRE ?", a:"pris", w:["prenu","preté","prené"], lv:3},
+  {q:"Quel est le participe passé de VOIR ?", a:"vu", w:["voulu","vé","voit"], lv:2},
+  {q:"Passé composé de FAIRE : 'Qu'est-ce qu'il ___ ?'", a:"a fait", lv:2},
+  {q:"Accord du PP : 'La pomme que j'ai ___.' (manger)", a:"mangée", w:["mangé","mangés","mangées"], lv:3},
+
+  // ══════════════════════════════════════════════════
+  // L12 — PASSÉ COMPOSÉ (ÊTRE)
+  // ══════════════════════════════════════════════════
+  {q:"Passé composé de PARTIR : 'Elle ___ hier.'", a:"est partie", w:["a parti","est parti","a partie"], lv:2},
+  {q:"Passé composé de ALLER : 'Ils ___ au cinéma.'", a:"sont allés", w:["ont allé","sont allé","ont allés"], lv:2},
+  {q:"Passé composé de NAÎTRE : 'Je ___ en 1995.'", a:"suis né(e)", lv:2},
+  {q:"Passé composé de DESCENDRE : 'Nous ___ à la cave.'", a:"sommes descendu(e)s", lv:3},
+  {q:"Quel auxiliaire prend SE LEVER au passé composé ?", a:"être", w:["avoir","aller","faire"], lv:2},
+
+  // ══════════════════════════════════════════════════
+  // L13 — IMPARFAIT
+  // ══════════════════════════════════════════════════
+  {q:"Imparfait de PARLER : 'Quand j'étais enfant, je ___ souvent.'", a:"parlais", lv:2},
+  {q:"Imparfait de FAIRE : 'Il ___ beau ce jour-là.'", a:"faisait", lv:2},
+  {q:"Imparfait de ÊTRE : 'Nous ___ fatigués.'", a:"étions", lv:3},
+  {q:"Imparfait de AVOIR : 'Vous ___ raison.'", a:"aviez", lv:3},
+  {q:"L'imparfait est utilisé pour :", a:"une description ou une habitude dans le passé", w:["une action ponctuelle","une action future","une action au présent"], lv:2},
+
+  // ══════════════════════════════════════════════════
+  // L14 — IMPARFAIT vs PASSÉ COMPOSÉ
+  // ══════════════════════════════════════════════════
+  {q:"Choisissez le bon temps : 'Quand il est entré, elle ___ (lire).'", a:"lisait", w:["a lu","lira","lit"], lv:3},
+  {q:"Choisissez : 'Soudain, le téléphone ___ (sonner).'", a:"a sonné", w:["sonnait","sonnera","sonne"], lv:3},
+  {q:"Le passé composé exprime :", a:"une action ponctuelle terminée", w:["une description de fond","une habitude passée","un état continu"], lv:3},
+  {q:"'Hier, je ___ (travailler) quand mon ami ___ (appeler).'", a:"travaillais / a appelé", w:["ai travaillé / appelait","travaillais / appelait","ai travaillé / a appelé"], lv:4},
+
+  // ══════════════════════════════════════════════════
+  // L15 — CONDITIONNEL PRÉSENT
+  // ══════════════════════════════════════════════════
+  {q:"Conditionnel de AIMER : 'J'___ visiter Paris.'", a:"aimerais", lv:3},
+  {q:"Conditionnel de ÊTRE : 'Ce ___ formidable !'", a:"serait", lv:3},
+  {q:"Conditionnel de AVOIR : 'Nous ___ besoin d'aide.'", a:"aurions", lv:3},
+  {q:"Complétez : 'Si j'avais le temps, je ___ (voyager).'", a:"voyagerais", lv:3},
+  {q:"Pour une demande polie, on utilise :", a:"le conditionnel", w:["le futur simple","l'imparfait","le présent"], lv:3},
+  {q:"Complétez : '___ vous me dire l'heure ?' (poli)", a:"Pourriez", w:["Pouvez","Pouviez","Pourrez"], lv:4},
+
+  // ══════════════════════════════════════════════════
+  // L16 — VERBES PRONOMINAUX
+  // ══════════════════════════════════════════════════
+  {q:"Conjuguez SE LEVER : 'Je ___ à 7h.'", a:"me lève", lv:2},
+  {q:"Conjuguez SE COUCHER : 'Ils ___ tard.'", a:"se couchent", lv:2},
+  {q:"Conjuguez S'HABILLER : 'Tu ___ vite ?'", a:"t'habilles", lv:2},
+  {q:"Conjuguez SE DÉPÊCHER : 'Nous ___.'", a:"nous dépêchons", lv:3},
+  {q:"Mettez à la négative : 'Elle se lève tôt.' →", a:"Elle ne se lève pas tôt.", w:["Elle se ne lève pas tôt.","Elle ne lève pas se tôt.","Elle se lève ne pas tôt."], lv:2},
+
+  // ══════════════════════════════════════════════════
+  // L17 — PRONOMINAUX AU PASSÉ COMPOSÉ
+  // ══════════════════════════════════════════════════
+  {q:"PC de SE LEVER : 'Elle ___ à 6h.'", a:"s'est levée", w:["s'a levée","a se levée","se est levée"], lv:3},
+  {q:"PC de SE RENCONTRER : 'Ils ___ en 2010.'", a:"se sont rencontrés", w:["s'ont rencontré","se sont rencontré","ont se rencontré"], lv:3},
+  {q:"Accord du PP : 'Elles ___ (se lever).'", a:"se sont levées", w:["se sont levé","se sont levés","s'ont levées"], lv:4},
+  {q:"PC de SE PARLER : accord ? 'Elles se sont parlé.' — Pourquoi pas d'accord ?", a:"parler est un verbe avec COI indirect (se = l'une à l'autre)", w:["on accorde toujours avec être","les pronominaux réciproques s'accordent toujours","c'est une exception au passé simple"], lv:5},
+
+  // ══════════════════════════════════════════════════
+  // L18 — SUBJONCTIF PRÉSENT
+  // ══════════════════════════════════════════════════
+  {q:"Subjonctif de PARLER : 'Il faut que tu ___.'", a:"parles", lv:4},
+  {q:"Subjonctif de FINIR : 'Je veux qu'elle ___.'", a:"finisse", lv:4},
+  {q:"Subjonctif de ÊTRE : 'Bien qu'il ___ fatigué…'", a:"soit", w:["est","sera","serait"], lv:4},
+  {q:"Subjonctif de AVOIR : 'Il faut que vous ___ de la patience.'", a:"ayez", w:["avez","aurez","aviez"], lv:4},
+  {q:"Subjonctif de ALLER : 'Je doute qu'il ___ venir.'", a:"aille", w:["va","ira","allait"], lv:5},
+  {q:"Quelle expression déclenche le subjonctif ?", a:"il faut que", w:["je pense que","je sais que","il est certain que"], lv:4},
+
+  // ══════════════════════════════════════════════════
+  // L19 — SUBJONCTIF PASSÉ
+  // ══════════════════════════════════════════════════
+  {q:"Subjonctif passé de PARTIR : 'Je suis content qu'elle ___.'", a:"soit partie", w:["est partie","ait partie","soit parti"], lv:5},
+  {q:"Subjonctif passé de FAIRE : 'Bien qu'il ___ une erreur…'", a:"ait fait", w:["a fait","avait fait","aurait fait"], lv:5},
+  {q:"Le subjonctif passé exprime :", a:"une action antérieure à l'action principale", w:["une action simultanée","une action future","une action habituelle"], lv:5},
+
+  // ══════════════════════════════════════════════════
+  // L20 — ADJECTIFS
+  // ══════════════════════════════════════════════════
+  {q:"Accordez : 'une femme ___' (ambitieux)", a:"ambitieuse", lv:2},
+  {q:"Accordez : 'des hommes ___' (courageux)", a:"courageux", lv:2},
+  {q:"Placez l'adjectif : 'une ___ maison' (grand) — BANGS", a:"grande maison", w:["maison grande","grande maisons","maisons grands"], lv:3},
+  {q:"'Un homme grand' vs 'un grand homme' — quelle différence ?", a:"grand homme = great man / homme grand = tall man", w:["aucune différence","grand homme = tall man","homme grand = great man"], lv:4},
+  {q:"Accordez : 'des filles ___' (discret)", a:"discrètes", lv:3},
+
+  // ══════════════════════════════════════════════════
+  // L21 — ADVERBES
+  // ══════════════════════════════════════════════════
+  {q:"Formez l'adverbe de 'lent' :", a:"lentement", lv:2},
+  {q:"Formez l'adverbe de 'précis' :", a:"précisément", lv:3},
+  {q:"Quel est l'adverbe irrégulier de 'bon' ?", a:"bien", w:["bonnement","bonement","biennement"], lv:2},
+  {q:"Quel est l'adverbe irrégulier de 'mauvais' ?", a:"mal", w:["mauvaisement","mauvaisément","malement"], lv:2},
+  {q:"Où se place l'adverbe avec un temps simple ? 'Il chante ___.' (bien)", a:"Il chante bien.", w:["Il bien chante.","Bien il chante.","Il chante-bien."], lv:3},
+
+  // ══════════════════════════════════════════════════
+  // L22 — PRONOMS COD & COI
+  // ══════════════════════════════════════════════════
+  {q:"Remplacez le COD : 'Je mange la pomme.' →", a:"Je la mange.", w:["Je le mange.","Je lui mange.","Je en mange."], lv:2},
+  {q:"Remplacez le COD : 'Il regarde les films.' →", a:"Il les regarde.", w:["Il leur regarde.","Il le regarde.","Il en regarde."], lv:2},
+  {q:"Remplacez le COI : 'Elle parle à Marie.' →", a:"Elle lui parle.", w:["Elle la parle.","Elle leur parle.","Elle le parle."], lv:3},
+  {q:"Remplacez le COI : 'Il envoie un mail à ses parents.' →", a:"Il leur envoie un mail.", w:["Il lui envoie un mail.","Il les envoie un mail.","Il leur envoie les mail."], lv:3},
+  {q:"Au PC avec COD antéposé : 'La lettre que j'ai ___.' (écrire)", a:"écrite", w:["écrit","écrits","écrites"], lv:4},
+
+  // ══════════════════════════════════════════════════
+  // L23 — PRONOMS Y & EN
+  // ══════════════════════════════════════════════════
+  {q:"Remplacez : 'Je vais à Paris.' →", a:"J'y vais.", w:["J'en vais.","Je lui vais.","Je le vais."], lv:2},
+  {q:"Remplacez : 'Elle parle de son voyage.' →", a:"Elle en parle.", w:["Elle y parle.","Elle lui parle.","Elle le parle."], lv:3},
+  {q:"Remplacez : 'Il mange des pommes.' →", a:"Il en mange.", w:["Il y mange.","Il les mange.","Il le mange."], lv:2},
+  {q:"Y remplace :", a:"un lieu ou à + chose/idée", w:["de + chose","un COD direct","un pronom tonique"], lv:3},
+
+  // ══════════════════════════════════════════════════
+  // L24 — DOUBLES PRONOMS
+  // ══════════════════════════════════════════════════
+  {q:"Remplacez : 'Il me donne le livre.' →", a:"Il me le donne.", w:["Il le me donne.","Il lui me donne.","Il me lui donne."], lv:4},
+  {q:"Remplacez : 'Elle lui envoie les documents.' →", a:"Elle les lui envoie.", w:["Elle lui les envoie.","Elle le lui envoie.","Elle leur les envoie."], lv:4},
+  {q:"À l'impératif affirmatif : 'Donne-le-moi.' — ordre correct ?", a:"verbe - COD - COI (moi/toi)", w:["COI - COD - verbe","verbe - COI - COD","COD - verbe - COI"], lv:4},
+  {q:"Ordre canonique des pronoms : me/te/se/nous/vous vient :", a:"avant le/la/les", w:["après le/la/les","après lui/leur","avant y/en toujours"], lv:4},
+
+  // ══════════════════════════════════════════════════
+  // L25 — PRONOMS RELATIFS
+  // ══════════════════════════════════════════════════
+  {q:"Complétez : 'C'est l'homme ___ travaille ici.'", a:"qui", w:["que","dont","où"], lv:3},
+  {q:"Complétez : 'C'est le film ___ j'ai vu hier.'", a:"que", w:["qui","dont","lequel"], lv:3},
+  {q:"Complétez : 'C'est la ville ___ je suis né.'", a:"où", w:["qui","que","dont"], lv:3},
+  {q:"Complétez : 'C'est le livre ___ j'ai besoin.' (avoir besoin de)", a:"dont", w:["que","qui","lequel"], lv:4},
+  {q:"Complétez : 'La table sur ___ il travaille est grande.'", a:"laquelle", w:["lequel","lesquels","dont"], lv:5},
+  {q:"DONT peut remplacer :", a:"de + nom / verbe avec de", w:["à + nom","sur + nom","par + nom"], lv:4},
+
+  // ══════════════════════════════════════════════════
+  // L26 — ADJECTIFS POSSESSIFS
+  // ══════════════════════════════════════════════════
+  {q:"Complétez : '___ amie s'appelle Léa.' (my — feminine)", a:"Mon", w:["Ma","Mes","Son"], lv:1},
+  {q:"Pourquoi 'mon amie' et pas 'ma amie' ?", a:"élision devant voyelle : ma → mon", w:["amie est masculin","règle du pluriel","exception arbitraire"], lv:2},
+  {q:"Complétez : '___ parents habitent à Lyon.' (their)", a:"Leurs", w:["Leur","Son","Ses"], lv:2},
+  {q:"Complétez : 'Il a mal à ___ tête.' (his)", a:"la", w:["sa","son","une"], lv:3},
+  {q:"'Son chien' peut désigner :", a:"son chien à lui ou à elle", w:["uniquement son chien à lui","uniquement son chien à elle","leur chien"], lv:2},
+
+  // ══════════════════════════════════════════════════
+  // L27 — PRÉPOSITIONS
+  // ══════════════════════════════════════════════════
+  {q:"Complétez : 'Je vais ___ Paris.'", a:"à", w:["en","dans","chez"], lv:1},
+  {q:"Complétez : 'Elle habite ___ France.'", a:"en", w:["à","au","dans"], lv:1},
+  {q:"Complétez : 'Il habite ___ Japon.'", a:"au", w:["en","à","dans"], lv:1},
+  {q:"Complétez : 'Ils sont ___ États-Unis.'", a:"aux", w:["en","au","à"], lv:2},
+  {q:"Complétez : 'Le chat est ___ le canapé.'", a:"sur", w:["dans","sous","chez"], lv:1},
+  {q:"Complétez : 'Elle va ___ le médecin.'", a:"chez", w:["à","en","dans"], lv:1},
+  {q:"Complétez : 'J'étudie le français ___ deux ans.' (ongoing)", a:"depuis", w:["pendant","pour","en"], lv:2},
+  {q:"Complétez : 'J'ai travaillé ___ trois heures.' (finished)", a:"pendant", w:["depuis","pour","en"], lv:2},
+  {q:"Complétez : 'Il part ___ trois semaines.' (planned duration)", a:"pour", w:["pendant","depuis","en"], lv:3},
+  {q:"Complétez : 'Il part ___ deux jours.' (in two days from now)", a:"dans", w:["en","depuis","pour"], lv:2},
+  {q:"Complétez : 'On passe ___ Lyon pour aller à Nice.'", a:"par", w:["en","à","de"], lv:3},
+  {q:"Complétez : 'La pharmacie est ___ proximité de la gare.'", a:"à", w:["en","dans","de"], lv:3},
+];
+
+// ================================================================
+// HELPERS
+// ================================================================
+function shuffle(a){ return [...a].sort(()=>Math.random()-0.5); }
+function norm(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêëě]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/['']/g,"'").replace(/\s+/g,' ').replace(/[.!?…]+$/,'');
+}
+function esc(s){ return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+// ================================================================
+// STATE
+// ================================================================
+let selectedLevel=2, selectedLen=20;
+let exercises=[], answered=0, correct=0;
+
+function selectLevel(lv,btn){
+  const map={A1:1,A2:2,B1:3,B2:4,C1:5};
+  selectedLevel=map[lv];
+  document.querySelectorAll('.lv-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function selectLen(n,btn){
+  selectedLen=n;
+  document.querySelectorAll('.len-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ================================================================
+// START
+// ================================================================
+function startExam(){
+  const container=document.getElementById('examContainer');
+  container.innerHTML=''; exercises=[]; answered=0; correct=0;
+
+  // pool = questions at or below selectedLevel
+  let pool=BANK.filter(q=>q.lv<=selectedLevel);
+  // shuffle and take N
+  const items=shuffle(pool).slice(0,Math.min(selectedLen,pool.length));
+
+  document.getElementById('progressSection').style.display='block';
+  updateProgress(0,items.length);
+
+  items.forEach((item,idx)=>{
+    if(item.w) renderMCQ(container,idx,item);
+    else       renderInput(container,idx,item);
+    exercises.push({id:idx,answer:norm(item.a),answered:false,correct:false});
+  });
+
+  // scroll to first question
+  setTimeout(()=>{ container.scrollIntoView({behavior:'smooth',block:'start'}); },200);
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function renderMCQ(container,idx,item){
+  const opts=shuffle([item.a,...item.w].slice(0,4));
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  const choices=opts.map(c=>
+    `<button class="choice-btn" onclick="checkMCQ(${idx},this)">${c}</button>`
+  ).join('');
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div class="q-text">${item.q}</div>
+    ${item.en?`<div class="q-en">${item.en}</div>`:''}
+    <div class="choices" id="choices-${idx}">${choices}</div>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+function renderInput(container,idx,item){
+  const card=document.createElement('div');
+  card.className='exercise-card'; card.id=`card-${idx}`;
+  const w=item.a.length>18?'100%;max-width:540px':item.a.length>9?'280px;max-width:100%':'200px;max-width:100%';
+  card.innerHTML=`
+    <div class="card-num">${String(idx+1).padStart(2,'0')}</div>
+    <div class="q-text">${item.q}</div>
+    ${item.en?`<div class="q-en">${item.en}</div>`:''}
+    <input class="answer-input" id="input-${idx}" placeholder=""
+      style="width:${w}" autocomplete="off" autocorrect="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter')doCheck(${idx})">
+    <button class="check-btn" onclick="doCheck(${idx})">VÉRIFIER</button>
+    <div class="feedback" id="feedback-${idx}"><span class="feedback-icon"></span><span class="feedback-msg"></span></div>`;
+  container.appendChild(card);
+}
+
+// ================================================================
+// CHECK
+// ================================================================
+function doCheck(idx){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const input=document.getElementById(`input-${idx}`);
+  const isOk=norm(input.value)===ex.answer;
+  input.disabled=true; input.classList.add(isOk?'correct':'incorrect');
+  document.querySelectorAll(`#card-${idx} .check-btn`).forEach(b=>b.disabled=true);
+  showFeedback(idx,isOk,ex.answer); mark(idx,isOk);
+}
+function checkMCQ(idx,btn){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  const chosen=norm(btn.textContent.trim());
+  const isOk=chosen===ex.answer;
+  document.querySelectorAll(`#choices-${idx} .choice-btn`).forEach(b=>{
+    b.classList.add('disabled');
+    if(norm(b.textContent.trim())===ex.answer) b.classList.add('reveal-correct');
+  });
+  btn.classList.remove('disabled'); btn.classList.add(isOk?'selected-correct':'selected-wrong');
+  showFeedback(idx,isOk,ex.answer); mark(idx,isOk);
+}
+function showFeedback(idx,isOk,display){
+  const fb=document.getElementById(`feedback-${idx}`); if(!fb) return;
+  fb.className=`feedback ${isOk?'success':'error'} show`;
+  fb.querySelector('.feedback-icon').textContent=isOk?'✓':'✗';
+  fb.querySelector('.feedback-msg').innerHTML=isOk
+    ?`<strong>Correct !</strong> ${display}`
+    :`<strong>Réponse attendue :</strong> ${display}`;
+}
+function mark(idx,isOk){
+  const ex=exercises.find(e=>e.id===idx); if(!ex||ex.answered) return;
+  ex.answered=true; ex.correct=isOk; answered++; if(isOk) correct++;
+  document.getElementById(`card-${idx}`)?.classList.add('active-card');
+  updateProgress(answered,exercises.length);
+  if(answered===exercises.length) setTimeout(showScore,800);
+}
+function updateProgress(done,total){
+  document.getElementById('scoreDisplay').textContent=`${correct} / ${total}`;
+  document.getElementById('progressFill').style.width=total>0?(done/total*100)+'%':'0%';
+}
+
+// ================================================================
+// SCORE
+// ================================================================
+function showScore(){
+  const t=exercises.length; const pct=t?Math.round(correct/t*100):0;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=t-correct;
+  document.getElementById('totalCount').textContent=t;
+  document.getElementById('scorePct').textContent=pct+'%';
+
+  // level badge
+  const lvLabels={1:'A1',2:'A2',3:'B1',4:'B2',5:'C1'};
+  const lvColors={1:'rgba(74,222,128,.15)',2:'rgba(0,245,255,.1)',3:'rgba(180,79,255,.12)',4:'rgba(255,209,102,.1)',5:'rgba(251,113,133,.1)'};
+  const lvBorders={1:'#4ade80',2:'var(--cyan)',3:'#d8a8ff',4:'var(--gold)',5:'#fb7185'};
+  const badge=document.getElementById('scoreLevelBadge');
+  badge.textContent='NIVEAU '+lvLabels[selectedLevel];
+  badge.style.background=lvColors[selectedLevel];
+  badge.style.border='1px solid '+lvBorders[selectedLevel];
+  badge.style.color=lvBorders[selectedLevel];
+
+  let emoji,title,sub;
+  if(pct>=90){emoji='🏆';title='EXCELLENT';sub='Maîtrise remarquable — vous dominez ce niveau.';}
+  else if(pct>=75){emoji='🎓';title='TRÈS BIEN';sub='Solide — quelques points à consolider.';}
+  else if(pct>=60){emoji='💪';title='BIEN';sub='Bon niveau — révisez les leçons sur lesquelles vous avez trébuché.';}
+  else if(pct>=40){emoji='📚';title='EN PROGRÈS';sub='Continuez à pratiquer — relisez les leçons concernées.';}
+  else{emoji='🔄';title='À RETRAVAILLER';sub='Reprenez les leçons depuis le début et retentez l\'examen.';}
+
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scoreTitle').textContent=title;
+  document.getElementById('scoreSubtitle').textContent=sub;
+  document.getElementById('scorePopup').classList.add('show');
+}
+function closePopup(){ document.getElementById('scorePopup').classList.remove('show'); }
+function restartExam(){ closePopup(); window.scrollTo({top:0,behavior:'smooth'}); startExam(); }
+</script>
+</body>
+</html>
