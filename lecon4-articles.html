@@ -393,7 +393,7 @@
     font-size:1.15rem;
     font-weight:600;
     background:var(--bg2);
-    border:1px solid var(--border);
+    border:1px solid var(--border2);
     border-radius:8px;
     padding:0.38rem 0.85rem;
     cursor:pointer;
@@ -401,11 +401,12 @@
     user-select:none;
     min-width:52px;
     text-align:center;
+    color:var(--text);
   }
-  .art-chip:hover{border-color:var(--border2);}
-  .art-chip.chosen   {border-color:var(--def);background:#4ea8de10;color:var(--def);}
-  .art-chip.chip-ok  {border-color:var(--success);background:#3ab87e10;color:var(--success);cursor:default;}
-  .art-chip.chip-bad {border-color:var(--error);  background:#e055550d;color:var(--error); cursor:default;}
+  .art-chip:hover{ border-color:var(--def); background:#4ea8de0a; color:var(--text); }
+  .art-chip.chosen   { border-color:var(--def); background:#4ea8de18; color:#ffffff; font-weight:700; }
+  .art-chip.chip-ok  { border-color:var(--success); background:#3ab87e18; color:var(--success); cursor:default; font-weight:700; }
+  .art-chip.chip-bad { border-color:var(--error);   background:#e055550d; color:var(--error);   cursor:default; }
 
   /* Text input */
   .input-row{display:flex;gap:0.6rem;}
@@ -815,19 +816,243 @@ const CONTEXT_PAIRS = [
   },
 ];
 
-// Simple sentence templates for article fill-in
-const SENTENCE_TEMPLATES = [
-  (n)=>`Je mange ${n.def} ${n.fr} tous les jours.`,
-  (n)=>`Il achète ${n.indef} ${n.fr} au marché.`,
-  (n)=>`Nous adorons ${n.def} ${n.fr}.`,
-  (n)=>`C'est ${n.indef} ${n.fr} très intéressant.`,
-  (n)=>`Tu vois ${n.def} ${n.fr} là-bas ?`,
-  (n)=>`Elle prend ${n.indef} ${n.fr} et part.`,
-  (n)=>`Ce soir, je lis ${n.def} ${n.fr}.`,
-  (n)=>`Ils cherchent ${n.indef} ${n.fr} pour leur appartement.`,
-  (n)=>`Le professeur montre ${n.def} ${n.fr} à la classe.`,
-  (n)=>`On a besoin de ${n.indef} ${n.fr} pour cuisiner.`,
+// Each noun gets a semantic 'cat' tag used to pick a contextually valid template.
+// We also store 'adj' for gender agreement in adjectival templates.
+// Tags: obj, food, place, person, animal, nature, abstract, body, clothing, vehicle
+
+// Augment each noun with a category and adjective pool
+const NOUN_META = {
+  // objects
+  'livre':       {cat:'obj',    adjm:['intéressant','vieux','petit','rouge'],      adjf:[]},
+  'stylo':       {cat:'obj',    adjm:['rouge','bleu','noir','cassé'],              adjf:[]},
+  'cahier':      {cat:'obj',    adjm:['neuf','bleu','ouvert','petit'],             adjf:[]},
+  'sac':         {cat:'obj',    adjm:['grand','lourd','rouge','fermé'],            adjf:[]},
+  'bureau':      {cat:'obj',    adjm:['grand','petit','encombré','neuf'],          adjf:[]},
+  'tableau':     {cat:'obj',    adjm:['grand','vieux','célèbre','coloré'],         adjf:[]},
+  'téléphone':   {cat:'obj',    adjm:['neuf','cassé','vieux'],                     adjf:[]},
+  'ordinateur':  {cat:'obj',    adjm:['neuf','lent','rapide','puissant'],          adjf:[]},
+  'clavier':     {cat:'obj',    adjm:['cassé','neuf','sans fil'],                  adjf:[]},
+  'écran':       {cat:'obj',    adjm:['grand','petit','noir'],                     adjf:[]},
+  'chapeau':     {cat:'clothing',adjm:['rouge','élégant','grand','vieux'],         adjf:[]},
+  'manteau':     {cat:'clothing',adjm:['chaud','bleu','léger','élégant'],          adjf:[]},
+  'portefeuille':{cat:'obj',    adjm:['vieux','plein','perdu'],                    adjf:[]},
+  'journal':     {cat:'obj',    adjm:['ancien','local','intéressant'],             adjf:[]},
+  'dictionnaire':{cat:'obj',    adjm:['bilingue','vieux','lourd','utile'],         adjf:[]},
+  'parapluie':   {cat:'obj',    adjm:['rouge','cassé','grand'],                    adjf:[]},
+  'miroir':      {cat:'obj',    adjm:['grand','cassé','ancien'],                   adjf:[]},
+  'coussin':     {cat:'obj',    adjm:['confortable','rouge','doux'],               adjf:[]},
+  'rideau':      {cat:'obj',    adjm:['rouge','lourd','ouvert'],                   adjf:[]},
+  'tiroir':      {cat:'obj',    adjm:['petit','ouvert','fermé'],                   adjf:[]},
+  'table':       {cat:'obj',    adjm:[],  adjf:['grande','petite','ronde','solide']},
+  'chaise':      {cat:'obj',    adjm:[],  adjf:['confortable','cassée','rouge','petite']},
+  'fenêtre':     {cat:'obj',    adjm:[],  adjf:['grande','ouverte','cassée','propre']},
+  'porte':       {cat:'obj',    adjm:[],  adjf:['grande','fermée','ouverte','bleue']},
+  'lampe':       {cat:'obj',    adjm:[],  adjf:['petite','rouge','ancienne','allumée']},
+  'trousse':     {cat:'obj',    adjm:[],  adjf:['rouge','pleine','bleue']},
+  'gomme':       {cat:'obj',    adjm:[],  adjf:['petite','usée','blanche']},
+  'règle':       {cat:'obj',    adjm:[],  adjf:['longue','droite','bleue']},
+  'valise':      {cat:'obj',    adjm:[],  adjf:['grande','lourde','rouge','perdue']},
+  'montre':      {cat:'obj',    adjm:[],  adjf:['ancienne','belle','cassée']},
+  'clé':         {cat:'obj',    adjm:[],  adjf:['petite','perdue','rouillée']},
+  'bouteille':   {cat:'food',   adjm:[],  adjf:['grande','pleine','vide']},
+  'tasse':       {cat:'food',   adjm:[],  adjf:['petite','chaude','cassée']},
+  'assiette':    {cat:'food',   adjm:[],  adjf:['grande','propre','cassée']},
+  'serviette':   {cat:'obj',    adjm:[],  adjf:['blanche','propre','petite']},
+  'robe':        {cat:'clothing',adjm:[], adjf:['belle','rouge','longue','neuve']},
+  'chaussure':   {cat:'clothing',adjm:[], adjf:['rouge','vieille','petite']},
+  'veste':       {cat:'clothing',adjm:[], adjf:['bleue','neuve','élégante']},
+  'jupe':        {cat:'clothing',adjm:[], adjf:['courte','longue','rouge']},
+  'chemise':     {cat:'clothing',adjm:[], adjf:['blanche','propre','bleue']},
+  // food
+  'pain':        {cat:'food',   adjm:['chaud','frais','croustillant'],             adjf:[]},
+  'café':        {cat:'food',   adjm:['chaud','fort','froid'],                     adjf:[]},
+  'gâteau':      {cat:'food',   adjm:['délicieux','beau','petit','énorme'],        adjf:[]},
+  'vin':         {cat:'food',   adjm:['rouge','blanc','excellent','froid'],        adjf:[]},
+  'fromage':     {cat:'food',   adjm:['délicieux','fort','vieux'],                 adjf:[]},
+  'repas':       {cat:'food',   adjm:['bon','chaud','léger','équilibré'],          adjf:[]},
+  'dessert':     {cat:'food',   adjm:['délicieux','sucré','léger'],                adjf:[]},
+  'plat':        {cat:'food',   adjm:['chaud','délicieux','léger','épicé'],        adjf:[]},
+  'menu':        {cat:'food',   adjm:['varié','court','intéressant'],              adjf:[]},
+  'recette':     {cat:'food',   adjm:[],  adjf:['simple','bonne','ancienne']},
+  'pomme':       {cat:'food',   adjm:[],  adjf:['rouge','verte','sucrée']},
+  'salade':      {cat:'food',   adjm:[],  adjf:['fraîche','verte','bonne']},
+  'soupe':       {cat:'food',   adjm:[],  adjf:['chaude','bonne','légère']},
+  'tarte':       {cat:'food',   adjm:[],  adjf:['bonne','chaude','sucrée']},
+  'pizza':       {cat:'food',   adjm:[],  adjf:['bonne','grande','chaude']},
+  // places
+  'restaurant':  {cat:'place',  adjm:['bon','grand','nouveau','cher'],             adjf:[]},
+  'café':        {cat:'place',  adjm:['petit','agréable','ouvert'],                adjf:[]},  // also food but place works
+  'musée':       {cat:'place',  adjm:['grand','célèbre','beau','nouveau'],         adjf:[]},
+  'cinéma':      {cat:'place',  adjm:['grand','vieux','moderne'],                  adjf:[]},
+  'théâtre':     {cat:'place',  adjm:['grand','ancien','beau','célèbre'],          adjf:[]},
+  'hôpital':     {cat:'place',  adjm:['grand','nouveau','proche'],                 adjf:[]},
+  'marché':      {cat:'place',  adjm:['grand','local','animé'],                    adjf:[]},
+  'jardin':      {cat:'place',  adjm:['grand','beau','calme'],                     adjf:[]},
+  'salon':       {cat:'place',  adjm:['grand','petit','confortable'],              adjf:[]},
+  'couloir':     {cat:'place',  adjm:['long','sombre','étroit'],                   adjf:[]},
+  'garage':      {cat:'place',  adjm:['grand','plein','vide'],                     adjf:[]},
+  'grenier':     {cat:'place',  adjm:['grand','plein','sombre'],                   adjf:[]},
+  'classe':      {cat:'place',  adjm:[],  adjf:['grande','calme','petite']},
+  'cuisine':     {cat:'place',  adjm:[],  adjf:['grande','propre','moderne']},
+  'chambre':     {cat:'place',  adjm:[],  adjf:['grande','petite','confortable']},
+  'maison':      {cat:'place',  adjm:[],  adjf:['grande','belle','vieille']},
+  'école':       {cat:'place',  adjm:[],  adjf:['grande','petite','publique']},
+  'bibliothèque':{cat:'place',  adjm:[],  adjf:['grande','calme','ancienne']},
+  'pharmacie':   {cat:'place',  adjm:[],  adjf:['proche','grande']},
+  'boulangerie': {cat:'place',  adjm:[],  adjf:['proche','bonne','petite']},
+  'librairie':   {cat:'place',  adjm:[],  adjf:['petite','belle','ancienne']},
+  'rue':         {cat:'place',  adjm:[],  adjf:['longue','calme','animée']},
+  'ville':       {cat:'place',  adjm:[],  adjf:['grande','belle','animée']},
+  // animals
+  'chien':       {cat:'animal', adjm:['grand','petit','gentil','noir'],            adjf:[]},
+  'chat':        {cat:'animal', adjm:['gros','petit','noir','roux'],               adjf:[]},
+  'oiseau':      {cat:'animal', adjm:['petit','beau','blanc','chanteur'],          adjf:[]},
+  'lapin':       {cat:'animal', adjm:['petit','blanc','gris'],                     adjf:[]},
+  'cheval':      {cat:'animal', adjm:['grand','beau','rapide','noir'],             adjf:[]},
+  'poisson':     {cat:'animal', adjm:['petit','rouge','coloré'],                   adjf:[]},
+  'tortue':      {cat:'animal', adjm:[],  adjf:['petite','lente','ancienne']},
+  'souris':      {cat:'animal', adjm:[],  adjf:['petite','grise','rapide']},
+  'vache':       {cat:'animal', adjm:[],  adjf:['grande','calme','blanche']},
+  // people / professions
+  'médecin':     {cat:'person', adjm:['bon','nouveau','célèbre'],                  adjf:[]},
+  'professeur':  {cat:'person', adjm:['bon','nouveau','strict'],                   adjf:[]},
+  'directeur':   {cat:'person', adjm:['nouveau','strict','sympathique'],           adjf:[]},
+  'cuisinier':   {cat:'person', adjm:['bon','talentueux'],                         adjf:[]},
+  'ingénieur':   {cat:'person', adjm:['talentueux','nouveau'],                     adjf:[]},
+  'photographe': {cat:'person', adjm:['célèbre','talentueux'],                     adjf:[]},
+  'acteur':      {cat:'person', adjm:['célèbre','talentueux','jeune'],             adjf:[]},
+  'infirmière':  {cat:'person', adjm:[],  adjf:['gentille','compétente']},
+  'secrétaire':  {cat:'person', adjm:[],  adjf:['efficace','nouvelle']},
+  'vendeuse':    {cat:'person', adjm:[],  adjf:['sympathique','nouvelle']},
+  'directrice':  {cat:'person', adjm:[],  adjf:['nouvelle','stricte','efficace']},
+  // nature
+  'soleil':      {cat:'nature', adjm:['beau','chaud','brillant'],                  adjf:[]},
+  'ciel':        {cat:'nature', adjm:['bleu','gris','beau'],                       adjf:[]},
+  'vent':        {cat:'nature', adjm:['fort','léger','froid','chaud'],             adjf:[]},
+  'nuage':       {cat:'nature', adjm:['gros','blanc','gris'],                      adjf:[]},
+  'arbre':       {cat:'nature', adjm:['grand','vieux','beau'],                     adjf:[]},
+  'fleuve':      {cat:'nature', adjm:['grand','long','calme'],                     adjf:[]},
+  'fleur':       {cat:'nature', adjm:[],  adjf:['belle','petite','rouge']},
+  'forêt':       {cat:'nature', adjm:[],  adjf:['grande','sombre','belle']},
+  'plage':       {cat:'nature', adjm:[],  adjf:['belle','longue','calme']},
+  'montagne':    {cat:'nature', adjm:[],  adjf:['grande','belle','haute']},
+  // abstract / time
+  'matin':       {cat:'time',   adjm:['beau','calme','froid','tôt'],               adjf:[]},
+  'soir':        {cat:'time',   adjm:['beau','calme','frais','long'],              adjf:[]},
+  'lendemain':   {cat:'time',   adjm:['beau','difficile'],                         adjf:[]},
+  'printemps':   {cat:'season', adjm:['beau','doux','court'],                      adjf:[]},
+  'été':         {cat:'season', adjm:['beau','chaud','long'],                      adjf:[]},
+  'automne':     {cat:'season', adjm:['beau','court','pluvieux'],                  adjf:[]},
+  'hiver':       {cat:'season', adjm:['froid','dur','long','doux'],                adjf:[]},
+  'rêve':        {cat:'abstract',adjm:['beau','grand','impossible'],               adjf:[]},
+  'problème':    {cat:'abstract',adjm:['grand','petit','difficile','complexe'],    adjf:[]},
+  'voyage':      {cat:'abstract',adjm:['beau','long','court','magnifique'],        adjf:[]},
+  'bonheur':     {cat:'abstract',adjm:['grand','vrai','simple'],                   adjf:[]},
+  'bruit':       {cat:'abstract',adjm:['fort','étrange','bizarre'],                adjf:[]},
+  'nuit':        {cat:'time',   adjm:[],  adjf:['belle','longue','calme','froide']},
+  'semaine':     {cat:'time',   adjm:[],  adjf:['longue','courte','difficile','chargée']},
+  'saison':      {cat:'season', adjm:[],  adjf:['belle','courte','froide','chaude']},
+  'question':    {cat:'abstract',adjm:[], adjf:['bonne','difficile','simple','importante']},
+  'réponse':     {cat:'abstract',adjm:[], adjf:['bonne','rapide','courte','correcte']},
+  'chanson':     {cat:'abstract',adjm:[], adjf:['belle','connue','courte','longue']},
+  'liberté':     {cat:'abstract',adjm:[], adjf:['grande','vraie','précieuse']},
+  'vérité':      {cat:'abstract',adjm:[], adjf:['vraie','difficile','importante']},
+  'beauté':      {cat:'abstract',adjm:[], adjf:['grande','vraie','naturelle']},
+  'chance':      {cat:'abstract',adjm:[], adjf:['grande','vraie','incroyable']},
+  'décision':    {cat:'abstract',adjm:[], adjf:['bonne','difficile','importante']},
+};
+
+// Contextually valid templates per category
+// Each entry: { tpl: fn(n, adj) => string, cats: [...], needAdj: bool }
+const TPLS = [
+  // ── Universal (works for any concrete noun) ──
+  { tpl:(n,adj)=>`Je cherche ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['obj','food','place','animal','clothing','vehicle'], needAdj:false },
+  { tpl:(n,adj)=>`Il regarde ${n.def} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['obj','animal','place','clothing'], needAdj:false },
+  { tpl:(n,adj)=>`Nous avons acheté ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['obj','food','clothing','vehicle'], needAdj:false },
+  { tpl:(n,adj)=>`Tu vois ${n.def} ${n.fr}${adj?' là-bas':''} ?`,
+    cats:['obj','animal','place','nature','clothing'], needAdj:false },
+  // ── Food ──
+  { tpl:(n,adj)=>`Il mange ${n.def} ${n.fr}${adj?' '+adj:''} tous les jours.`,
+    cats:['food'], needAdj:false },
+  { tpl:(n,adj)=>`Elle prépare ${n.indef} ${n.fr}${adj?' '+adj:''} pour ce soir.`,
+    cats:['food'], needAdj:false },
+  { tpl:(n,adj)=>`On a besoin de ${n.indef} ${n.fr} pour cette recette.`,
+    cats:['food'], needAdj:false },
+  { tpl:(n,adj)=>`Le chef a commandé ${n.def} ${n.fr} au marché.`,
+    cats:['food'], needAdj:false },
+  { tpl:(n,adj)=>`J'adore ${n.def} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['food'], needAdj:false },
+  // ── Place ──
+  { tpl:(n,adj)=>`Nous allons visiter ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['place'], needAdj:false },
+  { tpl:(n,adj)=>`Il travaille dans ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['place'], needAdj:false },
+  { tpl:(n,adj)=>`La réunion a lieu dans ${n.def} ${n.fr}.`,
+    cats:['place'], needAdj:false },
+  { tpl:(n,adj)=>`${n.g==='f'?'La':'Le'} ${n.fr}${adj?' '+adj:''} est fermé${n.g==='f'?'e':''} aujourd'hui.`,
+    cats:['place'], needAdj:false },
+  // ── Person ──
+  { tpl:(n,adj)=>`C'est ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['person'], needAdj:false },
+  { tpl:(n,adj)=>`Elle a rencontré ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['person'], needAdj:false },
+  { tpl:(n,adj)=>`${n.g==='f'?'La':'Le'} ${n.fr}${adj?' '+adj:''} parle à ses étudiants.`,
+    cats:['person'], needAdj:false },
+  // ── Animal ──
+  { tpl:(n,adj)=>`${n.g==='f'?'La':'Le'} ${n.fr}${adj?' '+adj:''} dort sous ${n.g==='f'?'la':'le'} table.`,
+    cats:['animal'], needAdj:false },
+  { tpl:(n,adj)=>`Elle a adopté ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['animal'], needAdj:false },
+  { tpl:(n,adj)=>`Le vétérinaire soigne ${n.def} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['animal'], needAdj:false },
+  // ── Nature ──
+  { tpl:(n,adj)=>`${n.g==='f'?'La':'Le'} ${n.fr}${adj?' est '+adj:'  est magnifique'} aujourd'hui.`,
+    cats:['nature'], needAdj:false },
+  { tpl:(n,adj)=>`Nous admirons ${n.def} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['nature'], needAdj:false },
+  // ── Season / time ──
+  { tpl:(n,adj)=>`${n.g==='f'?'La':'Le'} ${n.fr}${adj?' est '+adj:' est agréable'} cette année.`,
+    cats:['season','time'], needAdj:false },
+  { tpl:(n,adj)=>`En général, j'aime ${n.def} ${n.fr}.`,
+    cats:['season','time','abstract'], needAdj:false },
+  // ── Abstract ──
+  { tpl:(n,adj)=>`${n.g==='f'?'La':'Le'} ${n.fr}${adj?' '+adj:''} est important${n.g==='f'?'e':''}.`,
+    cats:['abstract'], needAdj:false },
+  { tpl:(n,adj)=>`Nous discutons de ${n.def} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['abstract'], needAdj:false },
+  { tpl:(n,adj)=>`C'est ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['abstract'], needAdj:false },
+  // ── Clothing ──
+  { tpl:(n,adj)=>`Elle porte ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['clothing'], needAdj:false },
+  { tpl:(n,adj)=>`Il a acheté ${n.indef} ${n.fr}${adj?' '+adj:''}.`,
+    cats:['clothing'], needAdj:false },
+  // ── Object generic ──
+  { tpl:(n,adj)=>`Le professeur montre ${n.def} ${n.fr} à la classe.`,
+    cats:['obj'], needAdj:false },
+  { tpl:(n,adj)=>`J'ai trouvé ${n.indef} ${n.fr}${adj?' '+adj:''} par terre.`,
+    cats:['obj'], needAdj:false },
+  { tpl:(n,adj)=>`Ce soir, je lis ${n.def} ${n.fr}.`,
+    cats:['obj'], needAdj:false },
 ];
+
+// Build a contextually valid fill sentence for noun n
+function buildContextualSentence(n){
+  const meta = NOUN_META[n.fr];
+  const cat  = meta ? meta.cat : 'obj';
+  const pool = TPLS.filter(t => t.cats.includes(cat));
+  const tpl  = rand(pool.length ? pool : TPLS);
+  // Pick an adjective
+  let adj = '';
+  if(meta){
+    const adjPool = (n.g === 'f' ? meta.adjf : meta.adjm) || [];
+    if(adjPool.length) adj = rand(adjPool);
+  }
+  return tpl.tpl(n, adj);
+}
 
 const TRANSLATION_MAP = {
   'le':'the (m)',  'la':'the (f)', "l'":'the (elision)',
@@ -924,20 +1149,22 @@ function buildFillExercise(){
   const n = rand(NOUNS);
   const useIndef = Math.random()>0.5;
   const correct = useIndef ? n.indef : n.def;
-  const templateFn = rand(SENTENCE_TEMPLATES);
-  // Build the full sentence then blank the article
-  const full = templateFn(n);
-  const blanked = full.replace(correct+' '+n.fr, `______ ${n.fr}`);
+  // Build a contextually valid sentence
+  const full = buildContextualSentence(n);
+  // Blank the article (handles both "le/la/un/une/des/l'" before the noun)
+  const artPattern = new RegExp('\\b(' + [n.def, n.indef].map(a=>a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') + ')\\s' + n.fr.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'i');
+  const blanked = full.replace(artPattern, `______ ${n.fr}`);
   const allArts = shuffle(['le','la','les','un','une','des',"l'"]).slice(0,4);
   if(!allArts.includes(correct)) allArts[0]=correct;
   return {
     type: useIndef ? 'indef' : n.g==='e' ? 'elide' : 'def',
     sentence: blanked,
-    prompt:`Complétez la phrase avec le bon article :`,
+    rawSentence: blanked,
+    prompt:`Complétez avec le bon article :`,
     answer: correct,
     options: shuffle(allArts),
     hint:`💡 ${useIndef?'Article indéfini (un/une/des) — objet non spécifié':'Article défini (le/la/l\'/les) — objet spécifique ou en général'}`,
-    translation:`"${full}" (${TRANSLATION_MAP[correct]||correct} = ${n.en})`,
+    translation:`Phrase complète : « ${full} »`,
     es:`${n.g==='m'?'el/un':n.g==='f'?'la/una':n.g==='e'?'el·la/un·una':''} ${n.fr}`,
     isMultiChoice:true,
   };

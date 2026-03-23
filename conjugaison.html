@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entraîneur de Conjugaison — Frenchies Lessons</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440; --border:#1e2d4a;
+    --violet:#b44fff; --gold:#ffd166; --cyan:#00f5ff; --green:#06d6a0; --red:#ff4757;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; }
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(0,245,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.02) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .grid-bg::before{ content:''; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(180,79,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(180,79,255,0.012) 1px,transparent 1px);
+    background-size:280px 280px; }
+  .halo{ position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; }
+  .h1{ width:700px;height:700px;top:-240px;right:-200px;background:rgba(0,245,255,0.07); }
+  .h2{ width:560px;height:560px;bottom:-200px;left:-160px;background:rgba(180,79,255,0.06); }
+
+  .wrapper{ position:relative; z-index:1; max-width:780px; margin:0 auto; padding:36px 24px 80px; }
+
+  /* ── NAV ── */
+  .nav-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
+  .back-link{ display:inline-flex;align-items:center;gap:8px;
+    font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:3px;color:var(--text3);
+    text-decoration:none;transition:color .2s; }
+  .back-link:hover{ color:var(--text); }
+  .db-link{ display:inline-flex;align-items:center;gap:6px;
+    font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3px;
+    color:var(--text3);text-decoration:none;
+    border:1px solid var(--border);padding:6px 14px;border-radius:4px;background:var(--card);
+    transition:all .2s; }
+  .db-link:hover{ border-color:rgba(255,209,102,.4);color:var(--gold); }
+
+  /* ── HEADER ── */
+  header{ text-align:center; margin-bottom:40px; }
+  .conj-tag{ display:inline-flex;align-items:center;gap:8px;
+    font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:4px;color:var(--text3);
+    border:1px solid var(--border);padding:4px 14px;border-radius:2px;margin-bottom:14px;background:rgba(255,255,255,0.02); }
+  .dot{ width:5px;height:5px;border-radius:50%;background:var(--cyan);animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.2;transform:scale(1.6)} }
+  h1{ font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,84px);line-height:.9;letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--cyan) 45%,var(--violet) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px; }
+  .header-sub{ font-family:'DM Serif Display',serif;font-style:italic;font-size:16px;color:var(--text2); }
+
+  /* ── FILTER PANEL ── */
+  .filter-panel{ background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:28px; }
+  .fp-row{ display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:0; }
+  @media(max-width:500px){ .fp-row{ grid-template-columns:1fr; } }
+  .fp-field{ display:flex;flex-direction:column;gap:6px; }
+  .fp-label{ font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--text3); }
+  .fp-select{ background:var(--bg2);border:1px solid var(--border);color:var(--text);
+    font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 14px;
+    border-radius:8px;outline:none;cursor:pointer;transition:border-color .2s; }
+  .fp-select:focus{ border-color:rgba(0,245,255,.4); }
+  .fp-select option{ background:var(--card2); }
+
+  /* ── SCORE STRIP ── */
+  .score-strip{ display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    margin-bottom:24px; }
+  .ss-stats{ display:flex;gap:20px;align-items:baseline; }
+  .ss-stat{ text-align:center; }
+  .ss-num{ font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1; }
+  .ss-num.good{ color:var(--green); }
+  .ss-num.bad { color:var(--red); }
+  .ss-num.neu { color:var(--text2); }
+  .ss-lbl{ font-family:'Bebas Neue',sans-serif;font-size:9px;letter-spacing:2px;color:var(--text3); }
+  .progress-track{ flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;min-width:80px; }
+  .progress-fill{ height:100%;border-radius:2px;width:0%;
+    background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .5s cubic-bezier(.4,0,.2,1); }
+  .reset-btn{ font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;
+    padding:6px 16px;border-radius:4px;border:1px solid var(--border);background:transparent;
+    color:var(--text3);cursor:pointer;transition:all .2s; }
+  .reset-btn:hover{ border-color:rgba(255,71,87,.4);color:var(--red); }
+
+  /* ── MAIN CARD ── */
+  .verb-card{ background:var(--card);border:1px solid var(--border);border-radius:18px;
+    padding:36px 40px;margin-bottom:20px;text-align:center;position:relative;overflow:hidden;
+    transition:border-color .3s; }
+  .verb-card::before{ content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.6; }
+  .verb-card.correct-state{ border-color:rgba(6,214,160,.3); }
+  .verb-card.correct-state::before{ background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:1; }
+  .verb-card.wrong-state{ border-color:rgba(255,71,87,.25); }
+  .verb-card.wrong-state::before{ background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:1; }
+
+  /* tense + group badges */
+  .card-meta{ display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px; }
+  .meta-badge{ font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;
+    padding:4px 12px;border-radius:3px; }
+  .mb-tense{ background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.25);color:var(--cyan); }
+  .mb-group{ font-size:10px;padding:3px 10px; }
+  .mb-1er{ background:rgba(0,245,255,.07);border:1px solid rgba(0,245,255,.18);color:var(--cyan); }
+  .mb-2e { background:rgba(6,214,160,.07);border:1px solid rgba(6,214,160,.18);color:var(--green); }
+  .mb-3e { background:rgba(255,71,87,.07); border:1px solid rgba(255,71,87,.18); color:var(--red); }
+  .mb-aux{ background:rgba(255,209,102,.07);border:1px solid rgba(255,209,102,.18);color:var(--gold); }
+  .mb-pro{ background:rgba(180,79,255,.08);border:1px solid rgba(180,79,255,.2); color:#d8a8ff; }
+
+  /* the big pronoun */
+  .pronoun-display{ font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,3vw,18px);
+    letter-spacing:4px;color:var(--text3);margin-bottom:6px;text-transform:uppercase; }
+  /* the big verb */
+  .verb-infinitif{ font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,9vw,80px);
+    line-height:.9;letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--cyan) 60%,var(--violet) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    margin-bottom:4px; }
+  .verb-en{ font-family:'DM Serif Display',serif;font-style:italic;font-size:16px;color:var(--text3);margin-bottom:28px; }
+
+  /* input zone */
+  .input-zone{ display:flex;flex-direction:column;align-items:center;gap:12px; }
+  .conj-input{ background:var(--bg2);border:2px solid var(--border);color:var(--text);
+    font-family:'DM Serif Display',serif;font-size:clamp(18px,3vw,26px);
+    padding:14px 22px;border-radius:10px;outline:none;text-align:center;width:100%;max-width:400px;
+    transition:border-color .2s,box-shadow .2s; }
+  .conj-input::placeholder{ color:var(--text3);font-size:16px; }
+  .conj-input:focus{ border-color:rgba(0,245,255,.5);box-shadow:0 0 0 3px rgba(0,245,255,.07); }
+  .conj-input.correct{ border-color:var(--green);color:var(--green);box-shadow:0 0 0 3px rgba(6,214,160,.08); }
+  .conj-input.wrong  { border-color:var(--red);  color:var(--red);  box-shadow:0 0 0 3px rgba(255,71,87,.08); animation:shake .3s; }
+  .conj-input:disabled{ opacity:.85;cursor:default; }
+  @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+
+  /* buttons */
+  .btn-row{ display:flex;gap:10px;justify-content:center;flex-wrap:wrap; }
+  .v-btn{ font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;
+    padding:13px 32px;border-radius:7px;cursor:pointer;transition:all .2s; }
+  .v-btn.check{ background:linear-gradient(135deg,rgba(0,245,255,.12),rgba(180,79,255,.08));
+    border:1px solid rgba(0,245,255,.4);color:var(--text); }
+  .v-btn.check:hover{ background:linear-gradient(135deg,rgba(0,245,255,.24),rgba(180,79,255,.18));
+    border-color:var(--cyan);box-shadow:0 8px 24px rgba(0,245,255,.1); }
+  .v-btn.next{ background:rgba(180,79,255,.1);border:1px solid rgba(180,79,255,.4);color:#d8a8ff; }
+  .v-btn.next:hover{ background:rgba(180,79,255,.22);border-color:#d8a8ff; }
+  .v-btn:disabled{ opacity:.3;cursor:default;pointer-events:none; }
+
+  /* feedback */
+  .feedback-zone{ margin-top:18px;min-height:48px;display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeIn .25s; }
+  @keyframes fadeIn{ from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+  .fb-result{ font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px; }
+  .fb-result.ok  { color:var(--green); }
+  .fb-result.fail{ color:var(--red); }
+  .fb-answer{ font-family:'DM Serif Display',serif;font-size:18px;color:var(--text2); }
+  .fb-answer strong{ color:var(--cyan); }
+
+  /* ── FULL CONJUGATION TABLE (shown after answer) ── */
+  .full-conj{ background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+    padding:16px 20px;margin-top:16px;width:100%;max-width:480px;text-align:left;display:none; }
+  .full-conj.show{ display:block; }
+  .fc-tense{ font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:3px;color:var(--text3);margin-bottom:8px; }
+  .fc-grid{ display:grid;grid-template-columns:1fr 1fr;gap:3px 14px; }
+  .fc-row{ display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;
+    border-bottom:1px solid rgba(30,45,74,.3); }
+  .fc-row:last-child,.fc-row:nth-last-child(2):nth-child(odd){ border-bottom:none; }
+  .fc-pron{ font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text3); }
+  .fc-form{ font-family:'DM Serif Display',serif;font-size:15px; }
+  .fc-form.highlight{ color:var(--cyan); }
+
+  /* ── HISTORY ── */
+  .history-section{ margin-top:28px; }
+  .hist-title{ font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:4px;color:var(--text3);margin-bottom:12px; }
+  .hist-list{ display:flex;flex-direction:column;gap:6px; }
+  .hist-item{ display:flex;align-items:center;gap:12px;padding:8px 14px;
+    background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:13px; }
+  .hist-icon{ font-size:14px;flex-shrink:0; }
+  .hist-verb{ font-family:'DM Serif Display',serif;font-size:15px;color:var(--text); }
+  .hist-details{ font-size:11px;color:var(--text3);font-family:'Bebas Neue',sans-serif;letter-spacing:1px; }
+  .hist-your{ font-family:'DM Serif Display',serif;font-size:13px; }
+  .hist-your.ok{ color:var(--green); }
+  .hist-your.fail{ color:var(--red); }
+  .hist-correct{ font-family:'DM Serif Display',serif;font-size:13px;color:var(--cyan); }
+  .hist-spacer{ flex:1; }
+
+  /* ── ACCENT BAR ── */
+  .accent-bar{ display:flex; flex-wrap:wrap; gap:5px; justify-content:center; margin-top:4px; }
+  .accent-bar-label{ font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:2px;
+    color:var(--text3); align-self:center; margin-right:3px; white-space:nowrap; }
+  .acc-btn{ font-family:'DM Serif Display',serif; font-size:16px; line-height:1;
+    padding:6px 10px; border-radius:6px; border:1px solid var(--border);
+    background:var(--bg2); color:var(--text2); cursor:pointer;
+    transition:background .12s, color .12s, border-color .12s, transform .08s;
+    user-select:none; -webkit-user-select:none; }
+  .acc-btn:hover{ background:rgba(0,245,255,0.08); border-color:rgba(0,245,255,0.35); color:var(--text); }
+  .acc-btn:active{ transform:scale(0.86); background:rgba(0,245,255,0.16); }
+  .acc-btn:disabled{ opacity:.3; pointer-events:none; }
+
+  @media(max-width:500px){
+    .verb-card{ padding:24px 18px; }
+    .btn-row{ flex-direction:column;align-items:stretch; }
+    .v-btn{ text-align:center; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div>
+
+<div class="wrapper">
+
+  <!-- NAV -->
+  <div class="nav-row">
+    <a class="back-link" href="index.html">← ACCUEIL</a>
+    <a class="db-link" href="verbes-db.html">⚙ BASE DE DONNÉES DES VERBES</a>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="conj-tag"><span class="dot"></span>ENTRAÎNEUR · CONJUGAISON</div>
+    <h1>CONJUGAISON<br>ALÉATOIRE</h1>
+    <p class="header-sub">Un verbe, un pronom, un temps — conjuguez !</p>
+  </header>
+
+  <!-- FILTERS -->
+  <div class="filter-panel">
+    <div class="fp-row">
+      <div class="fp-field">
+        <label class="fp-label">① GROUPE DE VERBES</label>
+        <select class="fp-select" id="filterGroup" onchange="newVerb()">
+          <option value="">TOUS LES GROUPES</option>
+          <option value="1er">1ER GROUPE (-ER)</option>
+          <option value="2e">2E GROUPE (-IR RÉGULIERS)</option>
+          <option value="3e">3E GROUPE (IRRÉGULIERS)</option>
+          <option value="aux">AUXILIAIRES (ÊTRE / AVOIR)</option>
+          <option value="pro">PRONOMINAUX</option>
+        </select>
+      </div>
+      <div class="fp-field">
+        <label class="fp-label">② TEMPS</label>
+        <select class="fp-select" id="filterTense" onchange="newVerb()">
+          <option value="">TOUS LES TEMPS</option>
+          <option value="pres">PRÉSENT</option>
+          <option value="imp">IMPARFAIT</option>
+          <option value="fut">FUTUR SIMPLE</option>
+          <option value="pc">PASSÉ COMPOSÉ</option>
+          <option value="cond">CONDITIONNEL PRÉSENT</option>
+          <option value="subj">SUBJONCTIF PRÉSENT</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCORE STRIP -->
+  <div class="score-strip">
+    <div class="ss-stats">
+      <div class="ss-stat"><div class="ss-num good" id="countOk">0</div><div class="ss-lbl">CORRECT</div></div>
+      <div class="ss-stat"><div class="ss-num bad"  id="countFail">0</div><div class="ss-lbl">ERREURS</div></div>
+      <div class="ss-stat"><div class="ss-num neu"  id="countTotal">0</div><div class="ss-lbl">TOTAL</div></div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <button class="reset-btn" onclick="resetScore()">↺ RESET</button>
+  </div>
+
+  <!-- MAIN VERB CARD -->
+  <div class="verb-card" id="verbCard">
+    <div class="card-meta" id="cardMeta"></div>
+    <div class="pronoun-display" id="pronounDisplay"></div>
+    <div class="verb-infinitif" id="verbInfinitif">—</div>
+    <div class="verb-en" id="verbEn"></div>
+
+    <div class="input-zone">
+      <input class="conj-input" id="conjInput" placeholder="conjuguez…"
+        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkAnswer()">
+      <div class="accent-bar">
+        <span class="accent-bar-label">ACCENTS</span>
+        <button type="button" class="acc-btn" onclick="insertAccent('é')" tabindex="-1">é</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('è')" tabindex="-1">è</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('ê')" tabindex="-1">ê</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('ë')" tabindex="-1">ë</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('à')" tabindex="-1">à</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('â')" tabindex="-1">â</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('ù')" tabindex="-1">ù</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('û')" tabindex="-1">û</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('î')" tabindex="-1">î</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('ï')" tabindex="-1">ï</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('ô')" tabindex="-1">ô</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('œ')" tabindex="-1">œ</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('ç')" tabindex="-1">ç</button>
+        <button type="button" class="acc-btn" onclick="insertAccent('\'')" tabindex="-1">'</button>
+      </div>
+      <div class="btn-row">
+        <button class="v-btn check" id="checkBtn" onclick="checkAnswer()">VÉRIFIER</button>
+        <button class="v-btn next"  id="nextBtn"  onclick="newVerb()" disabled>SUIVANT →</button>
+      </div>
+    </div>
+
+    <div class="feedback-zone" id="feedbackZone"></div>
+    <div class="full-conj" id="fullConj"></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="history-section">
+    <div class="hist-title">✦ HISTORIQUE DE LA SESSION</div>
+    <div class="hist-list" id="histList">
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:var(--text3);padding:8px 0">
+        Votre historique apparaîtra ici après chaque réponse.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ================================================================
+// TENSE CONFIG
+// ================================================================
+const TENSE_LABELS = { pres:'Présent', imp:'Imparfait', fut:'Futur Simple', pc:'Passé Composé', cond:'Conditionnel', subj:'Subjonctif' };
+const TENSE_KEYS   = ['pres','imp','fut','pc','cond','subj'];
+const PRONOUNS     = ['je','tu','il/elle','nous','vous','ils/elles'];
+const PRON_SHORT   = ['je','tu','il','nous','vous','ils'];
+const GROUP_LABELS = { '1er':'1er groupe','2e':'2e groupe','3e':'3e groupe','aux':'Auxiliaire','pro':'Pronominal' };
+
+// For passé composé, we build the full form
+const AUX_AVOIR_FORMS = ['ai','as','a','avons','avez','ont'];
+const AUX_ETRE_FORMS  = ['suis','es','est','sommes','êtes','sont'];
+
+// Accord de genre au PC (simplified — we show both)
+function pcForms(verb, pronIdx){
+  const pp = verb.pc || '?';
+  const aux = verb.aux === 'être' ? AUX_ETRE_FORMS : AUX_AVOIR_FORMS;
+  const auxForm = aux[pronIdx];
+  if(verb.aux === 'être'){
+    // agreement
+    const agree = (pp.endsWith('é') || pp.endsWith('i') || pp.endsWith('u') || pp.endsWith('t') || pp.endsWith('s'))
+      ? [pp, pp+'e', pp, pp+'s', pp+'s', pp+'s']
+      : [pp,pp,pp,pp+'s',pp+'s',pp+'s'];
+    return `${auxForm} ${agree[pronIdx]}`;
+  }
+  return `${auxForm} ${pp}`;
+}
+
+// ================================================================
+// LOAD VERBS from localStorage
+// ================================================================
+const STORAGE_KEY = 'frenchies_verbs_v2';
+const DEFAULT_FALLBACK = [
+  { inf:"être",   en:"to be",    group:"aux",aux:"être",  pres:"suis,es,est,sommes,êtes,sont",      imp:"étais,étais,était,étions,étiez,étaient",        fut:"serai,seras,sera,serons,serez,seront",          pc:"été",    cond:"serais,serais,serait,serions,seriez,seraient",      subj:"sois,sois,soit,soyons,soyez,soient" },
+  { inf:"avoir",  en:"to have",  group:"aux",aux:"avoir", pres:"ai,as,a,avons,avez,ont",             imp:"avais,avais,avait,avions,aviez,avaient",         fut:"aurai,auras,aura,aurons,aurez,auront",          pc:"eu",     cond:"aurais,aurais,aurait,aurions,auriez,auraient",      subj:"aie,aies,ait,ayons,ayez,aient" },
+  { inf:"aller",  en:"to go",    group:"3e", aux:"être",  pres:"vais,vas,va,allons,allez,vont",      imp:"allais,allais,allait,allions,alliez,allaient",   fut:"irai,iras,ira,irons,irez,iront",                pc:"allé",   cond:"irais,irais,irait,irions,iriez,iraient",            subj:"aille,ailles,aille,allions,alliez,aillent" },
+  { inf:"faire",  en:"to make",  group:"3e", aux:"avoir", pres:"fais,fais,fait,faisons,faites,font", imp:"faisais,faisais,faisait,faisions,faisiez,faisaient", fut:"ferai,feras,fera,ferons,ferez,feront",      pc:"fait",   cond:"ferais,ferais,ferait,ferions,feriez,feraient",      subj:"fasse,fasses,fasse,fassions,fassiez,fassent" },
+  { inf:"parler", en:"to speak", group:"1er",aux:"avoir", pres:"parle,parles,parle,parlons,parlez,parlent", imp:"parlais,parlais,parlait,parlions,parliez,parlaient", fut:"parlerai,parleras,parlera,parlerons,parlerez,parleront", pc:"parlé", cond:"parlerais,parlerais,parlerait,parlerions,parleriez,parleraient", subj:"parle,parles,parle,parlions,parliez,parlent" },
+  { inf:"finir",  en:"to finish",group:"2e", aux:"avoir", pres:"finis,finis,finit,finissons,finissez,finissent", imp:"finissais,finissais,finissait,finissions,finissiez,finissaient", fut:"finirai,finiras,finira,finirons,finirez,finiront", pc:"fini", cond:"finirais,finirais,finirait,finirions,finiriez,finiraient", subj:"finisse,finisses,finisse,finissions,finissiez,finissent" },
+];
+
+function loadVerbs(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){ return JSON.parse(raw); }
+  } catch(e){}
+  return DEFAULT_FALLBACK;
+}
+
+// ================================================================
+// STATE
+// ================================================================
+let allVerbs = loadVerbs();
+let currentVerb = null, currentTense = null, currentPronIdx = null, currentAnswer = null;
+let scoreOk=0, scoreFail=0, history=[];
+
+// ================================================================
+// HELPERS
+// ================================================================
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function norm(s){
+  return (s||'').toLowerCase().trim().normalize('NFC')
+    .replace(/[éèêëě]/g,'e').replace(/[àâä]/g,'a').replace(/[ùûü]/g,'u')
+    .replace(/[îï]/g,'i').replace(/[ôœö]/g,'o').replace(/ç/g,'c')
+    .replace(/['']/g,"'").replace(/\s+/g,' ');
+}
+function getConjForm(verb, tense, pronIdx){
+  if(tense === 'pc') return pcForms(verb, pronIdx);
+  const forms = (verb[tense]||'').split(',');
+  return (forms[pronIdx]||'').trim();
+}
+function getAllForms(verb, tense){
+  if(tense === 'pc'){
+    return PRONOUNS.map((_,i)=> pcForms(verb,i));
+  }
+  const forms = (verb[tense]||'').split(',');
+  return forms.map(f=>f.trim());
+}
+
+// ================================================================
+// PICK RANDOM
+// ================================================================
+function newVerb(){
+  // reload verbs in case DB was updated in another tab
+  allVerbs = loadVerbs();
+
+  const groupFilter = document.getElementById('filterGroup').value;
+  const tenseFilter = document.getElementById('filterTense').value;
+
+  let pool = allVerbs.filter(v => {
+    if(groupFilter && v.group !== groupFilter) return false;
+    const tenseToCheck = tenseFilter || rand(TENSE_KEYS);
+    const forms = v[tenseToCheck];
+    if(!forms || forms.split(',').every(f=>!f.trim())) return false;
+    return true;
+  });
+
+  if(!pool.length){
+    document.getElementById('verbInfinitif').textContent = 'AUCUN VERBE';
+    document.getElementById('verbEn').textContent = 'Ajoutez des verbes dans la base de données';
+    return;
+  }
+
+  currentVerb = rand(pool);
+
+  // pick tense
+  if(tenseFilter){
+    currentTense = tenseFilter;
+  } else {
+    // pick a tense that actually has data
+    const availTenses = TENSE_KEYS.filter(t => {
+      const f = currentVerb[t];
+      return f && f.split(',').some(x=>x.trim());
+    });
+    currentTense = rand(availTenses);
+  }
+
+  // pick pronoun
+  currentPronIdx = Math.floor(Math.random() * 6);
+  currentAnswer  = getConjForm(currentVerb, currentTense, currentPronIdx);
+
+  // reset UI
+  const card = document.getElementById('verbCard');
+  card.className = 'verb-card';
+
+  document.getElementById('cardMeta').innerHTML = `
+    <span class="meta-badge mb-tense">${TENSE_LABELS[currentTense]||currentTense}</span>
+    <span class="meta-badge mb-group mb-${currentVerb.group}">${GROUP_LABELS[currentVerb.group]||currentVerb.group}</span>
+    ${currentVerb.aux==='être'?'<span class="meta-badge" style="font-size:9px;background:rgba(6,214,160,.06);border:1px solid rgba(6,214,160,.2);color:var(--green);letter-spacing:1px;padding:2px 8px;border-radius:2px;font-family:Bebas Neue,sans-serif">AUX. ÊTRE</span>':''}
+  `;
+
+  document.getElementById('pronounDisplay').textContent = PRONOUNS[currentPronIdx].toUpperCase();
+  document.getElementById('verbInfinitif').textContent  = currentVerb.inf.toUpperCase();
+  document.getElementById('verbEn').textContent         = currentVerb.en ? `— ${currentVerb.en}` : '';
+
+  const input = document.getElementById('conjInput');
+  input.value=''; input.disabled=false; input.className='conj-input';
+  input.placeholder='conjuguez…';
+  // re-enable accent buttons
+  document.querySelectorAll('.acc-btn').forEach(b=>b.disabled=false);
+  setTimeout(()=>input.focus(),80);
+
+  document.getElementById('checkBtn').disabled = false;
+  document.getElementById('nextBtn').disabled  = true;
+  document.getElementById('feedbackZone').innerHTML = '';
+  document.getElementById('fullConj').className = 'full-conj';
+  document.getElementById('fullConj').innerHTML = '';
+}
+
+// ================================================================
+// CHECK
+// ================================================================
+function checkAnswer(){
+  if(!currentVerb) return;
+  const input = document.getElementById('conjInput');
+  if(input.disabled) return;
+
+  const given = input.value.trim();
+  if(!given) return;
+
+  const isOk = norm(given) === norm(currentAnswer);
+
+  input.disabled = true;
+  input.classList.add(isOk ? 'correct' : 'wrong');
+  document.getElementById('verbCard').classList.add(isOk ? 'correct-state' : 'wrong-state');
+  document.getElementById('checkBtn').disabled = true;
+  document.getElementById('nextBtn').disabled  = false;
+  // disable accent buttons
+  document.querySelectorAll('.acc-btn').forEach(b=>b.disabled=true);
+
+  // feedback
+  const fz = document.getElementById('feedbackZone');
+  const bravos = ['Parfait !','Excellent !','Très bien !','Bravo !','Juste !'];
+  fz.innerHTML = isOk
+    ? `<div class="fb-result ok">✓ ${bravos[Math.floor(Math.random()*bravos.length)]}</div>
+       <div class="fb-answer"><strong>${given}</strong></div>`
+    : `<div class="fb-result fail">✗ Pas tout à fait</div>
+       <div class="fb-answer">Réponse attendue : <strong>${currentAnswer}</strong></div>`;
+
+  // show full conjugation table
+  showFullConj();
+
+  // score
+  if(isOk) scoreOk++; else scoreFail++;
+  updateScore();
+  addHistory(isOk, given);
+}
+
+// ================================================================
+// FULL CONJUGATION
+// ================================================================
+function showFullConj(){
+  const fc = document.getElementById('fullConj');
+  const forms = getAllForms(currentVerb, currentTense);
+  const rows = PRON_SHORT.map((p,i)=>{
+    const hl = i===currentPronIdx ? 'fc-form highlight' : 'fc-form';
+    return `<div class="fc-row"><span class="fc-pron">${PRONOUNS[i].toUpperCase()}</span><span class="${hl}">${forms[i]||'—'}</span></div>`;
+  }).join('');
+  fc.innerHTML = `<div class="fc-tense">${TENSE_LABELS[currentTense]||currentTense} — ${currentVerb.inf}</div>
+    <div class="fc-grid">${rows}</div>`;
+  fc.classList.add('show');
+}
+
+// ================================================================
+// SCORE / HISTORY
+// ================================================================
+function updateScore(){
+  const total = scoreOk + scoreFail;
+  document.getElementById('countOk').textContent    = scoreOk;
+  document.getElementById('countFail').textContent  = scoreFail;
+  document.getElementById('countTotal').textContent = total;
+  const pct = total>0 ? (scoreOk/total)*100 : 0;
+  document.getElementById('progressFill').style.width = pct+'%';
+}
+function resetScore(){
+  scoreOk=0; scoreFail=0; history=[];
+  updateScore();
+  document.getElementById('histList').innerHTML=
+    '<div style="font-family:\'DM Serif Display\',serif;font-style:italic;font-size:14px;color:var(--text3);padding:8px 0">Votre historique apparaîtra ici après chaque réponse.</div>';
+}
+function addHistory(isOk, given){
+  history.unshift({ verb:currentVerb.inf, tense:currentTense, pronoun:PRONOUNS[currentPronIdx], correct:currentAnswer, given, ok:isOk });
+  if(history.length>15) history.pop();
+  renderHistory();
+}
+function renderHistory(){
+  const hl = document.getElementById('histList');
+  hl.innerHTML = history.map(h=>`
+    <div class="hist-item">
+      <span class="hist-icon">${h.ok?'✓':'✗'}</span>
+      <span class="hist-verb">${h.pronoun} <strong>${h.verb}</strong></span>
+      <span class="hist-details">${TENSE_LABELS[h.tense]||h.tense}</span>
+      <span class="hist-spacer"></span>
+      <span class="hist-your ${h.ok?'ok':'fail'}">${h.given}</span>
+      ${!h.ok?`<span style="color:var(--text3);font-size:12px;margin:0 4px">→</span><span class="hist-correct">${h.correct}</span>`:''}
+    </div>`).join('');
+}
+
+// ================================================================
+// ACCENT INSERT — insère à la position du curseur sans perdre le focus
+// ================================================================
+function insertAccent(char){
+  const input = document.getElementById('conjInput');
+  if(input.disabled) return;
+  const start = input.selectionStart ?? input.value.length;
+  const end   = input.selectionEnd   ?? input.value.length;
+  input.value = input.value.slice(0, start) + char + input.value.slice(end);
+  const pos = start + char.length;
+  input.setSelectionRange(pos, pos);
+  input.focus();
+}
+
+// ================================================================
+// INIT
+// ================================================================
+window.addEventListener('load', ()=>{ newVerb(); });
+// Reload verbs when tab regains focus (in case DB was updated)
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) allVerbs=loadVerbs(); });
+</script>
+<script src="accents.js"></script>
+</body>
+</html>

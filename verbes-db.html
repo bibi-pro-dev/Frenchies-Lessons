@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base de Données — Verbes Conjugués</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#080c14; --bg2:#0d1220; --card:#141c2e; --card2:#1a2440; --border:#1e2d4a;
+    --violet:#b44fff; --gold:#ffd166; --cyan:#00f5ff; --green:#06d6a0; --red:#ff4757;
+    --text:#e8eef8; --text2:#8a9bb5; --text3:#4a5e80;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; }
+  .grid-bg{ position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:linear-gradient(rgba(180,79,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(180,79,255,0.015) 1px,transparent 1px);
+    background-size:60px 60px; }
+  .halo{ position:fixed; border-radius:50%; filter:blur(140px); pointer-events:none; z-index:0; }
+  .h1{ width:600px;height:600px;top:-200px;left:-200px;background:rgba(180,79,255,0.06); }
+  .h2{ width:500px;height:500px;bottom:-180px;right:-150px;background:rgba(0,245,255,0.04); }
+  .wrapper{ position:relative; z-index:1; max-width:1280px; margin:0 auto; padding:36px 24px 80px; }
+
+  /* ── HEADER ── */
+  .back-link{ display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;
+    font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:3px;color:var(--text3);
+    text-decoration:none;transition:color .2s; }
+  .back-link:hover{ color:var(--text); }
+  header{ margin-bottom:36px; }
+  .db-tag{ display:inline-flex;align-items:center;gap:8px;
+    font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:4px;color:var(--text3);
+    border:1px solid var(--border);padding:4px 14px;border-radius:2px;margin-bottom:14px;background:rgba(255,255,255,0.02); }
+  .db-dot{ width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 2s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.2;transform:scale(1.6)} }
+  h1{ font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,72px);line-height:.9;letter-spacing:2px;
+    background:linear-gradient(135deg,#fff 0%,var(--gold) 50%,var(--cyan) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px; }
+  .db-sub{ font-family:'DM Serif Display',serif;font-style:italic;font-size:15px;color:var(--text2); }
+
+  /* ── TOOLBAR ── */
+  .toolbar{ display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px; }
+  .toolbar-left{ display:flex;gap:10px;flex-wrap:wrap;align-items:center; }
+  .tb-stats{ font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3px;color:var(--text3); }
+  .tb-stats span{ color:var(--gold); }
+  .tb-filter{ background:var(--card);border:1px solid var(--border);color:var(--text2);
+    font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;
+    padding:8px 14px;border-radius:6px;outline:none;cursor:pointer; }
+  .tb-filter:focus{ border-color:rgba(255,209,102,.4); }
+  .tb-search{ background:var(--card);border:1px solid var(--border);color:var(--text);
+    font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 14px;border-radius:6px;outline:none;width:200px; }
+  .tb-search::placeholder{ color:var(--text3); }
+  .tb-search:focus{ border-color:rgba(255,209,102,.4); }
+  .toolbar-right{ display:flex;gap:8px; }
+  .btn{ font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;
+    padding:9px 20px;border-radius:5px;cursor:pointer;transition:all .18s; }
+  .btn-add{ background:rgba(6,214,160,.1);border:1px solid rgba(6,214,160,.35);color:var(--green); }
+  .btn-add:hover{ background:rgba(6,214,160,.2);border-color:var(--green); }
+  .btn-export{ background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.3);color:var(--gold); }
+  .btn-export:hover{ background:rgba(255,209,102,.18); }
+  .btn-import{ background:rgba(0,245,255,.07);border:1px solid rgba(0,245,255,.25);color:var(--cyan); }
+  .btn-import:hover{ background:rgba(0,245,255,.16); }
+  .btn-danger{ background:rgba(255,71,87,.07);border:1px solid rgba(255,71,87,.25);color:var(--red); }
+  .btn-danger:hover{ background:rgba(255,71,87,.16); }
+
+  /* ── TABLE ── */
+  .table-wrap{ background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden; }
+  .verb-table{ width:100%;border-collapse:collapse;font-size:12.5px; }
+  .verb-table thead tr{ background:var(--bg2); }
+  .verb-table th{ padding:10px 10px;text-align:left;font-family:'Bebas Neue',sans-serif;
+    font-size:10px;letter-spacing:2px;color:var(--text3);border-bottom:1px solid var(--border);
+    white-space:nowrap;position:sticky;top:0;background:var(--bg2);z-index:2; }
+  .verb-table th.th-actions{ text-align:right; }
+  .verb-table td{ padding:7px 10px;border-bottom:1px solid rgba(30,45,74,.4);vertical-align:middle; }
+  .verb-table tr:last-child td{ border-bottom:none; }
+  .verb-table tr:hover td{ background:rgba(255,209,102,.015); }
+  .verb-table tr.editing td{ background:rgba(255,209,102,.04); }
+
+  .td-inf{ font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);font-weight:normal; }
+  .td-en{ color:var(--text3);font-style:italic; }
+  .td-group{ font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:1px;
+    padding:2px 7px;border-radius:2px; }
+  .g1{ background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.2);color:var(--cyan); }
+  .g2{ background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.2);color:var(--green); }
+  .g3{ background:rgba(255,71,87,.08);border:1px solid rgba(255,71,87,.2);color:var(--red); }
+  .gaux{ background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.2);color:var(--gold); }
+  .gpro{ background:rgba(180,79,255,.08);border:1px solid rgba(180,79,255,.2);color:#d8a8ff; }
+
+  .td-conj{ font-family:'DM Serif Display',serif;font-size:13px;color:var(--text2);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px; }
+  .td-conj:hover{ overflow:visible;z-index:5;position:relative; }
+
+  /* inline edit inputs */
+  .cell-input{ background:var(--bg2);border:1px solid rgba(255,209,102,.35);color:var(--text);
+    font-family:'DM Serif Display',serif;font-size:13px;padding:4px 7px;border-radius:4px;outline:none;
+    width:100%;min-width:60px; }
+  .cell-input:focus{ border-color:var(--gold); }
+  .cell-select{ background:var(--bg2);border:1px solid rgba(255,209,102,.35);color:var(--text);
+    font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;
+    padding:4px 7px;border-radius:4px;outline:none;cursor:pointer; }
+  .cell-select:focus{ border-color:var(--gold); }
+
+  .action-btns{ display:flex;gap:6px;justify-content:flex-end;white-space:nowrap; }
+  .ic-btn{ background:none;border:1px solid var(--border);color:var(--text3);
+    font-size:13px;padding:4px 8px;border-radius:4px;cursor:pointer;transition:all .15s; }
+  .ic-btn:hover{ color:var(--text); }
+  .ic-btn.edit:hover{ border-color:rgba(255,209,102,.4);color:var(--gold); }
+  .ic-btn.save:hover{ border-color:rgba(6,214,160,.4);color:var(--green); }
+  .ic-btn.del:hover{ border-color:rgba(255,71,87,.4);color:var(--red); }
+  .ic-btn.cancel:hover{ border-color:rgba(180,79,255,.4);color:#d8a8ff; }
+
+  /* ── ADD VERB PANEL ── */
+  .add-panel{ background:var(--card2);border:1px solid rgba(6,214,160,.22);border-radius:14px;
+    padding:24px;margin-bottom:24px;display:none; }
+  .add-panel.open{ display:block; }
+  .add-panel-title{ font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:4px;color:var(--green);margin-bottom:16px; }
+  .add-grid{ display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:16px; }
+  .add-field{ display:flex;flex-direction:column;gap:4px; }
+  .add-label{ font-family:'Bebas Neue',sans-serif;font-size:9px;letter-spacing:2px;color:var(--text3); }
+  .add-input{ background:var(--bg2);border:1px solid var(--border);color:var(--text);
+    font-family:'DM Serif Display',serif;font-size:14px;padding:8px 11px;border-radius:6px;outline:none; }
+  .add-input:focus{ border-color:rgba(6,214,160,.5); }
+  .add-select{ background:var(--bg2);border:1px solid var(--border);color:var(--text);
+    font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;
+    padding:8px 11px;border-radius:6px;outline:none;cursor:pointer; }
+  .add-select:focus{ border-color:rgba(6,214,160,.5); }
+  .add-actions{ display:flex;gap:10px; }
+  .btn-confirm{ background:rgba(6,214,160,.12);border:1px solid rgba(6,214,160,.4);color:var(--green);
+    font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:10px 24px;border-radius:5px;cursor:pointer;transition:all .18s; }
+  .btn-confirm:hover{ background:rgba(6,214,160,.25); }
+  .btn-cancel-add{ background:transparent;border:1px solid var(--border);color:var(--text3);
+    font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:10px 20px;border-radius:5px;cursor:pointer; }
+
+  /* ── TENSES SECTION ── */
+  .tenses-note{ background:var(--bg2);border:1px solid var(--border);border-radius:10px;
+    padding:14px 18px;margin-bottom:20px;font-size:12px;color:var(--text3);line-height:1.7; }
+  .tenses-note strong{ color:var(--text2); }
+
+  /* ── CONJ EXPAND ── */
+  .conj-cell-wrap{ position:relative; }
+  .conj-preview{ font-family:'DM Serif Display',serif;font-size:12px;color:var(--text3);
+    cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-style:dotted; }
+  .conj-preview:hover{ color:var(--text2); }
+
+  /* ── TOAST ── */
+  .toast{ position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--card2);border:1px solid rgba(6,214,160,.3);color:var(--green);
+    font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;
+    padding:12px 24px;border-radius:8px;opacity:0;pointer-events:none;
+    transition:all .3s;z-index:999; }
+  .toast.show{ opacity:1;transform:translateX(-50%) translateY(0); }
+  .toast.error{ border-color:rgba(255,71,87,.3);color:var(--red); }
+
+  /* ── IMPORT MODAL ── */
+  .modal-overlay{ position:fixed;inset:0;background:rgba(8,12,20,.85);backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .3s; }
+  .modal-overlay.open{ opacity:1;pointer-events:all; }
+  .modal{ background:var(--card2);border:1px solid rgba(0,245,255,.2);border-radius:16px;
+    padding:32px;max-width:560px;width:90%;animation:popIn .3s; }
+  @keyframes popIn{ from{transform:scale(.9);opacity:0} to{transform:scale(1);opacity:1} }
+  .modal-title{ font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--cyan);margin-bottom:12px; }
+  .modal-sub{ font-size:12px;color:var(--text2);margin-bottom:16px;line-height:1.7; }
+  .modal-textarea{ width:100%;height:200px;background:var(--bg2);border:1px solid var(--border);
+    color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;padding:12px;
+    border-radius:8px;outline:none;resize:vertical; }
+  .modal-textarea:focus{ border-color:rgba(0,245,255,.4); }
+  .modal-actions{ display:flex;gap:10px;margin-top:16px; }
+
+  @media(max-width:900px){
+    .verb-table th:nth-child(n+7):not(:last-child){ display:none; }
+    .verb-table td:nth-child(n+7):not(:last-child){ display:none; }
+  }
+  @media(max-width:600px){
+    .verb-table th:nth-child(n+5):not(:last-child){ display:none; }
+    .verb-table td:nth-child(n+5):not(:last-child){ display:none; }
+    .add-grid{ grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="halo h1"></div><div class="halo h2"></div>
+<div class="toast" id="toast"></div>
+
+<div class="wrapper">
+  <a class="back-link" href="index.html">← RETOUR À L'ACCUEIL</a>
+
+  <header>
+    <div class="db-tag"><span class="db-dot"></span>ADMINISTRATION · BASE DE DONNÉES</div>
+    <h1>VERBES —<br>BASE DE DONNÉES</h1>
+    <p class="db-sub">Ajoutez, modifiez et organisez les verbes utilisés dans l'entraîneur de conjugaison.</p>
+  </header>
+
+  <div class="tenses-note">
+    <strong>Temps disponibles dans l'entraîneur :</strong>
+    Présent · Imparfait · Futur Simple · Passé Composé · Conditionnel Présent · Subjonctif Présent<br>
+    <strong>Format de saisie des conjugaisons :</strong>
+    Entrez les 6 formes séparées par des virgules dans l'ordre : <strong>je, tu, il, nous, vous, ils</strong><br>
+    <em>Ex. pour PARLER au présent : parle, parles, parle, parlons, parlez, parlent</em>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <div class="tb-stats">VERBES : <span id="verbCount">0</span></div>
+      <select class="tb-filter" id="groupFilter" onchange="renderTable()">
+        <option value="">TOUS LES GROUPES</option>
+        <option value="1er">1ER GROUPE (-ER)</option>
+        <option value="2e">2E GROUPE (-IR RÉG.)</option>
+        <option value="3e">3E GROUPE (IRR.)</option>
+        <option value="aux">AUXILIAIRE</option>
+        <option value="pro">PRONOMINAL</option>
+      </select>
+      <input class="tb-search" id="tableSearch" placeholder="Rechercher un verbe…" oninput="renderTable()">
+    </div>
+    <div class="toolbar-right">
+      <button class="btn btn-add" onclick="toggleAddPanel()">+ AJOUTER</button>
+      <button class="btn btn-export" onclick="exportData()">↓ EXPORTER JSON</button>
+      <button class="btn btn-import" onclick="openImport()">↑ IMPORTER JSON</button>
+      <button class="btn btn-danger" onclick="resetToDefault()" title="Recharge les 124 verbes par défaut (fusionne avec vos ajouts)">↺ RÉINITIALISER</button>
+    </div>
+  </div>
+
+  <!-- ADD PANEL -->
+  <div class="add-panel" id="addPanel">
+    <div class="add-panel-title">✦ NOUVEAU VERBE</div>
+    <div class="add-grid">
+      <div class="add-field">
+        <label class="add-label">INFINITIF *</label>
+        <input class="add-input" id="new-inf" placeholder="parler">
+      </div>
+      <div class="add-field">
+        <label class="add-label">ANGLAIS *</label>
+        <input class="add-input" id="new-en" placeholder="to speak">
+      </div>
+      <div class="add-field">
+        <label class="add-label">GROUPE *</label>
+        <select class="add-select" id="new-group">
+          <option value="1er">1ER GROUPE (-ER)</option>
+          <option value="2e">2E GROUPE (-IR)</option>
+          <option value="3e">3E GROUPE (IRR.)</option>
+          <option value="aux">AUXILIAIRE</option>
+          <option value="pro">PRONOMINAL</option>
+        </select>
+      </div>
+      <div class="add-field">
+        <label class="add-label">AUX. PC (être/avoir)</label>
+        <select class="add-select" id="new-aux">
+          <option value="avoir">AVOIR</option>
+          <option value="être">ÊTRE</option>
+        </select>
+      </div>
+      <div class="add-field" style="grid-column:1/-1">
+        <label class="add-label">PRÉSENT — je,tu,il,nous,vous,ils *</label>
+        <input class="add-input" id="new-pres" placeholder="parle, parles, parle, parlons, parlez, parlent">
+      </div>
+      <div class="add-field" style="grid-column:1/-1">
+        <label class="add-label">IMPARFAIT — je,tu,il,nous,vous,ils</label>
+        <input class="add-input" id="new-imp" placeholder="parlais, parlais, parlait, parlions, parliez, parlaient">
+      </div>
+      <div class="add-field" style="grid-column:1/-1">
+        <label class="add-label">FUTUR SIMPLE — je,tu,il,nous,vous,ils</label>
+        <input class="add-input" id="new-fut" placeholder="parlerai, parleras, parlera, parlerons, parlerez, parleront">
+      </div>
+      <div class="add-field" style="grid-column:1/-1">
+        <label class="add-label">PASSÉ COMPOSÉ — participe passé (+ accord fém. si applicable)</label>
+        <input class="add-input" id="new-pc" placeholder="parlé">
+      </div>
+      <div class="add-field" style="grid-column:1/-1">
+        <label class="add-label">CONDITIONNEL PRÉSENT — je,tu,il,nous,vous,ils</label>
+        <input class="add-input" id="new-cond" placeholder="parlerais, parlerais, parlerait, parlerions, parleriez, parleraient">
+      </div>
+      <div class="add-field" style="grid-column:1/-1">
+        <label class="add-label">SUBJONCTIF PRÉSENT — je,tu,il,nous,vous,ils</label>
+        <input class="add-input" id="new-subj" placeholder="parle, parles, parle, parlions, parliez, parlent">
+      </div>
+    </div>
+    <div class="add-actions">
+      <button class="btn-confirm" onclick="addVerb()">✓ ENREGISTRER</button>
+      <button class="btn-cancel-add" onclick="toggleAddPanel()">ANNULER</button>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <table class="verb-table" id="verbTable">
+      <thead>
+        <tr>
+          <th>INFINITIF</th>
+          <th>ANGLAIS</th>
+          <th>GROUPE</th>
+          <th>AUX.</th>
+          <th>PRÉSENT (je…ils)</th>
+          <th>IMPARFAIT</th>
+          <th>FUTUR</th>
+          <th>P.C. (PP)</th>
+          <th>COND.</th>
+          <th>SUBJ.</th>
+          <th class="th-actions">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="verbTbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="modal-overlay" id="importModal">
+  <div class="modal">
+    <div class="modal-title">IMPORTER DES VERBES</div>
+    <div class="modal-sub">Collez un tableau JSON de verbes ci-dessous. Les verbes existants seront <strong>fusionnés</strong> (pas remplacés).<br>Format : tableau d'objets avec les clés : inf, en, group, aux, pres, imp, fut, pc, cond, subj</div>
+    <textarea class="modal-textarea" id="importText" placeholder='[{"inf":"parler","en":"to speak","group":"1er","aux":"avoir","pres":"parle,parles,parle,parlons,parlez,parlent",...}]'></textarea>
+    <div class="modal-actions">
+      <button class="btn-confirm" onclick="doImport()">IMPORTER</button>
+      <button class="btn-cancel-add" onclick="closeImport()">ANNULER</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DEFAULT VERB DATABASE
+// ================================================================
+const DEFAULT_VERBS = [
+
+  // ════════════════════════════════════════════
+  // AUXILIAIRES
+  // ════════════════════════════════════════════
+  { inf:"être", en:"to be", group:"aux", aux:"être",
+    pres:"suis,es,est,sommes,êtes,sont",
+    imp:"étais,étais,était,étions,étiez,étaient",
+    fut:"serai,seras,sera,serons,serez,seront",
+    pc:"été", cond:"serais,serais,serait,serions,seriez,seraient",
+    subj:"sois,sois,soit,soyons,soyez,soient" },
+  { inf:"avoir", en:"to have", group:"aux", aux:"avoir",
+    pres:"ai,as,a,avons,avez,ont",
+    imp:"avais,avais,avait,avions,aviez,avaient",
+    fut:"aurai,auras,aura,aurons,aurez,auront",
+    pc:"eu", cond:"aurais,aurais,aurait,aurions,auriez,auraient",
+    subj:"aie,aies,ait,ayons,ayez,aient" },
+
+  // ════════════════════════════════════════════
+  // 1ER GROUPE — VERBES EN -ER
+  // ════════════════════════════════════════════
+  { inf:"aimer", en:"to love / to like", group:"1er", aux:"avoir",
+    pres:"aime,aimes,aime,aimons,aimez,aiment",
+    imp:"aimais,aimais,aimait,aimions,aimiez,aimaient",
+    fut:"aimerai,aimeras,aimera,aimerons,aimrez,aimeront",
+    pc:"aimé", cond:"aimerais,aimerais,aimerait,aimerions,aimeriez,aimeraient",
+    subj:"aime,aimes,aime,aimions,aimiez,aiment" },
+  { inf:"parler", en:"to speak", group:"1er", aux:"avoir",
+    pres:"parle,parles,parle,parlons,parlez,parlent",
+    imp:"parlais,parlais,parlait,parlions,parliez,parlaient",
+    fut:"parlerai,parleras,parlera,parlerons,parlerez,parleront",
+    pc:"parlé", cond:"parlerais,parlerais,parlerait,parlerions,parleriez,parleraient",
+    subj:"parle,parles,parle,parlions,parliez,parlent" },
+  { inf:"travailler", en:"to work", group:"1er", aux:"avoir",
+    pres:"travaille,travailles,travaille,travaillons,travaillez,travaillent",
+    imp:"travaillais,travaillais,travaillait,travaillions,travailliez,travaillaient",
+    fut:"travaillerai,travailleras,travaillera,travaillerons,travaillerez,travailleront",
+    pc:"travaillé", cond:"travaillerais,travaillerais,travaillerait,travaillerions,travailleriez,travailleraient",
+    subj:"travaille,travailles,travaille,travaillions,travailliez,travaillent" },
+  { inf:"manger", en:"to eat", group:"1er", aux:"avoir",
+    pres:"mange,manges,mange,mangeons,mangez,mangent",
+    imp:"mangeais,mangeais,mangeait,mangions,mangiez,mangeaient",
+    fut:"mangerai,mangeras,mangera,mangerons,mangerez,mangeront",
+    pc:"mangé", cond:"mangerais,mangerais,mangerait,mangerions,mangeriez,mangeraient",
+    subj:"mange,manges,mange,mangions,mangiez,mangent" },
+  { inf:"habiter", en:"to live / to reside", group:"1er", aux:"avoir",
+    pres:"habite,habites,habite,habitons,habitez,habitent",
+    imp:"habitais,habitais,habitait,habitions,habitiez,habitaient",
+    fut:"habiterai,habiteras,habitera,habiterons,habiterez,habiteront",
+    pc:"habité", cond:"habiterais,habiterais,habiterait,habiterions,habiteriez,habiteraient",
+    subj:"habite,habites,habite,habitions,habitiez,habitent" },
+  { inf:"écouter", en:"to listen (to)", group:"1er", aux:"avoir",
+    pres:"écoute,écoutes,écoute,écoutons,écoutez,écoutent",
+    imp:"écoutais,écoutais,écoutait,écoutions,écoutiez,écoutaient",
+    fut:"écouterai,écouteras,écoutera,écouterons,écouterez,écouteront",
+    pc:"écouté", cond:"écouterais,écouterais,écouterait,écouterions,écouteriez,écouteraient",
+    subj:"écoute,écoutes,écoute,écoutions,écoutiez,écoutent" },
+  { inf:"regarder", en:"to watch / to look at", group:"1er", aux:"avoir",
+    pres:"regarde,regardes,regarde,regardons,regardez,regardent",
+    imp:"regardais,regardais,regardait,regardions,regardiez,regardaient",
+    fut:"regarderai,regarderas,regardera,regarderons,regarderez,regarderont",
+    pc:"regardé", cond:"regarderais,regarderais,regarderait,regarderions,regarderiez,regarderaient",
+    subj:"regarde,regardes,regarde,regardions,regardiez,regardent" },
+  { inf:"chercher", en:"to look for / to search", group:"1er", aux:"avoir",
+    pres:"cherche,cherches,cherche,cherchons,cherchez,cherchent",
+    imp:"cherchais,cherchais,cherchait,cherchions,cherchiez,cherchaient",
+    fut:"chercherai,chercheras,cherchera,chercherons,chercherez,chercheront",
+    pc:"cherché", cond:"chercherais,chercherais,chercherait,chercherions,chercheriez,chercheraient",
+    subj:"cherche,cherches,cherche,cherchions,cherchiez,cherchent" },
+  { inf:"trouver", en:"to find", group:"1er", aux:"avoir",
+    pres:"trouve,trouves,trouve,trouvons,trouvez,trouvent",
+    imp:"trouvais,trouvais,trouvait,trouvions,trouviez,trouvaient",
+    fut:"trouverai,trouveras,trouvera,trouverons,trouverez,trouveront",
+    pc:"trouvé", cond:"trouverais,trouverais,trouverait,trouverions,trouveriez,trouveraient",
+    subj:"trouve,trouves,trouve,trouvions,trouviez,trouvent" },
+  { inf:"donner", en:"to give", group:"1er", aux:"avoir",
+    pres:"donne,donnes,donne,donnons,donnez,donnent",
+    imp:"donnais,donnais,donnait,donnions,donniez,donnaient",
+    fut:"donnerai,donneras,donnera,donnerons,donnerez,donneront",
+    pc:"donné", cond:"donnerais,donnerais,donnerait,donnerions,donneriez,donneraient",
+    subj:"donne,donnes,donne,donnions,donniez,donnent" },
+  { inf:"porter", en:"to carry / to wear", group:"1er", aux:"avoir",
+    pres:"porte,portes,porte,portons,portez,portent",
+    imp:"portais,portais,portait,portions,portiez,portaient",
+    fut:"porterai,porteras,portera,porterons,porterez,porteront",
+    pc:"porté", cond:"porterais,porterais,porterait,porterions,porteriez,porteraient",
+    subj:"porte,portes,porte,portions,portiez,portent" },
+  { inf:"oublier", en:"to forget", group:"1er", aux:"avoir",
+    pres:"oublie,oublies,oublie,oublions,oubliez,oublient",
+    imp:"oubliais,oubliais,oubliait,oubliions,oubliiez,oubliaient",
+    fut:"oublierai,oublieras,oubliera,oublierons,oublierez,oublieront",
+    pc:"oublié", cond:"oublierais,oublierais,oublierait,oublierions,oublieriez,oublieraient",
+    subj:"oublie,oublies,oublie,oubliions,oubliiez,oublient" },
+  { inf:"inviter", en:"to invite", group:"1er", aux:"avoir",
+    pres:"invite,invites,invite,invitons,invitez,invitent",
+    imp:"invitais,invitais,invitait,invitions,invitiez,invitaient",
+    fut:"inviterai,inviteras,invitera,inviterons,inviterez,inviteront",
+    pc:"invité", cond:"inviterais,inviterais,inviterait,inviterions,inviteriez,inviteraient",
+    subj:"invite,invites,invite,invitions,invitiez,invitent" },
+  { inf:"chanter", en:"to sing", group:"1er", aux:"avoir",
+    pres:"chante,chantes,chante,chantons,chantez,chantent",
+    imp:"chantais,chantais,chantait,chantions,chantiez,chantaient",
+    fut:"chanterai,chanteras,chantera,chanterons,chanterez,chanteront",
+    pc:"chanté", cond:"chanterais,chanterais,chanterait,chanterions,chanteriez,chanteraient",
+    subj:"chante,chantes,chante,chantions,chantiez,chantent" },
+  { inf:"danser", en:"to dance", group:"1er", aux:"avoir",
+    pres:"danse,danses,danse,dansons,dansez,dansent",
+    imp:"dansais,dansais,dansait,dansions,dansiez,dansaient",
+    fut:"danserai,danseras,dansera,danserons,danserez,danseront",
+    pc:"dansé", cond:"danserais,danserais,danserait,danserions,danseriez,danseraient",
+    subj:"danse,danses,danse,dansions,dansiez,dansent" },
+  { inf:"jouer", en:"to play", group:"1er", aux:"avoir",
+    pres:"joue,joues,joue,jouons,jouez,jouent",
+    imp:"jouais,jouais,jouait,jouions,jouiez,jouaient",
+    fut:"jouerai,joueras,jouera,jouerons,jouerez,joueront",
+    pc:"joué", cond:"jouerais,jouerais,jouerait,jouerions,joueriez,joueraient",
+    subj:"joue,joues,joue,jouions,jouiez,jouent" },
+  { inf:"visiter", en:"to visit (a place)", group:"1er", aux:"avoir",
+    pres:"visite,visites,visite,visitons,visitez,visitent",
+    imp:"visitais,visitais,visitait,visitions,visitiez,visitaient",
+    fut:"visiterai,visiteras,visitera,visiterons,visiterez,visiteront",
+    pc:"visité", cond:"visiterais,visiterais,visiterait,visiterions,visiteriez,visiteraient",
+    subj:"visite,visites,visite,visitions,visitiez,visitent" },
+  { inf:"préparer", en:"to prepare", group:"1er", aux:"avoir",
+    pres:"prépare,prépares,prépare,préparons,préparez,préparent",
+    imp:"préparais,préparais,préparait,préparions,prépariez,préparaient",
+    fut:"préparerai,prépareras,préparera,préparerons,préparerez,prépareront",
+    pc:"préparé", cond:"préparerais,préparerais,préparerait,préprarerions,prépareriez,prépareraient",
+    subj:"prépare,prépares,prépare,préparions,prépariez,préparent" },
+  { inf:"expliquer", en:"to explain", group:"1er", aux:"avoir",
+    pres:"explique,expliques,explique,expliquons,expliquez,expliquent",
+    imp:"expliquais,expliquais,expliquait,expliquions,expliquiez,expliquaient",
+    fut:"expliquerai,expliqueras,expliquera,expliquerons,expliquerez,expliqueront",
+    pc:"expliqué", cond:"expliquerais,expliquerais,expliquerait,expliquerions,expliqueriez,expliqueraient",
+    subj:"explique,expliques,explique,expliquions,expliquiez,expliquent" },
+  { inf:"acheter", en:"to buy", group:"1er", aux:"avoir",
+    pres:"achète,achètes,achète,achetons,achetez,achètent",
+    imp:"achetais,achetais,achetait,achetions,achetiez,achetaient",
+    fut:"achèterai,achèteras,achètera,achèterons,achèterez,achèteront",
+    pc:"acheté", cond:"achèterais,achèterais,achèterait,achèterions,achèteriez,achèteraient",
+    subj:"achète,achètes,achète,achetions,achetiez,achètent" },
+  { inf:"penser", en:"to think", group:"1er", aux:"avoir",
+    pres:"pense,penses,pense,pensons,pensez,pensent",
+    imp:"pensais,pensais,pensait,pensions,pensiez,pensaient",
+    fut:"penserai,penseras,pensera,penserons,penserez,penseront",
+    pc:"pensé", cond:"penserais,penserais,penserait,penserions,penseriez,penseraient",
+    subj:"pense,penses,pense,pensions,pensiez,pensent" },
+  { inf:"montrer", en:"to show", group:"1er", aux:"avoir",
+    pres:"montre,montres,montre,montrons,montrez,montrent",
+    imp:"montrais,montrais,montrait,montrions,montriez,montraient",
+    fut:"montrerai,montreras,montrera,montrerons,montrerez,montreront",
+    pc:"montré", cond:"montrerais,montrerais,montrerait,montrerions,montreriez,montreraient",
+    subj:"montre,montres,montre,montrions,montriez,montrent" },
+  { inf:"entrer", en:"to enter / to come in", group:"1er", aux:"être",
+    pres:"entre,entres,entre,entrons,entrez,entrent",
+    imp:"entrais,entrais,entrait,entrions,entriez,entraient",
+    fut:"entrerai,entreras,entrera,entrerons,entrerez,entreront",
+    pc:"entré", cond:"entrerais,entrerais,entrerait,entrerions,entreriez,entreraient",
+    subj:"entre,entres,entre,entrions,entriez,entrent" },
+  { inf:"rester", en:"to stay / to remain", group:"1er", aux:"être",
+    pres:"reste,restes,reste,restons,restez,restent",
+    imp:"restais,restais,restait,restions,restiez,restaient",
+    fut:"resterai,resteras,restera,resterons,resterez,resteront",
+    pc:"resté", cond:"resterais,resterais,resterait,resterions,resteriez,resteraient",
+    subj:"reste,restes,reste,restions,restiez,restent" },
+  { inf:"passer", en:"to pass / to spend (time)", group:"1er", aux:"avoir",
+    pres:"passe,passes,passe,passons,passez,passent",
+    imp:"passais,passais,passait,passions,passiez,passaient",
+    fut:"passerai,passeras,passera,passerons,passerez,passeront",
+    pc:"passé", cond:"passerais,passerais,passerait,passerions,passeriez,passeraient",
+    subj:"passe,passes,passe,passions,passiez,passent" },
+  { inf:"rentrer", en:"to go back home / to return", group:"1er", aux:"être",
+    pres:"rentre,rentres,rentre,rentrons,rentrez,rentrent",
+    imp:"rentrais,rentrais,rentrait,rentrions,rentriez,rentraient",
+    fut:"rentrerai,rentreras,rentrera,rentrerons,rentrerez,rentreront",
+    pc:"rentré", cond:"rentrerais,rentrerais,rentrerait,rentrerions,rentreriez,rentreraient",
+    subj:"rentre,rentres,rentre,rentrions,rentriez,rentrent" },
+  { inf:"tomber", en:"to fall", group:"1er", aux:"être",
+    pres:"tombe,tombes,tombe,tombons,tombez,tombent",
+    imp:"tombais,tombais,tombait,tombions,tombiez,tombaient",
+    fut:"tomberai,tomberas,tombera,tomberons,tomberez,tomberont",
+    pc:"tombé", cond:"tomberais,tomberais,tomberait,tomberions,tomberiez,tomberaient",
+    subj:"tombe,tombes,tombe,tombions,tombiez,tombent" },
+  { inf:"arriver", en:"to arrive / to happen", group:"1er", aux:"être",
+    pres:"arrive,arrives,arrive,arrivons,arrivez,arrivent",
+    imp:"arrivais,arrivais,arrivait,arrivions,arriviez,arrivaient",
+    fut:"arriverai,arriveras,arrivera,arriverons,arriverez,arriveront",
+    pc:"arrivé", cond:"arriverais,arriverais,arriverait,arriverions,arriveriez,arriveraient",
+    subj:"arrive,arrives,arrive,arrivions,arriviez,arrivent" },
+  { inf:"retourner", en:"to return / to go back", group:"1er", aux:"être",
+    pres:"retourne,retournes,retourne,retournons,retournez,retournent",
+    imp:"retournais,retournais,retournait,retournions,retourniez,retournaient",
+    fut:"retournerai,retourneras,retournera,retournerons,retournerez,retourneront",
+    pc:"retourné", cond:"retournerais,retournerais,retournerait,retournerions,retourneriez,retourneraient",
+    subj:"retourne,retournes,retourne,retournions,retourniez,retournent" },
+  { inf:"monter", en:"to go up / to climb", group:"1er", aux:"être",
+    pres:"monte,montes,monte,montons,montez,montent",
+    imp:"montais,montais,montait,montions,montiez,montaient",
+    fut:"monterai,monteras,montera,monterons,monterez,monteront",
+    pc:"monté", cond:"monterais,monterais,monterait,monterions,monteriez,monteraient",
+    subj:"monte,montes,monte,montions,montiez,montent" },
+  { inf:"descendre", en:"to go down / to descend", group:"3e", aux:"être",
+    pres:"descends,descends,descend,descendons,descendez,descendent",
+    imp:"descendais,descendais,descendait,descendions,descendiez,descendaient",
+    fut:"descendrai,descendras,descendra,descendrons,descendrez,descendront",
+    pc:"descendu", cond:"descendrais,descendrais,descendrait,descendrions,descendriez,descendraient",
+    subj:"descende,descendes,descende,descendions,descendiez,descendent" },
+  { inf:"commencer", en:"to begin / to start", group:"1er", aux:"avoir",
+    pres:"commence,commences,commence,commençons,commencez,commencent",
+    imp:"commençais,commençais,commençait,commencions,commenciez,commençaient",
+    fut:"commencerai,commenceras,commencera,commencerons,commencerez,commenceront",
+    pc:"commencé", cond:"commencerais,commencerais,commencerait,commencerions,commenceriez,commenceraient",
+    subj:"commence,commences,commence,commencions,commenciez,commencent" },
+  { inf:"voyager", en:"to travel", group:"1er", aux:"avoir",
+    pres:"voyage,voyages,voyage,voyageons,voyagez,voyagent",
+    imp:"voyageais,voyageais,voyageait,voyagions,voyagiez,voyageaient",
+    fut:"voyagerai,voyageras,voyagera,voyagerons,voyagerez,voyageront",
+    pc:"voyagé", cond:"voyagerais,voyagerais,voyagerait,voyagerions,voyageriez,voyageraient",
+    subj:"voyage,voyages,voyage,voyagions,voyagiez,voyagent" },
+  { inf:"utiliser", en:"to use", group:"1er", aux:"avoir",
+    pres:"utilise,utilises,utilise,utilisons,utilisez,utilisent",
+    imp:"utilisais,utilisais,utilisait,utilisions,utilisiez,utilisaient",
+    fut:"utiliserai,utiliseras,utilisera,utiliserons,utiliserez,utiliseront",
+    pc:"utilisé", cond:"utiliserais,utiliserais,utiliserait,utiliserions,utiliseriez,utiliseraient",
+    subj:"utilise,utilises,utilise,utilisions,utilisiez,utilisent" },
+  { inf:"continuer", en:"to continue", group:"1er", aux:"avoir",
+    pres:"continue,continues,continue,continuons,continuez,continuent",
+    imp:"continuais,continuais,continuait,continuions,continuiez,continuaient",
+    fut:"continuerai,continueras,continuera,continuerons,continuerez,continueront",
+    pc:"continué", cond:"continuerais,continuerais,continuerait,continuerions,continueriez,continueraient",
+    subj:"continue,continues,continue,continuions,continuiez,continuent" },
+  { inf:"présenter", en:"to present / to introduce", group:"1er", aux:"avoir",
+    pres:"présente,présentes,présente,présentons,présentez,présentent",
+    imp:"présentais,présentais,présentait,présentions,présentiez,présentaient",
+    fut:"présenterai,présenteras,présentera,présenterons,présenterez,présenteront",
+    pc:"présenté", cond:"présenterais,présenterais,présenterait,présenterions,présenteriez,présenteraient",
+    subj:"présente,présentes,présente,présentions,présentiez,présentent" },
+  { inf:"demander", en:"to ask / to request", group:"1er", aux:"avoir",
+    pres:"demande,demandes,demande,demandons,demandez,demandent",
+    imp:"demandais,demandais,demandait,demandions,demandiez,demandaient",
+    fut:"demanderai,demanderas,demandera,demanderons,demanderez,demanderont",
+    pc:"demandé", cond:"demanderais,demanderais,demanderait,demanderions,demanderiez,demanderaient",
+    subj:"demande,demandes,demande,demandions,demandiez,demandent" },
+  { inf:"réserver", en:"to reserve / to book", group:"1er", aux:"avoir",
+    pres:"réserve,réserves,réserve,réservons,réservez,réservent",
+    imp:"réservais,réservais,réservait,réservions,réserviez,réservaient",
+    fut:"réserverai,réserveras,réservera,réserverons,réserverez,réserveront",
+    pc:"réservé", cond:"réserverais,réserverais,réserverait,réserverions,réserveriez,réserveraient",
+    subj:"réserve,réserves,réserve,réservions,réserviez,réservent" },
+  { inf:"rentrer", en:"to return home", group:"1er", aux:"être",
+    pres:"rentre,rentres,rentre,rentrons,rentrez,rentrent",
+    imp:"rentrais,rentrais,rentrait,rentrions,rentriez,rentraient",
+    fut:"rentrerai,rentreras,rentrera,rentrerons,rentrerez,rentreront",
+    pc:"rentré", cond:"rentrerais,rentrerais,rentrerait,rentrerions,rentreriez,rentreraient",
+    subj:"rentre,rentres,rentre,rentrions,rentriez,rentrent" },
+  { inf:"partager", en:"to share", group:"1er", aux:"avoir",
+    pres:"partage,partages,partage,partageons,partagez,partagent",
+    imp:"partageais,partageais,partageait,partagions,partagiez,partageaient",
+    fut:"partagerai,partageras,partagera,partagerons,partagerez,partageront",
+    pc:"partagé", cond:"partagerais,partagerais,partagerait,partagerions,partageriez,partageraient",
+    subj:"partage,partages,partage,partagions,partagiez,partagent" },
+  { inf:"espérer", en:"to hope", group:"1er", aux:"avoir",
+    pres:"espère,espères,espère,espérons,espérez,espèrent",
+    imp:"espérais,espérais,espérait,espérions,espériez,espéraient",
+    fut:"espérerai,espéreras,espérera,espérerons,espérerez,espéreront",
+    pc:"espéré", cond:"espérerais,espérerais,espérerait,espérerions,espéreriez,espéreraient",
+    subj:"espère,espères,espère,espérions,espériez,espèrent" },
+  { inf:"accepter", en:"to accept", group:"1er", aux:"avoir",
+    pres:"accepte,acceptes,accepte,acceptons,acceptez,acceptent",
+    imp:"acceptais,acceptais,acceptait,acceptions,acceptiez,acceptaient",
+    fut:"accepterai,accepteras,acceptera,accepterons,accepterez,accepteront",
+    pc:"accepté", cond:"accepterais,accepterais,accepterait,accepterions,accepteriez,accepteraient",
+    subj:"accepte,acceptes,accepte,acceptions,acceptiez,acceptent" },
+  { inf:"oser", en:"to dare", group:"1er", aux:"avoir",
+    pres:"ose,oses,ose,osons,osez,osent",
+    imp:"osais,osais,osait,osions,osiez,osaient",
+    fut:"oserai,oseras,osera,oserons,oserez,oseront",
+    pc:"osé", cond:"oserais,oserais,oserait,oserions,oseriez,oseraient",
+    subj:"ose,oses,ose,osions,osiez,osent" },
+  { inf:"créer", en:"to create", group:"1er", aux:"avoir",
+    pres:"crée,crées,crée,créons,créez,créent",
+    imp:"créais,créais,créait,créions,créiez,créaient",
+    fut:"créerai,créeras,créera,créerons,créerez,créeront",
+    pc:"créé", cond:"créerais,créerais,créerait,créerions,créeriez,créeraient",
+    subj:"crée,crées,crée,créions,créiez,créent" },
+  { inf:"protéger", en:"to protect", group:"1er", aux:"avoir",
+    pres:"protège,protèges,protège,protégeons,protégez,protègent",
+    imp:"protégeais,protégeais,protégeait,protégions,protégiez,protégeaient",
+    fut:"protégerai,protégeras,protégera,protégerons,protégerez,protégeront",
+    pc:"protégé", cond:"protégerais,protégerais,protégerait,protégerions,protégeriez,protégeraient",
+    subj:"protège,protèges,protège,protégions,protégiez,protègent" },
+  { inf:"recycler", en:"to recycle", group:"1er", aux:"avoir",
+    pres:"recycle,recycles,recycle,recyclons,recyclez,recyclent",
+    imp:"recyclais,recyclais,recyclait,recyclions,recycliez,recyclaient",
+    fut:"recyclerai,recycleras,recyclera,recyclerons,recyclerez,recycleront",
+    pc:"recyclé", cond:"recyclerais,recyclerais,recyclerait,recyclerions,recycleriez,recycleraient",
+    subj:"recycle,recycles,recycle,recyclions,recycliez,recyclent" },
+
+  // ════════════════════════════════════════════
+  // 2E GROUPE — VERBES EN -IR RÉGULIERS
+  // ════════════════════════════════════════════
+  { inf:"finir", en:"to finish", group:"2e", aux:"avoir",
+    pres:"finis,finis,finit,finissons,finissez,finissent",
+    imp:"finissais,finissais,finissait,finissions,finissiez,finissaient",
+    fut:"finirai,finiras,finira,finirons,finirez,finiront",
+    pc:"fini", cond:"finirais,finirais,finirait,finirions,finiriez,finiraient",
+    subj:"finisse,finisses,finisse,finissions,finissiez,finissent" },
+  { inf:"choisir", en:"to choose", group:"2e", aux:"avoir",
+    pres:"choisis,choisis,choisit,choisissons,choisissez,choisissent",
+    imp:"choisissais,choisissais,choisissait,choisissions,choisissiez,choisissaient",
+    fut:"choisirai,choisiras,choisira,choisirons,choisirez,choisiront",
+    pc:"choisi", cond:"choisirais,choisirais,choisirait,choisirions,choisiriez,choisiraient",
+    subj:"choisisse,choisisses,choisisse,choisissions,choisissiez,choisissent" },
+  { inf:"réussir", en:"to succeed / to pass (exam)", group:"2e", aux:"avoir",
+    pres:"réussis,réussis,réussit,réussissons,réussissez,réussissent",
+    imp:"réussissais,réussissais,réussissait,réussissions,réussissiez,réussissaient",
+    fut:"réussirai,réussiras,réussira,réussirons,réussirez,réussiront",
+    pc:"réussi", cond:"réussirais,réussirais,réussirait,réussirions,réussiriez,réussiraient",
+    subj:"réussisse,réussisses,réussisse,réussissions,réussissiez,réussissent" },
+  { inf:"grandir", en:"to grow (up)", group:"2e", aux:"avoir",
+    pres:"grandis,grandis,grandit,grandissons,grandissez,grandissent",
+    imp:"grandissais,grandissais,grandissait,grandissions,grandissiez,grandissaient",
+    fut:"grandirai,grandiras,grandira,grandirons,grandirez,grandiront",
+    pc:"grandi", cond:"grandirais,grandirais,grandirait,grandirions,grandiriez,grandiraient",
+    subj:"grandisse,grandisses,grandisse,grandissions,grandissiez,grandissent" },
+  { inf:"réfléchir", en:"to think / to reflect", group:"2e", aux:"avoir",
+    pres:"réfléchis,réfléchis,réfléchit,réfléchissons,réfléchissez,réfléchissent",
+    imp:"réfléchissais,réfléchissais,réfléchissait,réfléchissions,réfléchissiez,réfléchissaient",
+    fut:"réfléchirai,réfléchiras,réfléchira,réfléchirons,réfléchirez,réfléchiront",
+    pc:"réfléchi", cond:"réfléchirais,réfléchirais,réfléchirait,réfléchirions,réfléchiriez,réfléchiraient",
+    subj:"réfléchisse,réfléchisses,réfléchisse,réfléchissions,réfléchissiez,réfléchissent" },
+  { inf:"obéir", en:"to obey", group:"2e", aux:"avoir",
+    pres:"obéis,obéis,obéit,obéissons,obéissez,obéissent",
+    imp:"obéissais,obéissais,obéissait,obéissions,obéissiez,obéissaient",
+    fut:"obéirai,obéiras,obéira,obéirons,obéirez,obéiront",
+    pc:"obéi", cond:"obéirais,obéirais,obéirait,obéirions,obéiriez,obéiraient",
+    subj:"obéisse,obéisses,obéisse,obéissions,obéissiez,obéissent" },
+  { inf:"rougir", en:"to blush / to turn red", group:"2e", aux:"avoir",
+    pres:"rougis,rougis,rougit,rougissons,rougissez,rougissent",
+    imp:"rougissais,rougissais,rougissait,rougissions,rougissiez,rougissaient",
+    fut:"rougirai,rougiras,rougira,rougirons,rougirez,rougiront",
+    pc:"rougi", cond:"rougirais,rougirais,rougirait,rougirions,rougiriez,rougiraient",
+    subj:"rougisse,rougisses,rougisse,rougissions,rougissiez,rougissent" },
+  { inf:"applaudir", en:"to applaud / to clap", group:"2e", aux:"avoir",
+    pres:"applaudis,applaudis,applaudit,applaudissons,applaudissez,applaudissent",
+    imp:"applaudissais,applaudissais,applaudissait,applaudissions,applaudissiez,applaudissaient",
+    fut:"applaudirai,applaudiras,applaudira,applaudirons,applaudirez,applaudiront",
+    pc:"applaudi", cond:"applaudirais,applaudirais,applaudirait,applaudirions,applaudiriez,applaudiraient",
+    subj:"applaudisse,applaudisses,applaudisse,applaudissions,applaudissiez,applaudissent" },
+  { inf:"guérir", en:"to heal / to recover", group:"2e", aux:"avoir",
+    pres:"guéris,guéris,guérit,guérissons,guérissez,guérissent",
+    imp:"guérissais,guérissais,guérissait,guérissions,guérissiez,guérissaient",
+    fut:"guérirai,guériras,guérira,guérirons,guérirez,guériront",
+    pc:"guéri", cond:"guérirais,guérirais,guérirait,guririons,guéririez,guériraient",
+    subj:"guérisse,guérisses,guérisse,guérissions,guérissiez,guérissent" },
+  { inf:"agir", en:"to act", group:"2e", aux:"avoir",
+    pres:"agis,agis,agit,agissons,agissez,agissent",
+    imp:"agissais,agissais,agissait,agissions,agissiez,agissaient",
+    fut:"agirai,agiras,agira,agirons,agirez,agiront",
+    pc:"agi", cond:"agirais,agirais,agirait,agirions,agiriez,agiraient",
+    subj:"agisse,agisses,agisse,agissions,agissiez,agissent" },
+
+  // ════════════════════════════════════════════
+  // 3E GROUPE — VERBES IRRÉGULIERS ESSENTIELS
+  // ════════════════════════════════════════════
+  { inf:"aller", en:"to go", group:"3e", aux:"être",
+    pres:"vais,vas,va,allons,allez,vont",
+    imp:"allais,allais,allait,allions,alliez,allaient",
+    fut:"irai,iras,ira,irons,irez,iront",
+    pc:"allé", cond:"irais,irais,irait,irions,iriez,iraient",
+    subj:"aille,ailles,aille,allions,alliez,aillent" },
+  { inf:"faire", en:"to do / to make", group:"3e", aux:"avoir",
+    pres:"fais,fais,fait,faisons,faites,font",
+    imp:"faisais,faisais,faisait,faisions,faisiez,faisaient",
+    fut:"ferai,feras,fera,ferons,ferez,feront",
+    pc:"fait", cond:"ferais,ferais,ferait,ferions,feriez,feraient",
+    subj:"fasse,fasses,fasse,fassions,fassiez,fassent" },
+  { inf:"prendre", en:"to take", group:"3e", aux:"avoir",
+    pres:"prends,prends,prend,prenons,prenez,prennent",
+    imp:"prenais,prenais,prenait,prenions,preniez,prenaient",
+    fut:"prendrai,prendras,prendra,prendrons,prendrez,prendront",
+    pc:"pris", cond:"prendrais,prendrais,prendrait,prendrions,prendriez,prendraient",
+    subj:"prenne,prennes,prenne,prenions,preniez,prennent" },
+  { inf:"venir", en:"to come", group:"3e", aux:"être",
+    pres:"viens,viens,vient,venons,venez,viennent",
+    imp:"venais,venais,venait,venions,veniez,venaient",
+    fut:"viendrai,viendras,viendra,viendrons,viendrez,viendront",
+    pc:"venu", cond:"viendrais,viendrais,viendrait,viendrions,viendriez,viendraient",
+    subj:"vienne,viennes,vienne,venions,veniez,viennent" },
+  { inf:"voir", en:"to see", group:"3e", aux:"avoir",
+    pres:"vois,vois,voit,voyons,voyez,voient",
+    imp:"voyais,voyais,voyait,voyions,voyiez,voyaient",
+    fut:"verrai,verras,verra,verrons,verrez,verront",
+    pc:"vu", cond:"verrais,verrais,verrait,verrions,verriez,verraient",
+    subj:"voie,voies,voie,voyions,voyiez,voient" },
+  { inf:"pouvoir", en:"to be able to / can", group:"3e", aux:"avoir",
+    pres:"peux,peux,peut,pouvons,pouvez,peuvent",
+    imp:"pouvais,pouvais,pouvait,pouvions,pouviez,pouvaient",
+    fut:"pourrai,pourras,pourra,pourrons,pourrez,pourront",
+    pc:"pu", cond:"pourrais,pourrais,pourrait,pourrions,pourriez,pourraient",
+    subj:"puisse,puisses,puisse,puissions,puissiez,puissent" },
+  { inf:"vouloir", en:"to want", group:"3e", aux:"avoir",
+    pres:"veux,veux,veut,voulons,voulez,veulent",
+    imp:"voulais,voulais,voulait,voulions,vouliez,voulaient",
+    fut:"voudrai,voudras,voudra,voudrons,voudrez,voudront",
+    pc:"voulu", cond:"voudrais,voudrais,voudrait,voudrions,voudriez,voudraient",
+    subj:"veuille,veuilles,veuille,voulions,vouliez,veuillent" },
+  { inf:"savoir", en:"to know (fact/how to)", group:"3e", aux:"avoir",
+    pres:"sais,sais,sait,savons,savez,savent",
+    imp:"savais,savais,savait,savions,saviez,savaient",
+    fut:"saurai,sauras,saura,saurons,saurez,sauront",
+    pc:"su", cond:"saurais,saurais,saurait,saurions,sauriez,sauraient",
+    subj:"sache,saches,sache,sachions,sachiez,sachent" },
+  { inf:"devoir", en:"to have to / must", group:"3e", aux:"avoir",
+    pres:"dois,dois,doit,devons,devez,doivent",
+    imp:"devais,devais,devait,devions,deviez,devaient",
+    fut:"devrai,devras,devra,devrons,devrez,devront",
+    pc:"dû", cond:"devrais,devrais,devrait,devrions,devriez,devraient",
+    subj:"doive,doives,doive,devions,deviez,doivent" },
+  { inf:"dire", en:"to say / to tell", group:"3e", aux:"avoir",
+    pres:"dis,dis,dit,disons,dites,disent",
+    imp:"disais,disais,disait,disions,disiez,disaient",
+    fut:"dirai,diras,dira,dirons,direz,diront",
+    pc:"dit", cond:"dirais,dirais,dirait,dirions,diriez,diraient",
+    subj:"dise,dises,dise,disions,disiez,disent" },
+  { inf:"lire", en:"to read", group:"3e", aux:"avoir",
+    pres:"lis,lis,lit,lisons,lisez,lisent",
+    imp:"lisais,lisais,lisait,lisions,lisiez,lisaient",
+    fut:"lirai,liras,lira,lirons,lirez,liront",
+    pc:"lu", cond:"lirais,lirais,lirait,lirions,liriez,liraient",
+    subj:"lise,lises,lise,lisions,lisiez,lisent" },
+  { inf:"écrire", en:"to write", group:"3e", aux:"avoir",
+    pres:"écris,écris,écrit,écrivons,écrivez,écrivent",
+    imp:"écrivais,écrivais,écrivait,écrivions,écriviez,écrivaient",
+    fut:"écrirai,écriras,écrira,écrirons,écrirez,écriront",
+    pc:"écrit", cond:"écrirais,écrirais,écrirait,écririons,écririez,écriraient",
+    subj:"écrive,écrives,écrive,écrivions,écriviez,écrivent" },
+  { inf:"partir", en:"to leave / to depart", group:"3e", aux:"être",
+    pres:"pars,pars,part,partons,partez,partent",
+    imp:"partais,partais,partait,partions,partiez,partaient",
+    fut:"partirai,partiras,partira,partirons,partirez,partiront",
+    pc:"parti", cond:"partirais,partirais,partirait,partirions,partiriez,partiraient",
+    subj:"parte,partes,parte,partions,partiez,partent" },
+  { inf:"sortir", en:"to go out", group:"3e", aux:"être",
+    pres:"sors,sors,sort,sortons,sortez,sortent",
+    imp:"sortais,sortais,sortait,sortions,sortiez,sortaient",
+    fut:"sortirai,sortiras,sortira,sortirons,sortirez,sortiront",
+    pc:"sorti", cond:"sortirais,sortirais,sortirait,sortirions,sortiriez,sortiraient",
+    subj:"sorte,sortes,sorte,sortions,sortiez,sortent" },
+  { inf:"mettre", en:"to put / to place", group:"3e", aux:"avoir",
+    pres:"mets,mets,met,mettons,mettez,mettent",
+    imp:"mettais,mettais,mettait,mettions,mettiez,mettaient",
+    fut:"mettrai,mettras,mettra,mettrons,mettrez,mettront",
+    pc:"mis", cond:"mettrais,mettrais,mettrait,mettrions,mettriez,mettraient",
+    subj:"mette,mettes,mette,mettions,mettiez,mettent" },
+  { inf:"connaître", en:"to know (person/place)", group:"3e", aux:"avoir",
+    pres:"connais,connais,connaît,connaissons,connaissez,connaissent",
+    imp:"connaissais,connaissais,connaissait,connaissions,connaissiez,connaissaient",
+    fut:"connaîtrai,connaîtras,connaîtra,connaîtrons,connaîtrez,connaîtront",
+    pc:"connu", cond:"connaîtrais,connaîtrais,connaîtrait,connaîtrions,connaîtriez,connaîtraient",
+    subj:"connaisse,connaisses,connaisse,connaissions,connaissiez,connaissent" },
+  { inf:"recevoir", en:"to receive", group:"3e", aux:"avoir",
+    pres:"reçois,reçois,reçoit,recevons,recevez,reçoivent",
+    imp:"recevais,recevais,recevait,recevions,receviez,recevaient",
+    fut:"recevrai,recevras,recevra,recevrons,recevrez,recevront",
+    pc:"reçu", cond:"recevrais,recevrais,recevrait,recevrions,recevriez,recevraient",
+    subj:"reçoive,reçoives,reçoive,recevions,receviez,reçoivent" },
+  { inf:"boire", en:"to drink", group:"3e", aux:"avoir",
+    pres:"bois,bois,boit,buvons,buvez,boivent",
+    imp:"buvais,buvais,buvait,buvions,buviez,buvaient",
+    fut:"boirai,boiras,boira,boirons,boirez,boiront",
+    pc:"bu", cond:"boirais,boirais,boirait,boirions,boiriez,boiraient",
+    subj:"boive,boives,boive,buvions,buviez,boivent" },
+  { inf:"vendre", en:"to sell", group:"3e", aux:"avoir",
+    pres:"vends,vends,vend,vendons,vendez,vendent",
+    imp:"vendais,vendais,vendait,vendions,vendiez,vendaient",
+    fut:"vendrai,vendras,vendra,vendrons,vendrez,vendront",
+    pc:"vendu", cond:"vendrais,vendrais,vendrait,vendrions,vendriez,vendraient",
+    subj:"vende,vendes,vende,vendions,vendiez,vendent" },
+  { inf:"attendre", en:"to wait (for)", group:"3e", aux:"avoir",
+    pres:"attends,attends,attend,attendons,attendez,attendent",
+    imp:"attendais,attendais,attendait,attendions,attendiez,attendaient",
+    fut:"attendrai,attendras,attendra,attendrons,attendrez,attendront",
+    pc:"attendu", cond:"attendrais,attendrais,attendrait,attendrions,attendriez,attendraient",
+    subj:"attende,attendes,attende,attendions,attendiez,attendent" },
+  { inf:"répondre", en:"to answer / to reply", group:"3e", aux:"avoir",
+    pres:"réponds,réponds,répond,répondons,répondez,répondent",
+    imp:"répondais,répondais,répondait,répondions,répondiez,répondaient",
+    fut:"répondrai,répondras,répondra,répondrons,répondrez,répondront",
+    pc:"répondu", cond:"répondrais,répondrais,répondrait,répondrions,répondriez,répondraient",
+    subj:"réponde,répondes,réponde,répondions,répondiez,répondent" },
+  { inf:"entendre", en:"to hear", group:"3e", aux:"avoir",
+    pres:"entends,entends,entend,entendons,entendez,entendent",
+    imp:"entendais,entendais,entendait,entendions,entendiez,entendaient",
+    fut:"entendrai,entendras,entendra,entendrons,entendrez,entendront",
+    pc:"entendu", cond:"entendrais,entendrais,entendrait,entendrions,entendriez,entendraient",
+    subj:"entende,entendes,entende,entendions,entendiez,entendent" },
+  { inf:"perdre", en:"to lose", group:"3e", aux:"avoir",
+    pres:"perds,perds,perd,perdons,perdez,perdent",
+    imp:"perdais,perdais,perdait,perdions,perdiez,perdaient",
+    fut:"perdrai,perdras,perdra,perdrons,perdrez,perdront",
+    pc:"perdu", cond:"perdrais,perdrais,perdrait,perdrions,perdriez,perdraient",
+    subj:"perde,perdes,perde,perdions,perdiez,perdent" },
+  { inf:"rendre", en:"to give back / to return", group:"3e", aux:"avoir",
+    pres:"rends,rends,rend,rendons,rendez,rendent",
+    imp:"rendais,rendais,rendait,rendions,rendiez,rendaient",
+    fut:"rendrai,rendras,rendra,rendrons,rendrez,rendront",
+    pc:"rendu", cond:"rendrais,rendrais,rendrait,rendrions,rendriez,rendraient",
+    subj:"rende,rendes,rende,rendions,rendiez,rendent" },
+  { inf:"comprendre", en:"to understand", group:"3e", aux:"avoir",
+    pres:"comprends,comprends,comprend,comprenons,comprenez,comprennent",
+    imp:"comprenais,comprenais,comprenait,comprenions,compreniez,comprenaient",
+    fut:"comprendrai,comprendras,comprendra,comprendrons,comprendrez,comprendront",
+    pc:"compris", cond:"comprendrais,comprendrais,comprendrait,comprendrions,comprendriez,comprendraient",
+    subj:"comprenne,comprennes,comprenne,comprenions,compreniez,comprennent" },
+  { inf:"apprendre", en:"to learn", group:"3e", aux:"avoir",
+    pres:"apprends,apprends,apprend,apprenons,apprenez,apprennent",
+    imp:"apprenais,apprenais,apprenait,apprenions,appreniez,apprenaient",
+    fut:"apprendrai,apprendras,apprendra,apprendrons,apprendrez,apprendront",
+    pc:"appris", cond:"apprendrais,apprendrais,apprendrait,apprendrions,apprendriez,apprendraient",
+    subj:"apprenne,apprennes,apprenne,apprenions,appreniez,apprennent" },
+  { inf:"vivre", en:"to live", group:"3e", aux:"avoir",
+    pres:"vis,vis,vit,vivons,vivez,vivent",
+    imp:"vivais,vivais,vivait,vivions,viviez,vivaient",
+    fut:"vivrai,vivras,vivra,vivrons,vivrez,vivront",
+    pc:"vécu", cond:"vivrais,vivrais,vivrait,vivrions,vivriez,vivraient",
+    subj:"vive,vives,vive,vivions,viviez,vivent" },
+  { inf:"suivre", en:"to follow", group:"3e", aux:"avoir",
+    pres:"suis,suis,suit,suivons,suivez,suivent",
+    imp:"suivais,suivais,suivait,suivions,suiviez,suivaient",
+    fut:"suivrai,suivras,suivra,suivrons,suivrez,suivront",
+    pc:"suivi", cond:"suivrais,suivrais,suivrait,suivrions,suivriez,suivraient",
+    subj:"suive,suives,suive,suivions,suiviez,suivent" },
+  { inf:"conduire", en:"to drive / to lead", group:"3e", aux:"avoir",
+    pres:"conduis,conduis,conduit,conduisons,conduisez,conduisent",
+    imp:"conduisais,conduisais,conduisait,conduisions,conduisiez,conduisaient",
+    fut:"conduirai,conduiras,conduira,conduirons,conduirez,conduiront",
+    pc:"conduit", cond:"conduirais,conduirais,conduirait,conduirions,conduiriez,conduiraient",
+    subj:"conduise,conduises,conduise,conduisions,conduisiez,conduisent" },
+  { inf:"craindre", en:"to fear", group:"3e", aux:"avoir",
+    pres:"crains,crains,craint,craignons,craignez,craignent",
+    imp:"craignais,craignais,craignait,craignions,craigniez,craignaient",
+    fut:"craindrai,craindras,craindra,craindrons,craindrez,craindront",
+    pc:"craint", cond:"craindrais,craindrais,craindrait,craindrions,craindriez,craindraient",
+    subj:"craigne,craignes,craigne,craignions,craigniez,craignent" },
+  { inf:"plaindre", en:"to pity / to feel sorry for", group:"3e", aux:"avoir",
+    pres:"plains,plains,plaint,plaignons,plaignez,plaignent",
+    imp:"plaignais,plaignais,plaignait,plaignions,plaigniez,plaignaient",
+    fut:"plaindrai,plaindras,plaindra,plaindrons,plaindrez,plaindront",
+    pc:"plaint", cond:"plaindrais,plaindrais,plaindrait,plaindrions,plaindriez,plaindraient",
+    subj:"plaigne,plaignes,plaigne,plaignions,plaigniez,plaignent" },
+  { inf:"joindre", en:"to join / to reach", group:"3e", aux:"avoir",
+    pres:"joins,joins,joint,joignons,joignez,joignent",
+    imp:"joignais,joignais,joignait,joignions,joigniez,joignaient",
+    fut:"joindrai,joindras,joindra,joindrons,joindrez,joindront",
+    pc:"joint", cond:"joindrais,joindrais,joindrait,joindrions,joindriez,joindraient",
+    subj:"joigne,joignes,joigne,joignions,joigniez,joignent" },
+  { inf:"naître", en:"to be born", group:"3e", aux:"être",
+    pres:"nais,nais,naît,naissons,naissez,naissent",
+    imp:"naissais,naissais,naissait,naissions,naissiez,naissaient",
+    fut:"naîtrai,naîtras,naîtra,naîtrons,naîtrez,naîtront",
+    pc:"né", cond:"naîtrais,naîtrais,naîtrait,naîtrions,naîtriez,naîtraient",
+    subj:"naisse,naisses,naisse,naissions,naissiez,naissent" },
+  { inf:"mourir", en:"to die", group:"3e", aux:"être",
+    pres:"meurs,meurs,meurt,mourons,mourez,meurent",
+    imp:"mourais,mourais,mourait,mourions,mouriez,mouraient",
+    fut:"mourrai,mourras,mourra,mourrons,mourrez,mourront",
+    pc:"mort", cond:"mourrais,mourrais,mourrait,mourrions,mourriez,mourraient",
+    subj:"meure,meures,meure,mourions,mouriez,meurent" },
+  { inf:"courir", en:"to run", group:"3e", aux:"avoir",
+    pres:"cours,cours,court,courons,courez,courent",
+    imp:"courais,courais,courait,courions,couriez,couraient",
+    fut:"courrai,courras,courra,courrons,courrez,courront",
+    pc:"couru", cond:"courrais,courrais,courrait,courrions,courriez,courraient",
+    subj:"coure,coures,coure,courions,couriez,courent" },
+  { inf:"ouvrir", en:"to open", group:"3e", aux:"avoir",
+    pres:"ouvre,ouvres,ouvre,ouvrons,ouvrez,ouvrent",
+    imp:"ouvrais,ouvrais,ouvrait,ouvrions,ouvriez,ouvraient",
+    fut:"ouvrirai,ouvriras,ouvrira,ouvrirons,ouvrirez,ouvriront",
+    pc:"ouvert", cond:"ouvrirais,ouvrirais,ouvrirait,ouvririons,ouvririez,ouvriraient",
+    subj:"ouvre,ouvres,ouvre,ouvrions,ouvriez,ouvrent" },
+  { inf:"couvrir", en:"to cover", group:"3e", aux:"avoir",
+    pres:"couvre,couvres,couvre,couvrons,couvrez,couvrent",
+    imp:"couvrais,couvrais,couvrait,couvrions,couvriez,couvraient",
+    fut:"couvrirai,couvriras,couvrira,couvrirons,couvrirez,couvriront",
+    pc:"couvert", cond:"couvrirais,couvrirais,couvrirait,couvririons,couvririez,couvriraient",
+    subj:"couvre,couvres,couvre,couvrions,couvriez,couvrent" },
+  { inf:"offrir", en:"to offer / to give (gift)", group:"3e", aux:"avoir",
+    pres:"offre,offres,offre,offrons,offrez,offrent",
+    imp:"offrais,offrais,offrait,offrions,offriez,offraient",
+    fut:"offrirai,offriras,offrira,offrirons,offrirez,offriront",
+    pc:"offert", cond:"offrirais,offrirais,offrirait,offririons,offririez,offriraient",
+    subj:"offre,offres,offre,offrions,offriez,offrent" },
+  { inf:"souffrir", en:"to suffer", group:"3e", aux:"avoir",
+    pres:"souffre,souffres,souffre,souffrons,souffrez,souffrent",
+    imp:"souffrais,souffrais,souffrait,souffrions,souffriez,souffraient",
+    fut:"souffrirai,souffriras,souffrira,souffrirons,souffrirez,souffriront",
+    pc:"souffert", cond:"souffrirais,souffrirais,souffrirait,souffririons,souffririez,souffriraient",
+    subj:"souffre,souffres,souffre,souffrions,souffriez,souffrent" },
+  { inf:"sentir", en:"to feel / to smell", group:"3e", aux:"avoir",
+    pres:"sens,sens,sent,sentons,sentez,sentent",
+    imp:"sentais,sentais,sentait,sentions,sentiez,sentaient",
+    fut:"sentirai,sentiras,sentira,sentirons,sentirez,sentiront",
+    pc:"senti", cond:"sentirais,sentirais,sentirait,sentirions,sentiriez,sentiraient",
+    subj:"sente,sentes,sente,sentions,sentiez,sentent" },
+  { inf:"mentir", en:"to lie (untruth)", group:"3e", aux:"avoir",
+    pres:"mens,mens,ment,mentons,mentez,mentent",
+    imp:"mentais,mentais,mentait,mentions,mentiez,mentaient",
+    fut:"mentirai,mentiras,mentira,mentirons,mentirez,mentiront",
+    pc:"menti", cond:"mentirais,mentirais,mentirait,mentirions,mentiriez,mentiraient",
+    subj:"mente,mentes,mente,mentions,mentiez,mentent" },
+  { inf:"tenir", en:"to hold / to keep", group:"3e", aux:"avoir",
+    pres:"tiens,tiens,tient,tenons,tenez,tiennent",
+    imp:"tenais,tenais,tenait,tenions,teniez,tenaient",
+    fut:"tiendrai,tiendras,tiendra,tiendrons,tiendrez,tiendront",
+    pc:"tenu", cond:"tiendrais,tiendrais,tiendrait,tiendrions,tiendriez,tiendraient",
+    subj:"tienne,tiennes,tienne,tenions,teniez,tiennent" },
+  { inf:"revenir", en:"to come back", group:"3e", aux:"être",
+    pres:"reviens,reviens,revient,revenons,revenez,reviennent",
+    imp:"revenais,revenais,revenait,revenions,reveniez,revenaient",
+    fut:"reviendrai,reviendras,reviendra,reviendrons,reviendrez,reviendront",
+    pc:"revenu", cond:"reviendrais,reviendrais,reviendrait,reviendrions,reviendriez,reviendraient",
+    subj:"revienne,reviennes,revienne,revenions,reveniez,reviennent" },
+  { inf:"devenir", en:"to become", group:"3e", aux:"être",
+    pres:"deviens,deviens,devient,devenons,devenez,deviennent",
+    imp:"devenais,devenais,devenait,devenions,deveniez,devenaient",
+    fut:"deviendrai,deviendras,deviendra,deviendrons,deviendrez,deviendront",
+    pc:"devenu", cond:"deviendrais,deviendrais,deviendrait,deviendrions,deviendriez,deviendraient",
+    subj:"devienne,deviennes,devienne,devenions,deveniez,deviennent" },
+  { inf:"obtenir", en:"to obtain / to get", group:"3e", aux:"avoir",
+    pres:"obtiens,obtiens,obtient,obtenons,obtenez,obtiennent",
+    imp:"obtenais,obtenais,obtenait,obtenions,obteniez,obtenaient",
+    fut:"obtiendrai,obtiendras,obtiendra,obtiendrons,obtiendrez,obtiendront",
+    pc:"obtenu", cond:"obtiendrais,obtiendrais,obtiendrait,obtiendrions,obtiendriez,obtiendraient",
+    subj:"obtienne,obtiennes,obtienne,obtenions,obteniez,obtiennent" },
+  { inf:"plaire", en:"to please / to be liked", group:"3e", aux:"avoir",
+    pres:"plais,plais,plaît,plaisons,plaisez,plaisent",
+    imp:"plaisais,plaisais,plaisait,plaisions,plaisiez,plaisaient",
+    fut:"plairai,plairas,plaira,plairons,plairez,plairont",
+    pc:"plu", cond:"plairais,plairais,plairait,plairions,plairiez,plairaient",
+    subj:"plaise,plaises,plaise,plaisions,plaisiez,plaisent" },
+  { inf:"croire", en:"to believe", group:"3e", aux:"avoir",
+    pres:"crois,crois,croit,croyons,croyez,croient",
+    imp:"croyais,croyais,croyait,croyions,croyiez,croyaient",
+    fut:"croirai,croiras,croira,croirons,croirez,croiront",
+    pc:"cru", cond:"croirais,croirais,croirait,croirions,croiriez,croiraient",
+    subj:"croie,croies,croie,croyions,croyiez,croient" },
+  { inf:"fuir", en:"to flee / to escape", group:"3e", aux:"avoir",
+    pres:"fuis,fuis,fuit,fuyons,fuyez,fuient",
+    imp:"fuyais,fuyais,fuyait,fuyions,fuyiez,fuyaient",
+    fut:"fuirai,fuiras,fuira,fuirons,fuirez,fuiront",
+    pc:"fui", cond:"fuirais,fuirais,fuirait,fuirions,fuiriez,fuiraient",
+    subj:"fuie,fuies,fuie,fuyions,fuyiez,fuient" },
+  { inf:"envoyer", en:"to send", group:"3e", aux:"avoir",
+    pres:"envoie,envoies,envoie,envoyons,envoyez,envoient",
+    imp:"envoyais,envoyais,envoyait,envoyions,envoyiez,envoyaient",
+    fut:"enverrai,enverras,enverra,enverrons,enverrez,enverront",
+    pc:"envoyé", cond:"enverrais,enverrais,enverrait,enverrions,enverriez,enverraient",
+    subj:"envoie,envoies,envoie,envoyions,envoyiez,envoient" },
+  { inf:"résoudre", en:"to solve / to resolve", group:"3e", aux:"avoir",
+    pres:"résous,résous,résout,résolvons,résolvez,résolvent",
+    imp:"résolvais,résolvais,résolvait,résolvions,résolviez,résolvaient",
+    fut:"résoudrai,résoudras,résoudra,résoudrons,résoudrez,résoudront",
+    pc:"résolu", cond:"résoudrais,résoudrais,résoudrait,résoudrions,résoudriez,résoudraient",
+    subj:"résolve,résolves,résolve,résolvions,résolviez,résolvent" },
+  { inf:"pleuvoir", en:"to rain (impersonal)", group:"3e", aux:"avoir",
+    pres:",,pleut,,,",
+    imp:",,pleuvait,,,",
+    fut:",,pleuvra,,,",
+    pc:"plu", cond:",,pleuvrait,,,",
+    subj:",,pleuve,,," },
+  { inf:"falloir", en:"to be necessary (il faut)", group:"3e", aux:"avoir",
+    pres:",,faut,,,",
+    imp:",,fallait,,,",
+    fut:",,faudra,,,",
+    pc:"fallu", cond:",,faudrait,,,",
+    subj:",,faille,,," },
+
+  // ════════════════════════════════════════════
+  // VERBES PRONOMINAUX
+  // ════════════════════════════════════════════
+  { inf:"s'appeler", en:"to be called", group:"pro", aux:"être",
+    pres:"m'appelle,t'appelles,s'appelle,nous appelons,vous appelez,s'appellent",
+    imp:"m'appelais,t'appelais,s'appelait,nous appelions,vous appeliez,s'appelaient",
+    fut:"m'appellerai,t'appelleras,s'appellera,nous appellerons,vous appellerez,s'appelleront",
+    pc:"appelé", cond:"m'appellerais,t'appellerais,s'appellerait,nous appellerions,vous appelleriez,s'appelleraient",
+    subj:"m'appelle,t'appelles,s'appelle,nous appelions,vous appeliez,s'appellent" },
+  { inf:"se lever", en:"to get up", group:"pro", aux:"être",
+    pres:"me lève,te lèves,se lève,nous levons,vous levez,se lèvent",
+    imp:"me levais,te levais,se levait,nous levions,vous leviez,se levaient",
+    fut:"me lèverai,te lèveras,se lèvera,nous lèverons,vous lèverez,se lèveront",
+    pc:"levé", cond:"me lèverais,te lèverais,se lèverait,nous lèverions,vous lèveriez,se lèveraient",
+    subj:"me lève,te lèves,se lève,nous levions,vous leviez,se lèvent" },
+  { inf:"se coucher", en:"to go to bed", group:"pro", aux:"être",
+    pres:"me couche,te couches,se couche,nous couchons,vous couchez,se couchent",
+    imp:"me couchais,te couchais,se couchait,nous couchions,vous couchiez,se couchaient",
+    fut:"me coucherai,te coucheras,se couchera,nous coucherons,vous coucherez,se coucheront",
+    pc:"couché", cond:"me coucherais,te coucherais,se coucherait,nous coucherions,vous coucheriez,se coucheraient",
+    subj:"me couche,te couches,se couche,nous couchions,vous couchiez,se couchent" },
+  { inf:"se réveiller", en:"to wake up", group:"pro", aux:"être",
+    pres:"me réveille,te réveilles,se réveille,nous réveillons,vous réveillez,se réveillent",
+    imp:"me réveillais,te réveillais,se réveillait,nous réveillions,vous réveilliez,se réveillaient",
+    fut:"me réveillerai,te réveilleras,se réveillera,nous réveillerons,vous réveillerez,se réveilleront",
+    pc:"réveillé", cond:"me réveillerais,te réveillerais,se réveillerait,nous réveillerions,vous réveilleriez,se réveilleraient",
+    subj:"me réveille,te réveilles,se réveille,nous réveillions,vous réveilliez,se réveillent" },
+  { inf:"s'habiller", en:"to get dressed", group:"pro", aux:"être",
+    pres:"m'habille,t'habilles,s'habille,nous habillons,vous habillez,s'habillent",
+    imp:"m'habillais,t'habillais,s'habillait,nous habillions,vous habilliez,s'habillaient",
+    fut:"m'habillerai,t'habilleras,s'habillera,nous habillerons,vous habillerez,s'habilleront",
+    pc:"habillé", cond:"m'habillerais,t'habillerais,s'habillerait,nous habillerions,vous habilleriez,s'habilleraient",
+    subj:"m'habille,t'habilles,s'habille,nous habillions,vous habilliez,s'habillent" },
+  { inf:"se laver", en:"to wash (oneself)", group:"pro", aux:"être",
+    pres:"me lave,te laves,se lave,nous lavons,vous lavez,se lavent",
+    imp:"me lavais,te lavais,se lavait,nous lavions,vous laviez,se lavaient",
+    fut:"me laverai,te laveras,se lavera,nous laverons,vous laverez,se laveront",
+    pc:"lavé", cond:"me laverais,te laverais,se laverait,nous laverions,vous laveriez,se laveraient",
+    subj:"me lave,te laves,se lave,nous lavions,vous laviez,se lavent" },
+  { inf:"se dépêcher", en:"to hurry", group:"pro", aux:"être",
+    pres:"me dépêche,te dépêches,se dépêche,nous dépêchons,vous dépêchez,se dépêchent",
+    imp:"me dépêchais,te dépêchais,se dépêchait,nous dépêchions,vous dépêchiez,se dépêchaient",
+    fut:"me dépêcherai,te dépêcheras,se dépêchera,nous dépêcherons,vous dépêcherez,se dépêcheront",
+    pc:"dépêché", cond:"me dépêcherais,te dépêcherais,se dépêcherait,nous dépêcherions,vous dépêcheriez,se dépêcheraient",
+    subj:"me dépêche,te dépêches,se dépêche,nous dépêchions,vous dépêchiez,se dépêchent" },
+  { inf:"se souvenir", en:"to remember", group:"pro", aux:"être",
+    pres:"me souviens,te souviens,se souvient,nous souvenons,vous souvenez,se souviennent",
+    imp:"me souvenais,te souvenais,se souvenait,nous souvenions,vous souveniez,se souvenaient",
+    fut:"me souviendrai,te souviendras,se souviendra,nous souviendrons,vous souviendrez,se souviendront",
+    pc:"souvenu", cond:"me souviendrais,te souviendrais,se souviendrait,nous souviendrions,vous souviendriez,se souviendraient",
+    subj:"me souvienne,te souviennes,se souvienne,nous souvenions,vous souveniez,se souviennent" },
+  { inf:"se tromper", en:"to be wrong / to make a mistake", group:"pro", aux:"être",
+    pres:"me trompe,te trompes,se trompe,nous trompons,vous trompez,se trompent",
+    imp:"me trompais,te trompais,se trompait,nous trompions,vous trompiez,se trompaient",
+    fut:"me tromperai,te tromperas,se trompera,nous tromperons,vous tromperez,se tromperont",
+    pc:"trompé", cond:"me tromperais,te tromperais,se tromperait,nous tromperions,vous trompperiez,se tromperaient",
+    subj:"me trompe,te trompes,se trompe,nous trompions,vous trompiez,se trompent" },
+  { inf:"se rencontrer", en:"to meet (each other)", group:"pro", aux:"être",
+    pres:"me rencontre,te rencontres,se rencontre,nous rencontrons,vous rencontrez,se rencontrent",
+    imp:"me rencontrais,te rencontrais,se rencontrait,nous rencontrions,vous rencontriez,se rencontraient",
+    fut:"me rencontrerai,te rencontreras,se rencontrera,nous rencontrerons,vous rencontrerez,se rencontreront",
+    pc:"rencontré", cond:"me rencontrerais,te rencontrerais,se rencontrerait,nous rencontrerions,vous rencontreriez,se rencontreraient",
+    subj:"me rencontre,te rencontres,se rencontre,nous rencontrions,vous rencontriez,se rencontrent" },
+  { inf:"s'asseoir", en:"to sit down", group:"pro", aux:"être",
+    pres:"m'assieds,t'assieds,s'assied,nous asseyons,vous asseyez,s'asseient",
+    imp:"m'asseyais,t'asseyais,s'asseyait,nous asseyions,vous asseyiez,s'asseyaient",
+    fut:"m'assiérai,t'assiéras,s'assiéra,nous assiérons,vous assiérez,s'assiéront",
+    pc:"assis", cond:"m'assiérais,t'assiérais,s'assiérait,nous assiérions,vous assiériez,s'assiéraient",
+    subj:"m'asseye,t'asseyes,s'asseye,nous asseyions,vous asseyiez,s'asseyent" },
+  { inf:"se plaindre", en:"to complain", group:"pro", aux:"être",
+    pres:"me plains,te plains,se plaint,nous plaignons,vous plaignez,se plaignent",
+    imp:"me plaignais,te plaignais,se plaignait,nous plaignions,vous plaigniez,se plaignaient",
+    fut:"me plaindrai,te plaindras,se plaindra,nous plaindrons,vous plaindrez,se plaindront",
+    pc:"plaint", cond:"me plaindrais,te plaindrais,se plaindrait,nous plaindrions,vous plaindriez,se plaindraient",
+    subj:"me plaigne,te plaignes,se plaigne,nous plaignions,vous plaigniez,se plaignent" },
+  { inf:"se sentir", en:"to feel (oneself)", group:"pro", aux:"être",
+    pres:"me sens,te sens,se sent,nous sentons,vous sentez,se sentent",
+    imp:"me sentais,te sentais,se sentait,nous sentions,vous sentiez,se sentaient",
+    fut:"me sentirai,te sentiras,se sentira,nous sentirons,vous sentirez,se sentiront",
+    pc:"senti", cond:"me sentirais,te sentirais,se sentirait,nous sentirions,vous sentiriez,se sentiraient",
+    subj:"me sente,te sentes,se sente,nous sentions,vous sentiez,se sentent" },
+  { inf:"se battre", en:"to fight (each other)", group:"pro", aux:"être",
+    pres:"me bats,te bats,se bat,nous battons,vous battez,se battent",
+    imp:"me battais,te battais,se battait,nous battions,vous battiez,se battaient",
+    fut:"me battrai,te battras,se battra,nous battrons,vous battrez,se battront",
+    pc:"battu", cond:"me battrais,te battrais,se battrait,nous battrions,vous battriez,se battraient",
+    subj:"me batte,te battes,se batte,nous battions,vous battiez,se battent" },
+
+];
+
+const TENSE_KEYS = ['pres','imp','fut','pc','cond','subj'];
+const TENSE_LABELS = { pres:'Présent', imp:'Imparfait', fut:'Futur Simple', pc:'Passé Composé', cond:'Conditionnel', subj:'Subjonctif' };
+const PRONOUNS = ['je','tu','il/elle','nous','vous','ils/elles'];
+const GROUP_LABELS = { '1er':'1er groupe', '2e':'2e groupe', '3e':'3e groupe', 'aux':'Auxiliaire', 'pro':'Pronominal' };
+
+// ================================================================
+// STORAGE
+// ================================================================
+const STORAGE_KEY = 'frenchies_verbs_v2';
+let verbs = [];
+
+function loadData(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){ verbs = JSON.parse(raw); }
+    else { verbs = JSON.parse(JSON.stringify(DEFAULT_VERBS)); saveData(); }
+  } catch(e){ verbs = JSON.parse(JSON.stringify(DEFAULT_VERBS)); }
+}
+function saveData(){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(verbs)); } catch(e){}
+  // Also expose globally for conjugaison.html
+  try { window.FRENCHIES_VERBS = verbs; } catch(e){}
+}
+
+// ================================================================
+// RENDER TABLE
+// ================================================================
+function renderTable(){
+  const tbody = document.getElementById('verbTbody');
+  const filterG = document.getElementById('groupFilter').value;
+  const search = document.getElementById('tableSearch').value.toLowerCase().trim();
+
+  let filtered = verbs.filter((v,i)=>{
+    v._idx = i;
+    if(filterG && v.group !== filterG) return false;
+    if(search && !v.inf.toLowerCase().includes(search) && !(v.en||'').toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  document.getElementById('verbCount').textContent = verbs.length;
+
+  tbody.innerHTML = filtered.map(v => `
+    <tr id="row-${v._idx}" data-idx="${v._idx}">
+      <td class="td-inf">${v.inf}</td>
+      <td class="td-en">${v.en||''}</td>
+      <td><span class="td-group g${v.group}">${GROUP_LABELS[v.group]||v.group}</span></td>
+      <td style="font-size:11px;color:var(--text3);font-family:'Bebas Neue',sans-serif;letter-spacing:1px">${(v.aux||'avoir').toUpperCase()}</td>
+      <td class="td-conj" title="${v.pres||''}">${shortConj(v.pres)}</td>
+      <td class="td-conj" title="${v.imp||''}">${shortConj(v.imp)}</td>
+      <td class="td-conj" title="${v.fut||''}">${shortConj(v.fut)}</td>
+      <td style="font-family:'DM Serif Display',serif;font-size:13px;color:var(--text2)">${v.pc||'—'}</td>
+      <td class="td-conj" title="${v.cond||''}">${shortConj(v.cond)}</td>
+      <td class="td-conj" title="${v.subj||''}">${shortConj(v.subj)}</td>
+      <td>
+        <div class="action-btns">
+          <button class="ic-btn edit" onclick="editRow(${v._idx})" title="Modifier">✎</button>
+          <button class="ic-btn del" onclick="deleteVerb(${v._idx})" title="Supprimer">✕</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function shortConj(str){
+  if(!str) return '<span style="color:var(--text3)">—</span>';
+  const parts = str.split(',');
+  if(parts.length >= 2) return `<span title="${str}">${parts[0].trim()}…${parts[parts.length-1].trim()}</span>`;
+  return str;
+}
+
+// ================================================================
+// EDIT ROW
+// ================================================================
+function editRow(idx){
+  const v = verbs[idx];
+  const row = document.getElementById(`row-${idx}`);
+  row.classList.add('editing');
+  row.innerHTML = `
+    <td><input class="cell-input" id="e-inf-${idx}" value="${v.inf}"></td>
+    <td><input class="cell-input" id="e-en-${idx}" value="${v.en||''}"></td>
+    <td><select class="cell-select" id="e-grp-${idx}">
+      ${['1er','2e','3e','aux','pro'].map(g=>`<option value="${g}" ${v.group===g?'selected':''}>${GROUP_LABELS[g]}</option>`).join('')}
+    </select></td>
+    <td><select class="cell-select" id="e-aux-${idx}">
+      <option value="avoir" ${(v.aux||'avoir')==='avoir'?'selected':''}>AVOIR</option>
+      <option value="être" ${v.aux==='être'?'selected':''}>ÊTRE</option>
+    </select></td>
+    <td><input class="cell-input" id="e-pres-${idx}" value="${v.pres||''}" placeholder="je,tu,il,nous,vous,ils"></td>
+    <td><input class="cell-input" id="e-imp-${idx}" value="${v.imp||''}"></td>
+    <td><input class="cell-input" id="e-fut-${idx}" value="${v.fut||''}"></td>
+    <td><input class="cell-input" id="e-pc-${idx}" value="${v.pc||''}" placeholder="PP"></td>
+    <td><input class="cell-input" id="e-cond-${idx}" value="${v.cond||''}"></td>
+    <td><input class="cell-input" id="e-subj-${idx}" value="${v.subj||''}"></td>
+    <td>
+      <div class="action-btns">
+        <button class="ic-btn save" onclick="saveRow(${idx})">✓</button>
+        <button class="ic-btn cancel" onclick="renderTable()">✕</button>
+      </div>
+    </td>`;
+}
+
+function saveRow(idx){
+  verbs[idx] = {
+    inf:  val(`e-inf-${idx}`),
+    en:   val(`e-en-${idx}`),
+    group:val(`e-grp-${idx}`),
+    aux:  val(`e-aux-${idx}`),
+    pres: val(`e-pres-${idx}`),
+    imp:  val(`e-imp-${idx}`),
+    fut:  val(`e-fut-${idx}`),
+    pc:   val(`e-pc-${idx}`),
+    cond: val(`e-cond-${idx}`),
+    subj: val(`e-subj-${idx}`),
+  };
+  saveData(); renderTable(); toast('Verbe enregistré ✓');
+}
+function val(id){ return (document.getElementById(id)||{}).value||''; }
+
+// ================================================================
+// ADD VERB
+// ================================================================
+function toggleAddPanel(){
+  const p = document.getElementById('addPanel');
+  p.classList.toggle('open');
+  if(p.classList.contains('open')) document.getElementById('new-inf').focus();
+}
+function addVerb(){
+  const inf = document.getElementById('new-inf').value.trim();
+  if(!inf){ toast('L\'infinitif est requis','error'); return; }
+  if(verbs.find(v=>v.inf.toLowerCase()===inf.toLowerCase())){ toast('Ce verbe existe déjà','error'); return; }
+  verbs.push({
+    inf, en: document.getElementById('new-en').value.trim(),
+    group: document.getElementById('new-group').value,
+    aux:   document.getElementById('new-aux').value,
+    pres:  document.getElementById('new-pres').value.trim(),
+    imp:   document.getElementById('new-imp').value.trim(),
+    fut:   document.getElementById('new-fut').value.trim(),
+    pc:    document.getElementById('new-pc').value.trim(),
+    cond:  document.getElementById('new-cond').value.trim(),
+    subj:  document.getElementById('new-subj').value.trim(),
+  });
+  saveData(); renderTable();
+  ['new-inf','new-en','new-pres','new-imp','new-fut','new-pc','new-cond','new-subj'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  document.getElementById('addPanel').classList.remove('open');
+  toast('Verbe ajouté ✓');
+}
+
+// ================================================================
+// DELETE
+// ================================================================
+function deleteVerb(idx){
+  if(!confirm(`Supprimer "${verbs[idx].inf}" ?`)) return;
+  verbs.splice(idx,1);
+  saveData(); renderTable(); toast('Verbe supprimé');
+}
+
+// ================================================================
+// EXPORT / IMPORT
+// ================================================================
+function resetToDefault(){
+  if(!confirm(`Réinitialiser la base avec les 124 verbes par défaut ?\n\nVos verbes personnalisés seront conservés s'ils ne sont pas en conflit.`)) return;
+  const custom = verbs.filter(v => !DEFAULT_VERBS.find(d => d.inf.toLowerCase() === v.inf.toLowerCase()));
+  verbs = [...JSON.parse(JSON.stringify(DEFAULT_VERBS)), ...custom];
+  saveData(); renderTable();
+  toast(`Base réinitialisée — ${verbs.length} verbes au total`);
+}
+
+function exportData(){
+  const blob = new Blob([JSON.stringify(verbs,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='frenchies-verbes.json'; a.click();
+  toast('Export téléchargé ✓');
+}
+function openImport(){ document.getElementById('importModal').classList.add('open'); }
+function closeImport(){ document.getElementById('importModal').classList.remove('open'); }
+function doImport(){
+  try {
+    const imported = JSON.parse(document.getElementById('importText').value);
+    if(!Array.isArray(imported)) throw new Error('Not array');
+    let added=0;
+    imported.forEach(v=>{
+      if(!v.inf) return;
+      const exists = verbs.find(x=>x.inf.toLowerCase()===v.inf.toLowerCase());
+      if(exists){ Object.assign(exists,v); }
+      else { verbs.push(v); added++; }
+    });
+    saveData(); renderTable(); closeImport();
+    toast(`Import réussi — ${added} nouveaux verbes`);
+  } catch(e){ toast('JSON invalide','error'); }
+}
+
+// ================================================================
+// TOAST
+// ================================================================
+function toast(msg, type=''){
+  const t = document.getElementById('toast');
+  t.textContent=msg; t.className='toast'+(type?' '+type:'')+' show';
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ================================================================
+// INIT
+// ================================================================
+loadData(); renderTable();
+</script>
+</body>
+</html>
