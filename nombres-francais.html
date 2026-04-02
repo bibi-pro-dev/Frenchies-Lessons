@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nombres en Français</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --border: #2a2a3a;
+    --accent: #e8ff47;
+    --accent2: #ff6b35;
+    --accent3: #7c3aed;
+    --text: #f0f0f8;
+    --muted: #6b6b88;
+    --success: #22d3a5;
+    --danger: #ff4757;
+    --gold: #ffd700;
+    --silver: #c0c0c0;
+    --bronze: #cd7f32;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(232,255,71,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,255,71,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .logo {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.3rem 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted);
+    margin-top: 0.6rem;
+    font-size: 1rem;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── SETUP SCREEN ── */
+  .setup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 600px) { .setup-grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .level-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .level-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .level-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .level-btn.selected {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+  }
+
+  .mode-toggle {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .mode-btn {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .mode-btn:hover { border-color: var(--accent2); }
+  .mode-btn.selected {
+    background: var(--accent2);
+    color: #fff;
+    border-color: var(--accent2);
+  }
+
+  .level-info {
+    background: var(--bg);
+    border-left: 3px solid var(--accent3);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    min-height: 80px;
+  }
+
+  .level-info strong { color: var(--text); display: block; margin-bottom: 0.3rem; }
+
+  .name-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .name-field label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .name-field input {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .name-field input:focus { border-color: var(--accent); }
+
+  .btn-start {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 1.1rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,255,71,0.3); }
+  .btn-start:active { transform: translateY(0); }
+
+  /* ── GAME SCREEN ── */
+  .game-hud {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .hud-stat { text-align: center; }
+  .hud-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .hud-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+  .hud-value.accent { color: var(--accent); }
+  .hud-value.success { color: var(--success); }
+  .hud-value.danger { color: var(--danger); }
+
+  /* Timer ring */
+  .timer-ring-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .timer-ring {
+    position: relative;
+    width: 90px;
+    height: 90px;
+  }
+
+  .timer-ring svg {
+    transform: rotate(-90deg);
+    width: 90px;
+    height: 90px;
+  }
+
+  .timer-ring circle {
+    fill: none;
+    stroke-width: 5;
+  }
+
+  .timer-bg { stroke: var(--border); }
+  .timer-arc {
+    stroke: var(--accent);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.9s linear, stroke 0.3s;
+  }
+
+  .timer-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  /* Challenge card */
+  .challenge-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .challenge-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(232,255,71,0.03), transparent 60%);
+    pointer-events: none;
+  }
+
+  .challenge-type {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .challenge-question {
+    font-size: clamp(2rem, 8vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    transition: all 0.3s;
+  }
+
+  .challenge-hint {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* Answer input */
+  .answer-wrap {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .answer-input {
+    width: 100%;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: 'Syne Mono', monospace;
+    font-size: 1.4rem;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .answer-input:focus { border-color: var(--accent); }
+  .answer-input.correct { border-color: var(--success); background: rgba(34,211,165,0.05); }
+  .answer-input.wrong { border-color: var(--danger); background: rgba(255,71,87,0.05); }
+
+  /* Feedback flash */
+  .feedback-flash {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 100;
+    transition: opacity 0.15s;
+  }
+
+  .feedback-flash.show { opacity: 1; }
+
+  .game-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-validate {
+    flex: 1;
+    background: var(--accent3);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-validate:hover { filter: brightness(1.2); }
+
+  .btn-skip {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.9rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-skip:hover { border-color: var(--muted); color: var(--text); }
+
+  /* Progress bar */
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 99px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  /* ── RESULTS SCREEN ── */
+  .results-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .results-title {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .score-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .score-big {
+    font-size: clamp(4rem, 12vw, 7rem);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .score-suffix { font-size: 1.5rem; color: var(--muted); }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  .stat-pill span { color: var(--accent2); font-weight: 700; }
+
+  /* Podium */
+  .podium-section { margin-bottom: 2rem; }
+
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .podium-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1rem;
+    height: 160px;
+    margin-bottom: 1rem;
+  }
+
+  .podium-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100px;
+  }
+
+  .podium-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+  }
+
+  .podium-score-label {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .podium-block {
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .podium-1 { --h: 120px; --c: var(--gold); }
+  .podium-2 { --h: 85px; --c: var(--silver); }
+  .podium-3 { --h: 60px; --c: var(--bronze); }
+
+  .podium-block { height: var(--h); background: var(--c); color: #000; }
+  .podium-name, .podium-score-label { color: var(--c); }
+
+  .leaderboard-list {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .lb-row {
+    display: flex;
+    align-items: center;
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+    transition: background 0.15s;
+  }
+
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row:hover { background: rgba(255,255,255,0.02); }
+  .lb-row.current-player { background: rgba(232,255,71,0.04); border-left: 3px solid var(--accent); }
+
+  .lb-rank {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    width: 24px;
+    text-align: center;
+  }
+
+  .lb-name { flex: 1; font-weight: 700; font-size: 0.9rem; }
+
+  .lb-meta {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+  }
+
+  .lb-level {
+    font-size: 0.65rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    color: var(--muted);
+  }
+
+  .lb-score {
+    font-family: 'Syne Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 50px;
+    text-align: right;
+  }
+
+  .results-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .btn-retry {
+    flex: 1;
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .btn-retry:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+  .btn-menu {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-menu:hover { border-color: var(--muted); }
+
+  /* Animations */
+  @keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    70% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .pop { animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+  .shake { animation: shake 0.4s ease; }
+  .pulse { animation: pulse 1s infinite; }
+
+  .no-scores {
+    text-align: center;
+    color: var(--muted);
+    padding: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .empty-lb {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  /* ── POINTS RECAP TABLE ── */
+  .recap-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  .recap-table th {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .recap-table td {
+    padding: 0.65rem 0.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: middle;
+  }
+
+  .recap-table tr:last-child td { border-bottom: none; }
+
+  .recap-table tr:hover td { background: rgba(255,255,255,0.015); }
+
+  .recap-q {
+    font-family: 'Syne Mono', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--accent);
+  }
+
+  .recap-answer { color: var(--muted); font-size: 0.78rem; max-width: 200px; }
+  .recap-answer .user-ans { color: var(--text); }
+  .recap-answer .correct-ans { color: var(--success); }
+  .recap-answer .wrong-ans { color: var(--danger); text-decoration: line-through; }
+
+  .recap-time {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .recap-pts {
+    font-family: 'Syne Mono', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .recap-pts.positive { color: var(--success); }
+  .recap-pts.zero { color: var(--muted); }
+
+  .recap-status {
+    font-size: 1.1rem;
+    text-align: center;
+    width: 28px;
+  }
+
+  .recap-total-row td {
+    border-top: 1px solid var(--border) !important;
+    font-weight: 700;
+    padding-top: 0.8rem;
+  }
+
+  /* ── ADMIN BUTTON ── */
+  .admin-fab {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.2rem;
+    z-index: 200;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .admin-fab:hover {
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  .admin-fab.unlocked {
+    border-color: var(--accent2);
+    color: var(--accent2);
+    background: rgba(255,107,53,0.08);
+  }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+
+  .modal-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+    margin: 1rem;
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.25s ease;
+  }
+
+  .modal-overlay.show .modal-box {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .pin-row {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .pin-digit {
+    width: 56px;
+    height: 64px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Syne Mono', monospace;
+    font-size: 1.8rem;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .pin-digit:focus { border-color: var(--accent2); }
+  .pin-digit.error { border-color: var(--danger); animation: shake 0.4s ease; }
+
+  .pin-error {
+    color: var(--danger);
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    min-height: 1.2em;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .btn-modal-confirm {
+    flex: 1;
+    background: var(--accent2);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-modal-confirm:hover { filter: brightness(1.15); }
+
+  .btn-modal-cancel {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-modal-cancel:hover { border-color: var(--muted); color: var(--text); }
+
+  /* ── ADMIN PANEL ── */
+  .admin-panel {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 250;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .admin-panel.open {
+    transform: translateX(0);
+  }
+
+  .admin-panel-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .admin-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+
+  .admin-header h2 span { color: var(--accent2); }
+
+  .btn-close-admin {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .btn-close-admin:hover { border-color: var(--danger); color: var(--danger); }
+
+  .admin-toolbar {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .admin-count {
+    font-size: 0.75rem;
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .admin-count span { color: var(--accent2); font-weight: 700; }
+
+  .btn-delete-selected {
+    background: rgba(255,71,87,0.1);
+    border: 1px solid var(--danger);
+    border-radius: 8px;
+    color: var(--danger);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-delete-selected:hover { background: rgba(255,71,87,0.2); }
+  .btn-delete-selected:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .btn-delete-all {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-delete-all:hover { border-color: var(--danger); color: var(--danger); }
+
+  .admin-table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  .admin-table th {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.7rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .admin-table td {
+    padding: 0.75rem 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: middle;
+  }
+
+  .admin-table tr:last-child td { border-bottom: none; }
+
+  .admin-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .admin-table tr.selected td { background: rgba(255,71,87,0.04); }
+
+  .admin-cb {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--danger);
+    cursor: pointer;
+  }
+
+  .admin-rank {
+    font-family: 'Syne Mono', monospace;
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .admin-name { font-weight: 700; }
+
+  .admin-score {
+    font-family: 'Syne Mono', monospace;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .admin-level {
+    font-size: 0.65rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    color: var(--muted);
+  }
+
+  .admin-date { color: var(--muted); font-size: 0.8rem; }
+
+  .btn-del-row {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    transition: all 0.15s;
+    line-height: 1;
+  }
+
+  .btn-del-row:hover { border-color: var(--danger); color: var(--danger); }
+
+  .admin-empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--muted);
+  }
+
+  .confirm-delete-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .confirm-delete-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .confirm-box {
+    background: var(--surface);
+    border: 1px solid var(--danger);
+    border-radius: 14px;
+    padding: 1.8rem;
+    max-width: 360px;
+    width: 90%;
+    text-align: center;
+  }
+
+  .confirm-box h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .confirm-box p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+
+  .confirm-btns { display: flex; gap: 0.8rem; }
+
+  .btn-confirm-yes {
+    flex: 1;
+    background: var(--danger);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: filter 0.2s;
+  }
+
+  .btn-confirm-yes:hover { filter: brightness(1.15); }
+
+  .btn-confirm-no {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-confirm-no:hover { border-color: var(--muted); color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="feedback-flash" id="feedbackFlash"></div>
+
+<!-- ADMIN FAB -->
+<button class="admin-fab" id="adminFab" title="Panneau administrateur">
+  ⚙ Admin
+</button>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box">
+    <div class="modal-title">🔐 Accès administrateur</div>
+    <div class="modal-subtitle">Entrez le code PIN à 4 chiffres</div>
+    <div class="pin-row">
+      <input class="pin-digit" id="pin0" type="password" maxlength="1" inputmode="numeric" pattern="[0-9]">
+      <input class="pin-digit" id="pin1" type="password" maxlength="1" inputmode="numeric" pattern="[0-9]">
+      <input class="pin-digit" id="pin2" type="password" maxlength="1" inputmode="numeric" pattern="[0-9]">
+      <input class="pin-digit" id="pin3" type="password" maxlength="1" inputmode="numeric" pattern="[0-9]">
+    </div>
+    <div class="pin-error" id="pinError"></div>
+    <div class="modal-actions">
+      <button class="btn-modal-confirm" id="btnPinConfirm">Confirmer</button>
+      <button class="btn-modal-cancel" id="btnPinCancel">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-panel-inner">
+    <div class="admin-header">
+      <h2>⚙ Panneau <span>Admin</span></h2>
+      <button class="btn-close-admin" id="btnCloseAdmin">✕ Fermer</button>
+    </div>
+    <div class="admin-toolbar">
+      <div class="admin-count" id="adminCount"></div>
+      <button class="btn-delete-selected" id="btnDeleteSelected" disabled>🗑 Supprimer la sélection</button>
+      <button class="btn-delete-all" id="btnDeleteAll">⚠ Tout effacer</button>
+      <button class="btn-modal-cancel" id="btnAdminLogout" style="font-size:0.75rem;padding:0.45rem 0.9rem">🔒 Verrouiller</button>
+    </div>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" class="admin-cb" id="cbSelectAll" title="Tout sélectionner"></th>
+            <th>#</th>
+            <th>Pseudo</th>
+            <th>Score</th>
+            <th>Niveau</th>
+            <th>Résultat</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE DIALOG -->
+<div class="confirm-delete-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <h3 id="confirmTitle">Confirmer la suppression</h3>
+    <p id="confirmMsg"></p>
+    <div class="confirm-btns">
+      <button class="btn-confirm-yes" id="btnConfirmYes">🗑 Supprimer</button>
+      <button class="btn-confirm-no" id="btnConfirmNo">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <header>
+    <div class="logo">🇫🇷 Atelier du Nombre</div>
+    <h1>Écris les <span>Chiffres</span></h1>
+    <p class="subtitle">Entraînement à l'écriture des nombres en français</p>
+  </header>
+
+  <!-- SETUP SCREEN -->
+  <div class="screen active" id="setupScreen">
+    <div class="setup-grid">
+      <div class="card">
+        <div class="card-title">🎯 Niveau CECRL</div>
+        <div class="level-grid">
+          <button class="level-btn" data-level="A1">A1</button>
+          <button class="level-btn" data-level="A2">A2</button>
+          <button class="level-btn" data-level="B1">B1</button>
+          <button class="level-btn" data-level="B2">B2</button>
+          <button class="level-btn" data-level="C1">C1</button>
+          <button class="level-btn" data-level="C2">C2</button>
+        </div>
+        <div class="level-info" id="levelInfo">
+          Sélectionnez un niveau pour voir les détails.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">✏️ Mode de jeu</div>
+        <div class="mode-toggle">
+          <button class="mode-btn selected" data-mode="mixed">
+            🔀 Mixte<br><small style="color:var(--muted);font-size:0.7rem">Chiffres & Lettres</small>
+          </button>
+          <button class="mode-btn" data-mode="numToWord">
+            123→ABC<br><small style="color:var(--muted);font-size:0.7rem">Écrire le mot</small>
+          </button>
+          <button class="mode-btn" data-mode="wordToNum">
+            ABC→123<br><small style="color:var(--muted);font-size:0.7rem">Écrire le chiffre</small>
+          </button>
+        </div>
+
+        <div class="card-title" style="margin-top:1.2rem">👤 Votre pseudo</div>
+        <div class="name-field">
+          <input type="text" id="playerName" placeholder="Entrez votre nom..." maxlength="20">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-start" id="btnStart">▶ Lancer la partie</button>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div class="screen" id="gameScreen">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+
+    <div class="game-hud">
+      <div class="hud-stat">
+        <span class="hud-label">Score</span>
+        <span class="hud-value accent" id="hudScore">0</span>
+      </div>
+      <div class="timer-ring-wrap">
+        <div class="timer-ring">
+          <svg viewBox="0 0 90 90">
+            <circle class="timer-bg" cx="45" cy="45" r="40"/>
+            <circle class="timer-arc" id="timerArc" cx="45" cy="45" r="40"
+              stroke-dasharray="251.33"
+              stroke-dashoffset="0"/>
+          </svg>
+          <div class="timer-num" id="timerNum">--</div>
+        </div>
+        <div style="font-size:0.6rem;color:var(--muted);letter-spacing:0.2em">TEMPS</div>
+      </div>
+      <div class="hud-stat" style="text-align:right">
+        <span class="hud-label">Correctes</span>
+        <span class="hud-value success" id="hudCorrect">0</span>
+      </div>
+    </div>
+
+    <div class="challenge-card" id="challengeCard">
+      <div class="challenge-type" id="challengeType"></div>
+      <div class="challenge-question" id="challengeQuestion">?</div>
+      <div class="challenge-hint" id="challengeHint"></div>
+    </div>
+
+    <div class="answer-wrap">
+      <input type="text" class="answer-input" id="answerInput"
+        placeholder="Votre réponse..."
+        autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+
+    <div class="game-actions">
+      <button class="btn-validate" id="btnValidate">✓ Valider</button>
+      <button class="btn-skip" id="btnSkip">Passer →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="screen" id="resultsScreen">
+    <div class="results-header">
+      <div class="results-title" id="resultsTitle">Partie terminée !</div>
+      <div class="score-display">
+        <div class="score-big" id="finalScore">0</div>
+        <div class="score-suffix">pts</div>
+      </div>
+      <div class="stats-row" id="statsRow"></div>
+    </div>
+
+    <div class="podium-section">
+      <div class="section-label">Récapitulatif des points</div>
+      <div class="leaderboard-list" id="recapTable"></div>
+    </div>
+
+    <div class="podium-section">
+      <div class="section-label">Podium</div>
+      <div class="podium-bars" id="podiumBars"></div>
+    </div>
+
+    <div class="podium-section">
+      <div class="section-label">Classement complet</div>
+      <div class="leaderboard-list" id="leaderboardList"></div>
+    </div>
+
+    <div class="results-actions">
+      <button class="btn-retry" id="btnRetry">↺ Rejouer</button>
+      <button class="btn-menu" id="btnMenu">Menu</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════════════════
+
+const LEVELS = {
+  A1: {
+    label: 'Débutant absolu',
+    desc: 'Nombres de 0 à 20. Questions simples.',
+    range: [0, 20],
+    time: 25,
+    questions: 8,
+    bonus: 1,
+  },
+  A2: {
+    label: 'Élémentaire',
+    desc: 'Nombres de 0 à 69. Dizaines et unités.',
+    range: [0, 69],
+    time: 25,
+    questions: 10,
+    bonus: 1.2,
+  },
+  B1: {
+    label: 'Intermédiaire',
+    desc: 'Nombres de 0 à 999. Centaines incluses.',
+    range: [0, 999],
+    time: 25,
+    questions: 12,
+    bonus: 1.5,
+  },
+  B2: {
+    label: 'Intermédiaire avancé',
+    desc: 'Nombres de 0 à 9 999. Milliers.',
+    range: [0, 9999],
+    time: 25,
+    questions: 14,
+    bonus: 2,
+  },
+  C1: {
+    label: 'Avancé',
+    desc: 'Nombres de 0 à 9 999. Complexité accrue.',
+    range: [0, 9999],
+    time: 25,
+    questions: 16,
+    bonus: 3,
+  },
+  C2: {
+    label: 'Maîtrise',
+    desc: 'Nombres de 0 à 9 999. Maîtrise totale.',
+    range: [0, 9999],
+    time: 25,
+    questions: 20,
+    bonus: 5,
+  },
+};
+
+const LEVEL_INFO = {
+  A1: '<strong>A1 – Débutant</strong>0 à 20 · 8 questions · 25 s/question',
+  A2: '<strong>A2 – Élémentaire</strong>0 à 69 · 10 questions · 25 s/question',
+  B1: '<strong>B1 – Intermédiaire</strong>0 à 999 · 12 questions · 25 s/question',
+  B2: '<strong>B2 – Intermédiaire avancé</strong>0 à 9 999 · 14 questions · 25 s/question',
+  C1: '<strong>C1 – Avancé</strong>0 à 9 999 · 16 questions · 25 s/question',
+  C2: '<strong>C2 – Maîtrise</strong>0 à 9 999 · 20 questions · 25 s/question',
+};
+
+// ══════════════════════════════════════════════════════
+//  NUMBER → FRENCH WORDS
+// ══════════════════════════════════════════════════════
+
+const ones = ['zéro','un','deux','trois','quatre','cinq','six','sept','huit','neuf',
+  'dix','onze','douze','treize','quatorze','quinze','seize','dix-sept','dix-huit','dix-neuf'];
+const tens = ['','','vingt','trente','quarante','cinquante','soixante','soixante','quatre-vingts','quatre-vingts'];
+
+function numToFr(n) {
+  n = parseInt(n, 10);
+  if (isNaN(n)) return '';
+  if (n < 0) return 'moins ' + numToFr(-n);
+  if (n <= 19) return ones[n];
+  if (n < 70) {
+    const d = Math.floor(n / 10), u = n % 10;
+    if (d === 2 && u === 0) return 'vingt';
+    const link = (u === 1 && d < 8) ? '-et-' : (u ? '-' : '');
+    return tens[d] + link + (u ? ones[u] : '');
+  }
+  if (n < 80) {
+    const u = n - 60;
+    return 'soixante' + (u === 1 ? '-et-' : '-') + ones[u];
+  }
+  if (n < 100) {
+    const u = n - 80;
+    if (u === 0) return 'quatre-vingts';
+    return 'quatre-vingt-' + ones[u];
+  }
+  if (n < 200) {
+    const r = n % 100;
+    return 'cent' + (r ? '-' + numToFr(r) : 's');
+  }
+  if (n < 1000) {
+    const h = Math.floor(n / 100), r = n % 100;
+    return ones[h] + '-cent' + (r ? '-' + numToFr(r) : 's');
+  }
+  if (n < 2000) {
+    const r = n % 1000;
+    return 'mille' + (r ? '-' + numToFr(r) : '');
+  }
+  if (n < 1000000) {
+    const t = Math.floor(n / 1000), r = n % 1000;
+    return numToFr(t) + '-mille' + (r ? '-' + numToFr(r) : '');
+  }
+  if (n < 2000000) {
+    const r = n % 1000000;
+    return 'un-million' + (r ? '-' + numToFr(r) : '');
+  }
+  if (n < 1000000000) {
+    const m = Math.floor(n / 1000000), r = n % 1000000;
+    return numToFr(m) + '-millions' + (r ? '-' + numToFr(r) : '');
+  }
+  return 'un-milliard';
+}
+
+// Normalize answer for comparison
+function normalize(str) {
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-zàâéèêëîïôùûüç\-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function checkAnswer(userAns, correct) {
+  const u = normalize(userAns);
+  const c = normalize(correct);
+  if (u === c) return true;
+  // Also accept space-separated versions
+  const u2 = u.replace(/-/g, ' ');
+  const c2 = c.replace(/-/g, ' ');
+  return u2 === c2;
+}
+
+// ══════════════════════════════════════════════════════
+//  GAME STATE
+// ══════════════════════════════════════════════════════
+
+let gameState = {
+  level: null,
+  mode: 'mixed',
+  playerName: 'Anonyme',
+  questions: [],
+  currentQ: 0,
+  score: 0,
+  correct: 0,
+  wrong: 0,
+  skipped: 0,
+  timer: null,
+  timeLeft: 0,
+  maxTime: 0,
+  answered: false,
+  pointsLog: [],  // {question, answer, userAnswer, pts, timeLeft, status}
+};
+
+// ══════════════════════════════════════════════════════
+//  LEADERBOARD (localStorage)
+// ══════════════════════════════════════════════════════
+
+function getLeaderboard() {
+  try {
+    return JSON.parse(localStorage.getItem('nombres_lb') || '[]');
+  } catch { return []; }
+}
+
+function saveScore(entry) {
+  const lb = getLeaderboard();
+  lb.push(entry);
+  lb.sort((a, b) => b.score - a.score);
+  localStorage.setItem('nombres_lb', JSON.stringify(lb.slice(0, 50)));
+}
+
+// ══════════════════════════════════════════════════════
+//  QUESTION GENERATION
+// ══════════════════════════════════════════════════════
+
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateQuestions(level, mode, count) {
+  const cfg = LEVELS[level];
+  const [min, max] = cfg.range;
+  const qs = [];
+
+  for (let i = 0; i < count; i++) {
+    const n = randInt(min, max);
+    const fr = numToFr(n);
+
+    // Decide direction
+    let dir;
+    if (mode === 'numToWord') dir = 'numToWord';
+    else if (mode === 'wordToNum') dir = 'wordToNum';
+    else dir = Math.random() < 0.5 ? 'numToWord' : 'wordToNum';
+
+    if (dir === 'numToWord') {
+      qs.push({
+        question: String(n),
+        answer: fr,
+        hint: 'Écrivez ce nombre en toutes lettres',
+        type: '123 → ABC',
+        dir,
+      });
+    } else {
+      qs.push({
+        question: fr,
+        answer: String(n),
+        hint: 'Écrivez ce nombre en chiffres',
+        type: 'ABC → 123',
+        dir,
+      });
+    }
+  }
+  return qs;
+}
+
+// ══════════════════════════════════════════════════════
+//  UI HELPERS
+// ══════════════════════════════════════════════════════
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function flash(emoji) {
+  const el = document.getElementById('feedbackFlash');
+  el.textContent = emoji;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 500);
+}
+
+// ══════════════════════════════════════════════════════
+//  TIMER
+// ══════════════════════════════════════════════════════
+
+const ARC_LEN = 2 * Math.PI * 40; // 251.33
+
+function startTimer(seconds) {
+  gameState.timeLeft = seconds;
+  gameState.maxTime = seconds;
+  updateTimerUI();
+
+  gameState.timer = setInterval(() => {
+    gameState.timeLeft--;
+    updateTimerUI();
+
+    if (gameState.timeLeft <= 0) {
+      clearInterval(gameState.timer);
+      if (!gameState.answered) {
+        timeUp();
+      }
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  const t = gameState.timeLeft;
+  const ratio = t / gameState.maxTime;
+  const offset = ARC_LEN * (1 - ratio);
+
+  const arc = document.getElementById('timerArc');
+  const num = document.getElementById('timerNum');
+
+  arc.style.strokeDashoffset = offset;
+  num.textContent = t;
+
+  if (ratio > 0.5) {
+    arc.style.stroke = 'var(--accent)';
+    num.style.color = 'var(--text)';
+  } else if (ratio > 0.25) {
+    arc.style.stroke = 'var(--accent2)';
+    num.style.color = 'var(--accent2)';
+  } else {
+    arc.style.stroke = 'var(--danger)';
+    num.style.color = 'var(--danger)';
+    num.classList.add('pulse');
+  }
+}
+
+function stopTimer() {
+  clearInterval(gameState.timer);
+  document.getElementById('timerNum').classList.remove('pulse');
+}
+
+// ══════════════════════════════════════════════════════
+//  GAME FLOW
+// ══════════════════════════════════════════════════════
+
+function startGame() {
+  const level = gameState.level;
+  const cfg = LEVELS[level];
+  gameState.questions = generateQuestions(level, gameState.mode, cfg.questions);
+  gameState.currentQ = 0;
+  gameState.score = 0;
+  gameState.correct = 0;
+  gameState.wrong = 0;
+  gameState.skipped = 0;
+  gameState.pointsLog = [];
+
+  showScreen('gameScreen');
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = gameState.questions[gameState.currentQ];
+  const total = gameState.questions.length;
+  const cfg = LEVELS[gameState.level];
+
+  gameState.answered = false;
+
+  // Progress
+  const pct = (gameState.currentQ / total) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  // HUD
+  document.getElementById('hudScore').textContent = gameState.score;
+  document.getElementById('hudCorrect').textContent = gameState.correct;
+
+  // Challenge
+  document.getElementById('challengeType').textContent = `Question ${gameState.currentQ + 1}/${total} · ${q.type}`;
+  document.getElementById('challengeQuestion').textContent = q.question;
+  document.getElementById('challengeHint').textContent = q.hint;
+
+  // Input
+  const inp = document.getElementById('answerInput');
+  inp.value = '';
+  inp.className = 'answer-input';
+  inp.placeholder = q.dir === 'numToWord' ? 'Ex: vingt-trois...' : 'Ex: 42...';
+  inp.disabled = false;
+  inp.focus();
+
+  // Animate card
+  const card = document.getElementById('challengeCard');
+  card.style.animation = 'none';
+  card.offsetHeight; // reflow
+  card.style.animation = 'popIn 0.3s ease forwards';
+
+  stopTimer();
+  startTimer(cfg.time);
+}
+
+function validateAnswer() {
+  if (gameState.answered) return;
+
+  const q = gameState.questions[gameState.currentQ];
+  const inp = document.getElementById('answerInput');
+  const userAnswer = inp.value.trim();
+
+  if (!userAnswer) return;
+
+  gameState.answered = true;
+  stopTimer();
+
+  const isCorrect = checkAnswer(userAnswer, q.answer);
+  const timeBonus = Math.ceil(gameState.timeLeft * LEVELS[gameState.level].bonus);
+
+  if (isCorrect) {
+    const pts = 10 + timeBonus;
+    gameState.score += pts;
+    gameState.correct++;
+    inp.className = 'answer-input correct';
+    flash('✅');
+    gameState.pointsLog.push({ question: q.question, answer: q.answer, userAnswer, pts, timeLeft: gameState.timeLeft, status: 'correct' });
+  } else {
+    gameState.wrong++;
+    inp.className = 'answer-input wrong';
+    inp.classList.add('shake');
+    flash('❌');
+    gameState.pointsLog.push({ question: q.question, answer: q.answer, userAnswer, pts: 0, timeLeft: gameState.timeLeft, status: 'wrong' });
+    // Show correct answer briefly
+    setTimeout(() => {
+      inp.value = '→ ' + q.answer;
+      inp.style.color = 'var(--muted)';
+    }, 400);
+  }
+
+  document.getElementById('hudScore').textContent = gameState.score;
+  document.getElementById('hudCorrect').textContent = gameState.correct;
+
+  setTimeout(() => {
+    inp.style.color = '';
+    nextQuestion();
+  }, 1200);
+}
+
+function timeUp() {
+  if (gameState.answered) return;
+  gameState.answered = true;
+  gameState.wrong++;
+
+  const q = gameState.questions[gameState.currentQ];
+  const inp = document.getElementById('answerInput');
+  inp.value = '⏱ ' + q.answer;
+  inp.className = 'answer-input wrong';
+  inp.style.color = 'var(--muted)';
+  flash('⏱');
+  gameState.pointsLog.push({ question: q.question, answer: q.answer, userAnswer: '', pts: 0, timeLeft: 0, status: 'timeout' });
+
+  setTimeout(() => {
+    inp.style.color = '';
+    nextQuestion();
+  }, 1400);
+}
+
+function skipQuestion() {
+  if (gameState.answered) return;
+  stopTimer();
+  gameState.answered = true;
+  gameState.skipped++;
+  const q = gameState.questions[gameState.currentQ];
+  gameState.pointsLog.push({ question: q.question, answer: q.answer, userAnswer: '', pts: 0, timeLeft: gameState.timeLeft, status: 'skipped' });
+  nextQuestion();
+}
+
+function nextQuestion() {
+  gameState.currentQ++;
+  if (gameState.currentQ >= gameState.questions.length) {
+    endGame();
+  } else {
+    loadQuestion();
+  }
+}
+
+function endGame() {
+  stopTimer();
+  document.getElementById('progressFill').style.width = '100%';
+
+  // Save score
+  const entry = {
+    name: gameState.playerName,
+    score: gameState.score,
+    level: gameState.level,
+    correct: gameState.correct,
+    total: gameState.questions.length,
+    date: new Date().toLocaleDateString('fr-FR'),
+  };
+  saveScore(entry);
+
+  // Results
+  const total = gameState.questions.length;
+  const pct = Math.round((gameState.correct / total) * 100);
+
+  let emoji = '🎯';
+  if (pct === 100) emoji = '🏆';
+  else if (pct >= 80) emoji = '⭐';
+  else if (pct >= 60) emoji = '👍';
+  else if (pct < 40) emoji = '😅';
+
+  document.getElementById('resultsTitle').textContent = `${emoji} Partie terminée !`;
+  document.getElementById('finalScore').textContent = gameState.score;
+
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-pill">✅ <span>${gameState.correct}/${total}</span> correctes</div>
+    <div class="stat-pill">❌ <span>${gameState.wrong}</span> erreurs</div>
+    <div class="stat-pill">⏭ <span>${gameState.skipped}</span> passées</div>
+    <div class="stat-pill">🎯 <span>${pct}%</span> réussite</div>
+    <div class="stat-pill">🏷 <span>${gameState.level}</span> niveau</div>
+  `;
+
+  renderRecap();
+  renderLeaderboard(entry);
+  showScreen('resultsScreen');
+}
+
+function renderRecap() {
+  const log = gameState.pointsLog;
+  const container = document.getElementById('recapTable');
+
+  const statusIcon = { correct: '✅', wrong: '❌', timeout: '⏱', skipped: '⏭' };
+  const statusLabel = { correct: 'Correct', wrong: 'Erreur', timeout: 'Temps écoulé', skipped: 'Passée' };
+
+  const rows = log.map((entry, i) => {
+    const icon = statusIcon[entry.status];
+    const isCorrect = entry.status === 'correct';
+
+    let answerCell = '';
+    if (isCorrect) {
+      answerCell = `<span class="correct-ans">${escHtml(entry.answer)}</span>`;
+    } else if (entry.status === 'wrong') {
+      answerCell = `<span class="wrong-ans">${escHtml(entry.userAnswer)}</span> → <span class="correct-ans">${escHtml(entry.answer)}</span>`;
+    } else if (entry.status === 'timeout') {
+      answerCell = `<span class="correct-ans">${escHtml(entry.answer)}</span>`;
+    } else {
+      answerCell = `<span style="color:var(--muted)">—</span> <span class="correct-ans">${escHtml(entry.answer)}</span>`;
+    }
+
+    const timeCell = isCorrect ? `${entry.timeLeft}s` : '—';
+    const ptsDisplay = isCorrect
+      ? `<span class="recap-pts positive">+${entry.pts}</span>`
+      : `<span class="recap-pts zero">0</span>`;
+
+    return `
+      <tr>
+        <td class="recap-status">${icon}</td>
+        <td><span class="recap-q">${escHtml(entry.question)}</span></td>
+        <td class="recap-answer">${answerCell}</td>
+        <td class="recap-time">${timeCell}</td>
+        <td>${ptsDisplay}</td>
+      </tr>
+    `;
+  }).join('');
+
+  const totalRow = `
+    <tr class="recap-total-row">
+      <td colspan="3" style="color:var(--muted);font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase">Total</td>
+      <td></td>
+      <td><span class="recap-pts positive" style="font-size:1.1rem">${gameState.score} pts</span></td>
+    </tr>
+  `;
+
+  container.innerHTML = `
+    <table class="recap-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Question</th>
+          <th>Réponse</th>
+          <th style="text-align:center">Temps</th>
+          <th style="text-align:right">Points</th>
+        </tr>
+      </thead>
+      <tbody>${rows}${totalRow}</tbody>
+    </table>
+  `;
+}
+
+function renderLeaderboard(currentEntry) {
+  const lb = getLeaderboard();
+
+  // Podium (top 3)
+  const top3 = lb.slice(0, 3);
+  const podiumOrder = [1, 0, 2]; // 2nd, 1st, 3rd positions
+  const podiumBars = document.getElementById('podiumBars');
+
+  if (top3.length === 0) {
+    podiumBars.innerHTML = '<div class="no-scores">Soyez le premier à marquer !</div>';
+  } else {
+    const podiumHTML = podiumOrder.map(idx => {
+      if (idx >= top3.length) return '<div class="podium-bar"></div>';
+      const p = top3[idx];
+      const rank = idx + 1;
+      const medals = ['🥇', '🥈', '🥉'];
+      const isCurrentPlayer = p.name === currentEntry.name && p.score === currentEntry.score;
+      return `
+        <div class="podium-bar podium-${rank}" style="${isCurrentPlayer ? 'filter:drop-shadow(0 0 12px var(--accent))' : ''}">
+          <div class="podium-name">${escHtml(p.name)}</div>
+          <div class="podium-score-label">${p.score} pts</div>
+          <div class="podium-block podium-${rank}">${medals[rank - 1]}</div>
+        </div>
+      `;
+    }).join('');
+    podiumBars.innerHTML = podiumHTML;
+  }
+
+  // Full list
+  const list = document.getElementById('leaderboardList');
+  if (lb.length === 0) {
+    list.innerHTML = '<div class="empty-lb">Aucun score enregistré pour l\'instant.</div>';
+    return;
+  }
+
+  list.innerHTML = lb.map((p, i) => {
+    const isCurrent = p.name === currentEntry.name && p.score === currentEntry.score
+      && p.level === currentEntry.level;
+    const medals = { 0: '🥇', 1: '🥈', 2: '🥉' };
+    const rankDisplay = medals[i] || `#${i + 1}`;
+    return `
+      <div class="lb-row ${isCurrent ? 'current-player' : ''}">
+        <div class="lb-rank">${rankDisplay}</div>
+        <div class="lb-name">${escHtml(p.name)} ${isCurrent ? '← vous' : ''}</div>
+        <div class="lb-meta">
+          <span class="lb-level">${p.level}</span>
+          <span class="lb-score">${p.score}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ══════════════════════════════════════════════════════
+//  EVENT LISTENERS
+// ══════════════════════════════════════════════════════
+
+// Level buttons
+document.querySelectorAll('.level-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    gameState.level = btn.dataset.level;
+    const info = LEVEL_INFO[gameState.level];
+    document.getElementById('levelInfo').innerHTML = info.replace('<strong>', '<strong>').replace('</strong>', '</strong><br>');
+  });
+});
+
+// Mode buttons
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    gameState.mode = btn.dataset.mode;
+  });
+});
+
+// Start
+document.getElementById('btnStart').addEventListener('click', () => {
+  if (!gameState.level) {
+    alert('Veuillez sélectionner un niveau !');
+    return;
+  }
+  const name = document.getElementById('playerName').value.trim();
+  gameState.playerName = name || 'Anonyme';
+  startGame();
+});
+
+// Validate
+document.getElementById('btnValidate').addEventListener('click', validateAnswer);
+
+// Skip
+document.getElementById('btnSkip').addEventListener('click', skipQuestion);
+
+// Enter key
+document.getElementById('answerInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') validateAnswer();
+});
+
+// Retry
+document.getElementById('btnRetry').addEventListener('click', () => {
+  startGame();
+});
+
+// Menu
+document.getElementById('btnMenu').addEventListener('click', () => {
+  stopTimer();
+  showScreen('setupScreen');
+});
+
+// ══════════════════════════════════════════════════════
+//  ADMIN PANEL
+// ══════════════════════════════════════════════════════
+
+const ADMIN_PIN = '0000';
+let adminUnlocked = false;
+let pendingDeleteCallback = null;
+
+// ── FAB click ──
+document.getElementById('adminFab').addEventListener('click', () => {
+  if (adminUnlocked) {
+    openAdminPanel();
+  } else {
+    openLoginModal();
+  }
+});
+
+// ── PIN MODAL ──
+function openLoginModal() {
+  ['pin0','pin1','pin2','pin3'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = '';
+    el.classList.remove('error');
+  });
+  document.getElementById('pinError').textContent = '';
+  document.getElementById('loginModal').classList.add('show');
+  setTimeout(() => document.getElementById('pin0').focus(), 50);
+}
+
+function closeLoginModal() {
+  document.getElementById('loginModal').classList.remove('show');
+}
+
+// Auto-advance PIN digits
+['pin0','pin1','pin2','pin3'].forEach((id, i) => {
+  document.getElementById(id).addEventListener('input', e => {
+    const val = e.target.value.replace(/\D/g,'');
+    e.target.value = val.slice(-1);
+    if (val && i < 3) {
+      document.getElementById(`pin${i+1}`).focus();
+    }
+    if (i === 3 && val) checkPin();
+  });
+
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !e.target.value && i > 0) {
+      document.getElementById(`pin${i-1}`).focus();
+    }
+    if (e.key === 'Enter') checkPin();
+  });
+});
+
+document.getElementById('btnPinConfirm').addEventListener('click', checkPin);
+document.getElementById('btnPinCancel').addEventListener('click', closeLoginModal);
+
+// Close modal on overlay click
+document.getElementById('loginModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('loginModal')) closeLoginModal();
+});
+
+function checkPin() {
+  const entered = ['pin0','pin1','pin2','pin3'].map(id => document.getElementById(id).value).join('');
+  if (entered === ADMIN_PIN) {
+    adminUnlocked = true;
+    closeLoginModal();
+    document.getElementById('adminFab').classList.add('unlocked');
+    document.getElementById('adminFab').innerHTML = '⚙ Admin ✓';
+    openAdminPanel();
+  } else {
+    ['pin0','pin1','pin2','pin3'].forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.add('error');
+      el.value = '';
+      setTimeout(() => el.classList.remove('error'), 600);
+    });
+    document.getElementById('pinError').textContent = '❌ Code incorrect. Réessayez.';
+    document.getElementById('pin0').focus();
+  }
+}
+
+// ── ADMIN PANEL ──
+function openAdminPanel() {
+  renderAdminTable();
+  document.getElementById('adminPanel').classList.add('open');
+}
+
+function closeAdminPanel() {
+  document.getElementById('adminPanel').classList.remove('open');
+}
+
+document.getElementById('btnCloseAdmin').addEventListener('click', closeAdminPanel);
+
+document.getElementById('btnAdminLogout').addEventListener('click', () => {
+  adminUnlocked = false;
+  document.getElementById('adminFab').classList.remove('unlocked');
+  document.getElementById('adminFab').innerHTML = '⚙ Admin';
+  closeAdminPanel();
+});
+
+function renderAdminTable() {
+  const lb = getLeaderboard();
+  const tbody = document.getElementById('adminTableBody');
+  const countEl = document.getElementById('adminCount');
+
+  countEl.innerHTML = `<span>${lb.length}</span> score${lb.length !== 1 ? 's' : ''} enregistré${lb.length !== 1 ? 's' : ''}`;
+  document.getElementById('cbSelectAll').checked = false;
+  updateDeleteBtn();
+
+  if (lb.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="admin-empty">Aucun score enregistré.</div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = lb.map((p, i) => {
+    const medals = { 0: '🥇', 1: '🥈', 2: '🥉' };
+    const rankDisplay = medals[i] || `#${i + 1}`;
+    return `
+      <tr data-idx="${i}">
+        <td><input type="checkbox" class="admin-cb row-cb" data-idx="${i}"></td>
+        <td class="admin-rank">${rankDisplay}</td>
+        <td class="admin-name">${escHtml(p.name)}</td>
+        <td class="admin-score">${p.score} pts</td>
+        <td><span class="admin-level">${p.level}</span></td>
+        <td style="color:var(--muted);font-size:0.8rem">${p.correct ?? '?'}/${p.total ?? '?'} correctes</td>
+        <td class="admin-date">${p.date || '—'}</td>
+        <td><button class="btn-del-row" data-idx="${i}" title="Supprimer">🗑</button></td>
+      </tr>
+    `;
+  }).join('');
+
+  // Row checkboxes
+  tbody.querySelectorAll('.row-cb').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const row = cb.closest('tr');
+      row.classList.toggle('selected', cb.checked);
+      updateDeleteBtn();
+      updateSelectAll();
+    });
+  });
+
+  // Delete single row buttons
+  tbody.querySelectorAll('.btn-del-row').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.idx);
+      const lb = getLeaderboard();
+      const entry = lb[idx];
+      showConfirm(
+        'Supprimer ce score',
+        `Supprimer le score de "${escHtml(entry.name)}" (${entry.score} pts · ${entry.level}) ?`,
+        () => {
+          const fresh = getLeaderboard();
+          fresh.splice(idx, 1);
+          localStorage.setItem('nombres_lb', JSON.stringify(fresh));
+          renderAdminTable();
+        }
+      );
+    });
+  });
+}
+
+// Select all checkbox
+document.getElementById('cbSelectAll').addEventListener('change', e => {
+  document.querySelectorAll('.row-cb').forEach(cb => {
+    cb.checked = e.target.checked;
+    cb.closest('tr').classList.toggle('selected', e.target.checked);
+  });
+  updateDeleteBtn();
+});
+
+function updateSelectAll() {
+  const all = document.querySelectorAll('.row-cb');
+  const checked = document.querySelectorAll('.row-cb:checked');
+  const cbAll = document.getElementById('cbSelectAll');
+  cbAll.indeterminate = checked.length > 0 && checked.length < all.length;
+  cbAll.checked = all.length > 0 && checked.length === all.length;
+}
+
+function updateDeleteBtn() {
+  const count = document.querySelectorAll('.row-cb:checked').length;
+  const btn = document.getElementById('btnDeleteSelected');
+  btn.disabled = count === 0;
+  btn.textContent = count > 0 ? `🗑 Supprimer (${count})` : '🗑 Supprimer la sélection';
+}
+
+// Delete selected
+document.getElementById('btnDeleteSelected').addEventListener('click', () => {
+  const selected = [...document.querySelectorAll('.row-cb:checked')].map(cb => parseInt(cb.dataset.idx));
+  showConfirm(
+    'Supprimer la sélection',
+    `Supprimer ${selected.length} score${selected.length > 1 ? 's' : ''} sélectionné${selected.length > 1 ? 's' : ''} ?`,
+    () => {
+      const lb = getLeaderboard();
+      const filtered = lb.filter((_, i) => !selected.includes(i));
+      localStorage.setItem('nombres_lb', JSON.stringify(filtered));
+      renderAdminTable();
+    }
+  );
+});
+
+// Delete all
+document.getElementById('btnDeleteAll').addEventListener('click', () => {
+  const lb = getLeaderboard();
+  if (lb.length === 0) return;
+  showConfirm(
+    '⚠ Tout effacer',
+    `Supprimer définitivement TOUS les ${lb.length} scores du classement ?`,
+    () => {
+      localStorage.setItem('nombres_lb', JSON.stringify([]));
+      renderAdminTable();
+    }
+  );
+});
+
+// ── CONFIRM DIALOG ──
+function showConfirm(title, msg, onYes) {
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMsg').textContent = msg;
+  pendingDeleteCallback = onYes;
+  document.getElementById('confirmOverlay').classList.add('show');
+}
+
+document.getElementById('btnConfirmYes').addEventListener('click', () => {
+  if (pendingDeleteCallback) pendingDeleteCallback();
+  pendingDeleteCallback = null;
+  document.getElementById('confirmOverlay').classList.remove('show');
+});
+
+document.getElementById('btnConfirmNo').addEventListener('click', () => {
+  pendingDeleteCallback = null;
+  document.getElementById('confirmOverlay').classList.remove('show');
+});
+
+// Default level selection
+document.querySelector('[data-level="A1"]').click();
+
+</script>
+</body>
+</html>

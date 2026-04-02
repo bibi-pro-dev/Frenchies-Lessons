@@ -1,0 +1,3025 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulaire Français — Cartes</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #080810;
+  --surface:  #0e0e1a;
+  --card-bg:  #111120;
+  --border:   #1e1e35;
+  --border2:  #2a2a4a;
+  --text:     #eeeef8;
+  --muted:    #5a5a80;
+  --dim:      #2e2e50;
+
+  /* Accent halos */
+  --cyan:     #00e5ff;
+  --violet:   #9b5de5;
+  --rose:     #ff2d78;
+  --amber:    #ffb700;
+  --green:    #00f5a0;
+
+  --card-w: 300px;
+  --card-h: 300px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── GEOMETRIC GRID BACKGROUND ── */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(155,93,229,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(155,93,229,0.025) 1px, transparent 1px);
+  background-size: 240px 240px;
+}
+
+/* Diagonal accent lines */
+.bg-diag {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 60px,
+    rgba(0,229,255,0.012) 60px,
+    rgba(0,229,255,0.012) 61px
+  );
+}
+
+/* Halos */
+.halo {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.18;
+  animation: haloPulse 8s ease-in-out infinite;
+}
+
+.halo-1 { width:500px; height:500px; background:var(--violet); top:-100px; left:-100px; animation-delay:0s; }
+.halo-2 { width:400px; height:400px; background:var(--cyan);   top:40%;   right:-100px; animation-delay:3s; }
+.halo-3 { width:350px; height:350px; background:var(--rose);   bottom:-50px; left:30%; animation-delay:6s; }
+
+@keyframes haloPulse {
+  0%,100% { opacity:0.18; transform:scale(1); }
+  50%      { opacity:0.28; transform:scale(1.1); }
+}
+
+/* ── WRAPPER ── */
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+/* ── HEADER ── */
+header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.header-left {}
+
+.site-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid rgba(0,229,255,0.3);
+  padding: 0.3rem 0.9rem;
+  border-radius: 2px;
+  margin-bottom: 0.8rem;
+}
+
+.site-tag::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--cyan);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+h1 .accent-cyan { color: var(--cyan); }
+h1 .accent-violet { color: var(--violet); }
+
+.header-sub {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+/* Controls */
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.8rem;
+}
+
+.controls-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.filter-btn {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.filter-btn.active {
+  background: rgba(0,229,255,0.08);
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.stat-badge {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.stat-badge span { color: var(--amber); }
+
+/* ── CARD GRID ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.6rem;
+}
+
+/* ── FLASHCARD ── */
+.flashcard {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+/* Staggered entrance */
+.flashcard { opacity:0; animation: cardIn 0.5s ease forwards; }
+.flashcard:nth-child(1)  { animation-delay: 0.05s; }
+.flashcard:nth-child(2)  { animation-delay: 0.10s; }
+.flashcard:nth-child(3)  { animation-delay: 0.15s; }
+.flashcard:nth-child(4)  { animation-delay: 0.20s; }
+.flashcard:nth-child(5)  { animation-delay: 0.25s; }
+.flashcard:nth-child(6)  { animation-delay: 0.30s; }
+.flashcard:nth-child(7)  { animation-delay: 0.35s; }
+.flashcard:nth-child(8)  { animation-delay: 0.40s; }
+.flashcard:nth-child(9)  { animation-delay: 0.45s; }
+.flashcard:nth-child(10) { animation-delay: 0.50s; }
+.flashcard:nth-child(11) { animation-delay: 0.55s; }
+.flashcard:nth-child(12) { animation-delay: 0.60s; }
+
+@keyframes cardIn {
+  from { opacity:0; transform: translateY(24px) scale(0.96); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4,0.2,0.2,1);
+  border-radius: 12px;
+}
+
+.flashcard.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front & Back shared */
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* ── CARD FRONT ── */
+.card-front {
+  background: var(--card-bg);
+  border: 1px solid var(--border2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Accent top bar — each card gets a color */
+.card-front::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--cyan));
+  box-shadow: 0 0 20px var(--card-accent, var(--cyan));
+}
+
+/* Corner tag */
+.card-corner-tag {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--card-accent, var(--cyan));
+  opacity: 0.7;
+  z-index: 2;
+}
+
+/* Image zone — 300x300 */
+.card-img-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.flashcard:hover .card-img-wrap img {
+  transform: scale(1.04);
+}
+
+/* Image placeholder (when no image) */
+.card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--surface), var(--card-bg));
+  gap: 0.8rem;
+}
+
+.placeholder-icon {
+  font-size: 3.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 16px var(--card-accent, var(--cyan)));
+}
+
+.placeholder-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+}
+
+/* Card footer */
+.card-footer {
+  padding: 0.65rem 0.9rem 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(14,14,26,0.9);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.card-word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  text-shadow: 0 0 20px var(--card-accent, var(--cyan));
+  line-height: 1;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.btn-speak,
+.btn-flip-hint {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-speak:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  box-shadow: 0 0 12px rgba(255,183,0,0.25);
+}
+
+.btn-speak.speaking {
+  border-color: var(--amber);
+  color: var(--amber);
+  animation: speakPulse 0.6s ease-in-out infinite;
+}
+
+@keyframes speakPulse {
+  0%,100% { box-shadow: 0 0 8px rgba(255,183,0,0.3); }
+  50%      { box-shadow: 0 0 20px rgba(255,183,0,0.7); }
+}
+
+.btn-flip-hint:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+/* ── CARD BACK ── */
+.card-back {
+  background: var(--card-bg);
+  border: 1px solid var(--border2);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  padding: 1.4rem 1.3rem 1.2rem;
+  position: relative;
+}
+
+.card-back::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--cyan));
+  box-shadow: 0 0 20px var(--card-accent, var(--cyan));
+}
+
+/* Decorative corner lines */
+.card-back::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 60px; height: 60px;
+  border-left: 1px solid var(--border2);
+  border-top: 1px solid var(--border2);
+  border-radius: 0 0 0 4px;
+  opacity: 0.4;
+}
+
+.back-category {
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--card-accent, var(--cyan));
+  margin-bottom: 0.5rem;
+}
+
+.back-word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.back-phonetic {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.back-translation {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  color: var(--text);
+  margin-bottom: 0.7rem;
+  line-height: 1.3;
+}
+
+.back-translation em {
+  font-style: normal;
+  color: var(--card-accent, var(--cyan));
+}
+
+.back-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.7rem 0;
+}
+
+.back-example {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.back-example strong {
+  color: var(--text);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Bonus panel */
+.bonus-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--violet);
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: 'DM Sans', sans-serif;
+  transition: color 0.2s;
+}
+
+.bonus-trigger:hover { color: #c084fc; }
+
+.bonus-icon {
+  width: 18px;
+  height: 18px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.bonus-trigger:hover .bonus-icon {
+  background: var(--violet);
+  color: #fff;
+  border-color: var(--violet);
+}
+
+/* ── BONUS MODAL ── */
+.bonus-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.bonus-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.bonus-box {
+  background: var(--card-bg);
+  border: 1px solid var(--violet);
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  padding: 2rem;
+  position: relative;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 60px rgba(155,93,229,0.25);
+}
+
+.bonus-overlay.show .bonus-box {
+  transform: translateY(0) scale(1);
+}
+
+.bonus-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--violet), var(--cyan));
+  border-radius: 16px 16px 0 0;
+}
+
+.bonus-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.bonus-close:hover { border-color: var(--rose); color: var(--rose); }
+
+.bonus-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 0.5rem;
+}
+
+.bonus-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.bonus-phonetic {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+
+.bonus-section {
+  margin-bottom: 1rem;
+}
+
+.bonus-section-title {
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.4rem;
+}
+
+.bonus-section p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.bonus-section p em {
+  color: var(--amber);
+  font-style: normal;
+}
+
+.bonus-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+}
+
+.bonus-tag {
+  font-size: 0.68rem;
+  background: rgba(155,93,229,0.12);
+  border: 1px solid rgba(155,93,229,0.3);
+  border-radius: 3px;
+  padding: 0.2rem 0.6rem;
+  color: var(--violet);
+  letter-spacing: 0.05em;
+}
+
+.bonus-speak-row {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.btn-bonus-speak {
+  flex: 1;
+  background: rgba(255,183,0,0.1);
+  border: 1px solid rgba(255,183,0,0.4);
+  border-radius: 8px;
+  color: var(--amber);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-bonus-speak:hover { background: rgba(255,183,0,0.18); }
+
+/* ── CATEGORY BADGE ── */
+.cat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  padding: 0.18rem 0.55rem;
+  font-weight: 500;
+}
+
+/* ── SEARCH / FILTER BAR ── */
+.topbar {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-wrap svg {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  padding: 0.65rem 1rem 0.65rem 2.5rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input::placeholder { color: var(--muted); }
+.search-input:focus { border-color: var(--cyan); }
+
+.sort-select {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  padding: 0.65rem 0.9rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sort-select:focus { border-color: var(--cyan); }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--muted);
+}
+
+.empty-state .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+.empty-state p { font-family: 'DM Serif Display', serif; font-style: italic; }
+
+/* ── SPEECH WAVE INDICATOR ── */
+.speech-wave {
+  display: none;
+  align-items: center;
+  gap: 3px;
+  height: 18px;
+}
+
+.speech-wave.active { display: flex; }
+
+.wave-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--amber);
+  animation: waveAnim 0.8s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(1) { height: 6px;  animation-delay: 0s; }
+.wave-bar:nth-child(2) { height: 14px; animation-delay: 0.1s; }
+.wave-bar:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { height: 16px; animation-delay: 0.15s; }
+.wave-bar:nth-child(5) { height: 8px;  animation-delay: 0.05s; }
+
+@keyframes waveAnim {
+  0%,100% { transform: scaleY(0.5); opacity: 0.6; }
+  50%      { transform: scaleY(1);   opacity: 1; }
+}
+
+/* ── BACK ACTIONS ROW ── */
+.back-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding-top: 0.8rem;
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+}
+
+.btn-back-speak {
+  flex: 1;
+  background: rgba(255,183,0,0.08);
+  border: 1px solid rgba(255,183,0,0.25);
+  border-radius: 6px;
+  color: var(--amber);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  letter-spacing: 0.05em;
+}
+
+.btn-back-speak:hover { background: rgba(255,183,0,0.15); }
+
+.btn-back-flip {
+  background: rgba(0,229,255,0.06);
+  border: 1px solid rgba(0,229,255,0.2);
+  border-radius: 6px;
+  color: var(--cyan);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-back-flip:hover { background: rgba(0,229,255,0.12); }
+
+/* ── GLOBAL SPEECH INDICATOR ── */
+.global-speech {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--surface);
+  border: 1px solid rgba(255,183,0,0.4);
+  border-radius: 99px;
+  padding: 0.6rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.78rem;
+  color: var(--amber);
+  z-index: 600;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+
+.global-speech.show {
+  transform: translateX(-50%) translateY(0);
+  pointer-events: all;
+}
+
+.global-speech-text { max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── GITHUB NOTE ── */
+.github-note {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.github-note code {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 0.78rem;
+  color: var(--cyan);
+}
+
+.github-note a { color: var(--cyan); text-decoration: none; }
+.github-note a:hover { text-decoration: underline; }
+
+/* ══════════════════════════════════════════════════════
+   QUIZ MODE
+══════════════════════════════════════════════════════ */
+
+/* ── QUIZ BUTTON in header ── */
+.btn-quiz-launch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: linear-gradient(135deg, rgba(255,183,0,0.12), rgba(255,45,120,0.12));
+  border: 1px solid rgba(255,183,0,0.5);
+  border-radius: 6px;
+  color: var(--amber);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  padding: 0.55rem 1.2rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-transform: uppercase;
+}
+
+.btn-quiz-launch:hover {
+  background: linear-gradient(135deg, rgba(255,183,0,0.22), rgba(255,45,120,0.22));
+  border-color: var(--amber);
+  box-shadow: 0 0 24px rgba(255,183,0,0.25);
+  transform: translateY(-1px);
+}
+
+.btn-quiz-launch .quiz-icon {
+  font-size: 1.1rem;
+  animation: quizIconPulse 2s ease-in-out infinite;
+}
+
+@keyframes quizIconPulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.2) rotate(-5deg); }
+}
+
+/* ── QUIZ OVERLAY (full screen) ── */
+.quiz-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 700;
+  background: var(--bg);
+  overflow-y: auto;
+  display: none;
+  flex-direction: column;
+}
+
+.quiz-overlay.open { display: flex; }
+
+/* ── QUIZ SETUP SCREEN ── */
+.quiz-setup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.quiz-setup-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.quiz-setup-tag {
+  display: inline-block;
+  font-size: 0.58rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--amber);
+  border: 1px solid rgba(255,183,0,0.35);
+  padding: 0.3rem 1rem;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+.quiz-setup-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  letter-spacing: 0.05em;
+  line-height: 0.95;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-setup-title span { color: var(--rose); }
+
+.quiz-setup-sub {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.quiz-section {
+  width: 100%;
+  margin-bottom: 1.8rem;
+}
+
+.quiz-section-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.quiz-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border2);
+}
+
+/* Category checkboxes */
+.quiz-cat-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.quiz-cat-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.quiz-cat-btn:hover { border-color: var(--amber); color: var(--amber); }
+
+.quiz-cat-btn.selected {
+  background: rgba(255,183,0,0.1);
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.quiz-cat-btn .cat-check {
+  width: 14px;
+  height: 14px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  flex-shrink: 0;
+}
+
+.quiz-cat-btn.selected .cat-check::after { content: '✓'; }
+
+/* Card count slider */
+.quiz-count-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.quiz-count-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--border2);
+  outline: none;
+  cursor: pointer;
+}
+
+.quiz-count-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 10px rgba(255,183,0,0.5);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.quiz-count-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+.quiz-count-display {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--amber);
+  min-width: 60px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.quiz-count-max {
+  font-size: 0.72rem;
+  color: var(--muted);
+  min-width: 60px;
+}
+
+/* Start button */
+.btn-quiz-start {
+  width: 100%;
+  background: linear-gradient(135deg, var(--amber), var(--rose));
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.12em;
+  padding: 1.1rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+}
+
+.btn-quiz-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255,183,0,0.35);
+}
+
+.btn-quiz-start:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-quiz-back {
+  margin-top: 1rem;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.btn-quiz-back:hover { border-color: var(--muted); color: var(--text); }
+
+/* ── QUIZ GAME SCREEN ── */
+.quiz-game {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem 3rem;
+  max-width: 620px;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.quiz-game.active { display: flex; }
+
+/* Progress HUD */
+.quiz-hud {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-progress-wrap {
+  flex: 1;
+  position: relative;
+}
+
+.quiz-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--border2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber), var(--rose));
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+.quiz-progress-text {
+  font-size: 0.65rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+  letter-spacing: 0.1em;
+}
+
+.quiz-score-hud {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.quiz-score-pill {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+}
+
+.quiz-score-pill.correct { color: var(--green); border-color: rgba(0,245,160,0.3); }
+.quiz-score-pill.wrong   { color: var(--rose);  border-color: rgba(255,45,120,0.3); }
+
+.btn-quiz-exit {
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-quiz-exit:hover { border-color: var(--rose); color: var(--rose); }
+
+/* Quiz image card */
+.quiz-image-wrap {
+  width: 300px;
+  height: 300px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border2);
+  flex-shrink: 0;
+  box-shadow: 0 0 60px rgba(0,229,255,0.08);
+}
+
+.quiz-image-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.quiz-image-wrap.state-correct::before { border-color: var(--green); box-shadow: inset 0 0 30px rgba(0,245,160,0.15); }
+.quiz-image-wrap.state-wrong::before   { border-color: var(--rose);  box-shadow: inset 0 0 30px rgba(255,45,120,0.15); }
+
+.quiz-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+
+.quiz-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  gap: 0.8rem;
+  font-size: 4rem;
+}
+
+/* Category hint */
+.quiz-cat-hint {
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quiz-cat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  flex-shrink: 0;
+}
+
+/* Feedback banner */
+.quiz-feedback {
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  gap: 0.6rem;
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.quiz-feedback.show { opacity: 1; }
+.quiz-feedback.correct { color: var(--green); }
+.quiz-feedback.wrong   { color: var(--rose); }
+
+/* Answer input area */
+.quiz-input-wrap {
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+.quiz-answer-input {
+  width: 100%;
+  background: var(--surface);
+  border: 2px solid var(--border2);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  padding: 0.85rem 3.5rem 0.85rem 1.2rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.quiz-answer-input::placeholder {
+  color: var(--muted);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.quiz-answer-input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 20px rgba(0,229,255,0.1);
+}
+
+.quiz-answer-input.correct {
+  border-color: var(--green);
+  box-shadow: 0 0 20px rgba(0,245,160,0.2);
+  color: var(--green);
+}
+
+.quiz-answer-input.wrong {
+  border-color: var(--rose);
+  box-shadow: 0 0 20px rgba(255,45,120,0.2);
+  animation: quizShake 0.4s ease;
+}
+
+@keyframes quizShake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.btn-quiz-speak-inline {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  padding: 0.3rem;
+}
+
+.btn-quiz-speak-inline:hover { opacity: 1; }
+
+/* Accent shortcuts */
+.accent-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  max-width: 480px;
+  width: 100%;
+}
+
+.accent-btn {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  color: var(--text);
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  width: 36px;
+  height: 34px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accent-btn:hover {
+  background: rgba(0,229,255,0.1);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+.accent-btn:active { transform: translateY(0); }
+
+/* Quiz action buttons */
+.quiz-actions {
+  display: flex;
+  gap: 0.7rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.btn-quiz-validate {
+  flex: 2;
+  background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(155,93,229,0.15));
+  border: 1px solid rgba(0,229,255,0.4);
+  border-radius: 8px;
+  color: var(--cyan);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-quiz-validate:hover {
+  background: rgba(0,229,255,0.2);
+  box-shadow: 0 0 20px rgba(0,229,255,0.2);
+}
+
+.btn-quiz-skip {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-quiz-skip:hover { border-color: var(--muted); color: var(--text); }
+
+/* ── QUIZ RESULTS ── */
+.quiz-results {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1.5rem;
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+.quiz-results.active { display: flex; }
+
+.quiz-results-emoji {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.3); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.quiz-results-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.quiz-results-sub {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.quiz-score-ring-wrap {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.quiz-score-ring-wrap svg {
+  transform: rotate(-90deg);
+}
+
+.ring-bg  { fill: none; stroke: var(--border2); stroke-width: 8; }
+.ring-arc {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 408;
+  stroke-dashoffset: 408;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+.quiz-score-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+}
+
+.quiz-score-pct {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.quiz-score-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.quiz-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 2rem;
+}
+
+.quiz-stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 1rem 0.8rem;
+}
+
+.quiz-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.quiz-stat-lbl {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Detailed results list */
+.quiz-detail-title {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.quiz-detail-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border2);
+}
+
+.quiz-detail-list {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-detail-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+
+.quiz-detail-row:last-child { border-bottom: none; }
+
+.quiz-detail-icon { font-size: 1rem; flex-shrink: 0; }
+.quiz-detail-word { font-weight: 500; flex: 1; }
+.quiz-detail-given {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.quiz-detail-row.r-correct .quiz-detail-word { color: var(--green); }
+.quiz-detail-row.r-wrong   .quiz-detail-word { color: var(--rose); }
+.quiz-detail-row.r-skip    .quiz-detail-word { color: var(--muted); }
+
+.quiz-results-actions {
+  display: flex;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 420px;
+}
+
+.btn-quiz-replay {
+  flex: 2;
+  background: linear-gradient(135deg, var(--amber), var(--rose));
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-quiz-replay:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+.btn-quiz-home {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-quiz-home:hover { border-color: var(--muted); color: var(--text); }
+
+/* ── INFINITE SCROLL END MARKER ── */
+.infinite-end {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.infinite-end::before,
+.infinite-end::after {
+  content: '';
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: var(--border2);
+}
+</style>
+</head>
+<body>
+
+<!-- Background layers -->
+<div class="bg-layer">
+  <div class="bg-grid"></div>
+  <div class="bg-diag"></div>
+  <div class="halo halo-1"></div>
+  <div class="halo halo-2"></div>
+  <div class="halo halo-3"></div>
+</div>
+
+<!-- Global speech indicator -->
+<div class="global-speech" id="globalSpeech">
+  <div class="speech-wave active">
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+  </div>
+  <span class="global-speech-text" id="globalSpeechText">Lecture en cours...</span>
+</div>
+
+<!-- Bonus modal -->
+<div class="bonus-overlay" id="bonusOverlay">
+  <div class="bonus-box" id="bonusBox">
+    <button class="bonus-close" id="bonusClose">✕</button>
+    <div class="bonus-label">✦ Bonus Info</div>
+    <div class="bonus-title" id="bonusTitle">—</div>
+    <div class="bonus-phonetic" id="bonusPhonetic">—</div>
+
+    <div class="bonus-section">
+      <div class="bonus-section-title">📖 Définition</div>
+      <p id="bonusDef">—</p>
+    </div>
+
+    <div class="bonus-section">
+      <div class="bonus-section-title">💬 Exemple d'usage</div>
+      <p id="bonusExample">—</p>
+    </div>
+
+    <div class="bonus-section">
+      <div class="bonus-section-title">🔗 Mots associés</div>
+      <div class="bonus-tags" id="bonusTags"></div>
+    </div>
+
+    <div class="bonus-section">
+      <div class="bonus-section-title">📝 Note grammaticale</div>
+      <p id="bonusGrammar">—</p>
+    </div>
+
+    <div class="bonus-speak-row">
+      <button class="btn-bonus-speak" id="bonusSpeakWord">
+        🔊 Écouter le mot
+      </button>
+      <button class="btn-bonus-speak" id="bonusSpeakExample" style="border-color:rgba(0,229,255,0.4);color:var(--cyan);background:rgba(0,229,255,0.06)">
+        🔊 Écouter l'exemple
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     QUIZ OVERLAY
+═══════════════════════════════════════════ -->
+<div class="quiz-overlay" id="quizOverlay">
+
+  <!-- BG layers (reuse) -->
+  <div class="bg-layer" style="z-index:0">
+    <div class="bg-grid"></div>
+    <div class="bg-diag"></div>
+    <div class="halo halo-1" style="opacity:0.12"></div>
+    <div class="halo halo-2" style="opacity:0.1"></div>
+  </div>
+
+  <!-- ── SETUP SCREEN ── -->
+  <div class="quiz-setup" id="quizSetup" style="position:relative;z-index:1">
+    <div class="quiz-setup-header">
+      <div class="quiz-setup-tag">⚡ Mode interactif</div>
+      <div class="quiz-setup-title">Mode<br><span>Quiz</span></div>
+      <p class="quiz-setup-sub">Configurez votre session d'entraînement</p>
+    </div>
+
+    <div class="quiz-section">
+      <div class="quiz-section-label">Catégories</div>
+      <div class="quiz-cat-grid" id="quizCatGrid"></div>
+    </div>
+
+    <div class="quiz-section">
+      <div class="quiz-section-label">Nombre de cartes</div>
+      <div class="quiz-count-row">
+        <input type="range" class="quiz-count-slider" id="quizCountSlider" min="1" max="12" value="6">
+        <div class="quiz-count-display" id="quizCountDisplay">6</div>
+        <div class="quiz-count-max" id="quizCountMax">/ 12 disponibles</div>
+      </div>
+    </div>
+
+    <div class="quiz-section">
+      <div class="quiz-section-label">Options</div>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+        <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;font-size:0.85rem;color:var(--muted)">
+          <input type="checkbox" id="quizOptShuffle" checked style="accent-color:var(--amber);width:15px;height:15px">
+          Ordre aléatoire
+        </label>
+        <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;font-size:0.85rem;color:var(--muted)">
+          <input type="checkbox" id="quizOptSpeak" checked style="accent-color:var(--amber);width:15px;height:15px">
+          Lecture vocale auto
+        </label>
+      </div>
+    </div>
+
+    <button class="btn-quiz-start" id="btnQuizStart">▶ Lancer le Quiz</button>
+    <button class="btn-quiz-back" id="btnQuizBackSetup">← Retour aux cartes</button>
+  </div>
+
+  <!-- ── GAME SCREEN ── -->
+  <div class="quiz-game" id="quizGame" style="position:relative;z-index:1">
+
+    <!-- HUD -->
+    <div class="quiz-hud">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div>
+        </div>
+        <div class="quiz-progress-text" id="quizProgressText">Carte 1 / 6</div>
+      </div>
+      <div class="quiz-score-hud">
+        <div class="quiz-score-pill correct" id="quizScoreCorrect">✓ 0</div>
+        <div class="quiz-score-pill wrong"   id="quizScoreWrong">✗ 0</div>
+      </div>
+      <button class="btn-quiz-exit" id="btnQuizExit">✕ Quitter</button>
+    </div>
+
+    <!-- Category hint -->
+    <div class="quiz-cat-hint">
+      <div class="quiz-cat-dot"></div>
+      <span id="quizCatLabel">Catégorie</span>
+    </div>
+
+    <!-- Image -->
+    <div class="quiz-image-wrap" id="quizImageWrap">
+      <img id="quizImage" src="" alt=""
+        onerror="this.style.display='none';document.getElementById('quizImgPlaceholder').style.display='flex'">
+      <div class="quiz-image-placeholder" id="quizImgPlaceholder" style="display:none">
+        <span id="quizImgEmoji">🖼</span>
+      </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="quiz-feedback" id="quizFeedback"></div>
+
+    <!-- Answer input -->
+    <div class="quiz-input-wrap">
+      <input
+        type="text"
+        class="quiz-answer-input"
+        id="quizAnswerInput"
+        placeholder="Écrivez le nom…"
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false">
+      <button class="btn-quiz-speak-inline" id="btnQuizSpeakHint" title="Écouter l'image">🔊</button>
+    </div>
+
+    <!-- Accent shortcuts -->
+    <div class="accent-bar" id="accentBar">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- Actions -->
+    <div class="quiz-actions">
+      <button class="btn-quiz-validate" id="btnQuizValidate">✓ Valider</button>
+      <button class="btn-quiz-skip" id="btnQuizSkip">Passer →</button>
+    </div>
+
+  </div>
+
+  <!-- ── RESULTS SCREEN ── -->
+  <div class="quiz-results" id="quizResults" style="position:relative;z-index:1">
+    <div class="quiz-results-emoji" id="quizResultsEmoji">🏆</div>
+    <div class="quiz-results-title" id="quizResultsTitle">Excellent !</div>
+    <div class="quiz-results-sub" id="quizResultsSub">Session terminée</div>
+
+    <!-- Score ring -->
+    <div class="quiz-score-ring-wrap">
+      <svg width="140" height="140" viewBox="0 0 140 140">
+        <circle class="ring-bg"  cx="70" cy="70" r="65"/>
+        <circle class="ring-arc" id="ringArc" cx="70" cy="70" r="65"/>
+      </svg>
+      <div class="quiz-score-center">
+        <div class="quiz-score-pct" id="quizResultsPct" style="color:var(--amber)">0%</div>
+        <div class="quiz-score-label">Réussite</div>
+      </div>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="quiz-stats-grid">
+      <div class="quiz-stat-card">
+        <div class="quiz-stat-num" style="color:var(--green)" id="resCorrect">0</div>
+        <div class="quiz-stat-lbl">Correctes</div>
+      </div>
+      <div class="quiz-stat-card">
+        <div class="quiz-stat-num" style="color:var(--rose)" id="resWrong">0</div>
+        <div class="quiz-stat-lbl">Erreurs</div>
+      </div>
+      <div class="quiz-stat-card">
+        <div class="quiz-stat-num" style="color:var(--muted)" id="resSkipped">0</div>
+        <div class="quiz-stat-lbl">Passées</div>
+      </div>
+    </div>
+
+    <!-- Detail list -->
+    <div class="quiz-detail-title">Détail des réponses</div>
+    <div class="quiz-detail-list" id="quizDetailList"></div>
+
+    <div class="quiz-results-actions">
+      <button class="btn-quiz-replay" id="btnQuizReplay">↺ Rejouer</button>
+      <button class="btn-quiz-home"   id="btnQuizHome">🏠 Cartes</button>
+    </div>
+  </div>
+
+</div><!-- /quiz-overlay -->
+
+<div class="wrapper">
+  <header>
+    <div class="header-left">
+      <div class="site-tag">Web Speech · Flashcards</div>
+      <h1>
+        <span class="accent-cyan">Vocab</span><br>
+        <span class="accent-violet">Français</span>
+      </h1>
+      <p class="header-sub">Cartes interactives — images & prononciation</p>
+    </div>
+    <div class="header-right">
+      <div class="controls-row" id="categoryFilters">
+        <button class="filter-btn active" data-cat="all">Tout</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;justify-content:flex-end;">
+        <div class="stat-badge" id="statBadge">
+          <span id="statVisible">0</span> / <span id="statTotal">0</span> cartes
+        </div>
+        <button class="btn-quiz-launch" id="btnQuizLaunch">
+          <span class="quiz-icon">🎮</span> Mode Quiz
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="topbar">
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="6.5" cy="6.5" r="4.5" stroke="#5a5a80" stroke-width="1.5"/>
+        <path d="M10 10l3 3" stroke="#5a5a80" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input type="text" class="search-input" id="searchInput" placeholder="Rechercher un mot...">
+    </div>
+    <select class="sort-select" id="sortSelect">
+      <option value="default">Ordre par défaut</option>
+      <option value="alpha">A → Z</option>
+      <option value="alpha-rev">Z → A</option>
+      <option value="cat">Par catégorie</option>
+    </select>
+  </div>
+
+  <div class="card-grid" id="cardGrid"></div>
+
+  <div class="github-note">
+    📂 Images chargées depuis le dossier <code>images/</code> de votre GitHub · Scroll infini : <code>16 cartes par lot</code><br>
+    Pour ajouter une carte : éditez le tableau <code>CARDS</code> dans le <code>&lt;script&gt;</code> en suivant le modèle commenté en tête de fichier,<br>
+    puis déposez l'image dans <code>images/</code> — le quiz et le scroll infini la prendront en compte automatiquement.
+  </div>
+</div>
+
+<script>
+// ╔══════════════════════════════════════════════════════════════════╗
+//  📚 BIBLIOTHÈQUE DE CARTES — AJOUTEZ VOS CARTES ICI
+//
+//  ► Pour ajouter une carte, copiez le bloc modèle ci-dessous
+//    et collez-le AVANT le commentaire "FIN DE LA BIBLIOTHÈQUE".
+//
+//  ► Chaque carte doit avoir un `id` UNIQUE (incrémentez juste +1).
+//
+//  ► Déposez l'image dans le dossier  images/  de votre GitHub.
+//    Formats acceptés : .jpg  .png  .webp
+//
+//  ═══════════════ MODÈLE À COPIER ════════════════════════════════
+//  {
+//    id: 99,                          // ← ID unique, incrémentez
+//    word: 'Le Mot',                  // ← Mot avec article
+//    phonetic: '/lə mɔ/',             // ← Phonétique IPA
+//    translation: 'The Word',         // ← Traduction anglaise
+//    category: 'Catégorie',           // ← Nom de catégorie libre
+//    image: 'images/mot.jpg',         // ← Chemin image GitHub
+//    emoji: '📝',                     // ← Emoji fallback si pas d'image
+//    accent: '#00e5ff',               // ← Couleur accent (#hex)
+//    example: 'Phrase exemple courte.',
+//    definition: 'Définition courte.',
+//    bonus: {
+//      def: 'Définition longue et détaillée.',
+//      example: 'Exemple avec <em>mot mis en valeur</em>.',
+//      tags: ['synonyme1', 'synonyme2', 'mot-lié'],
+//      grammar: 'Note grammaticale : genre, pluriel, usage.',
+//    },
+//  },
+//  ════════════════════════════════════════════════════════════════
+// ╚══════════════════════════════════════════════════════════════════╝
+
+const CARDS = [
+  {
+    id: 1,
+    word: 'La Maison',
+    phonetic: '/la mɛ.zɔ̃/',
+    translation: 'The House',
+    category: 'Habitation',
+    image: 'images/maison.jpg',
+    emoji: '🏠',
+    accent: '#00e5ff',
+    example: 'Ma maison est grande et lumineuse.',
+    definition: 'Bâtiment servant de lieu d\'habitation à une ou plusieurs personnes ou familles.',
+    bonus: {
+      def: 'Bâtiment servant de lieu d\'habitation à une ou plusieurs personnes. Par extension, désigne aussi le foyer familial et le sentiment de chez-soi.',
+      example: '<em>Ma maison</em> est grande et lumineuse — j\'y vis depuis dix ans.',
+      tags: ['appartement', 'logement', 'foyer', 'demeure', 'résidence'],
+      grammar: 'Nom féminin (la/une maison). Pluriel : les maisons. Adjectif associé : maison·nel·le.',
+    },
+  },
+  {
+    id: 2,
+    word: 'Le Chat',
+    phonetic: '/lə ʃa/',
+    translation: 'The Cat',
+    category: 'Animaux',
+    image: 'images/chat.jpg',
+    emoji: '🐱',
+    accent: '#ff2d78',
+    example: 'Le chat dort sur le canapé.',
+    definition: 'Petit mammifère carnivore domestique, au pelage doux et aux mœurs indépendantes.',
+    bonus: {
+      def: 'Petit mammifère carnivore (Felis catus) domestiqué depuis l\'Égypte ancienne. Animal indépendant et affectueux, symbole de mystère dans de nombreuses cultures.',
+      example: '<em>Le chat</em> dort sur le canapé — il a chassé des souris toute la nuit.',
+      tags: ['chaton', 'félin', 'ronronner', 'miauler', 'griffes'],
+      grammar: 'Nom masculin (le/un chat). Féminin : la chatte. Pluriel : les chats. Verbe associé : miauler.',
+    },
+  },
+  {
+    id: 3,
+    word: 'La Forêt',
+    phonetic: '/la fɔ.ʁɛ/',
+    translation: 'The Forest',
+    category: 'Nature',
+    image: 'images/foret.jpg',
+    emoji: '🌲',
+    accent: '#00f5a0',
+    example: 'Nous nous promenons dans la forêt en automne.',
+    definition: 'Grande étendue de terrain couverte d\'arbres et de végétation dense.',
+    bonus: {
+      def: 'Vaste étendue de terrain où poussent des arbres en densité élevée. La forêt abrite une biodiversité exceptionnelle et joue un rôle crucial dans la régulation du climat.',
+      example: 'Nous nous promenons dans <em>la forêt</em> en automne — les feuilles sont dorées.',
+      tags: ['bois', 'arbres', 'nature', 'randonnée', 'biodiversité', 'sylviculture'],
+      grammar: 'Nom féminin (la/une forêt). Pluriel : les forêts. Adjectif : forestier·ère.',
+    },
+  },
+  {
+    id: 4,
+    word: 'La Voiture',
+    phonetic: '/la vwa.tyʁ/',
+    translation: 'The Car',
+    category: 'Transport',
+    image: 'images/voiture.jpg',
+    emoji: '🚗',
+    accent: '#ffb700',
+    example: 'Il conduit sa voiture tous les matins.',
+    definition: 'Véhicule automobile à quatre roues destiné au transport de personnes.',
+    bonus: {
+      def: 'Véhicule automobile à moteur thermique ou électrique, à quatre roues, destiné au transport de personnes. Symbole de liberté et de mobilité individuelle.',
+      example: 'Il conduit <em>sa voiture</em> tous les matins pour aller au travail.',
+      tags: ['automobile', 'conduire', 'permis', 'moteur', 'route', 'garage'],
+      grammar: 'Nom féminin (la/une voiture). Pluriel : les voitures. Verbe associé : conduire.',
+    },
+  },
+  {
+    id: 5,
+    word: 'Le Pain',
+    phonetic: '/lə pɛ̃/',
+    translation: 'The Bread',
+    category: 'Nourriture',
+    image: 'images/pain.jpg',
+    emoji: '🥖',
+    accent: '#ff6b35',
+    example: 'J\'achète du pain frais chaque matin à la boulangerie.',
+    definition: 'Aliment de base fait de farine, d\'eau, de sel et de levure, cuit au four.',
+    bonus: {
+      def: 'Aliment fondamental de la cuisine française, fait de farine, d\'eau, de sel et de levure boulangère. La baguette est le symbole du pain français, inscrite au patrimoine culturel immatériel de l\'UNESCO.',
+      example: 'J\'achète du <em>pain frais</em> chaque matin à la boulangerie du quartier.',
+      tags: ['baguette', 'farine', 'boulanger', 'croûte', 'mie', 'levure'],
+      grammar: 'Nom masculin (le/du pain). Article partitif : du pain. Pluriel : des pains (pour les variétés).',
+    },
+  },
+  {
+    id: 6,
+    word: 'Le Soleil',
+    phonetic: '/lə sɔ.lɛj/',
+    translation: 'The Sun',
+    category: 'Nature',
+    image: 'images/soleil.jpg',
+    emoji: '☀️',
+    accent: '#ffb700',
+    example: 'Le soleil se couche à l\'horizon en été.',
+    definition: 'Étoile centrale de notre système solaire, source de lumière et de chaleur.',
+    bonus: {
+      def: 'Étoile naine jaune (type G2V) au centre de notre système solaire. Source de toute vie sur Terre grâce à l\'énergie lumineuse et thermique qu\'elle produit.',
+      example: '<em>Le soleil</em> se couche à l\'horizon en été, teintant le ciel d\'orange.',
+      tags: ['lumière', 'chaleur', 'étoile', 'ciel', 'été', 'rayons', 'astronomie'],
+      grammar: 'Nom masculin (le soleil). Généralement employé sans article indéfini. Adjectif : solaire.',
+    },
+  },
+  {
+    id: 7,
+    word: 'Le Livre',
+    phonetic: '/lə livʁ/',
+    translation: 'The Book',
+    category: 'Culture',
+    image: 'images/livre.jpg',
+    emoji: '📚',
+    accent: '#9b5de5',
+    example: 'Elle lit un livre passionnant sur l\'histoire de France.',
+    definition: 'Ensemble de pages imprimées ou manuscrites reliées ensemble, formant un ouvrage.',
+    bonus: {
+      def: 'Assemblage de pages imprimées ou manuscrites, reliées entre elles, constituant un ouvrage littéraire, scientifique ou artistique. La France est l\'un des plus grands pays producteurs de livres au monde.',
+      example: 'Elle lit <em>un livre passionnant</em> sur l\'histoire de France depuis trois jours.',
+      tags: ['lire', 'lecture', 'roman', 'auteur', 'bibliothèque', 'librairie'],
+      grammar: 'Nom masculin (le/un livre). Pluriel : les livres. Ne pas confondre avec "la livre" (unité de mesure).',
+    },
+  },
+  {
+    id: 8,
+    word: 'La Mer',
+    phonetic: '/la mɛʁ/',
+    translation: 'The Sea',
+    category: 'Nature',
+    image: 'images/mer.jpg',
+    emoji: '🌊',
+    accent: '#00e5ff',
+    example: 'Nous nageons dans la mer chaude en juillet.',
+    definition: 'Grande étendue d\'eau salée, moins vaste que l\'océan, bordant les terres.',
+    bonus: {
+      def: 'Étendue d\'eau salée plus petite qu\'un océan, bordée de terres. La France bénéficie d\'un accès à deux mers (Méditerranée) et deux océans (Atlantique, Manche).',
+      example: 'Nous nageons dans <em>la mer</em> chaude en juillet — l\'eau est à 27 degrés.',
+      tags: ['vagues', 'plage', 'côte', 'marée', 'horizon', 'navigation', 'océan'],
+      grammar: 'Nom féminin (la/une mer). Pluriel : les mers. Adjectif : marin·e, maritime. Homophones : mère, maire.',
+    },
+  },
+  {
+    id: 9,
+    word: 'L\'Oiseau',
+    phonetic: '/lwa.zo/',
+    translation: 'The Bird',
+    category: 'Animaux',
+    image: 'images/oiseau.jpg',
+    emoji: '🐦',
+    accent: '#00f5a0',
+    example: 'L\'oiseau chante dans l\'arbre au lever du soleil.',
+    definition: 'Animal vertébré à plumes, pourvu d\'ailes et d\'un bec, généralement apte au vol.',
+    bonus: {
+      def: 'Animal vertébré tétrapode à corps couvert de plumes, muni d\'un bec et de deux ailes. La plupart volent, mais certains sont terrestres (autruche, manchot). Il existe environ 10 000 espèces dans le monde.',
+      example: '<em>L\'oiseau</em> chante dans l\'arbre au lever du soleil — c\'est un merle.',
+      tags: ['plumes', 'voler', 'nid', 'chanter', 'bec', 'plumage', 'migration'],
+      grammar: 'Nom masculin (l\'/un oiseau). Pluriel : les oiseaux. L\'apostrophe est obligatoire devant "oiseau" car commence par une voyelle.',
+    },
+  },
+  {
+    id: 10,
+    word: 'La Cuisine',
+    phonetic: '/la kɥi.zin/',
+    translation: 'The Kitchen / Cooking',
+    category: 'Habitation',
+    image: 'images/cuisine.jpg',
+    emoji: '🍳',
+    accent: '#ff6b35',
+    example: 'La cuisine française est réputée dans le monde entier.',
+    definition: 'Pièce de la maison où l\'on prépare les repas ; aussi l\'art de préparer les aliments.',
+    bonus: {
+      def: 'Double sens : (1) pièce d\'une habitation équipée pour préparer les aliments ; (2) art et manière de préparer et cuisiner les aliments. La cuisine française est inscrite au patrimoine immatériel de l\'UNESCO.',
+      example: '<em>La cuisine française</em> est réputée dans le monde entier pour sa finesse.',
+      tags: ['cuisiner', 'chef', 'recette', 'gastronomie', 'casserole', 'four', 'fourneaux'],
+      grammar: 'Nom féminin (la/une cuisine). Pluriel : les cuisines. Verbe associé : cuisiner. Double sens à connaître !',
+    },
+  },
+  {
+    id: 11,
+    word: 'Le Vélo',
+    phonetic: '/lə ve.lo/',
+    translation: 'The Bicycle',
+    category: 'Transport',
+    image: 'images/velo.jpg',
+    emoji: '🚲',
+    accent: '#ff2d78',
+    example: 'Je fais du vélo chaque dimanche matin dans le parc.',
+    definition: 'Véhicule à deux roues propulsé par des pédales, sans moteur.',
+    bonus: {
+      def: 'Abréviation de vélocipède. Véhicule à deux roues propulsé par la force musculaire via des pédales. Mode de transport écologique très populaire en France, notamment à Paris avec le système Vélib\'.',
+      example: 'Je fais du <em>vélo</em> chaque dimanche matin dans le parc de la ville.',
+      tags: ['pédaler', 'cyclisme', 'roue', 'selle', 'guidon', 'piste cyclable'],
+      grammar: 'Nom masculin (le/un vélo). Pluriel : les vélos. Expression : "faire du vélo" (utiliser un vélo).',
+    },
+  },
+  {
+    id: 12,
+    word: 'La Fleur',
+    phonetic: '/la flœʁ/',
+    translation: 'The Flower',
+    category: 'Nature',
+    image: 'images/fleur.jpg',
+    emoji: '🌸',
+    accent: '#ff2d78',
+    example: 'Il offre des fleurs à sa mère pour la fête des mères.',
+    definition: 'Organe reproducteur des plantes à fleurs, souvent coloré et parfumé.',
+    bonus: {
+      def: 'Structure reproductive colorée des plantes angiospermes, attirant les pollinisateurs. En français, "fleur" est aussi utilisé dans de nombreuses expressions idiomatiques liées à la beauté et à la délicatesse.',
+      example: 'Il offre des <em>fleurs fraîches</em> à sa mère pour la fête des mères.',
+      tags: ['pétale', 'parfum', 'bouquet', 'jardin', 'floraison', 'pollinisation'],
+      grammar: 'Nom féminin (la/une fleur). Pluriel : les fleurs. Expressions : "dans la fleur de l\'âge", "faire une fleur à quelqu\'un".',
+    },
+  },
+]; // ◄─── FIN DE LA BIBLIOTHÈQUE — ajoutez vos cartes juste au-dessus de cette ligne
+
+// ══════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════
+
+const PAGE_SIZE = 16;          // cartes chargées par lot (scroll infini)
+
+let activeCategory = 'all';
+let searchQuery    = '';
+let sortMode       = 'default';
+let currentBonusCard = null;
+
+// Infinite scroll state
+let infiniteFiltered = [];     // liste complète filtrée/triée courante
+let infinitePage     = 0;      // index du prochain lot à charger
+let infiniteLoading  = false;  // verrou anti-double chargement
+let infiniteObserver = null;   // IntersectionObserver sentinelle
+
+// ══════════════════════════════════════════════════════
+//  SPEECH SYNTHESIS
+// ══════════════════════════════════════════════════════
+
+let currentUtterance = null;
+
+function speak(text, onEnd) {
+  if (!('speechSynthesis' in window)) {
+    alert('Votre navigateur ne supporte pas la synthèse vocale.');
+    return;
+  }
+  window.speechSynthesis.cancel();
+
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'fr-FR';
+  utter.rate = 0.85;
+  utter.pitch = 1;
+
+  // Try to find a French voice
+  const voices = window.speechSynthesis.getVoices();
+  const frVoice = voices.find(v => v.lang.startsWith('fr')) || null;
+  if (frVoice) utter.voice = frVoice;
+
+  showGlobalSpeech(text);
+
+  utter.onend = () => {
+    hideGlobalSpeech();
+    if (onEnd) onEnd();
+  };
+
+  utter.onerror = () => {
+    hideGlobalSpeech();
+  };
+
+  currentUtterance = utter;
+  window.speechSynthesis.speak(utter);
+}
+
+// Ensure voices are loaded
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = () => {};
+}
+
+function showGlobalSpeech(text) {
+  const el = document.getElementById('globalSpeech');
+  const txtEl = document.getElementById('globalSpeechText');
+  txtEl.textContent = text.length > 40 ? text.slice(0, 38) + '…' : text;
+  el.classList.add('show');
+}
+
+function hideGlobalSpeech() {
+  document.getElementById('globalSpeech').classList.remove('show');
+  // Remove all speaking states
+  document.querySelectorAll('.btn-speak.speaking').forEach(b => b.classList.remove('speaking'));
+}
+
+// ══════════════════════════════════════════════════════
+//  CATEGORIES
+// ══════════════════════════════════════════════════════
+
+function buildCategoryFilters() {
+  const cats = ['all', ...new Set(CARDS.map(c => c.category))];
+  const container = document.getElementById('categoryFilters');
+  container.innerHTML = '';
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (cat === activeCategory ? ' active' : '');
+    btn.dataset.cat = cat;
+    btn.textContent = cat === 'all' ? 'Tout' : cat;
+    btn.addEventListener('click', () => {
+      activeCategory = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCards();
+    });
+    container.appendChild(btn);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+//  CARD RENDERING
+// ══════════════════════════════════════════════════════
+
+function getFilteredCards() {
+  let cards = [...CARDS];
+
+  if (activeCategory !== 'all') {
+    cards = cards.filter(c => c.category === activeCategory);
+  }
+
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    cards = cards.filter(c =>
+      c.word.toLowerCase().includes(q) ||
+      c.translation.toLowerCase().includes(q) ||
+      c.category.toLowerCase().includes(q)
+    );
+  }
+
+  if (sortMode === 'alpha') {
+    cards.sort((a, b) => a.word.localeCompare(b.word, 'fr'));
+  } else if (sortMode === 'alpha-rev') {
+    cards.sort((a, b) => b.word.localeCompare(a.word, 'fr'));
+  } else if (sortMode === 'cat') {
+    cards.sort((a, b) => a.category.localeCompare(b.category, 'fr'));
+  }
+
+  return cards;
+}
+
+
+function buildCardHTML(card, idx) {
+  idx = idx || 0;
+  return `
+    <div class="flashcard" data-id="${card.id}" style="--card-accent:${card.accent};animation-delay:${Math.min(idx*0.06,0.48)}s">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <div class="card-corner-tag">${card.category}</div>
+          <div class="card-img-wrap">
+            <img src="${card.image}" alt="${card.word}"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+              loading="lazy">
+            <div class="card-img-placeholder" style="display:none">
+              <div class="placeholder-icon">${card.emoji}</div>
+              <div class="placeholder-num">${card.image}</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="card-word">${card.word}</div>
+            <div class="card-actions">
+              <button class="btn-speak" data-word="${card.word}" title="Écouter">🔊</button>
+              <button class="btn-flip-hint" title="Retourner">↩</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-face card-back">
+          <div class="back-category">${card.category}</div>
+          <div class="back-word">${card.word}</div>
+          <div class="back-phonetic">${card.phonetic}</div>
+          <div class="back-translation"><em>${card.translation}</em></div>
+          <div class="back-divider"></div>
+          <div class="back-example">${card.example}</div>
+          <div class="back-actions">
+            <button class="btn-back-speak" data-word="${card.word}" data-example="${card.example}">🔊 Écouter</button>
+            <button class="btn-back-flip">↩ Recto</button>
+            <button class="bonus-trigger" data-id="${card.id}">
+              <span class="bonus-icon">+</span> Bonus
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+
+  // ── Reset infinite scroll ──
+  infiniteFiltered = getFilteredCards();
+  infinitePage     = 0;
+  infiniteLoading  = false;
+
+  const grid = document.getElementById('cardGrid');
+
+  // Update badge (total filtered vs grand total)
+  document.getElementById('statVisible').textContent = infiniteFiltered.length;
+  document.getElementById('statTotal').textContent   = CARDS.length;
+
+  // Disconnect previous observer
+  if (infiniteObserver) { infiniteObserver.disconnect(); infiniteObserver = null; }
+
+  // Clear grid
+  grid.innerHTML = '';
+
+  if (infiniteFiltered.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <p>Aucune carte ne correspond à votre recherche.</p>
+      </div>`;
+    return;
+  }
+
+  // Remove old sentinel
+  const oldSentinel = document.getElementById('infiniteSentinel');
+  if (oldSentinel) oldSentinel.remove();
+
+  // Inject sentinel after grid
+  const sentinel = document.createElement('div');
+  sentinel.id = 'infiniteSentinel';
+  sentinel.style.cssText = 'height:1px;width:100%;';
+  grid.parentNode.insertBefore(sentinel, grid.nextSibling);
+
+  // Load first batch
+  loadNextBatch();
+
+  // Watch sentinel to trigger next loads
+  infiniteObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) loadNextBatch();
+  }, { rootMargin: '200px' });
+  infiniteObserver.observe(sentinel);
+}
+
+function loadNextBatch() {
+  if (infiniteLoading) return;
+  const start = infinitePage * PAGE_SIZE;
+  if (start >= infiniteFiltered.length) {
+    // All loaded — show end marker & stop observer
+    const sentinel = document.getElementById('infiniteSentinel');
+    if (sentinel) {
+      const loaded = Math.min(infiniteFiltered.length, start);
+      sentinel.innerHTML = loaded > 0
+        ? `<div class="infinite-end">✦ ${loaded} carte${loaded>1?'s':''} chargée${loaded>1?'s':''} ✦</div>`
+        : '';
+    }
+    if (infiniteObserver) { infiniteObserver.disconnect(); infiniteObserver = null; }
+    return;
+  }
+
+  infiniteLoading = true;
+  const batch = infiniteFiltered.slice(start, start + PAGE_SIZE);
+  infinitePage++;
+
+  const grid = document.getElementById('cardGrid');
+
+  // Fragment for perf
+  const frag = document.createDocumentFragment();
+  batch.forEach((card, localIdx) => {
+    const globalIdx = start + localIdx;
+    const el = document.createElement('div');
+    // Use a wrapper so we can animate each new card
+    el.innerHTML = buildCardHTML(card, globalIdx);
+    const cardEl = el.firstElementChild;
+    // Override animation-delay for this batch (cap at 0.48s)
+    cardEl.style.animationDelay = Math.min(localIdx * 0.06, 0.48) + 's';
+    frag.appendChild(cardEl);
+  });
+
+  grid.appendChild(frag);
+  attachCardEvents();          // bind events only to freshly added cards
+  infiniteLoading = false;
+}
+
+// ══════════════════════════════════════════════════════
+//  CARD EVENTS  (data-events-attached guard prevents double-binding)
+// ══════════════════════════════════════════════════════
+
+function attachCardEvents() {
+  document.querySelectorAll('.flashcard:not([data-events-attached])').forEach(card => {
+    card.dataset.eventsAttached = '1';
+
+    card.querySelector('.card-img-wrap').addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+
+    const flipHint = card.querySelector('.btn-flip-hint');
+    if (flipHint) flipHint.addEventListener('click', e => {
+      e.stopPropagation();
+      card.classList.add('flipped');
+    });
+
+    const flipBack = card.querySelector('.btn-back-flip');
+    if (flipBack) flipBack.addEventListener('click', e => {
+      e.stopPropagation();
+      card.classList.remove('flipped');
+    });
+
+    const speakBtn = card.querySelector('.btn-speak');
+    if (speakBtn) speakBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      document.querySelectorAll('.btn-speak').forEach(b => b.classList.remove('speaking'));
+      speakBtn.classList.add('speaking');
+      speak(speakBtn.dataset.word, () => speakBtn.classList.remove('speaking'));
+    });
+
+    const backSpeak = card.querySelector('.btn-back-speak');
+    if (backSpeak) backSpeak.addEventListener('click', e => {
+      e.stopPropagation();
+      speak(backSpeak.dataset.word + '. ' + backSpeak.dataset.example);
+    });
+
+    const bonusBtn = card.querySelector('.bonus-trigger');
+    if (bonusBtn) bonusBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      openBonus(parseInt(bonusBtn.dataset.id));
+    });
+  });
+}
+
+// ══════════════════════════════════════════════════════
+//  BONUS MODAL
+// ══════════════════════════════════════════════════════
+
+function openBonus(cardId) {
+  const card = CARDS.find(c => c.id === cardId);
+  if (!card) return;
+  currentBonusCard = card;
+
+  document.getElementById('bonusTitle').textContent = card.word;
+  document.getElementById('bonusPhonetic').textContent = card.phonetic;
+  document.getElementById('bonusDef').innerHTML = card.bonus.def;
+  document.getElementById('bonusExample').innerHTML = card.bonus.example;
+  document.getElementById('bonusGrammar').textContent = card.bonus.grammar;
+
+  const tagsEl = document.getElementById('bonusTags');
+  tagsEl.innerHTML = card.bonus.tags.map(t =>
+    `<span class="bonus-tag">${t}</span>`
+  ).join('');
+
+  // Update box accent color
+  document.getElementById('bonusBox').style.borderColor = card.accent;
+  document.getElementById('bonusBox').style.boxShadow = `0 0 60px ${card.accent}22`;
+
+  document.getElementById('bonusOverlay').classList.add('show');
+}
+
+function closeBonus() {
+  document.getElementById('bonusOverlay').classList.remove('show');
+  window.speechSynthesis.cancel();
+  hideGlobalSpeech();
+}
+
+document.getElementById('bonusClose').addEventListener('click', closeBonus);
+document.getElementById('bonusOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('bonusOverlay')) closeBonus();
+});
+
+document.getElementById('bonusSpeakWord').addEventListener('click', () => {
+  if (!currentBonusCard) return;
+  speak(currentBonusCard.word);
+});
+
+document.getElementById('bonusSpeakExample').addEventListener('click', () => {
+  if (!currentBonusCard) return;
+  // Strip HTML tags for speech
+  const plain = currentBonusCard.bonus.example.replace(/<[^>]+>/g, '');
+  speak(plain);
+});
+
+// ══════════════════════════════════════════════════════
+//  SEARCH & SORT
+// ══════════════════════════════════════════════════════
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  renderCards();
+});
+
+document.getElementById('sortSelect').addEventListener('change', e => {
+  sortMode = e.target.value;
+  renderCards();
+});
+
+// Keyboard: Escape closes bonus modal
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeBonus();
+});
+
+// ══════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════
+//  QUIZ MODE
+// ══════════════════════════════════════════════════════
+
+// Accent shortcut characters
+const ACCENTS = [
+  'à','â','ä','é','è','ê','ë','î','ï','ô','ö','ù','û','ü','ç','œ','æ',
+  'À','Â','É','È','Ê','Î','Ô','Ù','Û','Ç','Œ'
+];
+
+const ACCENT_RING_LEN = 2 * Math.PI * 65; // 408.41
+
+let quizState = {
+  deck: [],
+  current: 0,
+  correctCount: 0,
+  wrongCount: 0,
+  skippedCount: 0,
+  log: [],            // {card, given, status}
+  selectedCats: new Set(),
+  cardCount: 6,
+  shuffle: true,
+  autoSpeak: true,
+  answered: false,
+  lastConfig: null,
+};
+
+// ── Open/Close ──
+document.getElementById('btnQuizLaunch').addEventListener('click', openQuizSetup);
+document.getElementById('btnQuizBackSetup').addEventListener('click', closeQuiz);
+document.getElementById('btnQuizHome').addEventListener('click', closeQuiz);
+document.getElementById('btnQuizExit').addEventListener('click', () => {
+  if (confirm('Quitter le quiz en cours ?')) showQuizResults();
+});
+
+function openQuizSetup() {
+  buildQuizCatGrid();
+  updateQuizCountDisplay();
+  document.getElementById('quizSetup').style.display = 'flex';
+  document.getElementById('quizGame').classList.remove('active');
+  document.getElementById('quizResults').classList.remove('active');
+  document.getElementById('quizOverlay').classList.add('open');
+}
+
+function closeQuiz() {
+  window.speechSynthesis.cancel();
+  document.getElementById('quizOverlay').classList.remove('open');
+}
+
+// ── Setup: Category grid ──
+function buildQuizCatGrid() {
+  const cats = [...new Set(CARDS.map(c => c.category))];
+  // Select all by default
+  quizState.selectedCats = new Set(cats);
+
+  const grid = document.getElementById('quizCatGrid');
+  grid.innerHTML = '';
+
+  // "All" toggle
+  const allBtn = document.createElement('button');
+  allBtn.className = 'quiz-cat-btn selected';
+  allBtn.dataset.cat = '__all__';
+  allBtn.innerHTML = `<span class="cat-check"></span> Toutes`;
+  allBtn.addEventListener('click', () => {
+    const allSelected = quizState.selectedCats.size === cats.length;
+    if (allSelected) {
+      quizState.selectedCats.clear();
+    } else {
+      cats.forEach(c => quizState.selectedCats.add(c));
+    }
+    syncCatButtons();
+    updateQuizCountDisplay();
+  });
+  grid.appendChild(allBtn);
+
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-cat-btn selected';
+    btn.dataset.cat = cat;
+    const count = CARDS.filter(c => c.category === cat).length;
+    btn.innerHTML = `<span class="cat-check"></span> ${cat} <span style="opacity:0.5;font-size:0.72rem">(${count})</span>`;
+    btn.addEventListener('click', () => {
+      if (quizState.selectedCats.has(cat)) {
+        quizState.selectedCats.delete(cat);
+      } else {
+        quizState.selectedCats.add(cat);
+      }
+      syncCatButtons();
+      updateQuizCountDisplay();
+    });
+    grid.appendChild(btn);
+  });
+}
+
+function syncCatButtons() {
+  const cats = [...new Set(CARDS.map(c => c.category))];
+  document.querySelectorAll('#quizCatGrid .quiz-cat-btn').forEach(btn => {
+    const cat = btn.dataset.cat;
+    if (cat === '__all__') {
+      btn.classList.toggle('selected', quizState.selectedCats.size === cats.length);
+    } else {
+      btn.classList.toggle('selected', quizState.selectedCats.has(cat));
+    }
+  });
+}
+
+// ── Setup: Slider ──
+function getAvailableCards() {
+  // Always use the full CARDS array (not the infinite-scroll page window)
+  return CARDS.filter(c => quizState.selectedCats.has(c.category));
+}
+
+function updateQuizCountDisplay() {
+  const available = getAvailableCards().length;
+  const slider = document.getElementById('quizCountSlider');
+  slider.max = Math.max(1, available);
+  if (parseInt(slider.value) > available) slider.value = available;
+  quizState.cardCount = parseInt(slider.value);
+  document.getElementById('quizCountDisplay').textContent = quizState.cardCount;
+  document.getElementById('quizCountMax').textContent = `/ ${available} disponibles`;
+  document.getElementById('btnQuizStart').disabled = available === 0;
+}
+
+document.getElementById('quizCountSlider').addEventListener('input', e => {
+  quizState.cardCount = parseInt(e.target.value);
+  document.getElementById('quizCountDisplay').textContent = quizState.cardCount;
+});
+
+// ── Build accent bar ──
+function buildAccentBar() {
+  const bar = document.getElementById('accentBar');
+  bar.innerHTML = ACCENTS.map(a =>
+    `<button class="accent-btn" data-char="${a}" title="Insérer ${a}">${a}</button>`
+  ).join('');
+
+  bar.querySelectorAll('.accent-btn').forEach(btn => {
+    btn.addEventListener('mousedown', e => {
+      e.preventDefault(); // prevent losing focus on input
+      const inp = document.getElementById('quizAnswerInput');
+      const pos = inp.selectionStart;
+      const val = inp.value;
+      inp.value = val.slice(0, pos) + btn.dataset.char + val.slice(inp.selectionEnd);
+      inp.setSelectionRange(pos + 1, pos + 1);
+      inp.focus();
+    });
+  });
+}
+
+// ── Start quiz ──
+document.getElementById('btnQuizStart').addEventListener('click', startQuiz);
+
+function startQuiz() {
+  quizState.shuffle  = document.getElementById('quizOptShuffle').checked;
+  quizState.autoSpeak = document.getElementById('quizOptSpeak').checked;
+
+  let pool = getAvailableCards();
+  if (quizState.shuffle) pool = shuffleArray([...pool]);
+  quizState.deck = pool.slice(0, quizState.cardCount);
+
+  quizState.current = 0;
+  quizState.correctCount = 0;
+  quizState.wrongCount = 0;
+  quizState.skippedCount = 0;
+  quizState.log = [];
+
+  // Save config for replay
+  quizState.lastConfig = {
+    cats: new Set(quizState.selectedCats),
+    count: quizState.cardCount,
+    shuffle: quizState.shuffle,
+    autoSpeak: quizState.autoSpeak,
+  };
+
+  buildAccentBar();
+
+  document.getElementById('quizSetup').style.display = 'none';
+  document.getElementById('quizResults').classList.remove('active');
+  document.getElementById('quizGame').classList.add('active');
+
+  loadQuizCard();
+}
+
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ── Load card ──
+function loadQuizCard() {
+  const card = quizState.deck[quizState.current];
+  const total = quizState.deck.length;
+  quizState.answered = false;
+
+  // HUD
+  const pct = (quizState.current / total) * 100;
+  document.getElementById('quizProgressFill').style.width = pct + '%';
+  document.getElementById('quizProgressText').textContent = `Carte ${quizState.current + 1} / ${total}`;
+  document.getElementById('quizScoreCorrect').textContent = `✓ ${quizState.correctCount}`;
+  document.getElementById('quizScoreWrong').textContent   = `✗ ${quizState.wrongCount}`;
+
+  // Category
+  document.getElementById('quizCatLabel').textContent = card.category;
+
+  // Image
+  const img = document.getElementById('quizImage');
+  const ph  = document.getElementById('quizImgPlaceholder');
+  img.style.display = 'block';
+  ph.style.display  = 'none';
+  img.src = card.image;
+  img.alt = card.word;
+  document.getElementById('quizImgEmoji').textContent = card.emoji;
+
+  // Reset states
+  const wrap = document.getElementById('quizImageWrap');
+  wrap.className = 'quiz-image-wrap';
+
+  const inp = document.getElementById('quizAnswerInput');
+  inp.value = '';
+  inp.className = 'quiz-answer-input';
+  inp.disabled = false;
+  inp.placeholder = 'Écrivez le nom…';
+
+  // Feedback
+  const fb = document.getElementById('quizFeedback');
+  fb.className = 'quiz-feedback';
+  fb.textContent = '';
+
+  // Focus input
+  setTimeout(() => inp.focus(), 80);
+
+  // Auto speak
+  if (quizState.autoSpeak) {
+    setTimeout(() => speak(card.word), 300);
+  }
+}
+
+// ── Validate ──
+document.getElementById('btnQuizValidate').addEventListener('click', validateQuiz);
+document.getElementById('quizAnswerInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') validateQuiz();
+});
+document.getElementById('btnQuizSkip').addEventListener('click', skipQuizCard);
+document.getElementById('btnQuizSpeakHint').addEventListener('click', () => {
+  const card = quizState.deck[quizState.current];
+  if (card) speak(card.word);
+});
+
+function stripAccents(str) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function normalizeAnswer(str) {
+  return stripAccents(str.trim().toLowerCase())
+    .replace(/[^a-z0-9\s]/g, '')
+    .replace(/\s+/g, ' ');
+}
+
+function checkQuizAnswer(user, card) {
+  // The "core" word = word without article (le/la/l'/les/un/une)
+  const full = normalizeAnswer(card.word);
+  const noArticle = full.replace(/^(le |la |l |les |un |une )/, '').trim();
+  const userN = normalizeAnswer(user);
+  return userN === full || userN === noArticle;
+}
+
+function validateQuiz() {
+  if (quizState.answered) { advanceQuiz(); return; }
+  const inp = document.getElementById('quizAnswerInput');
+  const val = inp.value.trim();
+  if (!val) return;
+
+  const card = quizState.deck[quizState.current];
+  const correct = checkQuizAnswer(val, card);
+  quizState.answered = true;
+  inp.disabled = true;
+
+  const wrap = document.getElementById('quizImageWrap');
+  const fb   = document.getElementById('quizFeedback');
+
+  if (correct) {
+    quizState.correctCount++;
+    inp.className = 'quiz-answer-input correct';
+    wrap.classList.add('state-correct');
+    fb.textContent = '✓ Bravo ! — ' + card.word;
+    fb.className = 'quiz-feedback show correct';
+    quizState.log.push({ card, given: val, status: 'correct' });
+    speak(card.word);
+  } else {
+    quizState.wrongCount++;
+    inp.className = 'quiz-answer-input wrong';
+    wrap.classList.add('state-wrong');
+    fb.textContent = '✗ La bonne réponse : ' + card.word;
+    fb.className = 'quiz-feedback show wrong';
+    quizState.log.push({ card, given: val, status: 'wrong' });
+    speak(card.word);
+  }
+
+  document.getElementById('quizScoreCorrect').textContent = `✓ ${quizState.correctCount}`;
+  document.getElementById('quizScoreWrong').textContent   = `✗ ${quizState.wrongCount}`;
+  document.getElementById('btnQuizValidate').textContent  = '→ Suivant';
+
+  setTimeout(advanceQuiz, 1800);
+}
+
+function skipQuizCard() {
+  if (quizState.answered) { advanceQuiz(); return; }
+  const card = quizState.deck[quizState.current];
+  quizState.skippedCount++;
+  quizState.log.push({ card, given: '—', status: 'skip' });
+  quizState.answered = true;
+
+  const fb = document.getElementById('quizFeedback');
+  fb.textContent = '⏭ Passée — ' + card.word;
+  fb.className = 'quiz-feedback show wrong';
+
+  document.getElementById('btnQuizValidate').textContent = '→ Suivant';
+  setTimeout(advanceQuiz, 1200);
+}
+
+function advanceQuiz() {
+  document.getElementById('btnQuizValidate').textContent = '✓ Valider';
+  quizState.current++;
+  if (quizState.current >= quizState.deck.length) {
+    showQuizResults();
+  } else {
+    loadQuizCard();
+  }
+}
+
+// ── Results ──
+function showQuizResults() {
+  window.speechSynthesis.cancel();
+  document.getElementById('quizGame').classList.remove('active');
+
+  const total   = quizState.deck.length;
+  const correct = quizState.correctCount;
+  const wrong   = quizState.wrongCount;
+  const skipped = quizState.skippedCount;
+  const pct     = total ? Math.round((correct / total) * 100) : 0;
+
+  // Emoji & title
+  let emoji = '😅', title = 'Continuez !';
+  if (pct === 100) { emoji = '🏆'; title = 'Parfait !'; }
+  else if (pct >= 80) { emoji = '⭐'; title = 'Excellent !'; }
+  else if (pct >= 60) { emoji = '👍'; title = 'Bien joué !'; }
+  else if (pct >= 40) { emoji = '💪'; title = 'Presque !'; }
+
+  document.getElementById('quizResultsEmoji').textContent   = emoji;
+  document.getElementById('quizResultsTitle').textContent   = title;
+  document.getElementById('quizResultsSub').textContent     = `${correct} correcte${correct!==1?'s':''} sur ${total} carte${total!==1?'s':''}`;
+  document.getElementById('quizResultsPct').textContent     = pct + '%';
+  document.getElementById('resCorrect').textContent  = correct;
+  document.getElementById('resWrong').textContent    = wrong;
+  document.getElementById('resSkipped').textContent  = skipped;
+
+  // Color ring by score
+  const ringColor = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--rose)';
+  document.getElementById('quizResultsPct').style.color = ringColor;
+  const arc = document.getElementById('ringArc');
+  arc.style.stroke = ringColor;
+  arc.style.strokeDashoffset = ACCENT_RING_LEN;
+  setTimeout(() => {
+    arc.style.strokeDashoffset = ACCENT_RING_LEN * (1 - pct / 100);
+  }, 100);
+
+  // Detail list
+  const list = document.getElementById('quizDetailList');
+  list.innerHTML = quizState.log.map(entry => {
+    const icon  = entry.status === 'correct' ? '✅' : entry.status === 'wrong' ? '❌' : '⏭';
+    const cls   = 'quiz-detail-row r-' + (entry.status === 'skip' ? 'skip' : entry.status);
+    const given = entry.status === 'skip' ? '—' : `"${entry.given}"`;
+    return `
+      <div class="${cls}">
+        <span class="quiz-detail-icon">${icon}</span>
+        <span class="quiz-detail-word">${entry.card.word}</span>
+        <span class="quiz-detail-given">${given}</span>
+      </div>`;
+  }).join('');
+
+  document.getElementById('quizResults').classList.add('active');
+}
+
+// ── Replay ──
+document.getElementById('btnQuizReplay').addEventListener('click', () => {
+  // Re-run with same config
+  document.getElementById('quizResults').classList.remove('active');
+  if (quizState.lastConfig) {
+    quizState.selectedCats = new Set(quizState.lastConfig.cats);
+    quizState.cardCount    = quizState.lastConfig.count;
+    quizState.shuffle      = quizState.lastConfig.shuffle;
+    quizState.autoSpeak    = quizState.lastConfig.autoSpeak;
+  }
+  startQuiz();
+});
+
+// Keyboard Escape exits quiz game
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('quizOverlay').classList.contains('open')) {
+    if (document.getElementById('quizGame').classList.contains('active')) {
+      if (confirm('Quitter le quiz en cours ?')) showQuizResults();
+    }
+  }
+});
+
+// Default level selection
+document.querySelector('[data-level="A1"]') && document.querySelector('[data-level="A1"]').click();
+
+buildCategoryFilters();
+renderCards();
+</script>
+</body>
+</html>
