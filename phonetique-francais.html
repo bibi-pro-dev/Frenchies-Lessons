@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phonétique Française — Leçon 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c14;
+    --surface: #0d1421;
+    --surface2: #111827;
+    --border: rgba(255,255,255,0.07);
+    --accent-cyan: #00e5ff;
+    --accent-magenta: #e040fb;
+    --accent-amber: #ffab00;
+    --accent-green: #00e676;
+    --text: #e8eaf6;
+    --text-muted: #7986a0;
+    --text-dim: #4a5568;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'DM Serif Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .halo {
+    position: fixed; border-radius: 50%;
+    filter: blur(120px); pointer-events: none; z-index: 0; opacity: 0.18;
+  }
+  .halo-1 { width: 600px; height: 600px; top: -200px; left: -150px; background: var(--accent-cyan); }
+  .halo-2 { width: 500px; height: 500px; top: 30%; right: -200px; background: var(--accent-magenta); }
+  .halo-3 { width: 400px; height: 400px; bottom: -100px; left: 30%; background: var(--accent-amber); opacity: 0.12; }
+
+  .page-wrapper {
+    position: relative; z-index: 1;
+    max-width: 1100px; margin: 0 auto; padding: 0 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  header { padding: 56px 0 40px; border-bottom: 1px solid var(--border); margin-bottom: 56px; }
+  .header-tag {
+    font-family: var(--font-display); font-size: 11px; letter-spacing: 0.3em;
+    color: var(--accent-cyan); text-transform: uppercase;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
+  }
+  .header-tag::before { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--accent-cyan); }
+  h1 { font-family: var(--font-display); font-size: clamp(52px, 8vw, 96px); line-height: 0.9; letter-spacing: 0.02em; color: #fff; margin-bottom: 16px; }
+  h1 span { color: var(--accent-cyan); }
+  .header-sub { font-family: var(--font-serif); font-style: italic; color: var(--text-muted); font-size: 18px; max-width: 560px; }
+  .level-badges { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+  .badge { font-family: var(--font-display); font-size: 11px; letter-spacing: 0.15em; padding: 4px 12px; border-radius: 2px; border: 1px solid var(--border); color: var(--text-muted); }
+  .badge.active { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(0,229,255,0.06); }
+
+  /* ── TTS STATUS BAR ── */
+  .tts-bar {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 20px; padding: 10px 16px;
+    background: rgba(0,229,255,0.04);
+    border: 1px solid rgba(0,229,255,0.12);
+    border-radius: 3px; font-size: 12px; color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .tts-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-dim); flex-shrink: 0; transition: background 0.3s; }
+  .tts-dot.ready   { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+  .tts-dot.speaking { background: var(--accent-amber); box-shadow: 0 0 8px var(--accent-amber); animation: blink 0.6s infinite alternate; }
+  .tts-dot.error   { background: #f44336; }
+  @keyframes blink { from { opacity:1; } to { opacity:0.2; } }
+  #voiceSelect {
+    margin-left: auto; background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text-muted); font-family: var(--font-body); font-size: 11px;
+    padding: 4px 8px; border-radius: 2px; cursor: pointer; outline: none; display: none;
+  }
+  #voiceSelect:focus { border-color: var(--accent-cyan); }
+
+  /* ── AUDIO BUTTON ── */
+  .btn-audio {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: none; border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-dim); border-radius: 2px;
+    padding: 2px 8px; cursor: pointer;
+    font-family: var(--font-body); font-size: 11px; letter-spacing: 0.04em;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    vertical-align: middle; white-space: nowrap; flex-shrink: 0;
+  }
+  .btn-audio:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(0,229,255,0.06); }
+  .btn-audio.en:hover { border-color: var(--accent-magenta); color: var(--accent-magenta); background: rgba(224,64,251,0.06); }
+  .btn-audio.es:hover { border-color: var(--accent-green); color: var(--accent-green); background: rgba(0,230,118,0.06); }
+  .btn-audio.playing { border-color: var(--accent-amber); color: var(--accent-amber); background: rgba(255,171,0,0.08); animation: blink 0.5s infinite alternate; }
+  .btn-audio:focus { outline: 1px solid var(--accent-cyan); outline-offset: 2px; }
+
+  /* ── IPA BADGE ── */
+  .ipa-badge-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .ipa-badge {
+    font-family: var(--font-display); font-size: 36px;
+    color: var(--card-accent, var(--accent-cyan));
+    letter-spacing: -0.01em; min-width: 60px; line-height: 1;
+    cursor: pointer; transition: opacity 0.2s; user-select: none;
+  }
+  .ipa-badge:hover { opacity: 0.65; }
+  .ipa-hint { font-size: 9px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; }
+
+  /* ── SECTION TITLES ── */
+  .section-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 28px; margin-top: 64px; }
+  .section-num { font-family: var(--font-display); font-size: 64px; line-height: 1; color: var(--text-dim); letter-spacing: -0.02em; }
+  .section-title-wrap h2 { font-family: var(--font-display); font-size: 28px; letter-spacing: 0.08em; color: #fff; text-transform: uppercase; }
+  .section-title-wrap p { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ── PHONETIC CARD GRID ── */
+  .phon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .phon-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden; position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .phon-card:hover { border-color: rgba(0,229,255,0.25); transform: translateY(-2px); }
+  .phon-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--accent-cyan)); }
+
+  .phon-card-head {
+    padding: 16px 20px 12px;
+    display: flex; align-items: center; gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .writings-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .writing-chip {
+    font-family: var(--font-display); font-size: 15px; letter-spacing: 0.05em;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    padding: 3px 10px; border-radius: 2px; color: #c5cae9;
+  }
+  .writing-chip strong { color: #fff; font-family: var(--font-serif); font-weight: 400; }
+
+  .phon-card-body { padding: 14px 20px 18px; }
+
+  /* ── LANG SECTIONS ── */
+  .lang-section { margin-bottom: 9px; }
+  .lang-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 0.25em; color: var(--text-dim); margin-bottom: 4px; text-transform: uppercase; }
+  .word-line { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin-bottom: 3px; }
+  .word-text { font-family: var(--font-serif); font-size: 15px; }
+  .word-text em { font-style: normal; text-decoration: underline; text-decoration-style: dotted; }
+  .fr .word-text { color: var(--accent-cyan); }
+  .en .word-text { color: var(--accent-magenta); }
+  .es .word-text { color: var(--accent-green); }
+
+  .tip-line { font-size: 12px; color: var(--text-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); line-height: 1.5; }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead { background: var(--surface2); }
+  th { font-family: var(--font-display); font-size: 10px; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th:first-child { color: var(--accent-cyan); }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.025); }
+  td { padding: 12px 16px; vertical-align: middle; }
+  td:first-child { font-family: var(--font-display); font-size: 20px; color: var(--accent-cyan); white-space: nowrap; }
+  td:nth-child(2) { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.06em; color: var(--text-muted); }
+
+  .fr-w { color: var(--accent-cyan); font-family: var(--font-serif); }
+  .en-w { color: var(--accent-magenta); font-family: var(--font-serif); }
+  .es-w { color: var(--accent-green); font-family: var(--font-serif); }
+  .ul { text-decoration: underline; text-decoration-style: dotted; }
+
+  .td-words { display: flex; flex-direction: column; gap: 5px; }
+  .td-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+  .nasal-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-magenta); margin-right: 6px; vertical-align: middle; }
+
+  /* ── EXCEPTIONS ── */
+  .exc-section { margin-top: 64px; padding: 32px; background: var(--surface); border: 1px solid rgba(255,171,0,0.2); border-radius: 4px; position: relative; overflow: hidden; }
+  .exc-section::before { content: '!'; position: absolute; right: 24px; top: 16px; font-family: var(--font-display); font-size: 120px; color: rgba(255,171,0,0.06); line-height: 1; pointer-events: none; }
+  .exc-section h3 { font-family: var(--font-display); font-size: 18px; letter-spacing: 0.15em; color: var(--accent-amber); text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .exc-icon { width: 22px; height: 22px; border: 1.5px solid var(--accent-amber); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 14px; color: var(--accent-amber); }
+  .exc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .exc-item { background: rgba(255,171,0,0.04); border: 1px solid rgba(255,171,0,0.12); border-radius: 3px; padding: 14px 16px; }
+  .exc-rule { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.08em; color: var(--accent-amber); margin-bottom: 6px; text-transform: uppercase; }
+  .exc-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .exc-desc span { font-family: var(--font-serif); color: var(--text); }
+
+  /* ── FOOTER ── */
+  footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  footer p { font-family: var(--font-display); font-size: 11px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; }
+  .page-num { font-family: var(--font-display); font-size: 32px; color: var(--text-dim); }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 48px 0; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .revealed { opacity: 1; transform: none; }
+
+  @media (max-width: 640px) {
+    .phon-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 52px; }
+  }
+</style>
+</head>
+<body>
+<div class="halo halo-1"></div>
+<div class="halo halo-2"></div>
+<div class="halo halo-3"></div>
+
+<div class="page-wrapper">
+
+<!-- ══ HEADER ══ -->
+<header class="reveal">
+  <div class="header-tag">Cours de français · Phonétique</div>
+  <h1>LES SONS<br><span>DU FRANÇAIS</span></h1>
+  <p class="header-sub">Prononciation & lecture — équivalences graphiques, comparaisons multilingues</p>
+  <div class="level-badges">
+    <span class="badge active">A1</span><span class="badge active">A2</span>
+    <span class="badge active">B1</span><span class="badge active">B2</span>
+  </div>
+  <div class="tts-bar">
+    <div class="tts-dot" id="ttsDot"></div>
+    <span id="ttsMsg">Chargement des voix…</span>
+    <select id="voiceSelect"></select>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — VOYELLES ORALES
+════════════════════════════════════════════ -->
+<div class="section-header reveal">
+  <span class="section-num">01</span>
+  <div class="section-title-wrap">
+    <h2>Voyelles Orales</h2>
+    <p>Même son, écritures différentes — oral vowels</p>
+  </div>
+</div>
+
+<div class="phon-grid">
+
+  <!-- [a] -->
+  <div class="phon-card reveal" style="--card-accent:var(--accent-cyan)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="aaa" data-lang="fr-FR">[a]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>a</strong></span>
+        <span class="writing-chip"><strong>à</strong></span>
+        <span class="writing-chip"><strong>â</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text"><em>pa</em>s</span>
+          <button class="btn-audio" data-speak="pas" data-lang="fr-FR">▶ pas</button>
+          <span class="word-text"><em>pâ</em>te</span>
+          <button class="btn-audio" data-speak="pâte" data-lang="fr-FR">▶ pâte</button>
+          <span class="word-text">l<em>à</em></span>
+          <button class="btn-audio" data-speak="là" data-lang="fr-FR">▶ là</button>
+        </div>
+      </div>
+      <div class="lang-section en">
+        <div class="lang-label">🇬🇧 Anglais</div>
+        <div class="word-line">
+          <span class="word-text"><em>fa</em>ther</span>
+          <button class="btn-audio en" data-speak="father" data-lang="en-GB">▶ father</button>
+          <span class="word-text"><em>ca</em>r</span>
+          <button class="btn-audio en" data-speak="car" data-lang="en-GB">▶ car</button>
+        </div>
+      </div>
+      <div class="lang-section es">
+        <div class="lang-label">🇪🇸 Espagnol</div>
+        <div class="word-line">
+          <span class="word-text"><em>ca</em>sa</span>
+          <button class="btn-audio es" data-speak="casa" data-lang="es-ES">▶ casa</button>
+          <span class="word-text"><em>ma</em>dre</span>
+          <button class="btn-audio es" data-speak="madre" data-lang="es-ES">▶ madre</button>
+        </div>
+      </div>
+      <p class="tip-line">💡 Son identique à l'espagnol. En anglais, comme le "a" de <em>father</em>, jamais le "a" de <em>cat</em>.</p>
+    </div>
+  </div>
+
+  <!-- [e] -->
+  <div class="phon-card reveal" style="--card-accent:var(--accent-cyan)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="ééé" data-lang="fr-FR">[e]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>é</strong></span>
+        <span class="writing-chip"><strong>er</strong></span>
+        <span class="writing-chip"><strong>ez</strong></span>
+        <span class="writing-chip"><strong>et</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text"><em>é</em>t<em>é</em></span>
+          <button class="btn-audio" data-speak="été" data-lang="fr-FR">▶ été</button>
+          <span class="word-text">mang<em>er</em></span>
+          <button class="btn-audio" data-speak="manger" data-lang="fr-FR">▶ manger</button>
+          <span class="word-text">n<em>ez</em></span>
+          <button class="btn-audio" data-speak="nez" data-lang="fr-FR">▶ nez</button>
+        </div>
+      </div>
+      <div class="lang-section en">
+        <div class="lang-label">🇬🇧 Anglais</div>
+        <div class="word-line">
+          <span class="word-text">b<em>ay</em></span>
+          <button class="btn-audio en" data-speak="bay" data-lang="en-GB">▶ bay</button>
+          <span class="word-text">d<em>ay</em></span>
+          <button class="btn-audio en" data-speak="day" data-lang="en-GB">▶ day</button>
+        </div>
+      </div>
+      <div class="lang-section es">
+        <div class="lang-label">🇪🇸 Espagnol</div>
+        <div class="word-line">
+          <span class="word-text">m<em>e</em>sa</span>
+          <button class="btn-audio es" data-speak="mesa" data-lang="es-ES">▶ mesa</button>
+        </div>
+      </div>
+      <p class="tip-line">💡 Plus tendu qu'en anglais — pas de diphtongue ! Son pur, lèvres légèrement étirées.</p>
+    </div>
+  </div>
+
+  <!-- [ɛ] -->
+  <div class="phon-card reveal" style="--card-accent:var(--accent-cyan)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="èèè" data-lang="fr-FR">[ɛ]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>è</strong></span>
+        <span class="writing-chip"><strong>ê</strong></span>
+        <span class="writing-chip"><strong>ei</strong></span>
+        <span class="writing-chip"><strong>ai</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text">f<em>ê</em>te</span>
+          <button class="btn-audio" data-speak="fête" data-lang="fr-FR">▶ fête</button>
+          <span class="word-text">t<em>ê</em>te</span>
+          <button class="btn-audio" data-speak="tête" data-lang="fr-FR">▶ tête</button>
+          <span class="word-text">m<em>ai</em>s</span>
+          <button class="btn-audio" data-speak="mais" data-lang="fr-FR">▶ mais</button>
+        </div>
+      </div>
+      <div class="lang-section en">
+        <div class="lang-label">🇬🇧 Anglais</div>
+        <div class="word-line">
+          <span class="word-text">b<em>e</em>d</span>
+          <button class="btn-audio en" data-speak="bed" data-lang="en-GB">▶ bed</button>
+          <span class="word-text">h<em>ea</em>d</span>
+          <button class="btn-audio en" data-speak="head" data-lang="en-GB">▶ head</button>
+        </div>
+      </div>
+      <p class="tip-line">💡 Comme le "e" de <em>bed</em> en anglais. La bouche est plus ouverte que pour [e].</p>
+    </div>
+  </div>
+
+  <!-- [i] -->
+  <div class="phon-card reveal" style="--card-accent:var(--accent-cyan)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="iii" data-lang="fr-FR">[i]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>i</strong></span>
+        <span class="writing-chip"><strong>î</strong></span>
+        <span class="writing-chip"><strong>ï</strong></span>
+        <span class="writing-chip"><strong>y</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text">v<em>i</em>e</span>
+          <button class="btn-audio" data-speak="vie" data-lang="fr-FR">▶ vie</button>
+          <span class="word-text">îl<em>e</em></span>
+          <button class="btn-audio" data-speak="île" data-lang="fr-FR">▶ île</button>
+          <span class="word-text">st<em>y</em>lo</span>
+          <button class="btn-audio" data-speak="stylo" data-lang="fr-FR">▶ stylo</button>
+        </div>
+      </div>
+      <div class="lang-section en">
+        <div class="lang-label">🇬🇧 Anglais</div>
+        <div class="word-line">
+          <span class="word-text">mach<em>ine</em></span>
+          <button class="btn-audio en" data-speak="machine" data-lang="en-GB">▶ machine</button>
+          <span class="word-text">sk<em>i</em></span>
+          <button class="btn-audio en" data-speak="ski" data-lang="en-GB">▶ ski</button>
+        </div>
+      </div>
+      <div class="lang-section es">
+        <div class="lang-label">🇪🇸 Espagnol</div>
+        <div class="word-line">
+          <span class="word-text">v<em>i</em>da</span>
+          <button class="btn-audio es" data-speak="vida" data-lang="es-ES">▶ vida</button>
+        </div>
+      </div>
+      <p class="tip-line">💡 Identique en espagnol. En anglais, comme le "i" de <em>machine</em> — jamais comme "my" ou "time".</p>
+    </div>
+  </div>
+
+  <!-- [o] -->
+  <div class="phon-card reveal" style="--card-accent:var(--accent-cyan)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="ooo" data-lang="fr-FR">[o]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>o</strong></span>
+        <span class="writing-chip"><strong>ô</strong></span>
+        <span class="writing-chip"><strong>au</strong></span>
+        <span class="writing-chip"><strong>eau</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text">b<em>eau</em></span>
+          <button class="btn-audio" data-speak="beau" data-lang="fr-FR">▶ beau</button>
+          <span class="word-text">ch<em>au</em>d</span>
+          <button class="btn-audio" data-speak="chaud" data-lang="fr-FR">▶ chaud</button>
+          <span class="word-text">s<em>ô</em>t</span>
+          <button class="btn-audio" data-speak="sot" data-lang="fr-FR">▶ sôt</button>
+        </div>
+      </div>
+      <div class="lang-section en">
+        <div class="lang-label">🇬🇧 Anglais</div>
+        <div class="word-line">
+          <span class="word-text">g<em>o</em></span>
+          <button class="btn-audio en" data-speak="go" data-lang="en-GB">▶ go</button>
+          <span class="word-text">s<em>o</em></span>
+          <button class="btn-audio en" data-speak="so" data-lang="en-GB">▶ so</button>
+        </div>
+      </div>
+      <div class="lang-section es">
+        <div class="lang-label">🇪🇸 Espagnol</div>
+        <div class="word-line">
+          <span class="word-text">s<em>o</em>l</span>
+          <button class="btn-audio es" data-speak="sol" data-lang="es-ES">▶ sol</button>
+          <span class="word-text">n<em>o</em></span>
+          <button class="btn-audio es" data-speak="no" data-lang="es-ES">▶ no</button>
+        </div>
+      </div>
+      <p class="tip-line">💡 Son pur, sans glissement. En anglais "go" finit en [ʊ] — en français le son reste fixe.</p>
+    </div>
+  </div>
+
+  <!-- [u] -->
+  <div class="phon-card reveal" style="--card-accent:var(--accent-cyan)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="ouuuu" data-lang="fr-FR">[u]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>ou</strong></span>
+        <span class="writing-chip"><strong>oû</strong></span>
+        <span class="writing-chip"><strong>où</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text">t<em>ou</em>t</span>
+          <button class="btn-audio" data-speak="tout" data-lang="fr-FR">▶ tout</button>
+          <span class="word-text">r<em>ou</em>ge</span>
+          <button class="btn-audio" data-speak="rouge" data-lang="fr-FR">▶ rouge</button>
+          <span class="word-text">g<em>oû</em>t</span>
+          <button class="btn-audio" data-speak="goût" data-lang="fr-FR">▶ goût</button>
+        </div>
+      </div>
+      <div class="lang-section en">
+        <div class="lang-label">🇬🇧 Anglais</div>
+        <div class="word-line">
+          <span class="word-text">f<em>oo</em>d</span>
+          <button class="btn-audio en" data-speak="food" data-lang="en-GB">▶ food</button>
+          <span class="word-text">bl<em>ue</em></span>
+          <button class="btn-audio en" data-speak="blue" data-lang="en-GB">▶ blue</button>
+        </div>
+      </div>
+      <div class="lang-section es">
+        <div class="lang-label">🇪🇸 Espagnol</div>
+        <div class="word-line">
+          <span class="word-text">l<em>u</em>na</span>
+          <button class="btn-audio es" data-speak="luna" data-lang="es-ES">▶ luna</button>
+        </div>
+      </div>
+      <p class="tip-line">💡 Lèvres très arrondies. Similaire au "oo" de <em>food</em>. Différent de [y] (lettre "u") !</p>
+    </div>
+  </div>
+
+  <!-- [y] -->
+  <div class="phon-card reveal" style="--card-accent:var(--accent-magenta)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="lune" data-lang="fr-FR">[y]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>u</strong></span>
+        <span class="writing-chip"><strong>û</strong></span>
+        <span class="writing-chip"><strong>ü</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text">l<em>u</em>ne</span>
+          <button class="btn-audio" data-speak="lune" data-lang="fr-FR">▶ lune</button>
+          <span class="word-text">r<em>u</em>e</span>
+          <button class="btn-audio" data-speak="rue" data-lang="fr-FR">▶ rue</button>
+          <span class="word-text">n<em>u</em>l</span>
+          <button class="btn-audio" data-speak="nul" data-lang="fr-FR">▶ nul</button>
+        </div>
+      </div>
+      <div class="lang-section" style="color:var(--text-dim); font-size:13px; margin-top:6px;">
+        ❌ Son inexistant en anglais et en espagnol
+      </div>
+      <p class="tip-line">💡 Son unique au français ! Dites [i] (sourire), puis arrondissez les lèvres vers [u] sans bouger la langue.</p>
+    </div>
+  </div>
+
+  <!-- [ø][œ] -->
+  <div class="phon-card reveal" style="--card-accent:var(--accent-magenta)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="feu, peur" data-lang="fr-FR">[ø][œ]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>eu</strong></span>
+        <span class="writing-chip"><strong>œu</strong></span>
+        <span class="writing-chip"><strong>œ</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text">f<em>eu</em></span>
+          <button class="btn-audio" data-speak="feu" data-lang="fr-FR">▶ feu</button>
+          <span class="word-text">p<em>eu</em>r</span>
+          <button class="btn-audio" data-speak="peur" data-lang="fr-FR">▶ peur</button>
+          <span class="word-text">s<em>œu</em>r</span>
+          <button class="btn-audio" data-speak="sœur" data-lang="fr-FR">▶ sœur</button>
+        </div>
+      </div>
+      <div class="lang-section en">
+        <div class="lang-label">🇬🇧 Anglais (approx.)</div>
+        <div class="word-line">
+          <span class="word-text">b<em>ir</em>d</span>
+          <button class="btn-audio en" data-speak="bird" data-lang="en-GB">▶ bird</button>
+          <span class="word-text">h<em>er</em></span>
+          <button class="btn-audio en" data-speak="her" data-lang="en-GB">▶ her</button>
+        </div>
+      </div>
+      <p class="tip-line">💡 [ø] = syllabe ouverte (<em>feu</em>), [œ] = syllabe fermée (<em>peur</em>). Proche du "er" anglais, sans le [r] final.</p>
+    </div>
+  </div>
+
+</div><!-- /phon-grid -->
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — VOYELLES NASALES
+════════════════════════════════════════════ -->
+<div class="section-header reveal">
+  <span class="section-num">02</span>
+  <div class="section-title-wrap">
+    <h2>Voyelles Nasales</h2>
+    <p>L'air passe par le nez — nasal vowels (unique en français !)</p>
+  </div>
+</div>
+
+<div class="table-wrap reveal">
+  <table>
+    <thead>
+      <tr>
+        <th>Son IPA</th><th>Graphies</th><th>🇫🇷 Exemples</th><th>🇬🇧 Anglais</th><th>🇪🇸 Espagnol</th><th>Astuce</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="nasal-dot"></span>[ɑ̃]</td>
+        <td>an · am<br>en · em</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w">enf<span class="ul">an</span>t</span>
+          <button class="btn-audio" data-speak="enfant" data-lang="fr-FR">▶</button>
+          <span class="fr-w">t<span class="ul">em</span>ps</span>
+          <button class="btn-audio" data-speak="temps" data-lang="fr-FR">▶</button>
+          <span class="fr-w">fr<span class="ul">an</span>c</span>
+          <button class="btn-audio" data-speak="franc" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w">—</span> N'existe pas</td>
+        <td><span class="es-w">—</span> N'existe pas</td>
+        <td>Bouche ouverte, air par le nez. Comme un "a" + humming.</td>
+      </tr>
+      <tr>
+        <td><span class="nasal-dot" style="background:var(--accent-green)"></span>[ɛ̃]</td>
+        <td>in · im<br>ain · ein</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w">v<span class="ul">in</span></span>
+          <button class="btn-audio" data-speak="vin" data-lang="fr-FR">▶</button>
+          <span class="fr-w">m<span class="ul">ain</span></span>
+          <button class="btn-audio" data-speak="main" data-lang="fr-FR">▶</button>
+          <span class="fr-w">s<span class="ul">ein</span></span>
+          <button class="btn-audio" data-speak="sein" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w">—</span> N'existe pas</td>
+        <td><span class="es-w">—</span> N'existe pas</td>
+        <td>Comme [ɛ] nasalisé. Lèvres mi-ouvertes, air nasal.</td>
+      </tr>
+      <tr>
+        <td><span class="nasal-dot" style="background:var(--accent-amber)"></span>[ɔ̃]</td>
+        <td>on · om</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w">b<span class="ul">on</span></span>
+          <button class="btn-audio" data-speak="bon" data-lang="fr-FR">▶</button>
+          <span class="fr-w">m<span class="ul">on</span>de</span>
+          <button class="btn-audio" data-speak="monde" data-lang="fr-FR">▶</button>
+          <span class="fr-w">t<span class="ul">om</span>be</span>
+          <button class="btn-audio" data-speak="tombe" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w">—</span> N'existe pas</td>
+        <td><span class="es-w">—</span> N'existe pas</td>
+        <td>Lèvres arrondies, son "o" + résonance nasale.</td>
+      </tr>
+      <tr>
+        <td><span class="nasal-dot" style="background:var(--accent-cyan)"></span>[œ̃]</td>
+        <td>un · um</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w">br<span class="ul">un</span></span>
+          <button class="btn-audio" data-speak="brun" data-lang="fr-FR">▶</button>
+          <span class="fr-w">l<span class="ul">un</span>di</span>
+          <button class="btn-audio" data-speak="lundi" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w">—</span> N'existe pas</td>
+        <td><span class="es-w">—</span> N'existe pas</td>
+        <td>Tend à fusionner avec [ɛ̃] en français moderne.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — CONSONNES CLÉS
+════════════════════════════════════════════ -->
+<div class="section-header reveal">
+  <span class="section-num">03</span>
+  <div class="section-title-wrap">
+    <h2>Consonnes Clés</h2>
+    <p>Sons différents selon le contexte d'écriture — key consonants</p>
+  </div>
+</div>
+
+<div class="table-wrap reveal">
+  <table>
+    <thead>
+      <tr>
+        <th>Son IPA</th><th>Graphies</th><th>🇫🇷 Exemples</th><th>🇬🇧 Anglais</th><th>🇪🇸 Espagnol</th><th>Règle / contexte</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>[s]</td>
+        <td>s · ss<br>c+e/i · ç<br>t+ion</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w"><span class="ul">s</span>ac</span> <button class="btn-audio" data-speak="sac" data-lang="fr-FR">▶</button>
+          <span class="fr-w"><span class="ul">ç</span>a</span> <button class="btn-audio" data-speak="ça" data-lang="fr-FR">▶</button>
+          <span class="fr-w">na<span class="ul">ti</span>on</span> <button class="btn-audio" data-speak="nation" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w"><span class="ul">s</span>un</span> <button class="btn-audio en" data-speak="sun" data-lang="en-GB">▶</button></td>
+        <td><span class="es-w"><span class="ul">s</span>ol</span> <button class="btn-audio es" data-speak="sol" data-lang="es-ES">▶</button></td>
+        <td>c → [s] avant e, i, y. ss entre voyelles = [s] (pas [z]).</td>
+      </tr>
+      <tr>
+        <td>[z]</td>
+        <td>z · s<br>(entre voyelles)</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w"><span class="ul">z</span>éro</span> <button class="btn-audio" data-speak="zéro" data-lang="fr-FR">▶</button>
+          <span class="fr-w">mai<span class="ul">s</span>on</span> <button class="btn-audio" data-speak="maison" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w"><span class="ul">z</span>oo</span> <button class="btn-audio en" data-speak="zoo" data-lang="en-GB">▶</button></td>
+        <td><span class="es-w"><span class="ul">z</span>ona</span> <button class="btn-audio es" data-speak="zona" data-lang="es-ES">▶</button></td>
+        <td>S entre deux voyelles = [z]. Liaison : les amis = [lezami].</td>
+      </tr>
+      <tr>
+        <td>[k]</td>
+        <td>c+a/o/u<br>k · qu</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w"><span class="ul">c</span>afé</span> <button class="btn-audio" data-speak="café" data-lang="fr-FR">▶</button>
+          <span class="fr-w"><span class="ul">qu</span>i</span> <button class="btn-audio" data-speak="qui" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w"><span class="ul">c</span>at</span> <button class="btn-audio en" data-speak="cat" data-lang="en-GB">▶</button></td>
+        <td><span class="es-w"><span class="ul">c</span>asa</span> <button class="btn-audio es" data-speak="casa" data-lang="es-ES">▶</button></td>
+        <td>c + a/o/u = [k]. qu = toujours [k] (jamais [kw] comme en anglais !).</td>
+      </tr>
+      <tr>
+        <td>[ʃ]</td>
+        <td>ch</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w"><span class="ul">ch</span>at</span> <button class="btn-audio" data-speak="chat" data-lang="fr-FR">▶</button>
+          <span class="fr-w">bou<span class="ul">ch</span>e</span> <button class="btn-audio" data-speak="bouche" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w"><span class="ul">sh</span>op</span> <button class="btn-audio en" data-speak="shop" data-lang="en-GB">▶</button></td>
+        <td><span class="es-w">—</span></td>
+        <td>Toujours [ʃ] en français. Jamais [tʃ] comme "church" anglais.</td>
+      </tr>
+      <tr>
+        <td>[ʒ]</td>
+        <td>j · g+e/i</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w"><span class="ul">j</span>our</span> <button class="btn-audio" data-speak="jour" data-lang="fr-FR">▶</button>
+          <span class="fr-w"><span class="ul">g</span>irafe</span> <button class="btn-audio" data-speak="girafe" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w">mea<span class="ul">s</span>ure</span> <button class="btn-audio en" data-speak="measure" data-lang="en-GB">▶</button></td>
+        <td><span class="es-w">❌ Rare</span></td>
+        <td>g + e/i = [ʒ]. g + a/o/u = [g]. Comme le "s" de <em>measure</em>.</td>
+      </tr>
+      <tr>
+        <td>[ɲ]</td>
+        <td>gn</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w">si<span class="ul">gn</span>e</span> <button class="btn-audio" data-speak="signe" data-lang="fr-FR">▶</button>
+          <span class="fr-w">vi<span class="ul">gn</span>e</span> <button class="btn-audio" data-speak="vigne" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w">ca<span class="ul">ny</span>on</span> <button class="btn-audio en" data-speak="canyon" data-lang="en-GB">▶</button></td>
+        <td><span class="es-w">ma<span class="ul">ñ</span>ana</span> <button class="btn-audio es" data-speak="mañana" data-lang="es-ES">▶</button></td>
+        <td>Identique au ñ espagnol ! Équivalent parfait.</td>
+      </tr>
+      <tr>
+        <td>[ʁ]</td>
+        <td>r · rr</td>
+        <td><div class="td-words"><div class="td-row">
+          <span class="fr-w"><span class="ul">r</span>ue</span> <button class="btn-audio" data-speak="rue" data-lang="fr-FR">▶</button>
+          <span class="fr-w">ve<span class="ul">rr</span>e</span> <button class="btn-audio" data-speak="verre" data-lang="fr-FR">▶</button>
+        </div></div></td>
+        <td><span class="en-w">❌ Très différent</span></td>
+        <td><span class="es-w">❌ Différent</span></td>
+        <td>Vibration de la luette (gorge), pas de la langue. Son guttural unique.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — SEMI-VOYELLES
+════════════════════════════════════════════ -->
+<div class="section-header reveal">
+  <span class="section-num">04</span>
+  <div class="section-title-wrap">
+    <h2>Semi-voyelles</h2>
+    <p>Entre voyelle et consonne — glides / semi-vowels</p>
+  </div>
+</div>
+
+<div class="phon-grid">
+
+  <div class="phon-card reveal" style="--card-accent:var(--accent-green)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="yeux" data-lang="fr-FR">[j]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>y</strong></span>
+        <span class="writing-chip"><strong>ill</strong></span>
+        <span class="writing-chip"><strong>i</strong>+voy.</span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text"><em>y</em>eux</span>
+          <button class="btn-audio" data-speak="yeux" data-lang="fr-FR">▶ yeux</button>
+          <span class="word-text">p<em>i</em>ed</span>
+          <button class="btn-audio" data-speak="pied" data-lang="fr-FR">▶ pied</button>
+        </div>
+      </div>
+      <div class="lang-section en">
+        <div class="lang-label">🇬🇧 Anglais</div>
+        <div class="word-line">
+          <span class="word-text"><em>y</em>es</span>
+          <button class="btn-audio en" data-speak="yes" data-lang="en-GB">▶ yes</button>
+          <span class="word-text"><em>y</em>ellow</span>
+          <button class="btn-audio en" data-speak="yellow" data-lang="en-GB">▶ yellow</button>
+        </div>
+      </div>
+      <div class="lang-section es">
+        <div class="lang-label">🇪🇸 Espagnol</div>
+        <div class="word-line">
+          <span class="word-text"><em>y</em>o</span>
+          <button class="btn-audio es" data-speak="yo" data-lang="es-ES">▶ yo</button>
+        </div>
+      </div>
+      <p class="tip-line">💡 Identique au "y" de <em>yes</em> anglais et au "y" de <em>yo</em> espagnol.</p>
+    </div>
+  </div>
+
+  <div class="phon-card reveal" style="--card-accent:var(--accent-green)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="oui" data-lang="fr-FR">[w]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>ou</strong>+v.</span>
+        <span class="writing-chip"><strong>w</strong></span>
+        <span class="writing-chip"><strong>oi</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text"><em>oi</em>seau</span>
+          <button class="btn-audio" data-speak="oiseau" data-lang="fr-FR">▶ oiseau</button>
+          <span class="word-text"><em>ou</em>i</span>
+          <button class="btn-audio" data-speak="oui" data-lang="fr-FR">▶ oui</button>
+          <span class="word-text">m<em>oi</em></span>
+          <button class="btn-audio" data-speak="moi" data-lang="fr-FR">▶ moi</button>
+        </div>
+      </div>
+      <div class="lang-section en">
+        <div class="lang-label">🇬🇧 Anglais</div>
+        <div class="word-line">
+          <span class="word-text"><em>w</em>ater</span>
+          <button class="btn-audio en" data-speak="water" data-lang="en-GB">▶ water</button>
+        </div>
+      </div>
+      <div class="lang-section es">
+        <div class="lang-label">🇪🇸 Espagnol</div>
+        <div class="word-line">
+          <span class="word-text">h<em>ue</em>vo</span>
+          <button class="btn-audio es" data-speak="huevo" data-lang="es-ES">▶ huevo</button>
+        </div>
+      </div>
+      <p class="tip-line">💡 <strong>oi</strong> = [wa] : <em>moi</em> = [mwa], <em>voir</em> = [vwaʁ]. Pas [ɔɪ] comme en anglais !</p>
+    </div>
+  </div>
+
+  <div class="phon-card reveal" style="--card-accent:var(--accent-green)">
+    <div class="phon-card-head">
+      <div class="ipa-badge-wrap">
+        <div class="ipa-badge" data-speak="nuit" data-lang="fr-FR">[ɥ]</div>
+        <span class="ipa-hint">▶ écouter le son</span>
+      </div>
+      <div class="writings-list">
+        <span class="writing-chip"><strong>u</strong>+voy.</span>
+        <span class="writing-chip"><strong>ui</strong></span>
+      </div>
+    </div>
+    <div class="phon-card-body">
+      <div class="lang-section fr">
+        <div class="lang-label">🇫🇷 Français</div>
+        <div class="word-line">
+          <span class="word-text">n<em>ui</em>t</span>
+          <button class="btn-audio" data-speak="nuit" data-lang="fr-FR">▶ nuit</button>
+          <span class="word-text">l<em>ui</em></span>
+          <button class="btn-audio" data-speak="lui" data-lang="fr-FR">▶ lui</button>
+          <span class="word-text">s<em>ui</em>te</span>
+          <button class="btn-audio" data-speak="suite" data-lang="fr-FR">▶ suite</button>
+        </div>
+      </div>
+      <div class="lang-section" style="color:var(--text-dim); font-size:13px; margin-top:6px;">
+        ❌ Son inexistant en anglais et en espagnol
+      </div>
+      <p class="tip-line">💡 Commencez par dire [y] (lune) et glissez vers la voyelle suivante sans pause.</p>
+    </div>
+  </div>
+
+</div><!-- /phon-grid semi-voyelles -->
+
+<!-- ══════════════════════════════════════════
+     EXCEPTIONS
+════════════════════════════════════════════ -->
+<div class="exc-section reveal">
+  <h3><span class="exc-icon">!</span> Exceptions & Pièges Fréquents</h3>
+  <div class="exc-grid">
+    <div class="exc-item">
+      <div class="exc-rule">CH = [k] dans les mots savants</div>
+      <p class="exc-desc">Origine grecque/latine :
+        <span>orchestre</span> <button class="btn-audio" data-speak="orchestre" data-lang="fr-FR">▶</button>,
+        <span>chorale</span> <button class="btn-audio" data-speak="chorale" data-lang="fr-FR">▶</button>,
+        <span>psychologie</span> <button class="btn-audio" data-speak="psychologie" data-lang="fr-FR">▶</button>. Pas [ʃ] ici !
+      </p>
+    </div>
+    <div class="exc-item">
+      <div class="exc-rule">S final = muet (règle générale)</div>
+      <p class="exc-desc">
+        <span>bras</span> <button class="btn-audio" data-speak="bras" data-lang="fr-FR">▶</button>,
+        <span>tapis</span> <button class="btn-audio" data-speak="tapis" data-lang="fr-FR">▶</button>. MAIS liaison :
+        <span>les amis</span> <button class="btn-audio" data-speak="les amis" data-lang="fr-FR">▶</button> → [lezami].
+      </p>
+    </div>
+    <div class="exc-item">
+      <div class="exc-rule">E muet (e caduc)</div>
+      <p class="exc-desc">
+        <span>table</span> <button class="btn-audio" data-speak="table" data-lang="fr-FR">▶</button>,
+        <span>rose</span> <button class="btn-audio" data-speak="rose" data-lang="fr-FR">▶</button>.
+        Le e final non accentué est muet — sauf en poésie ou chanson.
+      </p>
+    </div>
+    <div class="exc-item">
+      <div class="exc-rule">ILL = [j] sauf exceptions</div>
+      <p class="exc-desc">
+        <span>fille</span> <button class="btn-audio" data-speak="fille" data-lang="fr-FR">▶</button> [fij]
+        mais <span>ville</span> <button class="btn-audio" data-speak="ville" data-lang="fr-FR">▶</button>,
+        <span>mille</span> <button class="btn-audio" data-speak="mille" data-lang="fr-FR">▶</button> → [l] !
+      </p>
+    </div>
+    <div class="exc-item">
+      <div class="exc-rule">PLUS = 3 prononciations</div>
+      <p class="exc-desc">
+        <span>plus de pain</span> <button class="btn-audio" data-speak="plus de pain" data-lang="fr-FR">▶</button> [ply] ·
+        <span>il est plus grand</span> <button class="btn-audio" data-speak="il est plus grand" data-lang="fr-FR">▶</button> [plys].
+      </p>
+    </div>
+    <div class="exc-item">
+      <div class="exc-rule">GU = toujours [g]</div>
+      <p class="exc-desc">
+        <span>guerre</span> <button class="btn-audio" data-speak="guerre" data-lang="fr-FR">▶</button>,
+        <span>guide</span> <button class="btn-audio" data-speak="guide" data-lang="fr-FR">▶</button>,
+        <span>guêpe</span> <button class="btn-audio" data-speak="guêpe" data-lang="fr-FR">▶</button>. Le u est muet.
+      </p>
+    </div>
+    <div class="exc-item">
+      <div class="exc-rule">Consonnes finales muettes</div>
+      <p class="exc-desc">
+        <span>grand</span> <button class="btn-audio" data-speak="grand" data-lang="fr-FR">▶</button>,
+        <span>trop</span> <button class="btn-audio" data-speak="trop" data-lang="fr-FR">▶</button>.
+        Sauf : <span>net</span> <button class="btn-audio" data-speak="net" data-lang="fr-FR">▶</button>,
+        <span>lac</span> <button class="btn-audio" data-speak="lac" data-lang="fr-FR">▶</button>.
+      </p>
+    </div>
+    <div class="exc-item">
+      <div class="exc-rule">EN ≠ toujours [ɑ̃]</div>
+      <p class="exc-desc">
+        <span>examen</span> <button class="btn-audio" data-speak="examen" data-lang="fr-FR">▶</button>,
+        <span>abdomen</span> <button class="btn-audio" data-speak="abdomen" data-lang="fr-FR">▶</button>
+        → le EN final = [ɛn].
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <p>Phonétique du Français · Leçon 01</p>
+    <p style="margin-top:4px;font-size:10px;">Niveaux A1 → B2 · Voyelles · Consonnes · Semi-voyelles</p>
+  </div>
+  <div class="page-num">01</div>
+</footer>
+
+</div><!-- /page-wrapper -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  WEB SPEECH API — TTS ENGINE
+//  Fonctionne sans serveur, 100% compatible GitHub Pages
+// ═══════════════════════════════════════════════════════
+(function () {
+  'use strict';
+
+  const dot        = document.getElementById('ttsDot');
+  const msg        = document.getElementById('ttsMsg');
+  const sel        = document.getElementById('voiceSelect');
+  let voices       = [];
+  let frVoice      = null;
+  let enVoice      = null;
+  let esVoice      = null;
+  let activeBtn    = null;
+  let ready        = false;
+
+  // ── Status helper ──
+  function setStatus(state, text) {
+    dot.className = 'tts-dot ' + state;
+    msg.textContent = text;
+  }
+
+  // ── Pick best voice for lang prefix ──
+  function best(prefix, fallback) {
+    const exact = voices.find(v => v.lang === fallback);
+    if (exact) return exact;
+    return voices.find(v => v.lang.startsWith(prefix)) || null;
+  }
+
+  // ── Load voices (Chrome fires onvoiceschanged; Safari/Firefox have them immediately) ──
+  function loadVoices() {
+    voices = speechSynthesis.getVoices();
+    if (!voices.length) return;
+
+    frVoice = best('fr', 'fr-FR');
+    enVoice = best('en', 'en-GB') || best('en', 'en-US');
+    esVoice = best('es', 'es-ES') || best('es', 'es-MX');
+
+    if (frVoice) {
+      ready = true;
+      setStatus('ready', '🔊 Voix française prête — cliquez ▶ pour écouter un mot');
+      buildVoiceSelector();
+      sel.style.display = 'block';
+    } else {
+      setStatus('error', '⚠️ Aucune voix française détectée — installez une voix "Français" dans les paramètres système');
+    }
+  }
+
+  function buildVoiceSelector() {
+    const frVoices = voices.filter(v => v.lang.startsWith('fr'));
+    if (!frVoices.length) return;
+    sel.innerHTML = frVoices.map(v =>
+      `<option value="${v.name}" ${v === frVoice ? 'selected' : ''}>${v.name} (${v.lang})</option>`
+    ).join('');
+    sel.addEventListener('change', () => {
+      frVoice = voices.find(v => v.name === sel.value) || frVoice;
+    });
+  }
+
+  if (typeof speechSynthesis === 'undefined') {
+    setStatus('error', '⚠️ Synthèse vocale non supportée dans ce navigateur (utilisez Chrome ou Edge)');
+    return;
+  }
+
+  speechSynthesis.onvoiceschanged = loadVoices;
+  loadVoices();
+
+  // ── Core speak function ──
+  function speak(text, langCode, btn) {
+    speechSynthesis.cancel();
+    if (activeBtn) { activeBtn.classList.remove('playing'); activeBtn = null; }
+
+    if (!text) return;
+
+    const utter = new SpeechSynthesisUtterance(text);
+    const prefix = (langCode || 'fr-FR').split('-')[0];
+
+    if (prefix === 'fr') {
+      utter.voice = frVoice;
+      utter.lang  = frVoice ? frVoice.lang : 'fr-FR';
+      utter.rate  = 0.85;
+      utter.pitch = 1.0;
+    } else if (prefix === 'en') {
+      utter.voice = enVoice;
+      utter.lang  = enVoice ? enVoice.lang : 'en-GB';
+      utter.rate  = 0.90;
+    } else if (prefix === 'es') {
+      utter.voice = esVoice;
+      utter.lang  = esVoice ? esVoice.lang : 'es-ES';
+      utter.rate  = 0.90;
+    } else {
+      utter.lang = langCode;
+      utter.rate = 0.88;
+    }
+
+    if (btn) { btn.classList.add('playing'); activeBtn = btn; }
+    setStatus('speaking', `▶ « ${text} »`);
+
+    utter.onend = utter.onerror = () => {
+      if (activeBtn) { activeBtn.classList.remove('playing'); activeBtn = null; }
+      setStatus('ready', '🔊 Voix prête — cliquez ▶ pour écouter');
+    };
+
+    speechSynthesis.speak(utter);
+  }
+
+  // ── Event delegation — handle ALL clicks ──
+  document.addEventListener('click', function (e) {
+    // Button click
+    const btn = e.target.closest('.btn-audio');
+    if (btn) { speak(btn.dataset.speak, btn.dataset.lang, btn); return; }
+
+    // IPA badge click
+    const badge = e.target.closest('.ipa-badge[data-speak]');
+    if (badge) { speak(badge.dataset.speak, badge.dataset.lang || 'fr-FR', badge); }
+  });
+
+  // ── Keyboard support (Enter / Space on focused button) ──
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const el = document.activeElement;
+      if (el && el.classList.contains('btn-audio')) {
+        e.preventDefault();
+        speak(el.dataset.speak, el.dataset.lang, el);
+      }
+    }
+  });
+
+  // Make buttons keyboard-navigable
+  document.querySelectorAll('.btn-audio').forEach(b => b.setAttribute('tabindex', '0'));
+
+})();
+
+// ── Scroll reveal ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 4) * 0.07}s`;
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
